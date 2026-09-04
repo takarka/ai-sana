@@ -1196,6 +1196,39 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const mobileToggle = document.getElementById('mobile-menu-toggle');
+  const navDropdownBtn = document.getElementById('nav-schools-dropdown-btn');
+  const navItemDropdown = document.querySelector('.nav-item.has-dropdown');
+
+  if (navDropdownBtn && navItemDropdown) {
+    navDropdownBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navItemDropdown.classList.contains('open');
+      navItemDropdown.classList.toggle('open');
+      navDropdownBtn.setAttribute('aria-expanded', !isOpen);
+    });
+
+    // Close dropdown on click outside
+    document.addEventListener('click', (e) => {
+      if (!navItemDropdown.contains(e.target)) {
+        navItemDropdown.classList.remove('open');
+        navDropdownBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Close dropdown when any item inside is clicked
+    const dropdownItems = navItemDropdown.querySelectorAll('.dropdown-item');
+    dropdownItems.forEach(item => {
+      item.addEventListener('click', () => {
+        navItemDropdown.classList.remove('open');
+        navDropdownBtn.setAttribute('aria-expanded', 'false');
+        const navLinks = document.querySelector('.nav-links');
+        if (window.innerWidth <= 768 && navLinks) {
+          navLinks.style.display = 'none';
+        }
+      });
+    });
+  }
+
   if (mobileToggle) {
     mobileToggle.addEventListener('click', () => {
       const navLinks = document.querySelector('.nav-links');
@@ -1213,6 +1246,16 @@ document.addEventListener('DOMContentLoaded', () => {
           navLinks.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
         }
       }
+    });
+
+    // Close mobile nav when clicking regular links
+    document.querySelectorAll('.nav-link:not(.dropdown-toggle)').forEach(link => {
+      link.addEventListener('click', () => {
+        const navLinks = document.querySelector('.nav-links');
+        if (window.innerWidth <= 768 && navLinks) {
+          navLinks.style.display = 'none';
+        }
+      });
     });
   }
 

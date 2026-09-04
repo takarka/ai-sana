@@ -1167,6 +1167,14 @@ body {
   color: rgba(255, 255, 255, 0.75);
 }
 
+/* полосы готовности внутри тёмной бенто-панели (секция PISA) */
+.dark-bento-section .skill-bar-meta {
+  color: rgba(255, 255, 255, 0.85);
+}
+.dark-bento-section .skill-bar-track {
+  background: rgba(255, 255, 255, 0.12);
+}
+
 .bento-controls-bar {
   display: flex;
   align-items: center;

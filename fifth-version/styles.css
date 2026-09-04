@@ -607,6 +607,7 @@ p { max-width: 68ch; }
 .hard li:last-child { border-bottom: 1px solid var(--line); }
 .hard .meter { max-width: 8rem; margin-left: auto; }
 .hard .meter i { background: var(--lvl-low); }
+.hard--ready .meter i { background: var(--accent); }
 
 .rec {
   margin-top: 2.4rem; padding: 2.8rem;
