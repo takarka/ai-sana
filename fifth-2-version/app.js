@@ -101,7 +101,7 @@
      3. ДАННЫЕ
      ========================================================== */
   var COURSES = [];
-  for (var i = 1; i <= 13; i++) COURSES.push(i);
+  for (var i = 1; i <= 14; i++) COURSES.push(i);
 
   var PROGRESS = [45, 58, 67, 78, 85];
 
@@ -234,7 +234,7 @@
     var host = document.getElementById("faqList");
     if (!host) return;
     host.textContent = "";
-    for (var n = 1; n <= 13; n++) {
+    for (var n = 1; n <= 14; n++) {
       var num = n < 10 ? "0" + n : String(n);
       var item = document.createElement("div");
       item.className = "faq__item";

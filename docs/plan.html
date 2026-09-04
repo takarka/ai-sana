@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Концепция и архитектура EdTech платформы ИИ для 1-4 классов</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              500: '#14b8a6',
+              600: '#0d9488',
+              700: '#0f766e',
+            },
+            accent: {
+              purple: '#8b5cf6',
+              amber: '#f59e0b',
+              blue: '#3b82f6',
+              rose: '#f43f5e',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Плавные переходы и акцентные тени */
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .card-shadow {
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -2px rgba(15, 23, 42, 0.02);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white pb-24">
+
+  <!-- Верхняя панель навигации -->
+  <header class="sticky top-0 z-50 glass-nav border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-accent-purple flex items-center justify-center text-white font-bold text-lg shadow-sm">
+          💡
+        </div>
+        <div>
+          <span class="font-extrabold text-slate-900 tracking-tight text-base">EdTech AI: Concept & Specs</span>
+          <span class="text-[10px] uppercase tracking-wider font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded ml-2">1–4 классы</span>
+        </div>
+      </div>
+
+      <!-- Быстрый скролл по разделам -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-600">
+        <a href="#why-split" class="hover:text-brand-600 transition-colors">Зачем разделять?</a>
+        <a href="#part-1-landing" class="hover:text-brand-600 transition-colors">Часть 1: Лендинг</a>
+        <a href="#part-2-platform" class="hover:text-brand-600 transition-colors">Часть 2: Платформа</a>
+        <a href="#pisa-strategy" class="text-indigo-600 hover:text-indigo-700 transition-colors flex items-center gap-1">
+          <span>Модуль PISA</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+        </a>
+        <a href="#user-flow" class="hover:text-brand-600 transition-colors">User Flow & Маршруты</a>
+        <a href="#roadmap" class="hover:text-brand-600 transition-colors">Дорожная карта</a>
+      </nav>
+
+      <!-- Быстрые действия -->
+      <div class="flex items-center gap-2">
+        <button onclick="printDocument()" class="px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold hover:bg-slate-100 text-slate-700 transition-colors flex items-center gap-1.5">
+          <span>🖨️</span> Печать / PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Главный вводный баннер -->
+  <section class="bg-gradient-to-b from-white to-slate-50 border-b border-slate-200/80 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-100 text-brand-700 text-xs font-bold mb-4">
+          <span>Документ требований и архитектуры</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+          Общая концепция: платформа обучения ИИ и логике для начальной школы
+        </h1>
+        <p class="mt-4 text-base text-slate-600 leading-relaxed">
+          Этот документ описывает бизнес-логику, интерфейсное разделение, стек ценностей и пошаговые требования к реализации проекта в двух самостоятельных интерфейсах: конверсионном лендинге для покупателей (взрослых) и геймифицированной песочнице для пользователей (детей 7–10 лет).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 space-y-16">
+
+    <!-- ================= РАЗДЕЛ 1: ЗАЧЕМ РАЗДЕЛЯТЬ ================= -->
+    <section id="why-split" class="scroll-mt-20">
+      <div class="border-b border-slate-200 pb-4 mb-8 flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Раздел 01</span>
+          <h2 class="text-2xl font-black text-slate-900 mt-1">Стратегия: Почему продукт делится на две части?</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">Бизнес-логика</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Карточка: Взрослые -->
+        <div class="bg-white rounded-2xl p-7 border border-slate-200/90 card-shadow relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-28 h-28 bg-brand-500/5 rounded-bl-full pointer-events-none"></div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl font-bold">
+              👨‍👩‍👧
+            </div>
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-lg">Взрослые (Родители и Учителя)</h3>
+              <p class="text-xs text-slate-500">Принимают решение и платят деньги</p>
+            </div>
+          </div>
+
+          <ul class="space-y-3 text-xs sm:text-sm text-slate-600">
+            <li class="flex items-start gap-2">
+              <span class="text-blue-500 font-bold mt-0.5">●</span>
+              <span><strong>Оценивают пользу:</strong> развитие логики, подготовка к международным тестам PISA (функциональная грамотность), школьные успехи.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue-500 font-bold mt-0.5">●</span>
+              <span><strong>Ищут гарантии:</strong> безопасность зрения, лимит 15 минут, отсутствие токсичного контента.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue-500 font-bold mt-0.5">●</span>
+              <span><strong>Паттерн:</strong> внимательно изучают тарифы, отзывы, читают аргументы и методику.</span>
+            </li>
+          </ul>
+
+          <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-blue-700 font-semibold flex items-center justify-between">
+            <span>Решение: Публичный конверсионный лендинг</span>
+            <span>→ Часть 1</span>
+          </div>
+        </div>
+
+        <!-- Карточка: Дети -->
+        <div class="bg-white rounded-2xl p-7 border border-slate-200/90 card-shadow relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-28 h-28 bg-accent-purple/5 rounded-bl-full pointer-events-none"></div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl font-bold">
+              🎮
+            </div>
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-lg">Дети 1–4 классов (7–10 лет)</h3>
+              <p class="text-xs text-slate-500">Постоянные пользователи платформы</p>
+            </div>
+          </div>
+
+          <ul class="space-y-3 text-xs sm:text-sm text-slate-600">
+            <li class="flex items-start gap-2">
+              <span class="text-purple-500 font-bold mt-0.5">●</span>
+              <span><strong>Оценивают интерес:</strong> веселые персонажи, игровая графика, награды, интерактив.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-500 font-bold mt-0.5">●</span>
+              <span><strong>Не читают длинный текст:</strong> управление через большие кнопки, drag-and-drop и голос.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-500 font-bold mt-0.5">●</span>
+              <span><strong>Паттерн:</strong> мгновенная дофаминовая отдача (нажал — робот заговорил, появилась картинка).</span>
+            </li>
+          </ul>
+
+          <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-purple-700 font-semibold flex items-center justify-between">
+            <span>Решение: Игровой SPA-интерфейс (PWA)</span>
+            <span>→ Часть 2</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Архитектурная сводка -->
+      <div class="mt-6 bg-slate-900 text-white rounded-2xl p-6 sm:p-7 text-xs sm:text-sm space-y-3">
+        <h4 class="font-extrabold text-base text-brand-100 flex items-center gap-2">
+          <span>⚡</span> Техническое обоснование разделения:
+        </h4>
+        <p class="text-slate-300 leading-relaxed">
+          Лендингу требуется максимальная оптимизация First Contentful Paint (&lt; 1 сек) и полноценная индексация поисковыми системами (SEO). Обучающей же платформе SEO не требуется — ей необходимы предзагрузка 3D-моделей, кэширование игровых ассетов в браузере, изоляция аудио-движка и работа в полноэкранном режиме PWA. Объединение их в один проект замедлило бы посадочную страницу и снизило конверсию.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= РАЗДЕЛ 2: ЧАСТЬ 1 ЛЕНДИНГ ================= -->
+    <section id="part-1-landing" class="scroll-mt-20">
+      <div class="border-b border-slate-200 pb-4 mb-8 flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Раздел 02</span>
+          <h2 class="text-2xl font-black text-slate-900 mt-1">Часть 1: Публичный лендинг (Витрина и Продажи)</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold">B2C & B2B</span>
+      </div>
+
+      <p class="text-sm text-slate-600 mb-6">
+        Ниже представлена спецификация всех смысловых экранов лендинга: что именно демонстрируется посетителю и какую маркетинговую задачу решает каждый блок.
+      </p>
+
+      <div class="space-y-4">
+        
+        <!-- Блок 1 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+            <h4 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center text-xs">1</span>
+              Hero-экран с интерактивным 3D-роботом «Нейриком»
+            </h4>
+            <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium">Первый контакт / Wow-эффект</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div>
+              <span class="font-bold text-slate-700 block mb-1 text-xs uppercase tracking-wider">Что показываем:</span>
+              <p class="text-slate-600 leading-relaxed">
+                Яркий дружелюбный заголовок про суперсилу ИИ; интерактивный 3D-робот (Three.js), следящий за курсором и моргающий; кнопки переключения режимов (рисование, сказки, игры), по клику на которые робот берет в руки кисточку или джойстик.
+              </p>
+            </div>
+            <div>
+              <span class="font-bold text-slate-700 block mb-1 text-xs uppercase tracking-wider">Для чего сделано:</span>
+              <p class="text-slate-600 leading-relaxed">
+                Мгновенно захватывает внимание и показывает уровень технологий платформы. Если родитель смотрит сайт вместе с ребенком — у школьника загораются глаза, и он сам просит нажать кнопку бесплатного урока.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Блок 2 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+            <h4 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center text-xs">2</span>
+              Интерактивная микро-песочница «Попробуй сам»
+            </h4>
+            <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium">Демонстрация легкости</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div>
+              <span class="font-bold text-slate-700 block mb-1 text-xs uppercase tracking-wider">Что показываем:</span>
+              <p class="text-slate-600 leading-relaxed">
+                Мини-конструктор из 3 колонок: Выбор героя + Выбор действия + Выбор стиля. Ребенок или родитель кликают 3 кнопки, нажимают «Сгенерировать» и за 1 секунду видят готовый визуальный результат.
+              </p>
+            </div>
+            <div>
+              <span class="font-bold text-slate-700 block mb-1 text-xs uppercase tracking-wider">Для чего сделано:</span>
+              <p class="text-slate-600 leading-relaxed">
+                Снимает главный страх взрослого: «Мой первоклассник не умеет программировать и печатать, он не поймет». Конструктор доказывает, что обучение строится на понятных визуальных кирпичиках.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Блок 3 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+            <h4 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">3</span>
+              Снятие родительских страхов (Безопасность 0+)
+            </h4>
+            <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium">Доверие родителей</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div>
+              <span class="font-bold text-slate-700 block mb-1 text-xs uppercase tracking-wider">Что показываем:</span>
+              <p class="text-slate-600 leading-relaxed">
+                4 ключевых принципа: изолированный закрытый контур без доступа в интернет; превращение из зрителя в создателя; микроуроки по 15 минут (защита зрения); развитие логики и правильной русской речи.
+              </p>
+            </div>
+            <div>
+              <span class="font-bold text-slate-700 block mb-1 text-xs uppercase tracking-wider">Для чего сделано:</span>
+              <p class="text-slate-600 leading-relaxed">
+                Родители устали от «залипания» детей в короткие бессмысленные ролики. Этот блок перепозиционирует экранное время из вредной привычки в развивающую инвестицию.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Блок 4 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+            <h4 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-accent-amber/20 text-amber-700 flex items-center justify-center text-xs">4</span>
+              Программа с переключателем (1–2 и 3–4 классы)
+            </h4>
+            <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium">Методическая глубина</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div>
+              <span class="font-bold text-slate-700 block mb-1 text-xs uppercase tracking-wider">Что показываем:</span>
+              <p class="text-slate-600 leading-relaxed">
+                Таб-переключатель уровней: «Исследователь» (7–8 лет: сказки, аудиокниги, сортировка датасетов) и «Инженер» (9–10 лет: ветвления ЕСЛИ/ТО, чат-боты, распознавание дипфейков).
+              </p>
+            </div>
+            <div>
+              <span class="font-bold text-slate-700 block mb-1 text-xs uppercase tracking-wider">Для чего сделано:</span>
+              <p class="text-slate-600 leading-relaxed">
+                Показывает родителям и педагогам, что курс разработан с учетом возрастной психологии и не смешивает первоклашек с ребятами постарше.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Блок 5 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+            <h4 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-accent-purple/20 text-purple-700 flex items-center justify-center text-xs">5</span>
+              Модуль для школ, учителей и завучей (B2B)
+            </h4>
+            <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium">Оптовые продажи</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div>
+              <span class="font-bold text-slate-700 block mb-1 text-xs uppercase tracking-wider">Что показываем:</span>
+              <p class="text-slate-600 leading-relaxed">
+                32 поурочных методических плана, интерактивный макет учительского дашборда (успеваемость 24 учеников в реальном времени), кнопка скачивания PDF-программы и заявка на школьную лицензию.
+              </p>
+            </div>
+            <div>
+              <span class="font-bold text-slate-700 block mb-1 text-xs uppercase tracking-wider">Для чего сделано:</span>
+              <p class="text-slate-600 leading-relaxed">
+                Открывает дополнительный B2B-канал монетизации: школы и частные учебные центры покупают доступ целыми классами, экономя время учителей на подготовку к факультативам по ИИ.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Блок 6: PISA и функциональная грамотность -->
+        <div id="pisa-strategy" class="bg-gradient-to-r from-indigo-50/70 via-white to-brand-50/50 rounded-2xl p-6 border-2 border-indigo-200 card-shadow">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+            <h4 class="font-extrabold text-slate-900 text-base flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs font-black">6</span>
+              Флагманский модуль: Тренажер функциональной грамотности PISA (OECD)
+            </h4>
+            <span class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full font-extrabold tracking-wide">
+              Стандарты OECD PISA 0+
+            </span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div>
+              <span class="font-bold text-indigo-900 block mb-1 text-xs uppercase tracking-wider">Что показываем:</span>
+              <p class="text-slate-600 leading-relaxed">
+                Интерактивный блок решения нестандартных жизненных ситуаций: анализ инфографики с ИИ, поиск логических несоответствий в текстах, проверка гипотез через физические симуляции и защита от недостоверных данных.
+              </p>
+            </div>
+            <div>
+              <span class="font-bold text-indigo-900 block mb-1 text-xs uppercase tracking-wider">Для чего сделано:</span>
+              <p class="text-slate-600 leading-relaxed">
+                Ключевой триггер для директоров школ и министерств образования: проект решает государственную задачу подготовки к тестам PISA уже с младших классов, переводя платформу из категории «развлечений» в категорию обязательной академической ценности.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= РАЗДЕЛ 3: ЧАСТЬ 2 ПЛАТФОРМА ================= -->
+    <section id="part-2-platform" class="scroll-mt-20">
+      <div class="border-b border-slate-200 pb-4 mb-8 flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-accent-purple">Раздел 03</span>
+          <h2 class="text-2xl font-black text-slate-900 mt-1">Часть 2: Обучающая платформа (Детский игровой мир)</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-xs font-bold">SPA / PWA для детей</span>
+      </div>
+
+      <p class="text-sm text-slate-600 mb-6">
+        Спецификация экранов и механик, внутри которых ребенок проходит уроки. Дизайн строится по законам видеоигры (Roblox, Mario Odyssey, Duolingo), а не классического школьного портала.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Карточка модуля 1 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-xl mb-3">
+              🗺️
+            </div>
+            <h3 class="font-extrabold text-slate-900 text-base mb-2">3D-Хаб («Остров приключений»)</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Вместо скучного списка уроков ребенок видит интерактивную 3D-карту уровней: парящие островки, тропинку с сундучками, флажками и замочками на закрытых квестах. В центре находится его личный робот-питомец.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-purple-600 uppercase tracking-wider">
+            Цель: Прозрачный игровой прогресс и азарт открыть следующий сундук
+          </div>
+        </div>
+
+        <!-- Карточка модуля 2 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center text-xl mb-3">
+              🧩
+            </div>
+            <h3 class="font-extrabold text-slate-900 text-base mb-2">Визуальный Drag-and-Drop и Голос</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Для учеников 1–2 классов ввод команд полностью освобожден от клавиатуры: запросы собираются перетаскиванием крупных цветных блоков или надиктовываются голосом через большую анимированную кнопку-микрофон.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-brand-600 uppercase tracking-wider">
+            Цель: Снятие барьера медленной печати у первоклассников
+          </div>
+        </div>
+
+        <!-- Карточка модуля 3 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl mb-3">
+              🧪
+            </div>
+            <h3 class="font-extrabold text-slate-900 text-base mb-2">Лаборатория тренировки ИИ</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Мини-игры, объясняющие принципы Machine Learning: ребенок «кормит» робота яблоками и апельсинами, обучая отличать фрукты, или сортирует добрых и злых персонажей, формируя обучающую выборку (датасет).
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-emerald-600 uppercase tracking-wider">
+            Цель: Освоение фундаментальных принципов Data Science в игре
+          </div>
+        </div>
+
+        <!-- Карточка модуля 4 -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 card-shadow flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-accent-amber/20 text-amber-700 flex items-center justify-center text-xl mb-3">
+              🎨
+            </div>
+            <h3 class="font-extrabold text-slate-900 text-base mb-2">Кастомизация робота и «Портфолио»</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              За прохождение уроков начисляются кристаллы, за которые можно покупать скины, антенны и очки для своего робота. Все созданные сказки и игры сохраняются в персональной галерее с генерацией красивой открытки для мамы.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] font-bold text-amber-600 uppercase tracking-wider">
+            Цель: Внутренняя мотивация возвращаться на платформу без напоминаний
+          </div>
+        </div>
+
+        <!-- Карточка модуля 5: Тренажер PISA-Junior -->
+        <div class="bg-white rounded-2xl p-6 border-2 border-indigo-200 card-shadow flex flex-col justify-between md:col-span-2 bg-gradient-to-br from-indigo-50/40 via-white to-purple-50/30">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-xl font-bold shadow-sm">
+                🌐
+              </div>
+              <span class="text-[11px] font-extrabold text-indigo-700 bg-indigo-100 px-3 py-1 rounded-full uppercase tracking-wider">
+                OECD PISA Framework Ready
+              </span>
+            </div>
+            <h3 class="font-extrabold text-slate-900 text-lg mb-2">Интерактивная арена «PISA-Junior: Функциональная грамотность»</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Ученики 1–4 классов осваивают 3 ключевых домена PISA через понятные микро-исследования с роботом Нейриком:
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3 text-xs">
+              <div class="bg-white p-3 rounded-xl border border-indigo-100 shadow-xs">
+                <span class="font-bold text-indigo-700 block mb-1">📖 Читательская грамотность</span>
+                Поиск несоответствий в текстах, отделение фактов от мнений, выявление ИИ-дипфейков.
+              </div>
+              <div class="bg-white p-3 rounded-xl border border-indigo-100 shadow-xs">
+                <span class="font-bold text-brand-700 block mb-1">📐 Математическая грамотность</span>
+                Оптимизация маршрутов космического корабля, расчет ресурсов и логические цепочки.
+              </div>
+              <div class="bg-white p-3 rounded-xl border border-indigo-100 shadow-xs">
+                <span class="font-bold text-emerald-700 block mb-1">🔬 Естественно-научная</span>
+                Симуляция погодных явлений, экологические квесты и проверка физических гипотез в песочнице.
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 pt-3 border-t border-indigo-100 text-[11px] font-bold text-indigo-700 uppercase tracking-wider flex items-center justify-between">
+            <span>Результат: Готовность к международному тестированию без стресса и зубрежки</span>
+            <span>Формат: Ситуационные кейсы</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= РАЗДЕЛ 4: СХЕМА СВЯЗКИ И USER FLOW ================= -->
+    <section id="user-flow" class="scroll-mt-20">
+      <div class="border-b border-slate-200 pb-4 mb-8 flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Раздел 04</span>
+          <h2 class="text-2xl font-black text-slate-900 mt-1">Пользовательский маршрут: от клика до урока</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold">End-to-End Воронка</span>
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 card-shadow">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+          
+          <!-- Шаг 1 -->
+          <div class="relative bg-slate-50 rounded-2xl p-5 border border-slate-200">
+            <span class="w-7 h-7 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center mb-3">1</span>
+            <h4 class="font-bold text-sm text-slate-900 mb-1">Визит на лендинг</h4>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Родитель или учитель заходит на посадочную страницу, крутит 3D-маскота, пробует песочницу и кликает «Бесплатный урок».
+            </p>
+          </div>
+
+          <!-- Шаг 2 -->
+          <div class="relative bg-slate-50 rounded-2xl p-5 border border-slate-200">
+            <span class="w-7 h-7 rounded-full bg-brand-600 text-white font-bold text-xs flex items-center justify-center mb-3">2</span>
+            <h4 class="font-bold text-sm text-slate-900 mb-1">Быстрый старт</h4>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Ввод только имени и мессенджера (WhatsApp/Telegram). Никаких банковских карт. Мгновенная ссылка-токен на вход.
+            </p>
+          </div>
+
+          <!-- Шаг 3 -->
+          <div class="relative bg-purple-50 rounded-2xl p-5 border border-purple-200">
+            <span class="w-7 h-7 rounded-full bg-accent-purple text-white font-bold text-xs flex items-center justify-center mb-3">3</span>
+            <h4 class="font-bold text-sm text-purple-950 mb-1">10-мин. квест ребенка</h4>
+            <p class="text-xs text-purple-800 leading-relaxed">
+              Ребенок переходит по ссылке на планшете/ПК, знакомится с роботом, голосом генерирует первую сказку и получает награду.
+            </p>
+          </div>
+
+          <!-- Шаг 4 -->
+          <div class="relative bg-emerald-50 rounded-2xl p-5 border border-emerald-200">
+            <span class="w-7 h-7 rounded-full bg-accent-emerald text-white font-bold text-xs flex items-center justify-center mb-3">4</span>
+            <h4 class="font-bold text-sm text-emerald-950 mb-1">Отчет родителю</h4>
+            <p class="text-xs text-emerald-800 leading-relaxed">
+              Родителю в мессенджер приходит готовая сказка с похвалой ребенка и предложением открыть полную программу с 25% скидкой.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= РАЗДЕЛ 5: ДОРОЖНАЯ КАРТА ================= -->
+    <section id="roadmap" class="scroll-mt-20">
+      <div class="border-b border-slate-200 pb-4 mb-8 flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-accent-rose">Раздел 05</span>
+          <h2 class="text-2xl font-black text-slate-900 mt-1">Дорожная карта реализации проекта</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-rose-50 text-rose-700 text-xs font-bold">Фазы разработки</span>
+      </div>
+
+      <div class="space-y-4">
+        
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 card-shadow flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm flex-shrink-0">
+            Ф-1
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h4 class="font-bold text-slate-900 text-sm">Фаза 1: Публичный лендинг + Сбор ранних заявок (Текущий этап)</h4>
+              <span class="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Реализовано</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">
+              Верстка лендинга, интеграция интерактивного 3D-маскота (Three.js), микро-песочница промптинга, модальные окна записи родителей и учителей.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 card-shadow flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-sm flex-shrink-0">
+            Ф-2
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h4 class="font-bold text-slate-900 text-sm">Фаза 2: Интерактивный пробный онбординг-квест для детей</h4>
+              <span class="text-[10px] font-bold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">Следующий шаг</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">
+              Разработка отдельного экрана веб-приложения: голосовое распознавание через браузер, генерация сказки в безопасном фильтре 0+, экран поздравления и отправка открытки родителю.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 card-shadow flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center font-bold text-sm flex-shrink-0">
+            Ф-3
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h4 class="font-bold text-slate-900 text-sm">Фаза 3: Полноценный запуск платформы курсов и B2B кабинета</h4>
+              <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">Планирование</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1">
+              Личный кабинет ученика с картой уровней на 32 урока, система начисления баллов и кристаллов, учительский дашборд успеваемости классов с выгрузкой отчетов.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 py-8 text-center text-xs text-slate-400">
+    Документация требований и концепции проекта «НейроДетки: ИИ для 1–4 классов» • 2026
+  </footer>
+
+  <script>
+    function printDocument() {
+      window.print();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>НейроДетки — Обучение искусственному интеллекту и логике для 1-4 классов</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0369a1',
+            },
+            accent: {
+              amber: '#f59e0b',
+              purple: '#8b5cf6',
+              emerald: '#10b981',
+              rose: '#f43f5e',
+            }
+          },
+          fontFamily: {
+            sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          },
+          animation: {
+            'float-slow': 'float 4s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
+              '50%': { opacity: '1', transform: 'scale(1.05)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    /* Плавные градиентные фоны и свечения */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .hero-mesh {
+      background-color: #f8fafc;
+      background-image: 
+        radial-gradient(at 10% 20%, rgba(139, 92, 246, 0.12) 0px, transparent 50%),
+        radial-gradient(at 90% 10%, rgba(2, 132, 199, 0.15) 0px, transparent 50%),
+        radial-gradient(at 50% 80%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+    }
+    .bubble-tail::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 36px;
+      border-width: 10px 10px 0;
+      border-style: solid;
+      border-color: white transparent;
+      display: block;
+      width: 0;
+    }
+  </style>
+</head>
+<body class="font-sans text-slate-800 bg-slate-50 antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white">
+
+  <!-- ================= НАВИГАЦИЯ ================= -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Логотип -->
+      <a href="#" class="flex items-center gap-3 group focus:outline-none" aria-label="НейроДетки Главная">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 via-accent-purple to-accent-amber p-0.5 shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
+          <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center">
+            <span class="text-2xl">🤖</span>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-xl tracking-tight text-slate-900">Нейро<span class="text-brand-600">Детки</span></span>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-brand-100 text-brand-600 rounded-full">1–4 классы</span>
+          </div>
+          <p class="text-xs text-slate-500">ИИ и логика в игровой форме</p>
+        </div>
+      </a>
+
+      <!-- Меню для десктопа -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
+        <a href="#about" class="hover:text-brand-600 transition-colors">О платформе</a>
+        <a href="#sandbox" class="hover:text-brand-600 transition-colors">Песочница</a>
+        <a href="#program" class="hover:text-brand-600 transition-colors">Программа</a>
+        <a href="#pisa-block" class="text-indigo-600 font-bold hover:text-indigo-700 transition-colors flex items-center gap-1.5">
+          <span>PISA-тренажер</span>
+          <span class="text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded-md uppercase font-extrabold">OECD</span>
+        </a>
+        <a href="#safety" class="hover:text-brand-600 transition-colors">Безопасность 0+</a>
+        <a href="#teachers" class="text-accent-purple font-semibold hover:text-purple-700 transition-colors flex items-center gap-1">
+          <span>Учителям и школам</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-accent-purple animate-ping"></span>
+        </a>
+        <a href="#pricing" class="hover:text-brand-600 transition-colors">Тарифы</a>
+      </nav>
+
+      <!-- Правый блок: Звук + Кнопка действия -->
+      <div class="flex items-center gap-3">
+        <!-- Кнопка переключения звука интерфейса -->
+        <button id="soundToggleBtn" class="p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 focus:outline-none transition-colors" title="Звуки кликов (вкл/выкл)">
+          <span id="soundIcon">🔊</span>
+        </button>
+
+        <button onclick="openLeadModal('Пробный урок')" class="relative inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-white transition-all bg-gradient-to-r from-brand-600 to-accent-purple rounded-xl shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:-translate-y-0.5 active:translate-y-0">
+          Бесплатный урок
+        </button>
+
+        <!-- Мобильная кнопка меню -->
+        <button id="mobileMenuBtn" class="md:hidden p-2.5 rounded-xl border border-slate-200 text-slate-700 focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Мобильное выпадающее меню -->
+    <div id="mobileMenu" class="hidden md:hidden px-4 pt-2 pb-6 bg-white border-b border-slate-200 space-y-3">
+      <a href="#about" class="block px-3 py-2 rounded-lg text-slate-700 font-medium hover:bg-slate-50">О платформе</a>
+      <a href="#sandbox" class="block px-3 py-2 rounded-lg text-slate-700 font-medium hover:bg-slate-50">Песочница</a>
+      <a href="#pisa-block" class="block px-3 py-2 rounded-lg text-indigo-600 font-bold bg-indigo-50 hover:bg-indigo-100 flex items-center justify-between">
+        <span>PISA-тренажер 0+</span>
+        <span class="text-[10px] bg-indigo-200 text-indigo-800 px-2 py-0.5 rounded-full font-black">OECD</span>
+      </a>
+      <a href="#program" class="block px-3 py-2 rounded-lg text-slate-700 font-medium hover:bg-slate-50">Программа обучения</a>
+      <a href="#safety" class="block px-3 py-2 rounded-lg text-slate-700 font-medium hover:bg-slate-50">Безопасность 0+</a>
+      <a href="#teachers" class="block px-3 py-2 rounded-lg text-accent-purple font-semibold hover:bg-purple-50">Для школ и учителей</a>
+      <a href="#pricing" class="block px-3 py-2 rounded-lg text-slate-700 font-medium hover:bg-slate-50">Тарифы</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= 1. HERO СЕКЦИЯ С 3D-МАСКОТОМ ================= -->
+    <section class="relative hero-mesh pt-8 pb-20 md:pt-16 md:pb-28 overflow-hidden border-b border-slate-200/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Левая колонка: Текст и УТП -->
+          <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+            
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-brand-200 shadow-sm">
+              <span class="flex h-2 w-2 rounded-full bg-accent-emerald animate-pulse"></span>
+              <span class="text-xs font-semibold text-slate-700">Одобрено методистами · Подготовка к тестам PISA (OECD)</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
+              Превратите интерес к экрану в <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-600 via-accent-purple to-accent-rose">суперсилу будущего</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+              Безопасная интерактивная среда, где школьники 7–10 лет не просто потребляют контент, а обучают своего ИИ-питомца: создают первые игры, иллюстрированные книги и решают логические задачи.
+            </p>
+
+            <!-- Быстрые фичи-иконки -->
+            <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 pt-2 max-w-lg mx-auto lg:mx-0">
+              <div class="bg-white/80 border border-slate-200 p-3 rounded-xl text-center shadow-sm">
+                <div class="text-xl mb-0.5">🛡️</div>
+                <div class="text-xs font-bold text-slate-800">Песочница 0+</div>
+                <div class="text-[11px] text-slate-500">Без открытого веба</div>
+              </div>
+              <div class="bg-white/80 border border-slate-200 p-3 rounded-xl text-center shadow-sm">
+                <div class="text-xl mb-0.5">⏱️</div>
+                <div class="text-xs font-bold text-slate-800">15 минут в день</div>
+                <div class="text-[11px] text-slate-500">Бережем зрение</div>
+              </div>
+              <div class="bg-white/80 border border-slate-200 p-3 rounded-xl text-center shadow-sm">
+                <div class="text-xl mb-0.5">🏆</div>
+                <div class="text-xs font-bold text-slate-800">Игровой формат</div>
+                <div class="text-[11px] text-slate-500">Без скучных зубрежек</div>
+              </div>
+              <div class="bg-indigo-50/80 border border-indigo-200 p-3 rounded-xl text-center shadow-sm">
+                <div class="text-xl mb-0.5">🌐</div>
+                <div class="text-xs font-bold text-indigo-900">Готовность к PISA</div>
+                <div class="text-[11px] text-indigo-600">Стандарты OECD</div>
+              </div>
+            </div>
+
+            <!-- Кнопки действия -->
+            <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <button onclick="openLeadModal('Главный экран - Старт')" class="w-full sm:w-auto px-8 py-4 text-base font-bold text-white bg-gradient-to-r from-brand-600 via-brand-500 to-accent-purple rounded-2xl shadow-xl shadow-brand-500/25 hover:shadow-brand-500/40 hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+                <span>Пройти 1-й квест бесплатно</span>
+                <span class="text-xl">🚀</span>
+              </button>
+
+              <a href="#teachers" class="w-full sm:w-auto px-6 py-4 text-base font-bold text-slate-700 bg-white border border-slate-300 rounded-2xl shadow-sm hover:bg-slate-50 hover:border-slate-400 transition-all text-center">
+                Учителям и классам
+              </a>
+            </div>
+
+            <!-- Ремарка без кредиток -->
+            <p class="text-xs text-slate-500 flex items-center justify-center lg:justify-start gap-2">
+              <svg class="w-4 h-4 text-accent-emerald" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+              Вход без привязки банковской карты • Доступно на планшете и ПК
+            </p>
+          </div>
+
+          <!-- Правая колонка: 3D-Интерактивная сцена робота-маскота -->
+          <div class="lg:col-span-5 relative flex flex-col items-center">
+            
+            <!-- Реплика робота -->
+            <div id="robotSpeechBubble" class="relative z-10 bg-white px-5 py-3 rounded-2xl shadow-xl border border-brand-100 text-sm font-medium text-slate-700 mb-2 bubble-tail transition-all duration-300 transform max-w-xs text-center">
+              Привет! Я робот <span class="font-bold text-brand-600">Нейрик</span> 👋 Кликни на кнопки под моим экраном!
+            </div>
+
+            <!-- Контейнер Three.js Canvas -->
+            <div class="relative w-full max-w-[380px] h-[360px] sm:h-[400px] rounded-3xl bg-gradient-to-b from-brand-100/50 via-white/80 to-purple-100/40 border border-white shadow-2xl p-2 flex items-center justify-center overflow-hidden">
+              <div id="webgl-container" class="w-full h-full cursor-grab active:cursor-grabbing rounded-2xl"></div>
+              
+              <!-- Индикатор движения мышкой -->
+              <div class="absolute bottom-3 left-1/2 -translate-x-1/2 pointer-events-none text-[11px] text-slate-400 bg-white/70 px-3 py-1 rounded-full backdrop-blur-sm">
+                Двигайте курсор или пальцем по роботу
+              </div>
+            </div>
+
+            <!-- Переключатели режимов маскота -->
+            <div class="mt-4 flex flex-wrap gap-2 justify-center">
+              <button onclick="setRobotMode('draw')" class="robot-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-700 shadow-sm hover:border-accent-rose hover:text-accent-rose transition-all flex items-center gap-1.5" data-mode="draw">
+                <span>🎨</span> Рисовать
+              </button>
+              <button onclick="setRobotMode('story')" class="robot-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-700 shadow-sm hover:border-accent-purple hover:text-accent-purple transition-all flex items-center gap-1.5" data-mode="story">
+                <span>📖</span> Сочинять
+              </button>
+              <button onclick="setRobotMode('game')" class="robot-btn px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-700 shadow-sm hover:border-accent-emerald hover:text-accent-emerald transition-all flex items-center gap-1.5" data-mode="game">
+                <span>🎮</span> Игры
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 2. МИКРО-ПЕСОЧНИЦА "ПОПРОБУЙ САМ" ================= -->
+    <section id="sandbox" class="py-16 bg-white border-b border-slate-200">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full">Интерактивный конструктор</span>
+          <h2 class="text-3xl font-black text-slate-900 mt-3">Как ребенок учится промптингу за 3 клика</h2>
+          <p class="text-sm sm:text-base text-slate-600 mt-2">
+            В 1–4 классах мы учим конструировать команды для нейросетей через понятные визуальные блоки-пазлы. Попробуйте прямо сейчас!
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-slate-50 to-brand-50/40 p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-lg">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Шаг 1: Персонаж -->
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-brand-500 text-white flex items-center justify-center text-[10px]">1</span>
+                Кто главный герой?
+              </label>
+              <div class="space-y-2" id="heroSelector">
+                <button onclick="selectSandboxOption('hero', 'Космический котёнок 🐱', this)" class="sandbox-opt w-full text-left p-3 rounded-xl bg-white border-2 border-brand-500 text-slate-800 text-xs font-semibold shadow-sm flex justify-between items-center">
+                  <span>Космический котёнок</span>
+                  <span class="text-base">🐱</span>
+                </button>
+                <button onclick="selectSandboxOption('hero', 'Весёлый динозавр 🦖', this)" class="sandbox-opt w-full text-left p-3 rounded-xl bg-white border-2 border-slate-200 text-slate-800 text-xs font-semibold hover:border-brand-300 flex justify-between items-center">
+                  <span>Весёлый динозавр</span>
+                  <span class="text-base">🦖</span>
+                </button>
+                <button onclick="selectSandboxOption('hero', 'Робот-волшебник 🤖', this)" class="sandbox-opt w-full text-left p-3 rounded-xl bg-white border-2 border-slate-200 text-slate-800 text-xs font-semibold hover:border-brand-300 flex justify-between items-center">
+                  <span>Робот-помощник</span>
+                  <span class="text-base">🤖</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Шаг 2: Действие -->
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-accent-purple text-white flex items-center justify-center text-[10px]">2</span>
+                Что он делает?
+              </label>
+              <div class="space-y-2" id="actionSelector">
+                <button onclick="selectSandboxOption('action', 'собирает светящиеся кристаллы на Марсе 💎', this)" class="sandbox-opt w-full text-left p-3 rounded-xl bg-white border-2 border-accent-purple text-slate-800 text-xs font-semibold shadow-sm flex justify-between items-center">
+                  <span>Ищет кристаллы на Марсе</span>
+                  <span class="text-base">💎</span>
+                </button>
+                <button onclick="selectSandboxOption('action', 'печет гигантскую пиццу в космосе 🍕', this)" class="sandbox-opt w-full text-left p-3 rounded-xl bg-white border-2 border-slate-200 text-slate-800 text-xs font-semibold hover:border-accent-purple/50 flex justify-between items-center">
+                  <span>Печет пиццу в космосе</span>
+                  <span class="text-base">🍕</span>
+                </button>
+                <button onclick="selectSandboxOption('action', 'играет на электрогитаре среди звезд 🎸', this)" class="sandbox-opt w-full text-left p-3 rounded-xl bg-white border-2 border-slate-200 text-slate-800 text-xs font-semibold hover:border-accent-purple/50 flex justify-between items-center">
+                  <span>Играет рок на гитаре</span>
+                  <span class="text-base">🎸</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Шаг 3: Стиль -->
+            <div class="space-y-2">
+              <label class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                <span class="w-5 h-5 rounded-full bg-accent-amber text-white flex items-center justify-center text-[10px]">3</span>
+                Художественный стиль
+              </label>
+              <div class="space-y-2" id="styleSelector">
+                <button onclick="selectSandboxOption('style', '3D-мультфильм Pixar ✨', this)" class="sandbox-opt w-full text-left p-3 rounded-xl bg-white border-2 border-accent-amber text-slate-800 text-xs font-semibold shadow-sm flex justify-between items-center">
+                  <span>3D-мультик Pixar</span>
+                  <span class="text-base">✨</span>
+                </button>
+                <button onclick="selectSandboxOption('style', 'ретро пиксель-арт как в Minecraft 👾', this)" class="sandbox-opt w-full text-left p-3 rounded-xl bg-white border-2 border-slate-200 text-slate-800 text-xs font-semibold hover:border-accent-amber/50 flex justify-between items-center">
+                  <span>Пиксель-арт (Minecraft)</span>
+                  <span class="text-base">👾</span>
+                </button>
+                <button onclick="selectSandboxOption('style', 'сказочная акварельная книга 🎨', this)" class="sandbox-opt w-full text-left p-3 rounded-xl bg-white border-2 border-slate-200 text-slate-800 text-xs font-semibold hover:border-accent-amber/50 flex justify-between items-center">
+                  <span>Нежная акварель</span>
+                  <span class="text-base">🎨</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Собранный запрос и кнопка генерации -->
+          <div class="mt-8 pt-6 border-t border-slate-200/80 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="w-full md:w-2/3 bg-white p-4 rounded-2xl border border-slate-200">
+              <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">Собранный промпт ученика:</span>
+              <p id="assembledPrompt" class="text-sm font-semibold text-slate-800">
+                «Космический котёнок 🐱 собирает светящиеся кристаллы на Марсе 💎 в стиле 3D-мультфильм Pixar ✨»
+              </p>
+            </div>
+
+            <button onclick="generateSandboxResult()" class="w-full md:w-auto px-6 py-4 bg-gradient-to-r from-accent-emerald to-brand-600 text-white font-bold text-sm rounded-2xl shadow-lg shadow-emerald-500/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2">
+              <span>Сгенерировать результат</span>
+              <span class="text-lg">⚡</span>
+            </button>
+          </div>
+
+          <!-- Зона отображения результата -->
+          <div id="sandboxResultBox" class="mt-6 p-5 rounded-2xl bg-white border border-brand-200 shadow-inner flex flex-col sm:flex-row items-center gap-5 transition-all duration-300">
+            <div id="resultVisual" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-tr from-brand-100 to-purple-100 flex items-center justify-center text-5xl shadow-sm">
+              🐱✨
+            </div>
+            <div class="space-y-1 text-center sm:text-left">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-700">
+                <span>✓</span> Сгенерировано за 1.2 сек
+              </span>
+              <h4 id="resultTitle" class="font-extrabold text-base text-slate-900">Космический котёнок на Марсе</h4>
+              <p id="resultDesc" class="text-xs text-slate-600 max-w-lg">
+                Нейросеть распознала все 3 компонента задачи: персонажа, действие и стиль. Ученик получает не просто картинку, а озвученную анимационную карточку для своей интерактивной игры.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 3. ЗАКРЫТИЕ СТРАХОВ РОДИТЕЛЕЙ ================= -->
+    <section id="safety" class="py-20 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-xs font-bold uppercase tracking-wider text-accent-emerald bg-emerald-50 px-3 py-1 rounded-full">Безопасность и педагогика</span>
+          <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3">Почему родители доверяют нам обучение детей</h2>
+          <p class="text-base text-slate-600 mt-3">
+            Мы спроектировали платформу так, чтобы превратить гаджет из «пожирателя внимания» в полезный инструмент мышления.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Карточка 1 -->
+          <div class="glass-card p-6 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mb-4">
+              🛡️
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Закрытый контур 0+</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Никакого выхода в открытый интернет и соцсети. Все ИИ-модели настроены через строгий детский фильтр без токсичности и рекламы.
+            </p>
+          </div>
+
+          <!-- Карточка 2 -->
+          <div class="glass-card p-6 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center text-2xl mb-4">
+              🧠
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Создатель, а не зритель</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Ребенок перестает бездумно листать короткие видео. Вместо этого он сам создает сюжеты, программирует логику и понимает устройство технологий.
+            </p>
+          </div>
+
+          <!-- Карточка 3 -->
+          <div class="glass-card p-6 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 rounded-2xl bg-accent-amber/20 text-accent-amber flex items-center justify-center text-2xl mb-4">
+              ⏱️
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Уроки по 15 минут</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Микрообучение сохраняет концентрацию внимания, бережет зрение и не перегружает нервную систему ребенка после школы.
+            </p>
+          </div>
+
+          <!-- Карточка 4 -->
+          <div class="glass-card p-6 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 rounded-2xl bg-accent-purple/20 text-accent-purple flex items-center justify-center text-2xl mb-4">
+              🧩
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Развитие логики и речи</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Чтобы ИИ понял команду, ребенок учится четко формулировать мысли, строить причинно-следственные связи и проверять факты.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Цитата психолога/методиста -->
+        <div class="mt-12 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 flex flex-col md:flex-row items-center gap-6 shadow-sm">
+          <div class="w-20 h-20 rounded-2xl bg-slate-100 border-2 border-brand-500 overflow-hidden flex-shrink-0 flex items-center justify-center text-3xl">
+            👩‍🏫
+          </div>
+          <div class="space-y-1 text-center md:text-left">
+            <p class="text-sm sm:text-base italic text-slate-700">
+              «В младшем школьном возрасте закладывается фундамент отношения к технологиям: либо человек становится их заложником, либо их хозяином. Платформа мягко и экологично вводит ребенка в роль цифрового создателя.»
+            </p>
+            <div class="text-xs font-bold text-slate-900 pt-2">Анна Сергеева, детский методист и педагог начальных классов (стаж 14 лет)</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= СПЕЦИАЛЬНЫЙ БЛОК: ТРЕНАЖЕР PISA (OECD) ================= -->
+    <section id="pisa-block" class="py-20 bg-gradient-to-b from-white via-indigo-50/30 to-slate-50 border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-12">
+          <div class="max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-100 border border-indigo-200 text-indigo-800 text-xs font-extrabold mb-3">
+              <span>🌐 Международный стандарт качества образования OECD</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+              Готовим к тестам PISA с 1 класса: развиваем функциональную грамотность
+            </h2>
+            <p class="mt-3 text-base text-slate-600 leading-relaxed">
+              Тесты <a href="https://www.oecd.org/en/about/programmes/pisa/pisa-test.html" target="_blank" rel="noopener noreferrer" class="text-indigo-600 underline font-semibold hover:text-indigo-800">OECD PISA</a> проверяют не зазубренные правила, а умение применять знания в реальной жизни. Наша платформа в игровой форме учит ребенка анализировать данные, проверять факты и принимать взвешенные решения с помощью ИИ.
+            </p>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-indigo-100 shadow-md flex items-center gap-4">
+            <div class="text-4xl">📊</div>
+            <div>
+              <div class="text-2xl font-black text-indigo-700">+42%</div>
+              <div class="text-xs text-slate-500 font-medium">к точности решения комплексных логических задач</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ИНТЕРАКТИВНЫЙ МИНИ-ТРЕНАЖЕР PISA ДЛЯ РОДИТЕЛЕЙ И ДЕТЕЙ -->
+        <div class="bg-white rounded-3xl border-2 border-indigo-200 shadow-xl overflow-hidden mb-12">
+          <div class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-purple-900 p-6 sm:p-8 text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <span class="text-xs uppercase font-extrabold tracking-widest text-indigo-300 bg-indigo-950/60 px-3 py-1 rounded-full">Интерактивный симулятор</span>
+              <h3 class="text-xl sm:text-2xl font-black mt-2">Попробуйте решить мини-кейс PISA вместе с ребенком</h3>
+              <p class="text-xs sm:text-sm text-indigo-200 mt-1 max-w-xl">
+                Выберите направление и ответьте на ситуационную задачу так, как это делают ученики в наших квестах.
+              </p>
+            </div>
+            
+            <!-- Табы выбора направления PISA -->
+            <div class="flex flex-wrap gap-2">
+              <button onclick="switchPisaTab('reading')" id="pisaTab-reading" class="pisa-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-indigo-900 shadow-md transition-all">
+                📖 Чтение и фактчекинг
+              </button>
+              <button onclick="switchPisaTab('math')" id="pisaTab-math" class="pisa-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-indigo-950/50 text-indigo-200 hover:bg-indigo-800 transition-all">
+                📐 Математическая логика
+              </button>
+              <button onclick="switchPisaTab('science')" id="pisaTab-science" class="pisa-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-indigo-950/50 text-indigo-200 hover:bg-indigo-800 transition-all">
+                🔬 Естествознание
+              </button>
+            </div>
+          </div>
+
+          <!-- Контейнер задачи PISA -->
+          <div class="p-6 sm:p-8 bg-slate-50/70">
+            <div id="pisaQuestionContainer" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+              <!-- Динамический контент задачи вставляется через JS -->
+            </div>
+
+            <!-- Зона результата и объяснения робота -->
+            <div id="pisaExplanationBox" class="hidden mt-5 p-4 rounded-2xl bg-indigo-50 border border-indigo-200 transition-all flex items-start gap-4">
+              <div class="text-3xl flex-shrink-0">🤖</div>
+              <div class="space-y-1">
+                <h5 id="pisaResultStatus" class="text-sm font-extrabold text-indigo-900">Отличная работа!</h5>
+                <p id="pisaResultExplanation" class="text-xs text-indigo-800 leading-relaxed">
+                  Именно так тесты PISA проверяют способность критически оценивать текст и отделять факты от гипотез.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Карточки направлений PISA -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Направление 1: Читательская грамотность -->
+          <div class="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200 shadow-sm hover:border-indigo-300 transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-2xl mb-4">
+                📖
+              </div>
+              <span class="text-xs font-extrabold text-indigo-600 uppercase tracking-wider">Домен PISA 01</span>
+              <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Читательская грамотность</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Ребенок учится глубоко понимать смысл текстов, отличать проверенные факты от авторских мнений и выявлять сгенерированные нейросетью ошибки и дипфейки.
+              </p>
+            </div>
+            <div class="mt-6 pt-3 border-t border-slate-100 text-xs font-semibold text-indigo-700 flex items-center justify-between">
+              <span>Кейс: «Детектив новостей»</span>
+              <span>1–4 классы</span>
+            </div>
+          </div>
+
+          <!-- Направление 2: Математическая грамотность -->
+          <div class="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200 shadow-sm hover:border-indigo-300 transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center text-2xl mb-4">
+                📐
+              </div>
+              <span class="text-xs font-extrabold text-brand-600 uppercase tracking-wider">Домен PISA 02</span>
+              <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Математическая грамотность</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Не скучные примеры, а практические расчеты: распределение ресурсов для марсианской станции, чтение диаграмм и планирование алгоритмов логистики.
+              </p>
+            </div>
+            <div class="mt-6 pt-3 border-t border-slate-100 text-xs font-semibold text-brand-700 flex items-center justify-between">
+              <span>Кейс: «Космическая экономика»</span>
+              <span>1–4 классы</span>
+            </div>
+          </div>
+
+          <!-- Направление 3: Естественно-научная грамотность -->
+          <div class="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200 shadow-sm hover:border-indigo-300 transition-all flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl mb-4">
+                🔬
+              </div>
+              <span class="text-xs font-extrabold text-emerald-600 uppercase tracking-wider">Домен PISA 03</span>
+              <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Естественно-научная грамотность</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Формулирование гипотез и проведение виртуальных экспериментов: влияние климата на растения, моделирование экосистем и симуляция законов физики.
+              </p>
+            </div>
+            <div class="mt-6 pt-3 border-t border-slate-100 text-xs font-semibold text-emerald-700 flex items-center justify-between">
+              <span>Кейс: «Эко-лаборатория Земли»</span>
+              <span>1–4 классы</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 4. ПРОГРАММА ПО КЛАССАМ ================= -->
+    <section id="program" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full">Учебный план</span>
+          <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3">Программа, адаптированная под возраст</h2>
+          <p class="text-base text-slate-600 mt-2">
+            Каждый блок опирается на естественный уровень восприятия и школьную программу математики и окружающего мира.
+          </p>
+
+          <!-- Переключатель классов -->
+          <div class="mt-8 inline-flex p-1.5 bg-slate-100 rounded-2xl border border-slate-200">
+            <button id="gradeTab1" onclick="switchGradeTab(1)" class="px-6 py-3 rounded-xl font-bold text-sm bg-white text-slate-900 shadow-md transition-all">
+              1–2 классы (7–8 лет) · Уровень «Исследователь»
+            </button>
+            <button id="gradeTab2" onclick="switchGradeTab(2)" class="px-6 py-3 rounded-xl font-bold text-sm text-slate-500 hover:text-slate-900 transition-all">
+              3–4 классы (9–10 лет) · Уровень «Инженер»
+            </button>
+          </div>
+        </div>
+
+        <!-- Контент 1-2 классы -->
+        <div id="gradeContent1" class="grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-300">
+          <div class="border border-slate-200 rounded-3xl p-6 hover:border-brand-300 transition-colors bg-gradient-to-b from-white to-brand-50/20">
+            <span class="text-xs font-extrabold text-brand-600 uppercase tracking-wider">Модуль 1</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Как думает компьютер?</h3>
+            <p class="text-xs text-slate-600 mb-4">Знакомство с алгоритмами через игры. Учимся отличать живой разум от машинного на понятных бытовых примерах.</p>
+            <ul class="text-xs text-slate-700 space-y-2">
+              <li class="flex items-center gap-2"><span class="text-emerald-500">✔</span> Логика последовательностей</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-500">✔</span> Распознавание звуков и картинок</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-500">✔</span> Голосовые команды без набора текста</li>
+            </ul>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+              <span>Итог: интерактивная сказка</span>
+              <span class="font-bold text-brand-600">4 недели</span>
+            </div>
+          </div>
+
+          <div class="border border-slate-200 rounded-3xl p-6 hover:border-brand-300 transition-colors bg-gradient-to-b from-white to-brand-50/20">
+            <span class="text-xs font-extrabold text-brand-600 uppercase tracking-wider">Модуль 2</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Сказки и иллюстрации с ИИ</h3>
+            <p class="text-xs text-slate-600 mb-4">Сборка промптов из блоков-пазлов. Создаем персонажей, генерируем для них фоны и озвучиваем реплики.</p>
+            <ul class="text-xs text-slate-700 space-y-2">
+              <li class="flex items-center gap-2"><span class="text-emerald-500">✔</span> Блочный визуальный промптинг</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-500">✔</span> Цвета, настроение и композиция</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-500">✔</span> Синтез детского голоса для героев</li>
+            </ul>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+              <span>Итог: цифровая иллюстрированная книга</span>
+              <span class="font-bold text-brand-600">4 недели</span>
+            </div>
+          </div>
+
+          <div class="border border-slate-200 rounded-3xl p-6 hover:border-brand-300 transition-colors bg-gradient-to-b from-white to-brand-50/20">
+            <span class="text-xs font-extrabold text-brand-600 uppercase tracking-wider">Модуль 3</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Обучаем первого питомца</h3>
+            <p class="text-xs text-slate-600 mb-4">Мини-игры, где ребенок «тренирует» модель отличать яблоки от бананов или добрых персонажей от злых.</p>
+            <ul class="text-xs text-slate-700 space-y-2">
+              <li class="flex items-center gap-2"><span class="text-emerald-500">✔</span> Датасеты простыми словами</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-500">✔</span> Ошибки ИИ и как их исправить</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-500">✔</span> Этика: добрые и безопасные правила</li>
+            </ul>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+              <span>Итог: обученный виртуальный помощник</span>
+              <span class="font-bold text-brand-600">4 недели</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Контент 3-4 классы (скрыт по умолчанию) -->
+        <div id="gradeContent2" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-300">
+          <div class="border border-slate-200 rounded-3xl p-6 hover:border-accent-purple transition-colors bg-gradient-to-b from-white to-purple-50/20">
+            <span class="text-xs font-extrabold text-accent-purple uppercase tracking-wider">Модуль 1</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Продвинутый промпт-дизайн</h3>
+            <p class="text-xs text-slate-600 mb-4">Учимся формулировать точные текстовые задания: ограничения, стили, роли и параметры генерации.</p>
+            <ul class="text-xs text-slate-700 space-y-2">
+              <li class="flex items-center gap-2"><span class="text-purple-500">✔</span> Ролевые инструкции («Ты ученый»)</li>
+              <li class="flex items-center gap-2"><span class="text-purple-500">✔</span> Ограничения и форматы ответов</li>
+              <li class="flex items-center gap-2"><span class="text-purple-500">✔</span> Фактчекинг и проверка на ошибки</li>
+            </ul>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+              <span>Итог: тематический мини-энциклопедист</span>
+              <span class="font-bold text-accent-purple">4 недели</span>
+            </div>
+          </div>
+
+          <div class="border border-slate-200 rounded-3xl p-6 hover:border-accent-purple transition-colors bg-gradient-to-b from-white to-purple-50/20">
+            <span class="text-xs font-extrabold text-accent-purple uppercase tracking-wider">Модуль 2</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Создание текстовых квестов</h3>
+            <p class="text-xs text-slate-600 mb-4">Ветвления («ЕСЛИ/ТО»), логические переменные и соединение ИИ с алгоритмами сценария.</p>
+            <ul class="text-xs text-slate-700 space-y-2">
+              <li class="flex items-center gap-2"><span class="text-purple-500">✔</span> Логические ветвления и условия</li>
+              <li class="flex items-center gap-2"><span class="text-purple-500">✔</span> Создание диалогового бота</li>
+              <li class="flex items-center gap-2"><span class="text-purple-500">✔</span> Интерактивная игровая механика</li>
+            </ul>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+              <span>Итог: игра-квест для одноклассников</span>
+              <span class="font-bold text-accent-purple">4 недели</span>
+            </div>
+          </div>
+
+          <div class="border border-slate-200 rounded-3xl p-6 hover:border-accent-purple transition-colors bg-gradient-to-b from-white to-purple-50/20">
+            <span class="text-xs font-extrabold text-accent-purple uppercase tracking-wider">Модуль 3</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-1 mb-2">Цифровая гигиена и Deepfake</h3>
+            <p class="text-xs text-slate-600 mb-4">Критическое мышление: как отличать сгенерированные фейки, защищать личные данные и пароли.</p>
+            <ul class="text-xs text-slate-700 space-y-2">
+              <li class="flex items-center gap-2"><span class="text-purple-500">✔</span> Как устроены дипфейки и подделки</li>
+              <li class="flex items-center gap-2"><span class="text-purple-500">✔</span> Защита приватности в интернете</li>
+              <li class="flex items-center gap-2"><span class="text-purple-500">✔</span> Авторские права и уважение к чужому труду</li>
+            </ul>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+              <span>Итог: проект «Детектив фейков»</span>
+              <span class="font-bold text-accent-purple">4 недели</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= 5. ВИТРИНА ПРОЕКТОВ ДЕТЕЙ ================= -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-accent-rose bg-rose-50 px-3 py-1 rounded-full">Результаты учеников</span>
+            <h2 class="text-3xl font-black text-slate-900 mt-3">Что дети создают уже на 2-й неделе</h2>
+          </div>
+          <p class="text-sm text-slate-500 mt-2 md:mt-0 max-w-sm">
+            Каждый проект можно запустить прямо в браузере и отправить бабушке или другу в WhatsApp.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Проект 1 -->
+          <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition-all group">
+            <div class="h-44 rounded-2xl bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center text-6xl relative overflow-hidden">
+              <span>🚀🪐</span>
+              <span class="absolute top-3 right-3 text-[10px] font-bold bg-white/90 px-2.5 py-1 rounded-full text-slate-700">7 лет (1 класс)</span>
+            </div>
+            <h3 class="font-bold text-slate-900 mt-4 text-base group-hover:text-brand-600 transition-colors">Сказка «Приключения робота Тимки»</h3>
+            <p class="text-xs text-slate-500 mt-1">Иллюстрированная аудиокнига из 6 глав с сгенерированными персонажами и музыкой.</p>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-600">Автор: Максим В.</span>
+              <button onclick="playDemoAudio()" class="text-xs font-bold text-brand-600 hover:underline flex items-center gap-1">
+                <span>Послушать</span> ▶
+              </button>
+            </div>
+          </div>
+
+          <!-- Проект 2 -->
+          <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition-all group">
+            <div class="h-44 rounded-2xl bg-gradient-to-br from-emerald-100 via-teal-100 to-blue-100 flex items-center justify-center text-6xl relative overflow-hidden">
+              <span>🐾🔍</span>
+              <span class="absolute top-3 right-3 text-[10px] font-bold bg-white/90 px-2.5 py-1 rounded-full text-slate-700">9 лет (3 класс)</span>
+            </div>
+            <h3 class="font-bold text-slate-900 mt-4 text-base group-hover:text-brand-600 transition-colors">Классификатор следов животных</h3>
+            <p class="text-xs text-slate-500 mt-1">Обученная модель, которая определяет по рисунку, какому лесному зверю принадлежит след.</p>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-600">Автор: Данияр К.</span>
+              <span class="text-xs font-bold text-emerald-600">Точность 94%</span>
+            </div>
+          </div>
+
+          <!-- Проект 3 -->
+          <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition-all group">
+            <div class="h-44 rounded-2xl bg-gradient-to-br from-amber-100 via-orange-100 to-rose-100 flex items-center justify-center text-6xl relative overflow-hidden">
+              <span>🏰🧙</span>
+              <span class="absolute top-3 right-3 text-[10px] font-bold bg-white/90 px-2.5 py-1 rounded-full text-slate-700">10 лет (4 класс)</span>
+            </div>
+            <h3 class="font-bold text-slate-900 mt-4 text-base group-hover:text-brand-600 transition-colors">Игра-квест «Тайна замка чародея»</h3>
+            <p class="text-xs text-slate-500 mt-1">Текстовая RPG-игра, где диалоги со стражниками в реальном времени генерирует безопасный чат-бот.</p>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs font-medium text-slate-600">Автор: София М.</span>
+              <span class="text-xs font-bold text-accent-purple">120+ прохождений</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 6. РАЗДЕЛ ДЛЯ ШКОЛ И УЧИТЕЛЕЙ (B2B) ================= -->
+    <section id="teachers" class="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white relative overflow-hidden">
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#8b5cf6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-7 space-y-6">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/20 border border-purple-400/30 text-xs font-semibold text-purple-200">
+              Для школ, лицеев и частных центров
+            </span>
+
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+              Готовое решение для урока информатики или факультатива по ИИ
+            </h2>
+
+            <p class="text-base text-slate-300 leading-relaxed">
+              Не нужно тратить недели на разработку планов: мы предоставляем сертифицированные поурочные сценарии, презентации, доступ к учительской панели мониторинга успеваемости и закрытой детской песочнице.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-purple-500/20 border border-purple-400/30 flex items-center justify-center text-purple-300 font-bold flex-shrink-0">✓</div>
+                <div>
+                  <h4 class="font-bold text-sm">Методички и презентации</h4>
+                  <p class="text-xs text-slate-400">32 готовых урока с таймингом и упражнениями</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-purple-500/20 border border-purple-400/30 flex items-center justify-center text-purple-300 font-bold flex-shrink-0">✓</div>
+                <div>
+                  <h4 class="font-bold text-sm">Тренажеры PISA для школы</h4>
+                  <p class="text-xs text-slate-400">Готовые практические кейсы функциональной грамотности</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-purple-500/20 border border-purple-400/30 flex items-center justify-center text-purple-300 font-bold flex-shrink-0">✓</div>
+                <div>
+                  <h4 class="font-bold text-sm">Дашборд учителя</h4>
+                  <p class="text-xs text-slate-400">Прогресс класса, баллы и время в один клик</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-purple-500/20 border border-purple-400/30 flex items-center justify-center text-purple-300 font-bold flex-shrink-0">✓</div>
+                <div>
+                  <h4 class="font-bold text-sm">Сертификация учеников</h4>
+                  <p class="text-xs text-slate-400">Дипломы для портфолио в конце четверти</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 flex flex-col sm:flex-row gap-4">
+              <button onclick="openSchoolModal()" class="px-8 py-4 bg-gradient-to-r from-accent-purple to-brand-500 text-white font-bold rounded-2xl shadow-xl shadow-purple-500/30 hover:scale-105 active:scale-95 transition-all text-center">
+                Получить демо-доступ для школы
+              </button>
+              <button onclick="downloadCurriculumMock()" class="px-6 py-4 bg-slate-800/80 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold rounded-2xl transition-all text-center flex items-center justify-center gap-2 text-sm">
+                <span>📄 Скачать план уроков (PDF)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Макет дашборда учителя -->
+          <div class="lg:col-span-5 bg-slate-800/90 border border-slate-700 rounded-3xl p-6 shadow-2xl backdrop-blur-xl">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-700">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+                <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                <span class="text-xs font-mono text-slate-400 ml-2">Дашборд: 3-«Б» класс</span>
+              </div>
+              <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2.5 py-0.5 rounded-full font-bold">24 ученика онлайн</span>
+            </div>
+
+            <div class="mt-4 space-y-3">
+              <div class="bg-slate-900/60 p-3 rounded-xl flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="text-xl">👦</div>
+                  <div>
+                    <div class="text-xs font-bold text-white">Арлан Сериков</div>
+                    <div class="text-[10px] text-slate-400">Модуль 2: Логика промптов</div>
+                  </div>
+                </div>
+                <span class="text-xs font-bold text-emerald-400">100% пройден</span>
+              </div>
+
+              <div class="bg-slate-900/60 p-3 rounded-xl flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="text-xl">👧</div>
+                  <div>
+                    <div class="text-xs font-bold text-white">Полина Смирнова</div>
+                    <div class="text-[10px] text-slate-400">Модуль 3: Обучение модели</div>
+                  </div>
+                </div>
+                <span class="text-xs font-bold text-brand-400">85% в процессе</span>
+              </div>
+
+              <div class="bg-slate-900/60 p-3 rounded-xl flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="text-xl">👦</div>
+                  <div>
+                    <div class="text-xs font-bold text-white">Ильяс Жумабай</div>
+                    <div class="text-[10px] text-slate-400">Создал проект: Игра-лабиринт</div>
+                  </div>
+                </div>
+                <span class="text-xs font-bold text-accent-purple">Проект сдан ★</span>
+              </div>
+            </div>
+
+            <div class="mt-5 p-3 rounded-xl bg-purple-500/10 border border-purple-500/20 text-[11px] text-purple-200 text-center">
+              💡 Автоматическая проверка домашних заданий экономит учителю до 6 часов в неделю.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 7. ТАРИФЫ ================= -->
+    <section id="pricing" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-3 py-1 rounded-full">Прозрачная оплата</span>
+          <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3">Инвестиция в уверенное будущее ребенка</h2>
+          <p class="text-base text-slate-600 mt-2">
+            Первый квест всегда бесплатный. Выбирайте удобный формат после знакомства с платформой.
+          </p>
+
+          <!-- Переключатель Месяц / Год -->
+          <div class="mt-6 inline-flex items-center gap-3 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+            <span id="labelMonth" class="text-xs font-bold text-slate-900 px-3 py-1.5 rounded-xl bg-white shadow-sm transition-all cursor-pointer" onclick="toggleBilling(false)">Помесячно</span>
+            <span id="labelYear" class="text-xs font-bold text-slate-500 px-3 py-1.5 rounded-xl transition-all cursor-pointer flex items-center gap-1" onclick="toggleBilling(true)">
+              На год <span class="bg-accent-emerald text-white text-[10px] px-1.5 py-0.5 rounded-full font-extrabold">-25%</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+          
+          <!-- Тариф 1: Базовый -->
+          <div class="rounded-3xl border border-slate-200 p-8 flex flex-col justify-between hover:border-brand-400 transition-all bg-white">
+            <div>
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Самостоятельный</span>
+              <h3 class="text-2xl font-black text-slate-900 mt-1">Исследователь</h3>
+              <p class="text-xs text-slate-500 mt-2">Идеально для первого знакомства и самостоятельных занятий дома.</p>
+              
+              <div class="mt-6 mb-6">
+                <span class="price-val text-4xl font-black text-slate-900" data-month="2 900 ₽" data-year="2 175 ₽">2 900 ₽</span>
+                <span class="text-xs text-slate-500">/ в месяц</span>
+              </div>
+
+              <ul class="space-y-3 text-xs text-slate-700">
+                <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✓</span> Полный доступ ко всем интерактивным квестам</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✓</span> Безопасная ИИ-песочница (100 генераций/день)</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✓</span> Игровой маскот и прокачка робота</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✓</span> Личный кабинет родителя с аналитикой</li>
+              </ul>
+            </div>
+
+            <button onclick="openLeadModal('Тариф: Исследователь')" class="mt-8 w-full py-3.5 px-4 rounded-xl border-2 border-brand-600 text-brand-600 font-bold text-xs hover:bg-brand-50 transition-colors">
+              Выбрать тариф
+            </button>
+          </div>
+
+          <!-- Тариф 2: Хит (С куратором) -->
+          <div class="rounded-3xl border-2 border-brand-500 p-8 flex flex-col justify-between shadow-2xl relative bg-gradient-to-b from-white via-brand-50/20 to-white">
+            <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-600 to-accent-purple text-white text-[11px] font-extrabold uppercase tracking-wider py-1 px-4 rounded-full shadow-md">
+              ★ Выбор родителей
+            </span>
+
+            <div>
+              <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">С живым наставником</span>
+              <h3 class="text-2xl font-black text-slate-900 mt-1">Юный архитектор</h3>
+              <p class="text-xs text-slate-500 mt-2">Мини-группы, разбор детских проектов и голосовая поддержка тьютора.</p>
+              
+              <div class="mt-6 mb-6">
+                <span class="price-val text-4xl font-black text-slate-900" data-month="5 900 ₽" data-year="4 425 ₽">5 900 ₽</span>
+                <span class="text-xs text-slate-500">/ в месяц</span>
+              </div>
+
+              <ul class="space-y-3 text-xs text-slate-700">
+                <li class="flex items-center gap-2 font-semibold"><span class="text-emerald-500 font-bold">✓</span> Всё, что входит в «Исследователь»</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✓</span> 4 живых онлайн-воркшопа в месяц в группах до 6 детей</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✓</span> Голосовой разбор проектов от преподавателя</li>
+                <li class="flex items-center gap-2"><span class="text-emerald-500 font-bold">✓</span> Именной диплом и помощь с участием в детских хакатонах</li>
+              </ul>
+            </div>
+
+            <button onclick="openLeadModal('Тариф: Юный архитектор')" class="mt-8 w-full py-4 px-4 rounded-xl bg-gradient-to-r from-brand-600 to-accent-purple text-white font-bold text-xs shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:scale-[1.02] active:scale-95 transition-all">
+              Попробовать бесплатно
+            </button>
+          </div>
+
+          <!-- Тариф 3: Для школ -->
+          <div class="rounded-3xl border border-slate-200 p-8 flex flex-col justify-between hover:border-accent-purple transition-all bg-white">
+            <div>
+              <span class="text-xs font-bold text-purple-600 uppercase tracking-wider">Классы и лицеи</span>
+              <h3 class="text-2xl font-black text-slate-900 mt-1">Школьный класс</h3>
+              <p class="text-xs text-slate-500 mt-2">Для внедрения в школьную сетку уроков или кружков.</p>
+              
+              <div class="mt-6 mb-6">
+                <span class="text-4xl font-black text-slate-900">от 490 ₽</span>
+                <span class="text-xs text-slate-500">/ за ученика в мес.</span>
+              </div>
+
+              <ul class="space-y-3 text-xs text-slate-700">
+                <li class="flex items-center gap-2"><span class="text-purple-500 font-bold">✓</span> Доступ для 15+ учеников по единому промокоду</li>
+                <li class="flex items-center gap-2"><span class="text-purple-500 font-bold">✓</span> Кабинет учителя со сквозной статистикой</li>
+                <li class="flex items-center gap-2"><span class="text-purple-500 font-bold">✓</span> 32 поурочных плана и методички для учителя</li>
+                <li class="flex items-center gap-2"><span class="text-purple-500 font-bold">✓</span> Официальный договор и закрывающие документы</li>
+              </ul>
+            </div>
+
+            <button onclick="openSchoolModal()" class="mt-8 w-full py-3.5 px-4 rounded-xl border-2 border-purple-600 text-purple-600 font-bold text-xs hover:bg-purple-50 transition-colors">
+              Запросить КП для школы
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 8. FAQ АККОРДЕОН ================= -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-black text-slate-900">Часто задаваемые вопросы</h2>
+          <p class="text-sm text-slate-600 mt-2">Отвечаем на главные вопросы родителей и учителей</p>
+        </div>
+
+        <div class="space-y-4">
+          
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+            <button onclick="toggleFaq(this)" class="w-full text-left p-5 font-bold text-slate-900 flex justify-between items-center text-sm sm:text-base">
+              <span>Как платформа помогает в подготовке к международным тестам PISA?</span>
+              <span class="faq-icon text-xl text-slate-400 transition-transform">+</span>
+            </button>
+            <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Тесты PISA оценивают так называемую функциональную грамотность — способность применять знания для решения жизненных задач. На нашей платформе ученики решают ситуационные кейсы (чтение графиков, выявление логических нестыковок, фактчекинг и экологические симуляции) в интерактивном формате, что закладывает базу для успешного прохождения международных тестирований в будущем.
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+            <button onclick="toggleFaq(this)" class="w-full text-left p-5 font-bold text-slate-900 flex justify-between items-center text-sm sm:text-base">
+              <span>Не рано ли изучать искусственный интеллект в 7–8 лет?</span>
+              <span class="faq-icon text-xl text-slate-400 transition-transform">+</span>
+            </button>
+            <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Мы не учим сложному математическому кодингу или формулам. Мы обучаем логике, системному мышлению и умению формулировать свои мысли. Ребенок в 7 лет уже пользуется голосовыми помощниками (Алиса, Siri) и YouTube — наш курс объясняет, как это работает «под капотом», снимая страх перед технологиями.
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+            <button onclick="toggleFaq(this)" class="w-full text-left p-5 font-bold text-slate-900 flex justify-between items-center text-sm sm:text-base">
+              <span>Нужно ли ребенку уметь быстро печатать на клавиатуре?</span>
+              <span class="faq-icon text-xl text-slate-400 transition-transform">+</span>
+            </button>
+            <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Нет! Для 1–2 классов весь интерфейс построен на перетаскивании визуальных цветных блоков (пазлов) и на голосовом вводе команд. Ребенок нажимает большую кнопку с микрофоном и надиктовывает свои идеи роботу.
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+            <button onclick="toggleFaq(this)" class="w-full text-left p-5 font-bold text-slate-900 flex justify-between items-center text-sm sm:text-base">
+              <span>С каких устройств можно проходить уроки?</span>
+              <span class="faq-icon text-xl text-slate-400 transition-transform">+</span>
+            </button>
+            <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Платформа полностью оптимизирована для любых современных планшетов (iPad, Android), ноутбуков и стационарных компьютеров. Ничего устанавливать не нужно — обучение запускается в обычном браузере.
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+            <button onclick="toggleFaq(this)" class="w-full text-left p-5 font-bold text-slate-900 flex justify-between items-center text-sm sm:text-base">
+              <span>Как гарантируется безопасность контента для детей?</span>
+              <span class="faq-icon text-xl text-slate-400 transition-transform">+</span>
+            </button>
+            <div class="faq-content hidden px-5 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Платформа использует закрытый API с тройным контуром фильтрации (0+ Safety Filter). Любые потенциально опасные, пугающие или взрослые темы блокируются еще до отправки в модель, а ребенку выдается мягкая рекомендация переформулировать вопрос в добром ключе.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 9. ФИНАЛЬНЫЙ ПРИЗЫВ (CTA) ================= -->
+    <section class="py-20 bg-gradient-to-r from-brand-600 via-accent-purple to-brand-700 text-white text-center relative overflow-hidden">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <span class="text-4xl animate-bounce inline-block mb-3">🎁</span>
+        <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+          Подарите ребенку первый созданный им ИИ-проект уже сегодня
+        </h2>
+        <p class="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mt-4 leading-relaxed">
+          Бесплатный квест занимает всего 10 минут. Никаких платежей и обязательств — просто посмотрите, как загорятся глаза вашего первоклассника!
+        </p>
+
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+          <button onclick="openLeadModal('Финальный CTA')" class="w-full py-4 px-8 bg-white text-brand-600 font-extrabold text-base rounded-2xl shadow-2xl hover:bg-brand-50 hover:scale-105 active:scale-95 transition-all">
+            Запустить бесплатный квест
+          </button>
+        </div>
+
+        <div class="mt-4 text-xs text-white/80">
+          ✓ Моментальный старт в браузере · Без банковских карт
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= ПОДВАЛ (FOOTER) ================= -->
+  <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <div class="space-y-3">
+          <div class="flex items-center gap-2 text-white font-black text-lg">
+            <span>🤖</span>
+            <span>НейроДетки</span>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Образовательная платформа искусственного интеллекта и логики для начальной школы.
+          </p>
+          <div class="text-[11px] text-slate-500">© 2026 НейроДетки. Все права защищены.</div>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-sm mb-3">Родителям</h4>
+          <ul class="space-y-2">
+            <li><a href="#about" class="hover:text-white transition-colors">Как проходит обучение</a></li>
+            <li><a href="#safety" class="hover:text-white transition-colors">Стандарты безопасности 0+</a></li>
+            <li><a href="#pricing" class="hover:text-white transition-colors">Стоимость и тарифы</a></li>
+            <li><a href="#faq" class="hover:text-white transition-colors">Вопросы и ответы</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-sm mb-3">Организациям</h4>
+          <ul class="space-y-2">
+            <li><a href="#teachers" class="hover:text-white transition-colors">Школьная программа</a></li>
+            <li><a href="#teachers" class="hover:text-white transition-colors">Методические материалы</a></li>
+            <li><button onclick="openSchoolModal()" class="hover:text-white transition-colors">Запросить лицензии</button></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-bold text-sm mb-3">Служба заботы</h4>
+          <p class="text-slate-400 mb-2">Отвечаем родителям ежедневно с 9:00 до 21:00</p>
+          <div class="flex items-center gap-3 mt-3">
+            <a href="#" class="px-3 py-1.5 bg-slate-800 rounded-lg text-white hover:bg-slate-700 transition-colors">Telegram</a>
+            <a href="#" class="px-3 py-1.5 bg-slate-800 rounded-lg text-white hover:bg-slate-700 transition-colors">WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+        <div class="flex gap-4">
+          <a href="#" class="hover:underline">Политика обработки персональных данных</a>
+          <a href="#" class="hover:underline">Пользовательское соглашение</a>
+          <a href="#" class="hover:underline">Детская цифровая безопасность</a>
+        </div>
+        <div>Сертифицировано для начального образования</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= МОДАЛЬНОЕ ОКНО ЗАПИСИ (LEAD MODAL) ================= -->
+  <div id="leadModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-3xl p-6 sm:p-8 shadow-2xl relative animate-float-slow">
+      
+      <button onclick="closeModals()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-sm">
+        ✕
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-14 h-14 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center text-3xl mx-auto mb-3">
+          🚀
+        </div>
+        <h3 id="modalTitle" class="text-xl font-black text-slate-900">Бесплатный первый квест</h3>
+        <p class="text-xs text-slate-500 mt-1">Доступ откроется сразу после подтверждения телефона</p>
+      </div>
+
+      <form onsubmit="handleLeadSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Имя родителя</label>
+          <input type="text" required placeholder="Например, Екатерина" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 text-sm outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Телефон (WhatsApp / Telegram)</label>
+          <input type="tel" required placeholder="+7 (___) ___-__-__" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 text-sm outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Класс ребенка</label>
+          <select class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-brand-500 text-sm outline-none bg-white">
+            <option>1 класс (6–7 лет)</option>
+            <option>2 класс (7–8 лет)</option>
+            <option>3 класс (8–9 лет)</option>
+            <option>4 класс (9–10 лет)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full py-4 bg-gradient-to-r from-brand-600 to-accent-purple text-white font-bold rounded-xl shadow-lg shadow-brand-500/25 hover:scale-[1.02] active:scale-95 transition-all text-sm">
+          Начать квест бесплатно
+        </button>
+
+        <p class="text-[10px] text-center text-slate-400">
+          Нажимая кнопку, вы соглашаетесь с условиями хранения персональных данных. Никакого спама.
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= МОДАЛЬНОЕ ОКНО ДЛЯ ШКОЛ (B2B MODAL) ================= -->
+  <div id="schoolModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl relative">
+      
+      <button onclick="closeModals()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-sm">
+        ✕
+      </button>
+
+      <div class="mb-6">
+        <span class="text-[11px] font-bold text-purple-600 uppercase tracking-wider bg-purple-50 px-2.5 py-1 rounded-full">Школам и учебным центрам</span>
+        <h3 class="text-xl font-black text-slate-900 mt-2">Демо-доступ и комплект методических материалов</h3>
+        <p class="text-xs text-slate-500 mt-1">Вышлем поурочный план, доступ к учительской LMS и примеры сертификатов.</p>
+      </div>
+
+      <form onsubmit="handleSchoolSubmit(event)" class="space-y-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Ваше имя</label>
+            <input type="text" required placeholder="Мария Петровна" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-purple-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Должность</label>
+            <input type="text" required placeholder="Учитель / Завуч" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-purple-500 outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Название школы / центра</label>
+          <input type="text" required placeholder="Лицей №15 или Частная школа" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-purple-500 outline-none">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Рабочий Email</label>
+            <input type="email" required placeholder="school@mail.com" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-purple-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Телефон / WhatsApp</label>
+            <input type="tel" required placeholder="+7 (___) ___" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:border-purple-500 outline-none">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full mt-2 py-3.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg shadow-purple-500/25 hover:scale-[1.01] active:scale-95 transition-all text-sm">
+          Запросить школьный комплект и доступ
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= СООБЩЕНИЕ ОБ УСПЕХЕ (CUSTOM TOAST/ALERT) ================= -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 hidden bg-slate-900 text-white px-5 py-4 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3 transition-all duration-300">
+    <div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-white text-sm">✓</div>
+    <div>
+      <div id="toastTitle" class="text-sm font-bold">Заявка успешно отправлена!</div>
+      <div id="toastDesc" class="text-xs text-slate-400">Мы свяжемся с вами в течение 10 минут.</div>
+    </div>
+  </div>
+
+  <!-- ================= СИНТЕЗАТОР ЗВУКОВ (WEB AUDIO API) ================= -->
+  <script>
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playSound(type) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+        if (type === 'click') {
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'magic') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, now); // C5
+          osc.frequency.exponentialRampToValueAtTime(1046.50, now + 0.25); // C6
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        } else if (type === 'success') {
+          // Аккорд победы
+          [523.25, 659.25, 783.99].forEach((freq, idx) => {
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.connect(g);
+            g.connect(audioCtx.destination);
+            o.frequency.setValueAtTime(freq, now + idx * 0.08);
+            g.gain.setValueAtTime(0.1, now + idx * 0.08);
+            g.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+            o.start(now + idx * 0.08);
+            o.stop(now + 0.4);
+          });
+        }
+      } catch (e) {
+        // AudioContext может быть заблокирован до первого клика
+      }
+    }
+
+    document.getElementById('soundToggleBtn').addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      document.getElementById('soundIcon').innerText = soundEnabled ? '🔊' : '🔇';
+      playSound('click');
+    });
+
+    document.querySelectorAll('button, a').forEach(el => {
+      el.addEventListener('click', () => playSound('click'));
+    });
+  </script>
+
+  <!-- ================= THREE.JS: ИНТЕРАКТИВНЫЙ 3D-МАСКОТ «НЕЙРИК» ================= -->
+  <script>
+    let scene, camera, renderer;
+    let robotGroup, headGroup, eyeLeft, eyeRight, visorMesh;
+    let beretMesh, bookMesh, controllerMesh;
+    let targetRotationX = 0, targetRotationY = 0;
+    let currentRotationX = 0, currentRotationY = 0;
+    let clock = new THREE.Clock();
+
+    function init3D() {
+      const container = document.getElementById('webgl-container');
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      // Сцена
+      scene = new THREE.Scene();
+
+      // Камера
+      camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+      camera.position.set(0, 0.4, 3.8);
+
+      // Рендерер
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      container.appendChild(renderer.domElement);
+
+      // Освещение
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+      scene.add(ambientLight);
+
+      const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      mainLight.position.set(3, 5, 4);
+      scene.add(mainLight);
+
+      const fillLight = new THREE.PointLight(0x0284c7, 1.2, 8);
+      fillLight.position.set(-2, 1, 2);
+      scene.add(fillLight);
+
+      const purpleLight = new THREE.PointLight(0x8b5cf6, 1.0, 8);
+      purpleLight.position.set(2, -1, 1.5);
+      scene.add(purpleLight);
+
+      // Материалы робота (стилизованный чистый пластик)
+      const whitePlastic = new THREE.MeshStandardMaterial({
+        color: 0xf8fafc,
+        roughness: 0.25,
+        metalness: 0.1
+      });
+
+      const cyanAccent = new THREE.MeshStandardMaterial({
+        color: 0x0284c7,
+        roughness: 0.3,
+        metalness: 0.2
+      });
+
+      const darkVisor = new THREE.MeshStandardMaterial({
+        color: 0x0f172a,
+        roughness: 0.1,
+        metalness: 0.8
+      });
+
+      const glowEyesMat = new THREE.MeshBasicMaterial({
+        color: 0x38bdf8
+      });
+
+      // Группа всего робота
+      robotGroup = new THREE.Group();
+      scene.add(robotGroup);
+
+      // ТЕЛО (Округлое яйцевидное / капсульное)
+      const bodyGeo = new THREE.SphereGeometry(0.55, 32, 32);
+      bodyGeo.scale(1, 1.15, 0.9);
+      const bodyMesh = new THREE.Mesh(bodyGeo, whitePlastic);
+      bodyMesh.position.y = -0.3;
+      robotGroup.add(bodyMesh);
+
+      // Ядро на груди (светящееся сердце ИИ)
+      const coreGeo = new THREE.SphereGeometry(0.12, 16, 16);
+      const coreMat = new THREE.MeshBasicMaterial({ color: 0x10b981 });
+      const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+      coreMesh.position.set(0, -0.25, 0.48);
+      robotGroup.add(coreMesh);
+
+      // ГОЛОВА
+      headGroup = new THREE.Group();
+      headGroup.position.set(0, 0.55, 0);
+      robotGroup.add(headGroup);
+
+      const headGeo = new THREE.SphereGeometry(0.48, 32, 32);
+      headGeo.scale(1.15, 0.95, 1.0);
+      const headMesh = new THREE.Mesh(headGeo, whitePlastic);
+      headGroup.add(headMesh);
+
+      // Черный экран-визор
+      const visorGeo = new THREE.SphereGeometry(0.38, 32, 16);
+      visorGeo.scale(1.05, 0.7, 0.4);
+      visorMesh = new THREE.Mesh(visorGeo, darkVisor);
+      visorMesh.position.set(0, 0.02, 0.38);
+      headGroup.add(visorMesh);
+
+      // Глаза робота (цифровые светящиеся круги)
+      const eyeGeo = new THREE.CylinderGeometry(0.06, 0.06, 0.02, 16);
+      eyeGeo.rotateX(Math.PI / 2);
+
+      eyeLeft = new THREE.Mesh(eyeGeo, glowEyesMat);
+      eyeLeft.position.set(-0.16, 0.04, 0.52);
+      headGroup.add(eyeLeft);
+
+      eyeRight = new THREE.Mesh(eyeGeo, glowEyesMat);
+      eyeRight.position.set(0.16, 0.04, 0.52);
+      headGroup.add(eyeRight);
+
+      // Антенна на голове
+      const antPoleGeo = new THREE.CylinderGeometry(0.02, 0.02, 0.22);
+      const antPole = new THREE.Mesh(antPoleGeo, cyanAccent);
+      antPole.position.set(0, 0.52, 0);
+      headGroup.add(antPole);
+
+      const antBallGeo = new THREE.SphereGeometry(0.06, 16, 16);
+      const antBallMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b });
+      const antBall = new THREE.Mesh(antBallGeo, antBallMat);
+      antBall.position.set(0, 0.65, 0);
+      headGroup.add(antBall);
+
+      // Плечи / Магнитные лапки
+      const handGeo = new THREE.SphereGeometry(0.13, 16, 16);
+      handGeo.scale(0.8, 1.2, 0.8);
+      
+      const handLeft = new THREE.Mesh(handGeo, cyanAccent);
+      handLeft.position.set(-0.68, -0.25, 0.05);
+      robotGroup.add(handLeft);
+
+      const handRight = new THREE.Mesh(handGeo, cyanAccent);
+      handRight.position.set(0.68, -0.25, 0.05);
+      robotGroup.add(handRight);
+
+      // --- ПРЕДМЕТЫ ДЛЯ РЕЖИМОВ ---
+      
+      // 1. Берет художника (режим Draw)
+      const beretGeo = new THREE.CylinderGeometry(0.35, 0.25, 0.1, 24);
+      const beretMat = new THREE.MeshStandardMaterial({ color: 0xf43f5e });
+      beretMesh = new THREE.Mesh(beretGeo, beretMat);
+      beretMesh.position.set(0.2, 0.46, -0.05);
+      beretMesh.rotation.z = -0.35;
+      beretMesh.visible = false;
+      headGroup.add(beretMesh);
+
+      // 2. Книга сказок (режим Story)
+      const bookGeo = new THREE.BoxGeometry(0.3, 0.08, 0.4);
+      const bookMat = new THREE.MeshStandardMaterial({ color: 0x8b5cf6 });
+      bookMesh = new THREE.Mesh(bookGeo, bookMat);
+      bookMesh.position.set(0.55, -0.1, 0.25);
+      bookMesh.rotation.set(0.4, 0.2, -0.2);
+      bookMesh.visible = false;
+      robotGroup.add(bookMesh);
+
+      // 3. Игровой джойстик (режим Game)
+      const ctrlGeo = new THREE.BoxGeometry(0.32, 0.14, 0.08);
+      const ctrlMat = new THREE.MeshStandardMaterial({ color: 0x10b981 });
+      controllerMesh = new THREE.Mesh(ctrlGeo, ctrlMat);
+      controllerMesh.position.set(0, -0.3, 0.65);
+      controllerMesh.visible = false;
+      robotGroup.add(controllerMesh);
+
+      // Интерактивное слежение за курсором/пальцем
+      const handlePointerMove = (e) => {
+        const rect = container.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const x = ((clientX - rect.left) / rect.width) * 2 - 1;
+        const y = -(((clientY - rect.top) / rect.height) * 2 - 1);
+
+        targetRotationY = x * 0.6;
+        targetRotationX = -y * 0.35;
+      };
+
+      container.addEventListener('mousemove', handlePointerMove);
+      container.addEventListener('touchmove', handlePointerMove, { passive: true });
+
+      // Ресайз
+      window.addEventListener('resize', onWindowResize);
+    }
+
+    function onWindowResize() {
+      const container = document.getElementById('webgl-container');
+      if (!container || !renderer || !camera) return;
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    }
+
+    // Анимационный цикл
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const elapsed = clock.getElapsedTime();
+
+      // Плавное слежение за курсором
+      currentRotationY += (targetRotationY - currentRotationY) * 0.08;
+      currentRotationX += (targetRotationX - currentRotationX) * 0.08;
+
+      if (headGroup) {
+        headGroup.rotation.y = currentRotationY;
+        headGroup.rotation.x = currentRotationX;
+      }
+
+      if (robotGroup) {
+        // Мягкое парение робота вверх-вниз
+        robotGroup.position.y = Math.sin(elapsed * 2.2) * 0.06;
+        robotGroup.rotation.y = currentRotationY * 0.3;
+      }
+
+      // Моргание глаз
+      const blink = Math.sin(elapsed * 3);
+      if (blink > 0.98 && eyeLeft && eyeRight) {
+        eyeLeft.scale.y = 0.1;
+        eyeRight.scale.y = 0.1;
+      } else if (eyeLeft && eyeRight) {
+        eyeLeft.scale.y = 1;
+        eyeRight.scale.y = 1;
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    // Переключение режимов робота
+    function setRobotMode(mode) {
+      playSound('magic');
+      const bubble = document.getElementById('robotSpeechBubble');
+
+      // Сброс аксессуаров
+      beretMesh.visible = false;
+      bookMesh.visible = false;
+      controllerMesh.visible = false;
+
+      // Сброс подсветки кнопок
+      document.querySelectorAll('.robot-btn').forEach(btn => {
+        btn.classList.remove('ring-2', 'ring-brand-500', 'bg-brand-50');
+      });
+
+      const activeBtn = document.querySelector(`.robot-btn[data-mode="${mode}"]`);
+      if (activeBtn) {
+        activeBtn.classList.add('ring-2', 'ring-brand-500', 'bg-brand-50');
+      }
+
+      if (mode === 'draw') {
+        beretMesh.visible = true;
+        bubble.innerHTML = '«Я надел берет! Мы научимся генерировать <b>мультфильмы</b> и рисовать с нейросетями!» 🎨';
+      } else if (mode === 'story') {
+        bookMesh.visible = true;
+        bubble.innerHTML = '«Открываем книгу! Мы сочиним аудиосказку, где <b>ты главный герой</b>!» 📖✨';
+      } else if (mode === 'game') {
+        controllerMesh.visible = true;
+        bubble.innerHTML = '«Джойстик готов! Научимся создавать <b>свои игры</b> с искусственным интеллектом!» 🎮👾';
+      }
+    }
+
+    window.onload = function () {
+      init3D();
+      animate();
+    };
+  </script>
+
+  <!-- ================= ЛОГИКА ПЕСОЧНИЦЫ, ТАРИФОВ, FAQ И МОДАЛОК ================= -->
+  <script>
+    // 0. Интерактивный симулятор PISA (OECD)
+    const pisaTasks = {
+      reading: {
+        badge: "Читательская грамотность · 2–3 класс",
+        title: "Кейс «Детектив новостей: Ошибка нейросети»",
+        scenario: "Робот Нейрик сгенерировал заметку: «Пингвины живут в жаркой пустыне Сахара и любят греться на горячем песке около кактусов». Какое утверждение точно доказывает ошибку?",
+        options: [
+          { text: "А) Пингвинам тяжело бегать по горячему песку", isCorrect: false },
+          { text: "Б) Пингвины — водоплавающие птицы полярных регионов, их среда — холодные воды и снега", isCorrect: true },
+          { text: "В) В Сахаре вместо кактусов растут только пальмы", isCorrect: false }
+        ],
+        explanation: "Верно! PISA оценивает умение опираться на доказанные факты, а не интуицию. Ученик учится проверять сгенерированный нейросетью контент (фактчекинг)."
+      },
+      math: {
+        badge: "Математическая логика · 3–4 класс",
+        title: "Кейс «Марсоход и батарея»",
+        scenario: "Марсоходу нужно проехать 12 км до исследовательской пещеры. На каждый километр тратится 5% заряда. Сейчас у него 70% батареи. Хватит ли ему энергии доехать и вернуться обратно?",
+        options: [
+          { text: "А) Да, заряда с запасом хватит на оба пути", isCorrect: false },
+          { text: "Б) Хватит только на путь в одну сторону (нужно 60%), на обратный путь не хватит", isCorrect: true },
+          { text: "В) Заряда не хватит даже в одну сторону", isCorrect: false }
+        ],
+        explanation: "Точно! 12 км × 5% = 60% (путь туда). На обратный путь нужно еще 60% (всего 120%). PISA учит применять арифметику в реальных жизненных и инженерных ситуациях."
+      },
+      science: {
+        badge: "Естественно-научная грамотность · 1–2 класс",
+        title: "Кейс «Тепличный робот на орбите»",
+        scenario: "В космической оранжерее растения стали увядать. Робот включил свет на 24 часа и закрыл датчики влажности. Что необходимо проверить в первую очередь для спасения фотосинтеза?",
+        options: [
+          { text: "А) Включить громкую космическую музыку", isCorrect: false },
+          { text: "Б) Полив почвы и уровень углекислого газа в куполе", isCorrect: true },
+          { text: "В) Покрасить листья в ярко-синий цвет", isCorrect: false }
+        ],
+        explanation: "Превосходно! В PISA важно понимать причинно-следственные связи живой природы: свет без воды и углекислого газа не запустит процесс роста растений."
+      }
+    };
+
+    let currentPisaTab = 'reading';
+
+    function renderPisaTask(tabKey) {
+      const task = pisaTasks[tabKey];
+      const container = document.getElementById('pisaQuestionContainer');
+      const explanationBox = document.getElementById('pisaExplanationBox');
+      explanationBox.classList.add('hidden');
+
+      container.innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">${task.badge}</span>
+          <span class="text-xs text-slate-400 font-medium">OECD PISA Format</span>
+        </div>
+        <h4 class="text-base font-extrabold text-slate-900">${task.title}</h4>
+        <p class="text-xs sm:text-sm text-slate-700 bg-slate-50 p-3.5 rounded-xl border border-slate-200 leading-relaxed">
+          ${task.scenario}
+        </p>
+        <div class="space-y-2 pt-1">
+          ${task.options.map((opt, i) => `
+            <button onclick="checkPisaAnswer(${i})" class="pisa-opt-btn w-full text-left p-3 sm:p-3.5 rounded-xl border-2 border-slate-200 hover:border-indigo-400 text-xs sm:text-sm font-semibold text-slate-800 transition-all flex items-center justify-between">
+              <span>${opt.text}</span>
+              <span class="text-slate-400 text-xs">Выбрать</span>
+            </button>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function switchPisaTab(tabKey) {
+      playSound('click');
+      currentPisaTab = tabKey;
+      document.querySelectorAll('.pisa-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-indigo-900', 'shadow-md');
+        btn.classList.add('bg-indigo-950/50', 'text-indigo-200');
+      });
+      const activeBtn = document.getElementById(`pisaTab-${tabKey}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-indigo-950/50', 'text-indigo-200');
+        activeBtn.classList.add('bg-white', 'text-indigo-900', 'shadow-md');
+      }
+      renderPisaTask(tabKey);
+    }
+
+    function checkPisaAnswer(optionIndex) {
+      const task = pisaTasks[currentPisaTab];
+      const selectedOption = task.options[optionIndex];
+      const buttons = document.querySelectorAll('.pisa-opt-btn');
+      const explanationBox = document.getElementById('pisaExplanationBox');
+      const status = document.getElementById('pisaResultStatus');
+      const explanation = document.getElementById('pisaResultExplanation');
+
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (task.options[idx].isCorrect) {
+          btn.classList.remove('border-slate-200');
+          btn.classList.add('border-emerald-500', 'bg-emerald-50/70', 'text-emerald-900');
+        } else if (idx === optionIndex && !selectedOption.isCorrect) {
+          btn.classList.remove('border-slate-200');
+          btn.classList.add('border-rose-400', 'bg-rose-50', 'text-rose-900');
+        }
+      });
+
+      if (selectedOption.isCorrect) {
+        playSound('success');
+        status.innerText = 'Верно! Отличная функциональная логика 🌟';
+        status.className = 'text-sm font-extrabold text-emerald-900';
+        explanationBox.className = 'mt-5 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 transition-all flex items-start gap-4';
+      } else {
+        playSound('magic');
+        status.innerText = 'Почти получилось! Давайте разберем почему:';
+        status.className = 'text-sm font-extrabold text-amber-900';
+        explanationBox.className = 'mt-5 p-4 rounded-2xl bg-amber-50 border border-amber-200 transition-all flex items-start gap-4';
+      }
+
+      explanation.innerText = task.explanation;
+      explanationBox.classList.remove('hidden');
+    }
+
+    // Инициализация первой задачи PISA при старте
+    document.addEventListener('DOMContentLoaded', () => {
+      renderPisaTask('reading');
+    });
+
+    // 1. Песочница
+    let currentHero = 'Космический котёнок 🐱';
+    let currentAction = 'собирает светящиеся кристаллы на Марсе 💎';
+    let currentStyle = '3D-мультфильм Pixar ✨';
+
+    function selectSandboxOption(type, value, btnElement) {
+      playSound('click');
+      const parent = btnElement.parentElement;
+      parent.querySelectorAll('.sandbox-opt').forEach(b => {
+        b.classList.remove('border-brand-500', 'border-accent-purple', 'border-accent-amber', 'shadow-sm');
+        b.classList.add('border-slate-200');
+      });
+
+      if (type === 'hero') {
+        btnElement.classList.add('border-brand-500', 'shadow-sm');
+        currentHero = value;
+      } else if (type === 'action') {
+        btnElement.classList.add('border-accent-purple', 'shadow-sm');
+        currentAction = value;
+      } else if (type === 'style') {
+        btnElement.classList.add('border-accent-amber', 'shadow-sm');
+        currentStyle = value;
+      }
+
+      document.getElementById('assembledPrompt').innerText = 
+        `«${currentHero} ${currentAction} в стиле ${currentStyle}»`;
+    }
+
+    function generateSandboxResult() {
+      playSound('magic');
+      const visual = document.getElementById('resultVisual');
+      const title = document.getElementById('resultTitle');
+      const desc = document.getElementById('resultDesc');
+
+      let icon = '🐱✨';
+      if (currentHero.includes('динозавр')) icon = '🦖🍕';
+      if (currentHero.includes('Робот')) icon = '🤖⚡';
+
+      visual.innerText = icon;
+      title.innerText = `${currentHero.split(' ')[0]} в действии!`;
+      desc.innerText = `Промпт успешно обработан детской песочницей: создана анимационная открытка в стиле «${currentStyle}». Ученик заработал +50 кристаллов опыта!`;
+
+      visual.classList.add('scale-110');
+      setTimeout(() => visual.classList.remove('scale-110'), 250);
+    }
+
+    // 2. Демо аудио
+    function playDemoAudio() {
+      playSound('magic');
+      showToast('Аудиосказка запущена', '«Жил-был робот Тимка, который мечтал увидеть звезды...»');
+    }
+
+    // 3. Переключатель тарифов Месяц / Год
+    let isYearly = false;
+    function toggleBilling(yearly) {
+      isYearly = yearly;
+      playSound('click');
+
+      const labelMonth = document.getElementById('labelMonth');
+      const labelYear = document.getElementById('labelYear');
+
+      if (isYearly) {
+        labelYear.classList.add('bg-white', 'text-slate-900', 'shadow-sm');
+        labelYear.classList.remove('text-slate-500');
+        labelMonth.classList.remove('bg-white', 'text-slate-900', 'shadow-sm');
+        labelMonth.classList.add('text-slate-500');
+      } else {
+        labelMonth.classList.add('bg-white', 'text-slate-900', 'shadow-sm');
+        labelMonth.classList.remove('text-slate-500');
+        labelYear.classList.remove('bg-white', 'text-slate-900', 'shadow-sm');
+        labelYear.classList.add('text-slate-500');
+      }
+
+      document.querySelectorAll('.price-val').forEach(el => {
+        el.innerText = isYearly ? el.getAttribute('data-year') : el.getAttribute('data-month');
+      });
+    }
+
+    // 4. Переключатель классов (1-2 vs 3-4)
+    function switchGradeTab(grade) {
+      playSound('click');
+      const tab1 = document.getElementById('gradeTab1');
+      const tab2 = document.getElementById('gradeTab2');
+      const content1 = document.getElementById('gradeContent1');
+      const content2 = document.getElementById('gradeContent2');
+
+      if (grade === 1) {
+        tab1.className = 'px-6 py-3 rounded-xl font-bold text-sm bg-white text-slate-900 shadow-md transition-all';
+        tab2.className = 'px-6 py-3 rounded-xl font-bold text-sm text-slate-500 hover:text-slate-900 transition-all';
+        content1.classList.remove('hidden');
+        content2.classList.add('hidden');
+      } else {
+        tab2.className = 'px-6 py-3 rounded-xl font-bold text-sm bg-white text-slate-900 shadow-md transition-all';
+        tab1.className = 'px-6 py-3 rounded-xl font-bold text-sm text-slate-500 hover:text-slate-900 transition-all';
+        content2.classList.remove('hidden');
+        content1.classList.add('hidden');
+      }
+    }
+
+    // 5. FAQ Аккордеон
+    function toggleFaq(btn) {
+      playSound('click');
+      const content = btn.nextElementSibling;
+      const icon = btn.querySelector('.faq-icon');
+      const isHidden = content.classList.contains('hidden');
+
+      // Закрыть другие
+      document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+      document.querySelectorAll('.faq-icon').forEach(i => {
+        i.innerText = '+';
+        i.style.transform = 'rotate(0deg)';
+      });
+
+      if (isHidden) {
+        content.classList.remove('hidden');
+        icon.innerText = '−';
+        icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    // 6. Модальные окна
+    function openLeadModal(context) {
+      playSound('click');
+      if (context) {
+        document.getElementById('modalTitle').innerText = `${context}`;
+      }
+      document.getElementById('leadModal').classList.remove('hidden');
+    }
+
+    function openSchoolModal() {
+      playSound('click');
+      document.getElementById('schoolModal').classList.remove('hidden');
+    }
+
+    function closeModals() {
+      playSound('click');
+      document.getElementById('leadModal').classList.add('hidden');
+      document.getElementById('schoolModal').classList.add('hidden');
+    }
+
+    // Закрытие по клику на фон
+    window.addEventListener('click', (e) => {
+      if (e.target.id === 'leadModal' || e.target.id === 'schoolModal') {
+        closeModals();
+      }
+    });
+
+    // Отправка лид-формы
+    function handleLeadSubmit(e) {
+      e.preventDefault();
+      playSound('success');
+      closeModals();
+      showToast('Ура! Доступ открыт 🎉', 'Инструкция для первого квеста отправлена вам в мессенджер.');
+    }
+
+    function handleSchoolSubmit(e) {
+      e.preventDefault();
+      playSound('success');
+      closeModals();
+      showToast('Заявка принята 🏫', 'Методический комплект и тестовые доступы высланы на почту.');
+    }
+
+    function downloadCurriculumMock() {
+      playSound('magic');
+      showToast('План уроков (PDF)', 'Загрузка поурочной программы для 1-4 классов началась...');
+    }
+
+    // Тост уведомления
+    function showToast(title, desc) {
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastTitle').innerText = title;
+      document.getElementById('toastDesc').innerText = desc;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 4500);
+    }
+
+    // Мобильное меню
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      playSound('click');
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+  </script>
+
+</body>
+</html>
