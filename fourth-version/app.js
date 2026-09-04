@@ -5,6 +5,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   initLanguageSwitcher();
+  initDockDropdowns();
   initHeroGraph();
   initPromptLab();
   initStudentTracks();
@@ -396,4 +397,48 @@ function initModal() {
       }
     });
   }
+}
+
+// --- 9. Dock Dropdowns Controller ---
+function initDockDropdowns() {
+  const dropdownItems = document.querySelectorAll(".dock-nav-item.has-dropdown");
+  if (!dropdownItems.length) return;
+
+  dropdownItems.forEach(item => {
+    const toggle = item.querySelector(".dropdown-toggle");
+    if (!toggle) return;
+
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isOpen = item.classList.contains("open");
+      dropdownItems.forEach(i => {
+        i.classList.remove("open");
+        const t = i.querySelector(".dropdown-toggle");
+        if (t) t.setAttribute("aria-expanded", "false");
+      });
+      if (!isOpen) {
+        item.classList.add("open");
+        toggle.setAttribute("aria-expanded", "true");
+      }
+    });
+
+    // Close when clicking any link inside dropdown
+    item.querySelectorAll(".dock-dropdown-item").forEach(link => {
+      link.addEventListener("click", () => {
+        item.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  });
+
+  // Close on click outside
+  document.addEventListener("click", (e) => {
+    dropdownItems.forEach(item => {
+      if (!item.contains(e.target)) {
+        item.classList.remove("open");
+        const toggle = item.querySelector(".dropdown-toggle");
+        if (toggle) toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
 }
