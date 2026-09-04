@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Mektep — онлайн-платформа обучения школьников искусственному интеллекту</title>
+<meta name="description" content="Онлайн-платформа обучения школьников ИИ и ИИ-инструментам: курсы по возрасту, практика с чат-ассистентами и генераторами, аналитика прогресса для учителей и школ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@500;600;800;900&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23ECEFE8'/><path d='M4 26 L12 20 L20 12 L28 6' stroke='%236B3FA0' stroke-width='3' fill='none' stroke-linecap='round'/></svg>">
+</head>
+<body>
+
+<!-- линейка сетки, на которой сидит вся страница -->
+<div class="ruler" aria-hidden="true"><div class="ruler-inner"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-ai" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.2 6.2l2.8 2.8M15 15l2.8 2.8M17.8 6.2 15 9M9 15l-2.8 2.8"/><circle cx="12" cy="12" r="3.2"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4h6a2.5 2.5 0 0 1 2 2 2.5 2.5 0 0 1 2-2h6v14h-6a2.5 2.5 0 0 0-2 2 2.5 2.5 0 0 0-2-2H4z"/><path d="M12 6v14"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 16v-4M12.5 16V8M17 16v-6"/></symbol>
+  <symbol id="i-board" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M12 16v4M8 20h8M7 8h6M7 12h4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Перейти к содержанию</a>
+
+<header class="head" id="top">
+  <div class="wrap head-in">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 24"><path d="M2 21 L10 15 L18 9 L30 3" /><circle cx="30" cy="3" r="2.5" class="dot"/></svg>
+      </span>
+      <span class="brand-text">
+        <span class="brand-name">AI Mektep</span>
+        <span class="brand-tag" data-i18n="brand.tag">Курсы про ИИ для школьников</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Основная навигация">
+      <a href="#about" data-i18n="nav.about">О платформе</a>
+      <a href="#how" data-i18n="nav.features">Возможности</a>
+      <a href="#students" data-i18n="nav.students">Для учеников</a>
+      <a href="#teachers" data-i18n="nav.teachers">Для учителей</a>
+      <a href="#analytics" data-i18n="nav.analytics">Аналитика</a>
+      <a href="#courses" data-i18n="nav.courses">Курсы</a>
+      <a href="#faq" data-i18n="nav.faq">Вопросы</a>
+    </nav>
+
+    <div class="head-side">
+      <div class="lang" role="group" data-i18n-aria="lang.label" aria-label="Язык интерфейса">
+        <button type="button" class="lang-btn is-active" data-lang="ru" aria-pressed="true">RU</button>
+        <button type="button" class="lang-btn" data-lang="kz" aria-pressed="false">KZ</button>
+      </div>
+      <a class="btn btn-solid btn-sm" href="#cta" data-i18n="nav.cta">Начать обучение</a>
+      <button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="nav" data-i18n-aria="nav.menu" aria-label="Меню">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ ГЕРОЙ ============ -->
+<section class="hero">
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <h1 class="h1" data-i18n="hero.h1">Онлайн-платформа, где школьники учатся искусственному интеллекту</h1>
+      <p class="hero-sub" data-i18n="hero.sub">Курсы про ИИ и ИИ-инструменты: от первого знакомства до собственных проектов. Практика, задания и аналитика прогресса — в одной платформе.</p>
+      <div class="row-btns">
+        <a class="btn btn-solid" href="#cta" data-i18n="hero.cta1">Начать обучение</a>
+        <a class="btn btn-line" href="#courses" data-i18n="hero.cta2">Смотреть курсы</a>
+      </div>
+    </div>
+    <figure class="hero-plot">
+      <div id="heroPlot" class="plot plot-hero"></div>
+      <figcaption class="plot-cap" data-i18n="hero.plot.caption">Средний прогресс ученика по курсу за пять месяцев</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ ЧТО ТАКОЕ ПЛАТФОРМА ============ -->
+<section class="band" id="about">
+  <div class="wrap band-grid">
+    <div class="rail"><span class="rail-label" data-i18n="what.rail">Платформа</span></div>
+    <div class="band-body">
+      <h2 class="h2" data-i18n="what.h2">Четыре части одной системы</h2>
+      <p class="lead" data-i18n="what.lead">Ученик проходит курсы про ИИ, система измеряет освоенные навыки, учитель видит картину класса. Каждая часть работает на следующую.</p>
+      <div class="quad">
+        <article class="quad-cell">
+          <svg class="ico" aria-hidden="true"><use href="#i-ai"></use></svg>
+          <h3 class="h4" data-i18n="what.c1.t">Курсы про ИИ</h3>
+          <p data-i18n="what.c1.d">Пошаговые курсы объясняют простым языком, что такое искусственный интеллект, как он устроен и где применяется.</p>
+        </article>
+        <article class="quad-cell">
+          <svg class="ico" aria-hidden="true"><use href="#i-book"></use></svg>
+          <h3 class="h4" data-i18n="what.c2.t">ИИ-инструменты на практике</h3>
+          <p data-i18n="what.c2.d">Ученик работает с реальными инструментами: чат-ассистентами, генераторами изображений, текста, презентаций и озвучки.</p>
+        </article>
+        <article class="quad-cell">
+          <svg class="ico" aria-hidden="true"><use href="#i-chart"></use></svg>
+          <h3 class="h4" data-i18n="what.c3.t">Аналитика</h3>
+          <p data-i18n="what.c3.d">Результаты собираются автоматически. Ученик и учитель видят динамику по курсам и навыкам, а не разовую оценку.</p>
+        </article>
+        <article class="quad-cell">
+          <svg class="ico" aria-hidden="true"><use href="#i-board"></use></svg>
+          <h3 class="h4" data-i18n="what.c4.t">Кабинет учителя</h3>
+          <p data-i18n="what.c4.d">Готовые материалы для уроков и один экран, на котором видно прогресс класса, слабые темы и учеников, которым нужна помощь.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ КАК РАБОТАЕТ ============ -->
+<section class="band" id="how">
+  <div class="wrap band-grid">
+    <div class="rail"><span class="rail-label" data-i18n="how.rail">Процесс</span></div>
+    <div class="band-body">
+      <h2 class="h2" data-i18n="how.h2">Как проходит обучение</h2>
+      <p class="lead" data-i18n="how.lead">Пять шагов, которые повторяются циклом: каждый пройденный курс открывает следующий.</p>
+      <ol class="steps">
+        <li class="step">
+          <span class="step-n">01</span>
+          <div class="step-body">
+            <h3 class="h4" data-i18n="how.s1.t">Выбор уровня</h3>
+            <p data-i18n="how.s1.d">Ученик указывает класс и проходит короткий входной тест. Система подбирает курс по возрасту и текущим знаниям об ИИ.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-n">02</span>
+          <div class="step-body">
+            <h3 class="h4" data-i18n="how.s2.t">Программа обучения</h3>
+            <p data-i18n="how.s2.d">Строится траектория курсов: от базовых понятий к практическим инструментам и собственным проектам.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-n">03</span>
+          <div class="step-body">
+            <h3 class="h4" data-i18n="how.s3.t">Обучение</h3>
+            <p data-i18n="how.s3.d">Урок — это короткая теория, разбор примера и практика с ИИ-инструментом. На каждом шаге доступна поддержка.</p>
+            <ul class="branch">
+              <li data-i18n="how.s3.a1">объяснить тему</li>
+              <li data-i18n="how.s3.a2">дать подсказку</li>
+              <li data-i18n="how.s3.a3">разобрать ошибку</li>
+              <li data-i18n="how.s3.a4">предложить дополнительное задание</li>
+            </ul>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-n">04</span>
+          <div class="step-body">
+            <h3 class="h4" data-i18n="how.s4.t">Практика и проекты</h3>
+            <p data-i18n="how.s4.d">Ученик выполняет задания, создаёт собственные работы с помощью изученных инструментов и проходит проверочные тесты.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-n">05</span>
+          <div class="step-body">
+            <h3 class="h4" data-i18n="how.s5.t">Аналитика и сертификат</h3>
+            <p data-i18n="how.s5.d">Система показывает прогресс ученику и учителю, по итогам курса выдаётся сертификат — и цикл начинается заново.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AI-ПОМОЩНИК ============ -->
+<section class="band band-tint" id="ai">
+  <div class="wrap band-grid">
+    <div class="rail"><span class="rail-label" data-i18n="ai.rail">Поддержка</span></div>
+    <div class="band-body">
+      <h2 class="h2" data-i18n="ai.h2">Ученик не остаётся один на один с нейросетью</h2>
+      <p class="lead" data-i18n="ai.lead">Встроенный наставник разбирает каждое практическое задание: показывает, почему запрос сработал или не сработал, и что изменить.</p>
+
+      <div class="split">
+        <div class="panel" id="aiDemo">
+          <p class="panel-t" data-i18n="ai.demo.title">Разбор задания</p>
+          <p class="demo-q" data-i18n="ai.demo.q">Нужно подготовить доклад о нехватке воды в Казахстане. Какой запрос к ИИ сработает лучше всего?</p>
+          <div class="opts" role="group">
+            <button type="button" class="opt" data-key="ai.demo.r2"><span data-i18n="ai.demo.o2">«Расскажи про воду»</span></button>
+            <button type="button" class="opt" data-key="ai.demo.r1" data-correct="1"><span data-i18n="ai.demo.o1">«Составь план доклада: тема, класс, объём, источники»</span></button>
+            <button type="button" class="opt" data-key="ai.demo.r3"><span data-i18n="ai.demo.o3">«Напиши доклад за меня»</span></button>
+            <button type="button" class="opt" data-key="ai.demo.r4"><span data-i18n="ai.demo.o4">«Вода Казахстан реферат срочно»</span></button>
+          </div>
+          <div class="demo-out" id="aiOut" aria-live="polite">
+            <p class="demo-idle" data-i18n="ai.demo.hint">Выберите вариант — наставник разберёт его вместе с вами.</p>
+          </div>
+        </div>
+
+        <div class="ai-list">
+          <h3 class="h4" data-i18n="ai.f.title">Что делает наставник на каждом задании</h3>
+          <ul class="ticks">
+            <li><svg class="tick" aria-hidden="true"><use href="#i-check"></use></svg><span data-i18n="ai.f1">объясняет темы про ИИ простым языком, по возрасту</span></li>
+            <li><svg class="tick" aria-hidden="true"><use href="#i-check"></use></svg><span data-i18n="ai.f2">помогает разобраться с ошибками в практике</span></li>
+            <li><svg class="tick" aria-hidden="true"><use href="#i-check"></use></svg><span data-i18n="ai.f3">даёт подсказку, а не готовый ответ</span></li>
+            <li><svg class="tick" aria-hidden="true"><use href="#i-check"></use></svg><span data-i18n="ai.f4">показывает удачные и неудачные примеры запросов</span></li>
+            <li><svg class="tick" aria-hidden="true"><use href="#i-check"></use></svg><span data-i18n="ai.f5">адаптирует сложность заданий</span></li>
+            <li><svg class="tick" aria-hidden="true"><use href="#i-check"></use></svg><span data-i18n="ai.f6">предлагает идеи проектов и дополнительные упражнения</span></li>
+            <li><svg class="tick" aria-hidden="true"><use href="#i-check"></use></svg><span data-i18n="ai.f7">формирует рекомендации ученику и учителю</span></li>
+            <li><svg class="tick" aria-hidden="true"><use href="#i-check"></use></svg><span data-i18n="ai.f8">подсказывает, какой курс проходить следующим</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ КУРСЫ ============ -->
+<section class="band" id="courses">
+  <div class="wrap band-grid">
+    <div class="rail"><span class="rail-label" data-i18n="crs.rail">Курсы</span></div>
+    <div class="band-body">
+      <h2 class="h2" data-i18n="crs.h2">Чему учит платформа</h2>
+      <p class="lead" data-i18n="crs.lead">Не «нажми кнопку в нейросети», а понимание: как ИИ работает, где ошибается и как получить от него нужный результат.</p>
+
+      <ul class="skills">
+        <li data-i18n="crs.sk1">Что такое искусственный интеллект</li>
+        <li data-i18n="crs.sk2">ИИ в повседневной жизни</li>
+        <li data-i18n="crs.sk3">Чат-ассистенты: как задать вопрос</li>
+        <li data-i18n="crs.sk4">Промпт-инжиниринг</li>
+        <li data-i18n="crs.sk5">Генерация изображений</li>
+        <li data-i18n="crs.sk6">Работа с текстом</li>
+        <li data-i18n="crs.sk7">Презентации и учебные проекты</li>
+        <li data-i18n="crs.sk8">Аудио и видео с ИИ</li>
+        <li data-i18n="crs.sk9">ИИ для учёбы: честно и с пользой</li>
+        <li data-i18n="crs.sk10">Почему ИИ ошибается: данные и «галлюцинации»</li>
+        <li data-i18n="crs.sk11">Безопасность и этика ИИ</li>
+        <li data-i18n="crs.sk12">Первые шаги в программировании ИИ</li>
+        <li data-i18n="crs.sk13">Профессии будущего</li>
+      </ul>
+
+      <div class="task" id="task">
+        <p class="panel-t" data-i18n="crs.task.label">Пример задания из курса «Промпт-инжиниринг»</p>
+        <h3 class="h4" data-i18n="crs.task.title">Точность ответа и формулировка запроса</h3>
+        <div class="task-grid">
+          <div class="task-plot"><div id="taskPlot" class="plot"></div></div>
+          <div class="task-side">
+            <p class="task-intro" data-i18n="crs.task.intro">На графике — доля верных ответов модели на один и тот же вопрос, в процентах. Каждый шаг добавляет к запросу одну деталь: уточнение задачи, роль, контекст, пример ответа.</p>
+            <p class="task-q" data-i18n="crs.task.q">На каком шаге точность выросла сильнее всего?</p>
+            <div class="opts opts-tight" role="radiogroup" id="taskOpts">
+              <button type="button" class="opt" role="radio" aria-checked="false" data-v="1"><span data-i18n="crs.task.o1">+ уточнение</span></button>
+              <button type="button" class="opt" role="radio" aria-checked="false" data-v="2"><span data-i18n="crs.task.o2">+ роль</span></button>
+              <button type="button" class="opt" role="radio" aria-checked="false" data-v="3" data-correct="1"><span data-i18n="crs.task.o3">+ контекст</span></button>
+              <button type="button" class="opt" role="radio" aria-checked="false" data-v="4"><span data-i18n="crs.task.o4">+ пример</span></button>
+            </div>
+            <div class="row-btns row-btns-tight">
+              <button type="button" class="btn btn-solid btn-sm" id="taskCheck" data-i18n="crs.task.check">Проверить ответ</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="taskHint" data-i18n="crs.task.hintbtn">Подсказка</button>
+            </div>
+            <div class="task-out" id="taskOut" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ДЛЯ УЧЕНИКА ============ -->
+<section class="band" id="students">
+  <div class="wrap band-grid">
+    <div class="rail"><span class="rail-label" data-i18n="stu.rail">Ученику</span></div>
+    <div class="band-body">
+      <h2 class="h2" data-i18n="stu.h2">Курсы про ИИ, которые адаптируются под возраст и уровень</h2>
+      <p class="lead" data-i18n="stu.lead">Три трека: игровое знакомство в начальных классах, практика и проекты в средних, продвинутые инструменты и профориентация в старших.</p>
+
+      <div class="split split-wide">
+        <ul class="feat">
+          <li><h3 class="h5" data-i18n="stu.c1.t">Программа по возрасту</h3><p data-i18n="stu.c1.d">Отдельные треки для 1–4, 5–8 и 9–11 классов: одна тема объясняется по-разному.</p></li>
+          <li><h3 class="h5" data-i18n="stu.c2.t">Практические задания</h3><p data-i18n="stu.c2.d">Каждый урок заканчивается практикой с реальным ИИ-инструментом, а не только теорией.</p></li>
+          <li><h3 class="h5" data-i18n="stu.c3.t">Мгновенная обратная связь</h3><p data-i18n="stu.c3.d">Ученик сразу видит результат и получает объяснение, пока задание ещё в голове.</p></li>
+          <li><h3 class="h5" data-i18n="stu.c4.t">Работа над ошибками</h3><p data-i18n="stu.c4.d">Система находит повторяющиеся ошибки и предлагает дополнительные задания на эту тему.</p></li>
+          <li><h3 class="h5" data-i18n="stu.c5.t">Проекты и сертификат</h3><p data-i18n="stu.c5.d">Ученик собирает собственные работы в портфолио и получает сертификат по итогам курса.</p></li>
+        </ul>
+
+        <aside class="panel stu-card">
+          <p class="panel-t" data-i18n="stu.card.name">Айсулу, 7 класс</p>
+          <div class="stu-ring">
+            <div id="stuRing" class="ring"></div>
+            <div class="stu-ring-txt">
+              <strong class="stu-pct">78<span>%</span></strong>
+              <span data-i18n="stu.card.done">Курс пройден</span>
+            </div>
+          </div>
+          <dl class="dl">
+            <dt data-i18n="stu.card.level">Уровень освоения</dt>
+            <dd><span class="lvl lvl-good"></span><span data-i18n="stu.card.level.v">Выше среднего</span></dd>
+            <dt data-i18n="stu.card.strong">Сильные темы</dt>
+            <dd data-i18n="stu.card.strong.v">Промпты, генерация изображений</dd>
+            <dt data-i18n="stu.card.weak">Слабые темы</dt>
+            <dd data-i18n="stu.card.weak.v">Проверка фактов, этика ИИ</dd>
+          </dl>
+          <a class="btn btn-solid btn-sm btn-block" href="#cta" data-i18n="stu.cta">Начать обучение</a>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ДЛЯ УЧИТЕЛЯ ============ -->
+<section class="band band-tint" id="teachers">
+  <div class="wrap band-grid">
+    <div class="rail"><span class="rail-label" data-i18n="tea.rail">Учителю</span></div>
+    <div class="band-body">
+      <h2 class="h2" data-i18n="tea.h2">Готовые курсы по ИИ и вся успеваемость класса — в одном кабинете</h2>
+      <p class="lead" data-i18n="tea.lead">Видно не только результат, но и причину: какие темы не даются, кто перестал заниматься, где нужен дополнительный урок.</p>
+
+      <div class="desk">
+        <div class="desk-bar">
+          <label class="fld"><span data-i18n="tea.f.class">Класс</span>
+            <select id="fClass"><option>5 «А»</option><option selected>7 «Б»</option><option>9 «А»</option></select>
+          </label>
+          <label class="fld"><span data-i18n="tea.f.subject">Курс</span>
+            <select id="fSubject">
+              <option value="0" data-i18n="tea.subj1">Основы ИИ</option>
+              <option value="1" data-i18n="tea.subj2">Промпт-инжиниринг</option>
+              <option value="2" data-i18n="tea.subj3">Генерация изображений</option>
+            </select>
+          </label>
+          <label class="fld"><span data-i18n="tea.f.period">Период</span>
+            <select id="fPeriod">
+              <option value="0" data-i18n="tea.per1">Сентябрь — январь</option>
+              <option value="1" data-i18n="tea.per2">Последний месяц</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="desk-kpi">
+          <div class="kpi"><strong id="kpi1">72%</strong><span data-i18n="tea.kpi1">Средний уровень класса</span></div>
+          <div class="kpi"><strong id="kpi2">24 / 28</strong><span data-i18n="tea.kpi2">Занимались на этой неделе</span></div>
+          <div class="kpi kpi-warn"><strong id="kpi3">6</strong><span><span data-i18n="tea.kpi3">Нужна помощь</span></span></div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th data-i18n="tea.th.name">Ученик</th>
+                <th data-i18n="tea.th.level">Уровень</th>
+                <th data-i18n="tea.th.progress">Прогресс</th>
+                <th data-i18n="tea.th.weak">Слабая тема</th>
+                <th data-i18n="tea.th.activity">Активность</th>
+              </tr>
+            </thead>
+            <tbody id="deskRows"></tbody>
+          </table>
+        </div>
+        <div class="mats">
+          <h3 class="h5" data-i18n="tea.mat.title">Учитель также получает</h3>
+          <ul class="ticks ticks-2">
+            <li><svg class="tick" aria-hidden="true"><use href="#i-check"></use></svg><span data-i18n="tea.mat1">готовые планы уроков по ИИ на весь курс</span></li>
+            <li><svg class="tick" aria-hidden="true"><use href="#i-check"></use></svg><span data-i18n="tea.mat2">презентации и раздаточные материалы</span></li>
+            <li><svg class="tick" aria-hidden="true"><use href="#i-check"></use></svg><span data-i18n="tea.mat3">банк практических заданий с ответами</span></li>
+            <li><svg class="tick" aria-hidden="true"><use href="#i-check"></use></svg><span data-i18n="tea.mat4">курс повышения квалификации для педагогов</span></li>
+          </ul>
+        </div>
+        <a class="btn btn-line btn-sm" href="#analytics" data-i18n="tea.cta">Посмотреть аналитику</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ АНАЛИТИКА ============ -->
+<section class="band" id="analytics">
+  <div class="wrap band-grid">
+    <div class="rail"><span class="rail-label" data-i18n="an.rail">Аналитика</span></div>
+    <div class="band-body">
+      <h2 class="h2" data-i18n="an.h2">Данные, по которым понятно, что делать</h2>
+      <p class="lead" data-i18n="an.lead">Четыре среза, которые школа получает без ручного сбора отчётов.</p>
+
+      <div class="an-grid">
+        <figure class="panel an-a">
+          <figcaption><span class="panel-t" data-i18n="an.p1">Прогресс ученика</span><span class="panel-s" data-i18n="an.p1.sub">средний результат по месяцам, %</span></figcaption>
+          <div id="anProgress" class="plot"></div>
+        </figure>
+
+        <figure class="panel an-b">
+          <figcaption><span class="panel-t" data-i18n="an.p2">Уровень класса</span><span class="panel-s" data-i18n="an.p2.sub">распределение 7 «Б», 28 учеников</span></figcaption>
+          <div class="stack" role="img" aria-label="Высокий 25%, средний 50%, требует внимания 25%">
+            <span class="stack-seg s-high" style="width:25%"></span>
+            <span class="stack-seg s-mid" style="width:50%"></span>
+            <span class="stack-seg s-low" style="width:25%"></span>
+          </div>
+          <ul class="legend">
+            <li><span class="lvl lvl-high"></span><span data-i18n="tea.lvl.high">Высокий</span><b>25%</b></li>
+            <li><span class="lvl lvl-mid"></span><span data-i18n="tea.lvl.mid">Средний</span><b>50%</b></li>
+            <li><span class="lvl lvl-low"></span><span data-i18n="tea.lvl.low">Требует внимания</span><b>25%</b></li>
+          </ul>
+        </figure>
+
+        <figure class="panel an-c">
+          <figcaption><span class="panel-t" data-i18n="an.p3">Сложные темы</span><span class="panel-s" data-i18n="an.p3.sub">доля ошибок в теме, %</span></figcaption>
+          <ul class="hbars">
+            <li><span class="hbar-l" data-i18n="an.p3.t2">Проверка фактов</span><span class="hbar"><i style="width:64%"></i></span><b>64</b></li>
+            <li><span class="hbar-l" data-i18n="an.p3.t4">Этика и авторские права</span><span class="hbar"><i style="width:51%"></i></span><b>51</b></li>
+            <li><span class="hbar-l" data-i18n="an.p3.t3">Генерация изображений: параметры</span><span class="hbar"><i style="width:43%"></i></span><b>43</b></li>
+            <li><span class="hbar-l" data-i18n="an.p3.t1">Промпт-инжиниринг</span><span class="hbar"><i style="width:29%"></i></span><b>29</b></li>
+          </ul>
+        </figure>
+
+        <figure class="panel an-d">
+          <figcaption><span class="panel-t" data-i18n="an.p4">Рекомендация системы</span><span class="panel-s" data-i18n="an.p4.meta">Обновлено сегодня</span></figcaption>
+          <p class="rec" data-i18n="an.p4.body">8 учеников испытывают сложности с формулировкой запросов. Рекомендуем провести дополнительное занятие по теме «Как правильно задать вопрос ИИ».</p>
+          <button type="button" class="btn btn-line btn-sm" data-modal="demo" data-i18n="an.p4.action">Собрать группу</button>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ЭКОСИСТЕМА ============ -->
+<section class="band band-tint" id="eco">
+  <div class="wrap band-grid">
+    <div class="rail"><span class="rail-label" data-i18n="eco.rail">Экосистема</span></div>
+    <div class="band-body">
+      <h2 class="h2" data-i18n="eco.h2">От ученика к учителю</h2>
+      <p class="lead" data-i18n="eco.lead">Один цикл данных связывает всех участников: то, что ученик проходит сегодня, завтра становится решением учителя.</p>
+      <ol class="chain">
+        <li class="chain-node"><span class="chain-name" data-i18n="eco.n1">Ученик</span><span class="chain-edge" data-i18n="eco.e1">проходит курс и выполняет задания</span></li>
+        <li class="chain-node"><span class="chain-name" data-i18n="eco.n2">Платформа</span><span class="chain-edge" data-i18n="eco.e2">анализирует результаты</span></li>
+        <li class="chain-node"><span class="chain-name" data-i18n="eco.n3">Аналитика</span><span class="chain-edge" data-i18n="eco.e3">формирует рекомендации</span></li>
+        <li class="chain-node"><span class="chain-name" data-i18n="eco.n4">Учитель</span><span class="chain-edge" data-i18n="eco.e4">получает отчёт и материалы к уроку</span></li>
+        <li class="chain-node chain-end"><span class="chain-name" data-i18n="eco.n5">Навык</span><span class="chain-edge" data-i18n="eco.e5">и возвращает ученику следующий курс</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ПРЕИМУЩЕСТВА ============ -->
+<section class="band" id="roles">
+  <div class="wrap band-grid">
+    <div class="rail"><span class="rail-label" data-i18n="adv.rail">Кому</span></div>
+    <div class="band-body">
+      <h2 class="h2" data-i18n="adv.h2">Что получает каждый</h2>
+      <div class="quad quad-4">
+        <article class="quad-cell"><p class="role" data-i18n="adv.r1">Ученик</p><h3 class="h4" data-i18n="adv.r1.t">Освой ИИ раньше остальных</h3><p data-i18n="adv.r1.d">Навык, который пригодится в учёбе, творчестве и будущей профессии.</p></article>
+        <article class="quad-cell"><p class="role" data-i18n="adv.r2">Учитель</p><h3 class="h4" data-i18n="adv.r2.t">Веди уроки по ИИ по готовой программе</h3><p data-i18n="adv.r2.d">Планы уроков, задания и аналитика класса — без подготовки материалов с нуля.</p></article>
+        <article class="quad-cell"><p class="role" data-i18n="adv.r3">Родитель</p><h3 class="h4" data-i18n="adv.r3.t">Видь, чему учится ребёнок</h3><p data-i18n="adv.r3.d">Пройденные курсы, проекты и динамика вместо «сидит в нейросети».</p></article>
+        <article class="quad-cell"><p class="role" data-i18n="adv.r4">Школа</p><h3 class="h4" data-i18n="adv.r4.t">Внедри курс по ИИ и управляй результатом</h3><p data-i18n="adv.r4.d">Готовая программа для классов и параллелей, отчётность формируется автоматически.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ЦИФРЫ ============ -->
+<section class="band band-nums" id="numbers">
+  <div class="wrap band-grid">
+    <div class="rail"><span class="rail-label" data-i18n="num.rail">Цифры</span></div>
+    <div class="band-body">
+      <h2 class="h2" data-i18n="num.h2">Платформа сегодня</h2>
+      <ul class="nums" id="nums">
+        <li><strong class="num" data-to="10000" data-suffix="+">0</strong><span data-i18n="num.n1">учеников</span></li>
+        <li><strong class="num" data-to="500000" data-suffix="+">0</strong><span data-i18n="num.n2">выполненных заданий</span></li>
+        <li><strong class="num" data-to="95" data-suffix="%">0</strong><span data-i18n="num.n3">активных пользователей</span></li>
+        <li><strong class="num" data-to="40" data-suffix="+">0</strong><span data-i18n="num.n4">курсов и модулей по ИИ</span></li>
+      </ul>
+      <p class="note" data-i18n="num.note">Показатели за учебный год, обновляются ежемесячно.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ПОЧЕМУ AI ============ -->
+<section class="band" id="why">
+  <div class="wrap band-grid">
+    <div class="rail"><span class="rail-label" data-i18n="why.rail">Почему это важно</span></div>
+    <div class="band-body">
+      <h2 class="h2" data-i18n="why.h2">Разница в том, понимает ли ученик, что происходит</h2>
+      <div class="cmp">
+        <div class="cmp-col">
+          <h3 class="h5" data-i18n="why.a.t">Без обучения</h3>
+          <ol class="flow flow-plain">
+            <li data-i18n="why.a.s1">Открыл нейросеть</li>
+            <li data-i18n="why.a.s2">Случайный запрос</li>
+            <li data-i18n="why.a.s3">Непонятный результат</li>
+            <li data-i18n="why.a.s4">Копирование</li>
+          </ol>
+        </div>
+        <div class="cmp-col cmp-col-ai">
+          <h3 class="h5" data-i18n="why.b.t">С платформой</h3>
+          <ol class="flow">
+            <li data-i18n="why.b.s1">Понимает, как работает ИИ</li>
+            <li data-i18n="why.b.s2">Формулирует точный запрос</li>
+            <li data-i18n="why.b.s3">Оценивает результат</li>
+            <li data-i18n="why.b.s4">Проверяет факты</li>
+            <li data-i18n="why.b.s5">Дорабатывает</li>
+            <li data-i18n="why.b.s6">Создаёт свой проект</li>
+          </ol>
+        </div>
+      </div>
+      <p class="claim" data-i18n="why.claim">Важно не просто пользоваться ИИ, а понимать его — тогда ИИ становится инструментом, а не заменой мышления.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="band" id="faq">
+  <div class="wrap band-grid">
+    <div class="rail"><span class="rail-label" data-i18n="faq.rail">Вопросы</span></div>
+    <div class="band-body">
+      <h2 class="h2" data-i18n="faq.h2">Частые вопросы</h2>
+      <div class="faq" id="faqList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ФИНАЛЬНЫЙ CTA ============ -->
+<section class="cta" id="cta">
+  <div class="wrap cta-in">
+    <h2 class="h2 cta-h" data-i18n="cta.h2">Научите детей понимать искусственный интеллект</h2>
+    <p class="cta-p" data-i18n="cta.p">Дайте ученикам навык, который определит их будущее: системные знания об ИИ и умение работать с ИИ-инструментами.</p>
+    <div class="row-btns row-btns-center">
+      <a class="btn btn-solid" href="#" data-i18n="cta.b1">Начать обучение</a>
+      <button type="button" class="btn btn-line" data-modal="demo" data-i18n="cta.b2">Запросить демонстрацию</button>
+      <button type="button" class="btn btn-ghost" data-modal="demo" data-i18n="cta.b3">Подключить школу</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <span class="brand-name">AI Mektep</span>
+      <p data-i18n="foot.about">Онлайн-платформа обучения школьников искусственному интеллекту и ИИ-инструментам. Курсы по возрасту для ученика, готовые уроки и аналитика для учителя, отчётность для школы.</p>
+      <div class="lang lang-foot" role="group" data-i18n-aria="lang.label" aria-label="Язык интерфейса">
+        <button type="button" class="lang-btn is-active" data-lang="ru" aria-pressed="true">RU</button>
+        <button type="button" class="lang-btn" data-lang="kz" aria-pressed="false">KZ</button>
+      </div>
+    </div>
+    <nav class="foot-col" aria-labelledby="fn1">
+      <h2 class="foot-t" id="fn1" data-i18n="foot.nav">Разделы</h2>
+      <a href="#about" data-i18n="nav.about">О платформе</a>
+      <a href="#how" data-i18n="nav.features">Возможности</a>
+      <a href="#students" data-i18n="nav.students">Для учеников</a>
+      <a href="#teachers" data-i18n="nav.teachers">Для учителей</a>
+      <a href="#analytics" data-i18n="nav.analytics">Аналитика</a>
+      <a href="#faq" data-i18n="nav.faq">Вопросы</a>
+    </nav>
+    <div class="foot-col">
+      <h2 class="foot-t" data-i18n="foot.contacts">Контакты</h2>
+      <a href="mailto:hello@aimektep.kz">hello@aimektep.kz</a>
+      <a href="tel:+77000000000">+7 700 000 00 00</a>
+      <span data-i18n="foot.city">Алматы, Казахстан</span>
+    </div>
+    <div class="foot-col">
+      <h2 class="foot-t" data-i18n="foot.docs">Документы</h2>
+      <a href="#" data-i18n="foot.privacy">Политика конфиденциальности</a>
+      <a href="#" data-i18n="foot.terms">Пользовательское соглашение</a>
+      <a href="#" data-i18n="foot.data">Защита данных учеников</a>
+    </div>
+  </div>
+  <div class="wrap foot-btm">
+    <span>© 2026 AI Mektep</span>
+    <span data-i18n="foot.rights">Все права защищены</span>
+  </div>
+</footer>
+
+<!-- ============ МОДАЛКА ============ -->
+<div class="modal" id="demo" hidden>
+  <div class="modal-back" data-close></div>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button type="button" class="modal-x" data-close data-i18n-aria="modal.close" aria-label="Закрыть">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div id="modalForm">
+      <h2 class="h3" id="modalTitle" data-i18n="modal.title">Запросить демонстрацию</h2>
+      <p class="modal-lead" data-i18n="modal.lead">Покажем программу курсов, кабинет учителя и материалы к урокам на примере вашей школы. Занимает 30 минут.</p>
+      <form id="demoForm" novalidate>
+        <label class="fld"><span data-i18n="modal.name">Имя и фамилия</span><input type="text" name="name" required autocomplete="name"></label>
+        <label class="fld"><span data-i18n="modal.org">Школа или организация</span><input type="text" name="org" required autocomplete="organization"></label>
+        <label class="fld"><span data-i18n="modal.role">Роль</span>
+          <select name="role">
+            <option data-i18n="modal.role1">Учитель</option>
+            <option data-i18n="modal.role2">Завуч</option>
+            <option data-i18n="modal.role3">Директор</option>
+            <option data-i18n="modal.role4">Родитель</option>
+          </select>
+        </label>
+        <label class="fld"><span data-i18n="modal.email">Электронная почта</span><input type="email" name="email" required autocomplete="email"></label>
+        <label class="fld"><span data-i18n="modal.phone">Телефон</span><input type="tel" name="phone" autocomplete="tel"></label>
+        <button type="submit" class="btn btn-solid btn-block" data-i18n="modal.submit">Запросить демонстрацию</button>
+      </form>
+    </div>
+    <div id="modalDone" hidden>
+      <h2 class="h3" data-i18n="modal.done.t">Демонстрация запрошена</h2>
+      <p class="modal-lead" data-i18n="modal.done.d">Свяжемся в течение рабочего дня и предложим время.</p>
+      <button type="button" class="btn btn-line btn-block" data-close data-i18n="modal.done.b">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
