@@ -49,6 +49,7 @@ html { font-size: 62.5%; }
   --wrap: 132rem;
   --gutter: 4rem;
   --head-h: 7.2rem;
+  --band-air: 12rem;
 
   /* моторика: фирменный ease Noomo */
   --ease-signal: cubic-bezier(.65, .05, .36, 1);
@@ -104,10 +105,19 @@ a { color: inherit; text-decoration: none; }
    ============================================================ */
 .band {
   position: relative;
+  z-index: 1;                 /* полосы рисуются поверх #scene (z-index:0) */
   background: var(--bg);
   color: var(--fg);
-  padding: 12rem 0;
+  padding: var(--band-air) 0;
 }
+/* Воздух — только на ink-полосах: они станут окнами в сцену, и переходам
+   нужно место. Раздавать 75vh всем 16 секциям (приём blueyard) нельзя —
+   удвоит длину страницы и нарушит п.20 ТЗ. */
+.band--air { --band-air: 18rem; }
+/* Прозрачность ink-полосы визуально no-op: body уже --ink-900 (см. body выше).
+   Именно поэтому сцена «проступает» только здесь, а её отсутствие
+   (нет WebGL / reduced / CDN упал) не меняет страницу ни на пиксель. */
+.band--ink { background: transparent; }
 .band--ink {
   --bg: var(--ink-900);
   --fg: var(--on-ink);
@@ -125,6 +135,18 @@ a { color: inherit; text-decoration: none; }
   --accent: var(--signal);
 }
 
+/* Третий тон бумаги — против склеек paper→paper (#tutor→#courses,
+   #why→#faq). Расширяем band-тему, а не палитру: правило «ровно один
+   хроматический акцент» (DESIGN.md §4) не нарушается. */
+.band--paper-2 {
+  --bg: #EAEEF7;
+  --fg: var(--on-paper);
+  --fg-dim: var(--on-paper-dim);
+  --line: #D3DAEA;
+  --surface: var(--card);
+  --accent: var(--signal);
+}
+
 /* мягкий градиент (п.19 ТЗ) — одним тоном, а не радугой */
 .band--ink::before {
   content: "";
@@ -133,6 +155,33 @@ a { color: inherit; text-decoration: none; }
   pointer-events: none;
 }
 .band > * { position: relative; }
+
+/* ============================================================
+   РАМКА-УГОЛКИ — приём ricardochance.com: страница читается
+   как прибор, а не как документ.
+   ============================================================ */
+/* сквозная сцена — под всем контентом, но НАД body-фоном */
+#scene {
+  position: fixed; inset: 0; z-index: 0;
+  display: block; width: 100%; height: 100%;
+  pointer-events: none;
+  /* Мягкий уход слева — там живёт текст. Маска на самом canvas, а не на
+     секционном слое: canvas сквозной и по-секционно маскироваться не может. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 34%);
+          mask-image: linear-gradient(90deg, transparent 0%, #000 34%);
+}
+
+.frame { position: fixed; inset: 2rem; pointer-events: none; z-index: 40; }
+/* цвет фиксированный, не var(--line): .frame живёт вне полос,
+   там --line даёт paper-значение, невидимое на тёмном */
+.frame i {
+  position: absolute; width: 1.6rem; height: 1.6rem;
+  border: 1px solid rgba(214, 227, 252, .22);
+}
+.frame i:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.frame i:nth-child(2) { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.frame i:nth-child(3) { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+.frame i:nth-child(4) { bottom: 0; right: 0; border-left: 0; border-top: 0; }
 
 .wrap { width: min(100% - var(--gutter) * 2, var(--wrap)); margin-inline: auto; }
 
@@ -204,6 +253,14 @@ p { max-width: 68ch; }
 }
 .js-reveal.is-in .word { transform: translateY(0); }
 
+/* Пословная подсветка по скроллу (.js-lit) — второй канал того же DOM:
+   ревил выше двигает transform, подсветка красит color.
+   Ставится дополнительно к .js-split на тот же узел. */
+.js-lit .word { color: var(--fg-dim); transition: color .45s var(--ease-out); }
+.js-lit .word.is-lit { color: var(--fg); }
+/* .hl splitWords завернул целиком как одно «слово» — таблетку не гасим */
+.js-lit .word.hl { color: #EAF0FF; }
+
 /* блочный ревил для карточек и панелей */
 .js-rise {
   opacity: 0; transform: translateY(2.4rem);
@@ -257,6 +314,9 @@ p { max-width: 68ch; }
   transition: border-color .35s var(--ease-signal), transform .35s var(--ease-signal);
 }
 .card:hover { border-color: var(--accent); transform: translateY(-4px); }
+/* те же правила для плиток, где ховера не было */
+.mat, .track, .stat { transition: border-color .3s var(--ease-out), transform .3s var(--ease-out); }
+.mat:hover, .track:hover { border-color: var(--accent); transform: translateY(-3px); }
 .card h3 { font-size: 2.1rem; font-weight: 600; line-height: 1.25; }
 .card p { font-size: 1.6rem; color: var(--fg-dim); }
 .card__n { font-family: "JetBrains Mono", monospace; font-size: 1.2rem; letter-spacing: .1em; color: var(--accent); }
@@ -344,7 +404,63 @@ p { max-width: 68ch; }
    ГЕРОЙ
    ============================================================ */
 .hero { padding-top: calc(var(--head-h) + 8rem); padding-bottom: 9rem; overflow: hidden; }
-.hero__grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 6rem; align-items: center; }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 68rem) 1fr; gap: 6rem; align-items: center; }
+
+/* Слой пинов занимает правую половину героя — там же, где сцена.
+   Маски на нём НЕТ: градиент, который мягко гасит сцену, съел бы лейблы. */
+.hero > .hero__pins {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(62vw, 92rem);
+  z-index: 2;
+  pointer-events: none;
+}
+.hero .wrap { position: relative; z-index: 1; }
+
+/* ---------- пины-выноски (приём mazehq.com), но со смыслом ---------- */
+.pin {
+  position: absolute; left: 0; top: 0;
+  opacity: 0;
+  transition: opacity .6s ease-in-out;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+/* .is-in — ревил при входе секции, .is-on — лицевая сторона сферы (фаза 5).
+   Селектор СОСТАВНОЙ: через запятую вышло бы «либо-либо». */
+.pin.is-in.is-on { opacity: 1; }
+
+.pin__label {
+  position: absolute; top: -5.4rem;
+  padding: .6rem 1rem;
+  background: var(--on-ink);
+  color: var(--ink-900);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.2rem; line-height: 1.2rem; letter-spacing: .02em;
+  border-radius: 0;            /* острые углы — часть приёма */
+  white-space: nowrap;
+}
+.pin--left  .pin__label { right: 4.6rem; }
+.pin--right .pin__label { left: 4.6rem; }
+
+.pin__line {
+  position: absolute; left: 0; top: 0;
+  width: 4rem; height: 1px;
+  background: var(--on-ink);
+  transform-origin: left center;
+  transform: rotate(-52deg);
+}
+.pin--left .pin__line { transform: rotate(-128deg); }
+
+.pin__dot {
+  position: absolute; left: -.5rem; top: -.5rem;
+  width: 1rem; height: 1rem;
+  border: 1px solid var(--on-ink);
+  box-shadow: inset 0 0 0 3px var(--ink-900), inset 0 0 0 5px var(--on-ink);
+}
+
+/* блочный ревил только по opacity — для узлов, которые сами пишут transform */
+.js-fade { opacity: 0; transition: opacity .7s var(--ease-out); }
+.js-fade.is-in { opacity: 1; }
 
 .hero__eyebrows { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 3.2rem; }
 .hero__eyebrows .micro { color: var(--on-ink); }
@@ -386,6 +502,14 @@ p { max-width: 68ch; }
 }
 .chain__node--end { background: var(--signal); border-color: var(--signal); color: #EAF0FF; }
 .chain__arrow { color: var(--fg-dim); flex: none; }
+/* Прорисовка стрелок — тот же приём, что у линии графика (.pl-line):
+   dasharray + transition по .is-in от существующего revealIO. */
+.chain__arrow path {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset .55s var(--ease-out) var(--d, 0s);
+}
+.chain__rail.is-in .chain__arrow path { stroke-dashoffset: 0; }
 .chain .lead { font-size: clamp(2rem, 2.4vw, 2.8rem); color: var(--fg); max-width: 46ch; }
 
 /* ============================================================
@@ -629,7 +753,12 @@ p { max-width: 68ch; }
   display: flex; align-items: center; gap: 1.6rem;
   padding: 1.8rem 0 1.8rem 2px; color: var(--fg-dim);
 }
-.eco__edge::before { content: ""; width: 1px; height: 3.2rem; background: var(--line); flex: none; }
+.eco__edge::before {
+  content: ""; width: 1px; height: 3.2rem; background: var(--line); flex: none;
+  transform: scaleY(0); transform-origin: top;
+  transition: transform .5s var(--ease-out);
+}
+.eco__edge.is-in::before { transform: scaleY(1); }
 
 /* ============================================================
    РОЛИ
@@ -735,8 +864,13 @@ p { max-width: 68ch; }
 
 @media (max-width: 1024px) {
   :root { --gutter: 2.4rem; }
-  .band { padding: 9rem 0; }
+  :root { --band-air: 9rem; }
+  .band--air { --band-air: 12rem; }
   .hero__grid { grid-template-columns: 1fr; gap: 4.8rem; }
+  .hero > .hero__pins { display: none; }
+  /* на узких экранах сцена — фон целиком, без выреза слева */
+  #scene { -webkit-mask-image: none; mask-image: none; opacity: .45; }
+  .pin { display: none; }
   .tutor__grid, .an__grid, .why__grid { grid-template-columns: 1fr; gap: 3.2rem; }
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
@@ -784,10 +918,12 @@ p { max-width: 68ch; }
 }
 
 @media (max-width: 768px) {
+  .frame { display: none; }
   .head__side .btn { display: none; }
 
   .grid-2, .grid-3, .grid-4, .tracks, .mats, .why__grid { grid-template-columns: 1fr; }
-  .band { padding: 7.2rem 0; }
+  :root { --band-air: 7.2rem; }
+  .band--air { --band-air: 9rem; }
   .sec-head { margin-bottom: 4rem; }
   .card, .course, .panel, .flow, .role, .track { padding: 2.4rem; }
   .hero { padding-top: calc(var(--head-h) + 5rem); }
@@ -824,6 +960,11 @@ p { max-width: 68ch; }
     scroll-behavior: auto !important;
   }
   .word { transform: none !important; }
+  .js-lit .word { color: var(--fg) !important; }
+  .js-lit .word.hl { color: #EAF0FF !important; }
   .js-rise { opacity: 1 !important; transform: none !important; }
+  .js-fade, .pin.is-on { opacity: 1 !important; }
+  .chain__arrow path { stroke-dashoffset: 0 !important; }
+  .eco__edge::before { transform: none !important; }
   .pre { display: none; }
 }

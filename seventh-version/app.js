@@ -6,7 +6,46 @@
 (function () {
   "use strict";
 
-  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* reduced — живая величина, а не снимок при загрузке: пользователь может
+     переключить настройку системы, не перезагружая страницу. */
+  var rmq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var reduced = rmq.matches;
+
+  function onReducedChange() {
+    reduced = rmq.matches;
+    if (reduced) freezeMotion();
+  }
+  if (rmq.addEventListener) rmq.addEventListener("change", onReducedChange);
+  else if (rmq.addListener) rmq.addListener(onReducedChange);
+
+  /* Не переинициализация, а заморозка: всё показать и остановить.
+     CSS-часть (@media prefers-reduced-motion) переключается сама. */
+  function freezeMotion() {
+    document.querySelectorAll(".js-rise, .js-fade, .js-rise-plain, .js-split").forEach(function (n) {
+      n.classList.add("is-in");
+    });
+    document.querySelectorAll(".word").forEach(function (w) { w.classList.add("is-lit"); });
+    killLit();
+    if (window.__scene) { window.__scene.dispose(); window.__scene = null; }
+  }
+
+  /* --- гейты возможностей и мощности --- */
+  function hasWebGL() {
+    try {
+      var c = document.createElement("canvas");
+      return !!(window.WebGL2RenderingContext && c.getContext("webgl2")) ||
+             !!(window.WebGLRenderingContext &&
+                (c.getContext("webgl") || c.getContext("experimental-webgl")));
+    } catch (e) { return false; }
+  }
+
+  var coarse = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  var conn = navigator.connection;
+  var lowPower = coarse ||
+    (navigator.hardwareConcurrency || 8) <= 4 ||
+    (navigator.deviceMemory || 8) <= 4 ||
+    !!(conn && (conn.saveData || /2g/.test(conn.effectiveType || "")));
+
   var NS = "http://www.w3.org/2000/svg";
 
   /* ==========================================================
@@ -230,6 +269,45 @@
     });
   }
 
+  /* Выноски на визуале героя (приём mazehq.com), но со смыслом:
+     подписи — направления платформы, а не декор. Лейблы несут data-i18n,
+     поэтому applyTranslations переводит их сама — как у 14 курсов и 14 FAQ,
+     и обработчику languageChanged добавлять ничего не нужно.
+     Поле `a` — 3D-якорь на сфере, используется начиная с фазы 5. */
+  var PINS = [
+    { k: "hero.pin1", side: "right", x: 62, y: 18, a: [ 0.82,  0.48, 0.30] },
+    { k: "hero.pin2", side: "left",  x: 88, y: 32, a: [-0.70,  0.10, 0.70] },
+    { k: "hero.pin3", side: "right", x: 68, y: 46, a: [ 0.55, -0.55, 0.62] },
+    { k: "hero.pin4", side: "left",  x: 84, y: 58, a: [-0.45, -0.72, 0.52] },
+    { k: "hero.pin5", side: "right", x: 60, y: 70, a: [ 0.20,  0.88, 0.43] }
+  ];
+
+  function renderPins() {
+    var host = document.getElementById("heroPins");
+    if (!host) return;
+    host.textContent = "";
+    PINS.forEach(function (p) {
+      var d = document.createElement("div");
+      /* js-fade, а не js-rise: .js-rise пишет transform, а пин двигает
+         себя сам — конфликт. Ревил у пина только по opacity. */
+      /* is-on — «лицевая сторона»; при статических координатах всегда true,
+         фаза 5 начнёт снимать его для точек на обратной стороне сферы */
+      /* без js-fade: правило .js-fade.is-in (0,2,0) перебивало бы
+         .pin.is-in.is-on и пин никогда бы не гас. Видимость пина
+         описывается только его собственной парой классов. */
+      d.className = "pin pin--" + p.side + " is-on";
+      /* left/top в процентах, а не transform: у .pin нулевой собственный
+         бокс (дети абсолютные), и translate(%) считался бы от нуля.
+         Фаза 5 обнулит left/top и перейдёт на transform в пикселях. */
+      d.style.left = p.x + "%";
+      d.style.top = p.y + "%";
+      d.innerHTML = '<span class="pin__label" data-i18n="' + p.k + '"></span>' +
+                    '<span class="pin__line"></span>' +
+                    '<span class="pin__dot"></span>';
+      host.appendChild(d);
+    });
+  }
+
   function renderFaq() {
     var host = document.getElementById("faqList");
     if (!host) return;
@@ -259,13 +337,22 @@
     document.querySelectorAll("#howPanes .how__pane").forEach(function (p) {
       p.classList.add("is-on");
     });
+    /* без ScrollTrigger подсветка невозможна — нейтральное состояние
+       «все слова яркие», иначе текст останется тусклым навсегда */
+    litFallback();
   }
 
   /* GSAP отвечает только за один запиненный скраб и плавный скролл.
      Все ревилы — на CSS-транзишенах (см. initReveals). */
+  /* ScrollTrigger нельзя использовать до registerPlugin. Стартовый
+     setLanguage() шлёт languageChanged раньше, чем отработает initMotion,
+     поэтому нужен явный флаг, а не проверка наличия window.ScrollTrigger. */
+  var motionReady = false;
+
   function initMotion() {
     if (reduced || !window.gsap) { motionFallback(); return; }
     gsap.registerPlugin(ScrollTrigger);
+    motionReady = true;
 
     /* плавный скролл — но без скролл-джекинга: длина страницы нативная */
     if (window.Lenis) {
@@ -276,6 +363,8 @@
     }
 
     initHowScrub();
+    initLit();
+    initSceneScroll();
   }
 
   /* --- единственный скраб: секция «Как работает», только ≥1024px --- */
@@ -312,6 +401,57 @@
     });
   }
 
+  /* --- пословная подсветка по скроллу: второй канал того же DOM ---
+     splitWords уже нарезал .word; ревил двигает transform, подсветка красит
+     color — свойства разные, поэтому каналы не конфликтуют. */
+  var litSTs = [];
+
+  function litFallback() {
+    document.querySelectorAll(".js-lit .word").forEach(function (w) {
+      w.classList.add("is-lit");
+    });
+  }
+
+  function killLit() {
+    litSTs.forEach(function (st) { st.kill(); });
+    litSTs = [];
+    document.querySelectorAll(".js-lit .word.is-lit").forEach(function (w) {
+      w.classList.remove("is-lit");
+    });
+  }
+
+  function initLit() {
+    killLit();
+    if (reduced || !motionReady) { litFallback(); return; }
+
+    document.querySelectorAll(".js-lit").forEach(function (host) {
+      /* .hl — pill-хайлайт, splitWords завернул его целиком как одно «слово».
+         Красить его нельзя: серый текст на синей таблетке читается как баг. */
+      var words = host.querySelectorAll(".word:not(.hl)");
+      if (!words.length) return;
+
+      var paint = function (self) {
+        var n = Math.round(self.progress * words.length);
+        for (var i = 0; i < words.length; i++) {
+          words[i].classList.toggle("is-lit", i < n);
+        }
+      };
+
+      litSTs.push(ScrollTrigger.create({
+        /* хост выше линии сгиба стартует с progress=1 — для него
+           триггер переопределяется через data-атрибуты */
+        trigger: host.dataset.litTrigger || host,
+        start: host.dataset.litStart || "top 88%",
+        end: host.dataset.litEnd || "bottom 55%",
+        onUpdate: paint,
+        /* onRefresh обязателен: после пересчёта раскладки прогресс может
+           не измениться, onUpdate не вызовется, и классы останутся от
+           первого (ещё неверного) замера */
+        onRefresh: paint
+      }));
+    });
+  }
+
   /* ==========================================================
      6b. РЕВИЛЫ — IntersectionObserver + CSS-транзишены
      Не зависят от GSAP и от rAF-тикера: срабатывают даже если
@@ -343,7 +483,10 @@
     }, { rootMargin: "0px 0px -12% 0px", threshold: 0 });
 
     splitAll();
-    document.querySelectorAll(".js-rise").forEach(function (n) { revealIO.observe(n); });
+    /* js-rise-plain — узлы, которым нужен только класс .is-in, без
+       собственного opacity/transform из .js-rise (рельса цепочки, рёбра эко) */
+    document.querySelectorAll(".js-rise, .js-fade, .js-rise-plain, .pin")
+      .forEach(function (n) { revealIO.observe(n); });
   }
 
   /* ==========================================================
@@ -642,6 +785,149 @@
      9. СТАРТ
      ========================================================== */
 
+  /* Сцена грузится лениво, после первой отрисовки и только за гейтами:
+     LCP не страдает, а на слабых устройствах и при saveData её просто нет. */
+  function bootScene() {
+    if (reduced || !hasWebGL()) return;
+    if (conn && conn.saveData) return;
+
+    var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 600); };
+    idle(function () {
+      import("./scene.js").then(function (m) {
+        window.__scene = m.initScene({
+          canvas: document.getElementById("scene"),
+          particles: lowPower ? 12000 : 24000,
+          dpr: Math.min(window.devicePixelRatio || 1, lowPower ? 1.5 : 2),
+          onFrame: updatePins
+        });
+        initSceneScroll();
+        initScenePointer();
+        initPinAnchors();
+      }).catch(function () {
+        /* тихо: ink-полосы прозрачны, под ними body цвета --ink-900 —
+           страница выглядит ровно как без сцены */
+      });
+    });
+  }
+
+  /* --- пины на 3D-якорях (замыкание приёма mazehq.com) ---
+     До этого координаты были статическими процентами; теперь каждый кадр
+     берётся проекция точки на сфере. Пишем только в transform. */
+  var pinEls = [];
+  var pinsHost = null;
+  var pinsHostRect = null;
+  var heroInView = false;
+  var _out = { x: 0, y: 0, visible: true };
+
+  function initPinAnchors() {
+    pinsHost = document.getElementById("heroPins");
+    if (!pinsHost || coarse) return;
+
+    pinEls = [].slice.call(pinsHost.querySelectorAll(".pin"));
+    pinEls.forEach(function (el, i) {
+      /* статическое размещение уступает место проекции */
+      el.style.left = "0";
+      el.style.top = "0";
+      el.__a = PINS[i].a;
+      el.__left = PINS[i].side === "left";
+    });
+
+    /* обновляем только пока герой во вьюпорте — иначе 5 записей в стиль
+       на каждый кадр всей страницы */
+    var io = new IntersectionObserver(function (e) {
+      heroInView = e[0].isIntersecting;
+      if (heroInView) pinsHostRect = pinsHost.getBoundingClientRect();
+    }, { threshold: 0 });
+    io.observe(document.getElementById("hero"));
+
+    window.addEventListener("scroll", function () {
+      if (heroInView) pinsHostRect = pinsHost.getBoundingClientRect();
+    }, { passive: true });
+  }
+
+  function updatePins() {
+    if (!heroInView || !pinsHostRect || !window.__scene) return;
+    for (var i = 0; i < pinEls.length; i++) {
+      var el = pinEls[i];
+      window.__scene.projectAnchor(el.__a, _out);
+      el.style.transform = "translate(" +
+        (_out.x - pinsHostRect.left).toFixed(1) + "px," +
+        (_out.y - pinsHostRect.top).toFixed(1) + "px)";
+      /* Показываем только на лицевой стороне И в зоне, где выноска
+         целиком помещается: не заезжает в текстовую колонку слева
+         и не обрезается правым краем окна. */
+      /* ширину лейбла кэшируем, но только когда раскладка её уже знает:
+         иначе в кэш попадает 0 и зона допуска перестаёт работать */
+      var lw = el.__lw;
+      if (!lw) {
+        var w = el.firstChild.offsetWidth;
+        lw = w ? (el.__lw = w + 60) : 240;
+      }
+      var minX = window.innerWidth * 0.46 + (el.__left ? lw : 0);
+      var maxX = window.innerWidth - (el.__left ? 20 : lw);
+      var inBounds = _out.x > minX && _out.x < maxX &&
+                     _out.y > 90 && _out.y < pinsHostRect.height - 40;
+      el.classList.toggle("is-on", _out.visible && inBounds);
+    }
+  }
+
+  /* --- камера по секциям: цели + лерп внутри сцены, а не скраб --- */
+  var SCENE_STATES = [
+    /* dim — приглушение: секции с плотным текстом получают сцену как фон,
+       а не как героя. Читаемость важнее эффекта. */
+    { sel: "#hero",     camZ: 7.6, rotY: 0.0, spread: 1.00, lift:  0.0, panX: 2.4, dim: 1.00 },
+    { sel: "#how",      camZ: 6.2, rotY: 0.6, spread: 1.35, lift:  0.3, panX: 3.4, dim: 0.35 },
+    { sel: "#pisa",     camZ: 6.4, rotY: 1.2, spread: 0.85, lift: -0.2, panX: 3.2, dim: 0.45 },
+    { sel: "#teachers", camZ: 8.2, rotY: 1.9, spread: 1.10, lift:  0.1, panX: 3.0, dim: 0.40 },
+    { sel: "#numbers",  camZ: 5.0, rotY: 2.6, spread: 1.60, lift:  0.0, panX: 2.2, dim: 0.85 },
+    { sel: "#cta",      camZ: 9.0, rotY: 3.1, spread: 0.70, lift: -0.4, panX: 2.6, dim: 0.90 }
+  ];
+
+  var sceneScrollDone = false;
+  function initSceneScroll() {
+    /* Вызывается из двух мест: после резолва import() и из initMotion.
+       Что отработает вторым — неизвестно, поэтому флаг против дублей. */
+    if (sceneScrollDone || !motionReady || !window.__scene) return;
+    sceneScrollDone = true;
+
+    /* тот же matchMedia-паттерн с cleanup, что у initHowScrub */
+    gsap.matchMedia().add("(min-width: 1024px)", function () {
+      var sts = SCENE_STATES.map(function (st) {
+        var el = document.querySelector(st.sel);
+        if (!el) return null;
+        var apply = function () { if (window.__scene) window.__scene.setTarget(st); };
+        return ScrollTrigger.create({
+          trigger: el,
+          start: "top bottom",
+          end: "bottom top",
+          onEnter: apply,
+          onEnterBack: apply
+        });
+      }).filter(Boolean);
+
+      return function () {
+        sts.forEach(function (x) { x.kill(); });
+        if (window.__scene) window.__scene.setTarget(SCENE_STATES[0]);
+      };
+    });
+  }
+
+  /* --- единственный pointermove в проекте: параллакс сцены --- */
+  function initScenePointer() {
+    if (coarse || !window.__scene) return;
+    var queued = false, px = 0, py = 0;
+    window.addEventListener("pointermove", function (e) {
+      px = (e.clientX / window.innerWidth) * 2 - 1;
+      py = -((e.clientY / window.innerHeight) * 2 - 1);
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () {
+        queued = false;
+        if (window.__scene) window.__scene.setMouse(px, py);
+      });
+    }, { passive: true });
+  }
+
   function whenGsap(cb) {
     if (window.gsap && window.ScrollTrigger) { cb(); return; }
     var tries = 0;
@@ -655,6 +941,9 @@
     /* сначала рендерим списки — они содержат data-i18n узлы */
     renderCourses();
     renderFaq();
+    /* до setLanguage — тогда applyTranslations заполнит лейблы пинов;
+       и до initReveals — тот собирает узлы один раз */
+    renderPins();
 
     window.setLanguage(window.getCurrentLang());
     renderDesk(0);
@@ -672,6 +961,7 @@
        Анимации подключаются, когда GSAP доедет; если не доедет
        за 3 с — включается фолбэк и контент просто виден. */
     initPreloader(function () {
+      bootScene();
       whenGsap(function () {
         initMotion();
         /* refresh только после того, как раскладка устоялась */
@@ -691,11 +981,23 @@
     lzResetVerdict();
     /* заголовки пересобираем: перевод перезаписал их innerHTML */
     if (!reduced) splitAll();
+    /* splitAll создал новые .word — старые триггеры держат мёртвые узлы */
+    initLit();
   });
 
   var rt;
+  var lastW = window.innerWidth;
   window.addEventListener("resize", function () {
     clearTimeout(rt);
-    rt = setTimeout(renderCharts, 200);
+    rt = setTimeout(function () {
+      renderCharts();
+      /* refresh только при смене ШИРИНЫ: на iOS показ/скрытие URL-бара шлёт
+         resize по высоте, и безусловный refresh даёт прыжок скролла. */
+      if (window.innerWidth !== lastW) {
+        lastW = window.innerWidth;
+        if (window.ScrollTrigger) ScrollTrigger.refresh();
+      }
+      if (window.__scene) window.__scene.resize();
+    }, 200);
   });
 })();

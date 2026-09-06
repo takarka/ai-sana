@@ -12,6 +12,12 @@
 </head>
 <body>
 
+<!-- сквозная сцена: видна только сквозь прозрачные .band--ink -->
+<canvas id="scene" aria-hidden="true"></canvas>
+
+<!-- рамка-уголки на весь вьюпорт — приём ricardochance.com -->
+<div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
 <a class="skip" href="#main" data-i18n="skip">Перейти к содержанию</a>
 
 <!-- ========== ПРЕЛОАДЕР: счётчик % + логотип, «O» растягивается в бар ========== -->
@@ -59,7 +65,11 @@
 <main id="main">
 
 <!-- ================= 1. ГЕРОЙ ================= -->
-<section class="band band--ink hero" id="hero">
+<section class="band band--ink band--air hero" id="hero">
+  <!-- слот визуала: обрезается правым краем секции (приём mazehq.com).
+       Пины рисует renderPins() в app.js — так их переводит applyTranslations. -->
+  <!-- выноски поверх сквозной сцены; сама сцена — #scene в начале body -->
+  <div class="hero__pins" id="heroPins" aria-hidden="true"></div>
   <div class="wrap hero__grid">
     <div>
       <!-- колонка mono-микролейблов — приём Noomo -->
@@ -72,7 +82,8 @@
 
       <h1 class="display d-xl js-split" data-i18n-html="hero.h1">Школьники учатся искусственному <span class="hl">интеллекту</span></h1>
 
-      <p class="lead" data-i18n="hero.sub">Курсы про ИИ и ИИ-инструменты: от первого знакомства до собственных проектов. Практика, задания и аналитика прогресса — в одной платформе.</p>
+      <p class="lead js-split js-lit" data-i18n="hero.sub"
+         data-lit-trigger="#hero" data-lit-start="top top" data-lit-end="+=70%">Курсы про ИИ и ИИ-инструменты: от первого знакомства до собственных проектов. Практика, задания и аналитика прогресса — в одной платформе.</p>
 
       <div class="hero__cta">
         <a class="btn btn--primary" href="#cta"><span data-i18n="hero.cta1">Начать обучение</span>
@@ -82,30 +93,6 @@
       <p class="micro" data-i18n="hero.note">1–11 классы · RU / KZ · сертификат по итогам курса</p>
     </div>
 
-    <!-- мокап интерфейса платформы (п.4 ТЗ) -->
-    <div class="mock js-rise">
-      <div class="mock__bar">
-        <span class="micro" data-i18n="hero.ui.title">Каталог курсов</span>
-        <span class="tag" data-i18n="hero.ui.filter">5–8 класс</span>
-      </div>
-      <div class="mock__row">
-        <svg class="mock__ring" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="rgba(214,227,252,.16)" stroke-width="4"/><circle cx="20" cy="20" r="16" fill="none" stroke="#7E8BFF" stroke-width="4" stroke-linecap="round" stroke-dasharray="100.5" stroke-dashoffset="15" transform="rotate(-90 20 20)"/></svg>
-        <div><strong data-i18n="hero.ui.c1">Как устроен ИИ</strong><span class="micro" data-i18n="hero.ui.c1m">8 уроков</span></div>
-      </div>
-      <div class="mock__row">
-        <svg class="mock__ring" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="rgba(214,227,252,.16)" stroke-width="4"/><circle cx="20" cy="20" r="16" fill="none" stroke="#7E8BFF" stroke-width="4" stroke-linecap="round" stroke-dasharray="100.5" stroke-dashoffset="46" transform="rotate(-90 20 20)"/></svg>
-        <div><strong data-i18n="hero.ui.c2">Промпт-инжиниринг</strong><span class="micro" data-i18n="hero.ui.c2m">12 уроков</span></div>
-      </div>
-      <div class="mock__row">
-        <svg class="mock__ring" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="rgba(214,227,252,.16)" stroke-width="4"/><circle cx="20" cy="20" r="16" fill="none" stroke="#7E8BFF" stroke-width="4" stroke-linecap="round" stroke-dasharray="100.5" stroke-dashoffset="78" transform="rotate(-90 20 20)"/></svg>
-        <div><strong data-i18n="hero.ui.c3">Генерация изображений</strong><span class="micro" data-i18n="hero.ui.c3m">9 уроков</span></div>
-      </div>
-      <div class="mock__foot">
-        <span class="micro" data-i18n="hero.ui.prog">Прогресс курса</span>
-        <div class="meter"><i style="width:68%"></i></div>
-        <span class="micro">68%</span>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -113,7 +100,7 @@
 <section class="band band--ink chain">
   <div class="wrap">
     <span class="micro" data-i18n="chain.eyebrow">Как устроена система</span>
-    <div class="chain__rail" style="margin-top:3.2rem">
+    <div class="chain__rail js-rise-plain" style="margin-top:3.2rem">
       <span class="chain__node js-rise" data-i18n="chain.s1">Ученик</span>
       <svg class="chain__arrow" width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 6h15M11 2l4 4-4 4"/></svg>
       <span class="chain__node js-rise" data-i18n="chain.s2">Курс про ИИ</span>
@@ -126,7 +113,7 @@
       <svg class="chain__arrow" width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 6h15M11 2l4 4-4 4"/></svg>
       <span class="chain__node chain__node--end js-rise" data-i18n="chain.s6">Навык</span>
     </div>
-    <p class="lead js-split" data-i18n="chain.lead">Мы учим детей искусственному интеллекту. Аналитика помогает учителю понимать. Данные помогают школе улучшать результат.</p>
+    <p class="lead js-split js-lit" data-i18n="chain.lead">Мы учим детей искусственному интеллекту. Аналитика помогает учителю понимать. Данные помогают школе улучшать результат.</p>
   </div>
 </section>
 
@@ -136,7 +123,7 @@
     <div class="sec-head">
       <span class="micro" data-i18n="about.eyebrow">Платформа</span>
       <h2 class="display d-lg js-split" data-i18n="about.h2">Четыре части одной системы</h2>
-      <p class="lead" data-i18n="about.lead">ИИ здесь — предмет изучения, а не только инструмент обучения. Ученик не просто нажимает кнопки в нейросети, а понимает, как она работает.</p>
+      <p class="lead js-split js-lit" data-i18n="about.lead">ИИ здесь — предмет изучения, а не только инструмент обучения. Ученик не просто нажимает кнопки в нейросети, а понимает, как она работает.</p>
     </div>
     <div class="grid grid-4">
       <article class="card js-rise"><span class="card__n" data-i18n="about.c1.n">01</span><h3 data-i18n="about.c1.t">Курсы про ИИ</h3><p data-i18n="about.c1.d">Пошаговые курсы объясняют простым языком, что такое искусственный интеллект.</p></article>
@@ -213,7 +200,7 @@
 </section>
 
 <!-- ================= 6. КУРСЫ ================= -->
-<section class="band band--paper" id="courses">
+<section class="band band--paper-2" id="courses">
   <div class="wrap">
     <div class="sec-head">
       <span class="micro" data-i18n="courses.eyebrow">Программа</span>
@@ -313,12 +300,12 @@
 </section>
 
 <!-- ================= 7. PISA ================= -->
-<section class="band band--ink" id="pisa">
+<section class="band band--ink band--air" id="pisa">
   <div class="wrap">
     <div class="sec-head">
       <span class="micro" data-i18n="pisa.eyebrow">Международная оценка PISA</span>
       <h2 class="display d-lg js-split" data-i18n-html="pisa.h2">Подготовка к PISA — <span class="hl">внутри платформы</span></h2>
-      <p class="lead" data-i18n="pisa.lead">PISA — исследование ОЭСР: раз в три года оно проверяет, умеют ли 15-летние ученики применять знания в реальных ситуациях. Казахстан участвует в исследовании, и за результат отвечает школа.</p>
+      <p class="lead js-split js-lit" data-i18n="pisa.lead">PISA — исследование ОЭСР: раз в три года оно проверяет, умеют ли 15-летние ученики применять знания в реальных ситуациях. Казахстан участвует в исследовании, и за результат отвечает школа.</p>
     </div>
 
     <div class="grid grid-4">
@@ -383,7 +370,7 @@
 </section>
 
 <!-- ================= 9. ДЛЯ УЧИТЕЛЯ ================= -->
-<section class="band band--ink" id="teachers">
+<section class="band band--ink band--air" id="teachers">
   <div class="wrap">
     <div class="sec-head">
       <span class="micro" data-i18n="tc.eyebrow">Для учителя</span>
@@ -468,7 +455,7 @@
 </section>
 
 <!-- ================= 11. ЭКОСИСТЕМА ================= -->
-<section class="band band--ink">
+<section class="band band--ink band--air">
   <div class="wrap">
     <div class="sec-head">
       <span class="micro" data-i18n="eco.eyebrow">Экосистема</span>
@@ -476,13 +463,13 @@
     </div>
     <div class="eco">
       <span class="eco__node js-rise" data-i18n="eco.n1">Ученик</span>
-      <span class="eco__edge micro" data-i18n="eco.e1">проходит курс и выполняет задания</span>
+      <span class="eco__edge micro js-rise-plain" data-i18n="eco.e1">проходит курс и выполняет задания</span>
       <span class="eco__node js-rise" data-i18n="eco.n2">Платформа</span>
-      <span class="eco__edge micro" data-i18n="eco.e2">анализирует результаты</span>
+      <span class="eco__edge micro js-rise-plain" data-i18n="eco.e2">анализирует результаты</span>
       <span class="eco__node js-rise" data-i18n="eco.n3">Система аналитики</span>
-      <span class="eco__edge micro" data-i18n="eco.e3">формирует рекомендации</span>
+      <span class="eco__edge micro js-rise-plain" data-i18n="eco.e3">формирует рекомендации</span>
       <span class="eco__node js-rise" data-i18n="eco.n4">Учитель</span>
-      <span class="eco__edge micro" data-i18n="eco.e4">получает аналитику и материалы</span>
+      <span class="eco__edge micro js-rise-plain" data-i18n="eco.e4">получает аналитику и материалы</span>
       <span class="eco__node eco__node--last js-rise" data-i18n="eco.n5">Лучше освоенный навык</span>
     </div>
   </div>
@@ -509,7 +496,7 @@
 </section>
 
 <!-- ================= 13. ЦИФРЫ ================= -->
-<section class="band band--ink" id="numbers">
+<section class="band band--ink band--air" id="numbers">
   <div class="wrap">
     <span class="micro" style="display:block;margin-bottom:4rem" data-i18n="num.eyebrow">Показатели платформы</span>
     <div class="stats" id="stats">
@@ -553,7 +540,7 @@
 </section>
 
 <!-- ================= 15. FAQ ================= -->
-<section class="band band--paper" id="faq">
+<section class="band band--paper-2" id="faq">
   <div class="wrap">
     <div class="sec-head">
       <span class="micro" data-i18n="faq.eyebrow">Вопросы</span>
@@ -564,7 +551,7 @@
 </section>
 
 <!-- ================= 16. ФИНАЛЬНЫЙ CTA ================= -->
-<section class="band band--ink final" id="cta">
+<section class="band band--ink band--air final" id="cta">
   <div class="wrap">
     <h2 class="display d-xl js-split" data-i18n-html="cta.h2">Научите детей понимать искусственный <span class="hl">интеллект</span></h2>
     <p class="lead" data-i18n="cta.sub">Дайте ученикам навык, который определит их будущее.</p>
