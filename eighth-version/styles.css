@@ -129,6 +129,15 @@ input {
   color: inherit;
 }
 
+input {
+  outline: none;
+}
+
+input:focus,
+input:focus-visible {
+  outline: none;
+}
+
 button {
   background: none;
   border: 0;
@@ -1075,10 +1084,13 @@ p {
   font-size: 1.3rem;
   font-family: "JetBrains Mono", monospace;
   min-width: 22rem;
+  outline: none;
+  transition: border-color .2s ease;
 }
 
 .desk__search:focus {
-  outline: 1px solid var(--signal-lift);
+  outline: none;
+  border-color: var(--signal-lift);
 }
 
 .desk__table {
@@ -1890,9 +1902,13 @@ p {
   border: 1px solid var(--paper-line);
   border-radius: 1rem;
   background: #fff;
+  outline: none;
+  transition: border-color .2s ease;
 }
 
+.field input:focus,
 .field input:focus-visible {
+  outline: none;
   border-color: var(--signal);
 }
 
