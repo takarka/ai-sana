@@ -1,0 +1,348 @@
+- generic [active] [ref=e1]:
+  - link "Перейти к содержанию" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - generic [aria-hidden] [ref=e3]:
+    - generic [ref=e4]: 100%
+    - generic [ref=e5]:
+      - generic [ref=e6]: CRAFT
+      - generic [ref=e8]: AI
+  - banner [ref=e9]:
+    - generic [ref=e10]:
+      - link "CRAFT AI" [ref=e11] [cursor=pointer]:
+        - /url: index.html
+      - navigation "Основная навигация" [ref=e13]:
+        - link "Экосистема" [ref=e14] [cursor=pointer]:
+          - /url: index.html
+        - link "CRAFT MATRIX" [ref=e15] [cursor=pointer]:
+          - /url: matrix.html
+        - link "CRAFT BUILDER" [ref=e16] [cursor=pointer]:
+          - /url: builder.html
+        - link "CRAFT PISA" [ref=e17] [cursor=pointer]:
+          - /url: pisa.html
+      - generic [ref=e18]:
+        - button "Запросить демо" [ref=e19] [cursor=pointer]
+        - group "Язык интерфейса" [ref=e20]:
+          - button "RU" [pressed] [ref=e21] [cursor=pointer]
+          - button "KZ" [ref=e22] [cursor=pointer]
+  - main [ref=e23]:
+    - generic [ref=e24]:
+      - generic:
+        - generic: 01 MATRIX · 1–11 классы ГОСО
+        - generic: 02 BUILDER · Вайб-кодинг & ИИ
+        - generic: 03 PISA · Тренажёры 2029
+      - generic [ref=e27]:
+        - generic [ref=e28]: Единая образовательная система
+        - heading "ИИ-ЭКОСИСТЕМА ДЛЯ ШКОЛ КАЗАХСТАНА ГОСО • УРОКИ • PISA-2029" [level=1] [ref=e30]:
+          - generic [ref=e31]: ИИ-ЭКОСИСТЕМА
+          - text: ДЛЯ ШКОЛ КАЗАХСТАНАГОСО • УРОКИ • PISA-2029
+        - paragraph [ref=e32]: Готовые интерактивные уроки по учебным целям ИИ с автопроверкой, практический курс ИИ для учеников и тренажеры PISA с новым модулем по ИИ-грамотности.
+        - generic [ref=e33]:
+          - button "Запросить демо для школы" [ref=e34] [cursor=pointer]
+          - button "Скачать презентацию экосистемы" [ref=e38] [cursor=pointer]
+    - generic [ref=e40]:
+      - generic [ref=e41]:
+        - generic [ref=e42]: Архитектура экосистемы
+        - heading "Три модуля CRAFT AI — полное покрытие образовательной среды" [level=2] [ref=e43]:
+          - text: Три модуля CRAFT AI — полное покрытие образовательной
+          - generic [ref=e44]: среды
+        - paragraph [ref=e45]: "Все звенья школьного ИИ-образования: регулярные уроки, внеурочная проектная инженерия и внешняя диагностика готовности."
+      - generic [ref=e46]:
+        - article [ref=e47]:
+          - generic [ref=e48]:
+            - generic [ref=e49]: 01 MATRIX
+            - generic [ref=e50]: Учебный модуль для уроков (1–11 класс)
+          - heading "Готовый цифровой комплекс для предмета «Цифровая грамотность и ИИ»." [level=3] [ref=e51]
+          - generic [ref=e52]:
+            - strong [ref=e53]: "Как работает:"
+            - paragraph [ref=e54]: Ученики проходят тему в интерактивных симуляторах в собственном темпе и сразу отрабатывают навыки на практике.
+          - generic [ref=e55]:
+            - strong [ref=e56]: "Результат для школы:"
+            - paragraph [ref=e57]: Учителю не нужно писать планы и искать задания. На экранах дашборда он в реальном времени видит, кто из детей отстает, и помогает им адресно. Полное соответствие ТУП и ИМП 2026–2027.
+          - link "Подробнее о MATRIX Подробнее о MATRIX" [ref=e59] [cursor=pointer]:
+            - /url: matrix.html
+            - generic [ref=e60]: Подробнее о MATRIX
+            - generic [ref=e61]: Подробнее о MATRIX
+        - article [ref=e62]:
+          - generic [ref=e63]:
+            - generic [ref=e64]: 02 BUILDER
+            - generic [ref=e65]: Практический курс ИИ-инженерии
+          - heading "Внеурочный курс, который учит школьников создавать реальные цифровые продукты с помощью нейросетей." [level=3] [ref=e66]
+          - generic [ref=e67]:
+            - strong [ref=e68]: "Как работает:"
+            - paragraph [ref=e69]: Дети осваивают промпт-инжиниринг и «вайб-кодинг» — создание программ, ботов и сайтов через формулирование задач искусственному интеллекту на обычном языке.
+          - generic [ref=e70]:
+            - strong [ref=e71]: "Результат для школы:"
+            - paragraph [ref=e72]: Ученики переходят от банального использования чат-ботов к созданию собственных проектов и пониманию логики работы ИИ.
+          - link "Подробнее о BUILDER Подробнее о BUILDER" [ref=e74] [cursor=pointer]:
+            - /url: builder.html
+            - generic [ref=e75]: Подробнее о BUILDER
+            - generic [ref=e76]: Подробнее о BUILDER
+        - article [ref=e77]:
+          - generic [ref=e78]:
+            - generic [ref=e79]: 03 PISA
+            - generic [ref=e80]: Подготовка к срезам и PISA-2029
+          - heading "Единый тренажер функциональной грамотности по стандартам OECD для защиты показателей школы." [level=3] [ref=e81]
+          - generic [ref=e82]:
+            - strong [ref=e83]: "Как работает:"
+            - paragraph [ref=e84]: Архив реальных заданий прошлых лет, тренажеры по 3 направлениям (математика, естествознание, чтение) и спецмодуль PISA-2029 (распознавание фейков, фактчекинг, анализ галлюцинаций ИИ).
+          - generic [ref=e85]:
+            - strong [ref=e86]: "Результат для школы:"
+            - paragraph [ref=e87]: Ученики перестают бояться нестандартных задач, а администрация получает точную диагностику готовности каждого класса к международным и государственным срезам.
+          - link "Подробнее о PISA Подробнее о PISA" [ref=e89] [cursor=pointer]:
+            - /url: pisa.html
+            - generic [ref=e90]: Подробнее о PISA
+            - generic [ref=e91]: Подробнее о PISA
+    - generic [ref=e93]:
+      - generic [ref=e94]:
+        - generic [ref=e95]: Self-Paced трекинг
+        - 'heading "Дашборд учителя: управление классом в реальном времени" [level=2] [ref=e96]':
+          - text: "Дашборд учителя: управление классом в реальном"
+          - generic [ref=e97]: времени
+        - paragraph [ref=e98]: Учитель не лектор, а тьютор. Система учит, учитель адресно помогает тем, кто «буксует».
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - generic [ref=e101]:
+            - button "Все ученики" [pressed] [ref=e102] [cursor=pointer]
+            - button "В темпе (Зеленый)" [ref=e103] [cursor=pointer]
+            - button "Замедление (Желтый)" [ref=e104] [cursor=pointer]
+            - button "Нужна помощь (Красный)" [ref=e105] [cursor=pointer]
+          - textbox "Поиск по имени ученика..." [ref=e106]
+        - table [ref=e108]:
+          - rowgroup [ref=e109]:
+            - row [ref=e110]:
+              - columnheader "Ученик / Класс" [ref=e111]
+              - columnheader "Текущая тема" [ref=e112]
+              - columnheader "Прогресс" [ref=e113]
+              - columnheader "Статус ученика" [ref=e114]
+              - columnheader "Действие учителя" [ref=e115]
+          - rowgroup [ref=e116]:
+            - row [ref=e117]:
+              - cell "Айсулу Қасымова 7 «А»" [ref=e118]:
+                - strong [ref=e119]: Айсулу Қасымова
+                - generic [ref=e120]: 7 «А»
+              - cell "Архитектура LLM · Симулятор" [ref=e121]
+              - cell "96%" [ref=e122]
+              - cell "В темпе" [ref=e127]
+              - cell "Опережает темп на 2 шага" [ref=e129]
+            - row [ref=e130]:
+              - cell "Данияр Төлеген 7 «А»" [ref=e131]:
+                - strong [ref=e132]: Данияр Төлеген
+                - generic [ref=e133]: 7 «А»
+              - cell "Промпт-инжиниринг · Шаг 4" [ref=e134]
+              - cell "88%" [ref=e135]
+              - cell "В темпе" [ref=e140]
+              - cell "Самостоятельное решение" [ref=e142]
+            - row [ref=e143]:
+              - cell "Мадина Сапар 7 «А»" [ref=e144]:
+                - strong [ref=e145]: Мадина Сапар
+                - generic [ref=e146]: 7 «А»
+              - cell "Вайб-кодинг веб-страницы" [ref=e147]
+              - cell "74%" [ref=e148]
+              - cell "В темпе" [ref=e153]
+              - cell "В пределах нормы" [ref=e155]
+            - row [ref=e156]:
+              - cell "Ерлан Бақыт 7 «А»" [ref=e157]:
+                - strong [ref=e158]: Ерлан Бақыт
+                - generic [ref=e159]: 7 «А»
+              - cell "Распознавание фейков PISA" [ref=e160]
+              - cell "58%" [ref=e161]
+              - cell "Замедление" [ref=e166]
+              - cell "Задержка на шаге 3 (валидация)" [ref=e168]
+            - row [ref=e169]:
+              - cell "Алина Жұмабек 7 «А»" [ref=e170]:
+                - strong [ref=e171]: Алина Жұмабек
+                - generic [ref=e172]: 7 «А»
+              - cell "Декомпозиция задач ИИ" [ref=e173]
+              - cell "49%" [ref=e174]
+              - cell "Замедление" [ref=e179]
+              - cell "Требуется уточнение критерия" [ref=e181]
+            - row [ref=e182]:
+              - cell "Тимур Ахметов 7 «А»" [ref=e183]:
+                - strong [ref=e184]: Тимур Ахметов
+                - generic [ref=e185]: 7 «А»
+              - cell "Синтаксис системного промпта" [ref=e186]
+              - cell "32%" [ref=e187]
+              - cell "Нужна помощь" [ref=e192]
+              - cell "3 ошибки подряд в симуляторе" [ref=e194]
+            - row [ref=e195]:
+              - cell "Асель Мұрат 7 «А»" [ref=e196]:
+                - strong [ref=e197]: Асель Мұрат
+                - generic [ref=e198]: 7 «А»
+              - cell "Автономные ИИ-агенты" [ref=e199]
+              - cell "92%" [ref=e200]
+              - cell "В темпе" [ref=e205]
+              - cell "Высокая точность ответов" [ref=e207]
+            - row [ref=e208]:
+              - cell "Санжар Омар 7 «А»" [ref=e209]:
+                - strong [ref=e210]: Санжар Омар
+                - generic [ref=e211]: 7 «А»
+              - cell "Анализ галлюцинаций модели" [ref=e212]
+              - cell "24%" [ref=e213]
+              - cell "Нужна помощь" [ref=e218]
+              - cell "Застрял на фактчекинге датасета" [ref=e220]
+    - generic [ref=e222]:
+      - generic [ref=e223]:
+        - generic [ref=e224]: Методика и инженерия
+        - heading "Команда, которая создаёт будущее казахстанского образования" [level=2] [ref=e225]:
+          - text: Команда, которая создаёт будущее казахстанского
+          - generic [ref=e226]: образования
+        - paragraph [ref=e227]: Сочетание практического школьного опыта, глубокой методики, ИИ-технологий и надежной инженерии.
+      - generic [ref=e228]:
+        - article [ref=e229]:
+          - generic [ref=e230]:
+            - generic [ref=e231]: ТА
+            - generic [ref=e232]:
+              - heading "Тусюбжанов Айдын" [level=3] [ref=e233]
+              - generic [ref=e234]: Product Manager / Продукт-менеджер
+          - generic [ref=e235]: Архитектура экосистемы, продуктовая стратегия, синхронизация с государственными стандартами и методологией обучения.
+          - list [ref=e236]:
+            - listitem [ref=e237]: — Почётный работник образования Республики Казахстан, 2015 г.
+            - listitem [ref=e238]: — Директор издательства “Астана-Кітап”, 2015-18 г.
+            - listitem [ref=e239]: — Соавтор учебников по физике для 7-8 классов для школ НИШ.
+            - listitem [ref=e240]: — Автор методического пособия для абитуриентов по физике ШЫҢКІТАП, 2005-09 г.
+        - article [ref=e241]:
+          - generic [ref=e242]:
+            - generic [ref=e243]: БМ
+            - generic [ref=e244]:
+              - heading "Бегайым Мұрат" [level=3] [ref=e245]
+              - generic [ref=e246]: AI Specialist / Специалист по ИИ
+          - generic [ref=e247]: Разработка ИИ-моделей, проектирование безопасных учебных промптов, интеграция нейросетей в симуляторы и тренажеры PISA.
+          - list [ref=e248]:
+            - listitem [ref=e249]: — Сертифицированный Google эксперт по Gemini.
+            - listitem [ref=e250]: — Сертифицированный международной организацией ISTE лидер в сфере образовательных технологий.
+            - listitem [ref=e251]: — Автор курса «Интеграция ИИ в педагогику».
+        - article [ref=e252]:
+          - generic [ref=e253]:
+            - generic [ref=e254]: ФА
+            - generic [ref=e255]:
+              - heading "Фархад Абылаев" [level=3] [ref=e256]
+              - generic [ref=e257]: CS Teacher & Methodologist / Методист информатики
+          - generic [ref=e258]: Методическая адаптация материалов под ГОСО и ТУП, поурочные сценарии, проверка симуляторов в реальных школьных условиях.
+          - list [ref=e259]:
+            - listitem [ref=e260]: — Педагог-эксперт по информатике с 10+ годами стажа.
+            - listitem [ref=e261]: — Разработчик критериальной базы оценивания цифровых навыков.
+            - listitem [ref=e262]: — Победитель республиканских педагогических конкурсов по цифровизации.
+        - article [ref=e263]:
+          - generic [ref=e264]:
+            - generic [ref=e265]: АН
+            - generic [ref=e266]:
+              - heading "Анарбек" [level=3] [ref=e267]
+              - generic [ref=e268]: Lead Software Engineer / Ведущий программист
+          - generic [ref=e269]: Техническая реализация платформы, устойчивость инфраструктуры, разработка дашбордов и защищенного учебного контура.
+          - list [ref=e270]:
+            - listitem [ref=e271]: — Архитектура высоконагруженных образовательных веб-платформ.
+            - listitem [ref=e272]: — Реализация интерактивных симуляторов без внешних тяжелых зависимостей.
+            - listitem [ref=e273]: — Обеспечение отказоустойчивости и соответствия закону РК о персональных данных.
+    - generic [ref=e275]:
+      - generic [ref=e276]:
+        - generic [ref=e277]: Институциональное соответствие
+        - heading "Соответствие нормативной базе РК" [level=2] [ref=e278]:
+          - text: Соответствие нормативной базе
+          - generic [ref=e279]: РК
+        - paragraph [ref=e280]: "Разработано специально для директоров школ и управлений образования: полное соответствие образовательным стандартам и законодательству Республики Казахстан."
+      - generic [ref=e281]:
+        - generic [ref=e282]:
+          - generic [ref=e283]: 01 · ТУП И ПРОГРАММЫ
+          - strong [ref=e284]: ИМП 2026–2027
+          - paragraph [ref=e285]: Полное покрытие требований Инструктивно-методического письма Министерства просвещения РК по направлению «Цифровая грамотность и ИИ».
+        - generic [ref=e286]:
+          - generic [ref=e287]: 02 · ДЕСКРИПТОРЫ
+          - strong [ref=e288]: Критерии оценивания
+          - paragraph [ref=e289]: Вшитые критерии формативного (F) и суммативного (P) оценивания для 2–4 классов и балльные шкалы 5–11 классов.
+        - generic [ref=e290]:
+          - generic [ref=e291]: 03 · БЕЗОПАСНОСТЬ
+          - strong [ref=e292]: Безопасность данных
+          - paragraph [ref=e293]: Соблюдение норм безопасности данных, Закона РК «О персональных данных», академической честности и защищенный контур ученика.
+    - generic [ref=e295]:
+      - generic [ref=e296]:
+        - generic [ref=e297]: Вопросы администрации
+        - heading "Часто задаваемые вопросы директоров" [level=2] [ref=e298]:
+          - text: Часто задаваемые вопросы
+          - generic [ref=e299]: директоров
+      - generic [ref=e300]:
+        - generic [ref=e301]:
+          - button "01 Как экосистема CRAFT AI внедряется в учебный процесс школы?" [ref=e302] [cursor=pointer]:
+            - generic [ref=e303]: "01"
+            - generic [ref=e304]: Как экосистема CRAFT AI внедряется в учебный процесс школы?
+          - paragraph [ref=e306]: "Платформа интегрируется бесшовно: модуль MATRIX используется учителями на регулярных уроках предмета «Цифровая грамотность и ИИ», модуль BUILDER запускается как внеурочный кружок или спецкурс, а PISA — для плановой диагностики готовности параллелей."
+        - generic [ref=e307]:
+          - button "02 Нужно ли учителям информатики проходить долгое обучение?" [ref=e308] [cursor=pointer]:
+            - generic [ref=e309]: "02"
+            - generic [ref=e310]: Нужно ли учителям информатики проходить долгое обучение?
+          - paragraph [ref=e312]: Нет. Интерфейс учителя интуитивно понятен и сопровождается готовыми поурочными методическими картами. Учителю не требуется быть экспертом в программировании нейросетей — система берёт интерактивное обучение на себя.
+        - generic [ref=e313]:
+          - button "03 Где и как хранятся персональные данные школьников?" [ref=e314] [cursor=pointer]:
+            - generic [ref=e315]: "03"
+            - generic [ref=e316]: Где и как хранятся персональные данные школьников?
+          - paragraph [ref=e318]: Все серверные мощности и базы данных размещены в защищенном контуре на территории Республики Казахстан в строгом соответствии с Законом РК «О персональных данных и их защите». Платформа не передаёт данные детей сторонним сервисам.
+        - generic [ref=e319]:
+          - button "04 Чем модуль CRAFT PISA отличается от обычных тестов?" [ref=e320] [cursor=pointer]:
+            - generic [ref=e321]: "04"
+            - generic [ref=e322]: Чем модуль CRAFT PISA отличается от обычных тестов?
+          - paragraph [ref=e324]: "CRAFT PISA включает не только оцифрованный банк заданий OECD прошлых лет, но и впервые в Казахстане готовит детей к спецификации PISA-2029: проверке медиаграмотности, выявлению дипфейков и анализу ошибок искусственного интеллекта."
+        - generic [ref=e325]:
+          - button "05 Как школа может запросить пилотный доступ и демонстрацию?" [ref=e326] [cursor=pointer]:
+            - generic [ref=e327]: "05"
+            - generic [ref=e328]: Как школа может запросить пилотный доступ и демонстрацию?
+          - paragraph [ref=e330]: Достаточно нажать кнопку «Запросить демо для школы» и оставить контакты руководства. Наша методическая команда свяжется с вами, развернёт тестовый кабинет и покажет живую работу системы на примере одного класса.
+    - generic [ref=e332]:
+      - heading "Внедрите ИИ в образовательный процесс школы" [level=2] [ref=e333]:
+        - text: Внедрите ИИ в образовательный процесс
+        - generic [ref=e334]: школы
+      - paragraph [ref=e335]: Готовые модули уроков по ГОСО, практический курс прикладного ИИ и тренажеры PISA-2029 в единой защищенной платформе.
+      - generic [ref=e336]:
+        - button "Запросить демо для школы" [ref=e337] [cursor=pointer]
+        - button "Подключить школу" [ref=e341] [cursor=pointer]
+  - contentinfo [ref=e342]:
+    - generic [ref=e343]:
+      - generic [ref=e344]:
+        - generic [ref=e345]:
+          - text: CRAFT AI
+          - paragraph [ref=e346]: CRAFT AI — единая операционная система для интеграции искусственного интеллекта и подготовки к международным исследованиям PISA в школах Казахстана.
+        - generic [ref=e347]:
+          - heading "Модули и разделы" [level=4] [ref=e348]
+          - list [ref=e349]:
+            - listitem [ref=e350]:
+              - link "CRAFT MATRIX" [ref=e351] [cursor=pointer]:
+                - /url: matrix.html
+            - listitem [ref=e352]:
+              - link "CRAFT BUILDER" [ref=e353] [cursor=pointer]:
+                - /url: builder.html
+            - listitem [ref=e354]:
+              - link "CRAFT PISA" [ref=e355] [cursor=pointer]:
+                - /url: pisa.html
+            - listitem [ref=e356]:
+              - link "Дашборд" [ref=e357] [cursor=pointer]:
+                - /url: "#desk"
+            - listitem [ref=e358]:
+              - link "Эксперты" [ref=e359] [cursor=pointer]:
+                - /url: "#experts"
+        - generic [ref=e360]:
+          - heading "Связаться с нами" [level=4] [ref=e361]
+          - list [ref=e362]:
+            - listitem [ref=e363]:
+              - link "hello@craftai.kz" [ref=e364] [cursor=pointer]:
+                - /url: mailto:hello@craftai.kz
+            - listitem [ref=e365]:
+              - link "+7 700 000 00 00" [ref=e366] [cursor=pointer]:
+                - /url: tel:+77000000000
+            - listitem [ref=e367]:
+              - link "Запросить демо" [ref=e368] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e369]:
+          - heading "Нормативная база" [level=4] [ref=e370]
+          - list [ref=e371]:
+            - listitem [ref=e372]:
+              - link "Политика конфиденциальности" [ref=e373] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e374]:
+              - link "Пользовательское соглашение" [ref=e375] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e376]:
+              - link "Безопасность данных РК" [ref=e377] [cursor=pointer]:
+                - /url: "#"
+      - generic [ref=e378]:
+        - generic [ref=e379]: © 2026 CRAFT AI · Все права защищены
+        - group "Язык интерфейса" [ref=e380]:
+          - button "RU" [pressed] [ref=e381] [cursor=pointer]
+          - button "KZ" [ref=e382] [cursor=pointer]

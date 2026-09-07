@@ -392,11 +392,11 @@ p {
 }
 
 .word-mask:has(.final-accent-word) {
-  padding: 21px 6px .42em;
+  padding: 0.25em 6px .42em !important;
 }
 
-.word-mask:has(.hl.word) {
-  padding: .42em .1em;
+.word-mask:has(.hl) {
+  padding: .42em .1em .28em;
 }
 
 .word {
@@ -413,6 +413,10 @@ p {
 
 .js-reveal.is-in .word {
   transform: translateY(0);
+}
+
+.js-reveal.is-in .word.hl:not(.final-accent-word) {
+  transform: translateY(0.07em);
 }
 
 .js-reveal.is-in .final-accent-word {
@@ -930,6 +934,10 @@ p {
    ГЕРОЙ
    ============================================================ */
 .hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
   padding-top: calc(var(--head-h) + 5rem);
   padding-bottom: 9rem;
   overflow: hidden;
@@ -953,6 +961,7 @@ p {
 .hero .wrap {
   position: relative;
   z-index: 1;
+  width: 100%;
 }
 
 .pin {

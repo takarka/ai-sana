@@ -1,0 +1,130 @@
+- generic [active] [ref=f2e1]:
+  - link "Перейти к содержанию" [ref=f2e2] [cursor=pointer]:
+    - /url: "#main"
+  - generic [aria-hidden] [ref=f2e3]:
+    - generic [ref=f2e4]: 100%
+    - generic [ref=f2e5]:
+      - generic [ref=f2e6]: CRAFT
+      - generic [ref=f2e8]: MATRIX
+  - banner [ref=f2e9]:
+    - generic [ref=f2e10]:
+      - link "CRAFT AI MATRIX" [ref=f2e11] [cursor=pointer]:
+        - /url: index.html
+        - generic [ref=f2e12]: CRAFT AI
+        - generic [ref=f2e13]: MATRIX
+      - navigation "Основная навигация" [ref=f2e14]:
+        - link "Экосистема" [ref=f2e15] [cursor=pointer]:
+          - /url: index.html
+        - link "CRAFT MATRIX" [ref=f2e16] [cursor=pointer]:
+          - /url: matrix.html
+        - link "CRAFT BUILDER" [ref=f2e17] [cursor=pointer]:
+          - /url: builder.html
+        - link "CRAFT PISA" [ref=f2e18] [cursor=pointer]:
+          - /url: pisa.html
+      - generic [ref=f2e19]:
+        - button "Запросить демо" [ref=f2e20] [cursor=pointer]
+        - group "Язык интерфейса" [ref=f2e21]:
+          - button "RU" [pressed] [ref=f2e22] [cursor=pointer]
+          - button "KZ" [ref=f2e23] [cursor=pointer]
+  - main [ref=f2e24]:
+    - generic [ref=f2e28]:
+      - generic [ref=f2e29]: CRAFT MATRIX
+      - heading "Цифровая грамотность и ИИ через интерактивную практику." [level=1] [ref=f2e31]:
+        - text: Цифровая грамотность и ИИ через
+        - generic [ref=f2e32]: интерактивную
+        - text: практику.
+      - paragraph [ref=f2e33]: Учителю не нужно писать планы и искать задания. На экранах дашборда он в реальном времени видит, кто из детей отстает, и помогает им адресно. Полное соответствие ТУП и ИМП 2026–2027.
+      - generic [ref=f2e34]:
+        - button "Пройти демо-урок" [ref=f2e35] [cursor=pointer]
+        - button "Подключить школу" [ref=f2e39] [cursor=pointer]
+    - generic [ref=f2e41]:
+      - generic [ref=f2e42]:
+        - generic [ref=f2e43]: Пошаговый сценарий
+        - heading "Как проходит урок с CRAFT MATRIX" [level=2] [ref=f2e44]:
+          - text: Как проходит урок с
+          - generic [ref=f2e45]: CRAFT MATRIX
+        - paragraph [ref=f2e46]: Вместо лекций и исписывания доски — формат, где дети обучаются самостоятельно, а учитель управляет процессом.
+      - generic [ref=f2e47]:
+        - navigation "Шаги урока" [ref=f2e48]:
+          - button "Самостоятельное прохождение" [ref=f2e49] [cursor=pointer]
+          - button "Безопасная практика с ИИ" [ref=f2e50] [cursor=pointer]
+          - button "Адресная помощь учителя" [ref=f2e51] [cursor=pointer]
+        - generic [ref=f2e53]:
+          - generic [ref=f2e54]: "01"
+          - heading "Самостоятельное прохождение (Индивидуальный темп)" [level=3] [ref=f2e55]
+          - paragraph [ref=f2e56]: Ученик заходит на платформу, изучает короткий теоретический блок и переходит к практическому симулятору. Каждый сильный ученик идет вперед, не дожидаясь остальных, а симуляторы удерживают фокус внимания.
+    - generic [ref=f2e58]:
+      - generic [ref=f2e59]:
+        - generic [ref=f2e60]: ГОСО и ТУП РК
+        - heading "Полное соответствие государственным стандартам" [level=2] [ref=f2e61]:
+          - text: Полное соответствие государственным
+          - generic [ref=f2e62]: стандартам
+        - paragraph [ref=f2e63]: Каждый урок, симулятор и проверочная работа строго синхронизированы с требованиями Министерства просвещения РК.
+      - generic [ref=f2e64]:
+        - generic [ref=f2e65]:
+          - generic [ref=f2e66]: 01 · ЦЕЛИ ОБУЧЕНИЯ
+          - strong [ref=f2e67]: 100% покрытие учебной программы (1–11 классы)
+          - paragraph [ref=f2e68]: Все модули и задания жестко привязаны к конкретным Целям Обучения (ЦО) предмета «Цифровая грамотность и ИИ» и Типовым учебным планам Республики Казахстан.
+        - generic [ref=f2e69]:
+          - generic [ref=f2e70]: 02 · ПРАКТИКА
+          - strong [ref=f2e71]: Интерактивные симуляторы по ключевым темам
+          - paragraph [ref=f2e72]: "Готовые практические модули: «Принципы работы нейросетей», «Распознавание образов», «Правила безопасного промптинга», «Фактчекинг и анализ достоверности данных»."
+        - generic [ref=f2e73]:
+          - generic [ref=f2e74]: 03 · КРИТЕРИИ ОЦЕНКИ
+          - strong [ref=f2e75]: Готовый инструментарий оценивания
+          - paragraph [ref=f2e76]: Встроенные критерии и дескрипторы для формативного и суммативного оценивания. Учителю больше не нужно вручную составлять проверочные карточки — система генерирует их и проверяет автоматически.
+    - generic [ref=f2e78]:
+      - heading "Внедрите ИИ в образовательный процесс школы" [level=2] [ref=f2e79]:
+        - text: Внедрите ИИ в образовательный процесс
+        - generic [ref=f2e80]: школы
+      - paragraph [ref=f2e81]: Готовые модули уроков по ГОСО, практический курс прикладного ИИ и тренажеры PISA-2029 в единой защищенной платформе.
+      - generic [ref=f2e82]:
+        - button "Пройти демо-урок" [ref=f2e83] [cursor=pointer]
+        - button "Подключить школу" [ref=f2e87] [cursor=pointer]
+  - contentinfo [ref=f2e88]:
+    - generic [ref=f2e89]:
+      - generic [ref=f2e90]:
+        - generic [ref=f2e91]:
+          - text: CRAFT AI
+          - paragraph [ref=f2e92]: CRAFT AI — единая операционная система для интеграции искусственного интеллекта и подготовки к международным исследованиям PISA в школах Казахстана.
+        - generic [ref=f2e93]:
+          - heading "Модули и разделы" [level=4] [ref=f2e94]
+          - list [ref=f2e95]:
+            - listitem [ref=f2e96]:
+              - link "Экосистема" [ref=f2e97] [cursor=pointer]:
+                - /url: index.html
+            - listitem [ref=f2e98]:
+              - link "CRAFT BUILDER" [ref=f2e99] [cursor=pointer]:
+                - /url: builder.html
+            - listitem [ref=f2e100]:
+              - link "CRAFT PISA" [ref=f2e101] [cursor=pointer]:
+                - /url: pisa.html
+        - generic [ref=f2e102]:
+          - heading "Связаться с нами" [level=4] [ref=f2e103]
+          - list [ref=f2e104]:
+            - listitem [ref=f2e105]:
+              - link "hello@craftai.kz" [ref=f2e106] [cursor=pointer]:
+                - /url: mailto:hello@craftai.kz
+            - listitem [ref=f2e107]:
+              - link "+7 700 000 00 00" [ref=f2e108] [cursor=pointer]:
+                - /url: tel:+77000000000
+            - listitem [ref=f2e109]:
+              - link "Запросить демо" [ref=f2e110] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=f2e111]:
+          - heading "Нормативная база" [level=4] [ref=f2e112]
+          - list [ref=f2e113]:
+            - listitem [ref=f2e114]:
+              - link "Политика конфиденциальности" [ref=f2e115] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=f2e116]:
+              - link "Пользовательское соглашение" [ref=f2e117] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=f2e118]:
+              - link "Безопасность данных РК" [ref=f2e119] [cursor=pointer]:
+                - /url: "#"
+      - generic [ref=f2e120]:
+        - generic [ref=f2e121]: © 2026 CRAFT AI · Все права защищены
+        - group "Язык интерфейса" [ref=f2e122]:
+          - button "RU" [pressed] [ref=f2e123] [cursor=pointer]
+          - button "KZ" [ref=f2e124] [cursor=pointer]

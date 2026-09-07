@@ -1,0 +1,179 @@
+- generic [active] [ref=f1e1]:
+  - link "Перейти к содержанию" [ref=f1e2] [cursor=pointer]:
+    - /url: "#main"
+  - generic [aria-hidden] [ref=f1e3]:
+    - generic [ref=f1e4]: 12%
+    - generic [ref=f1e5]:
+      - generic [ref=f1e6]: CRAFT
+      - generic [ref=f1e8]: BUILDER
+  - banner [ref=f1e9]:
+    - generic [ref=f1e10]:
+      - link "CRAFT AI BUILDER" [ref=f1e11] [cursor=pointer]:
+        - /url: index.html
+        - generic [ref=f1e12]: CRAFT AI
+        - generic [ref=f1e13]: BUILDER
+      - navigation "Основная навигация" [ref=f1e14]:
+        - link "Экосистема" [ref=f1e15] [cursor=pointer]:
+          - /url: index.html
+        - link "CRAFT MATRIX" [ref=f1e16] [cursor=pointer]:
+          - /url: matrix.html
+        - link "CRAFT BUILDER" [ref=f1e17] [cursor=pointer]:
+          - /url: builder.html
+        - link "CRAFT PISA" [ref=f1e18] [cursor=pointer]:
+          - /url: pisa.html
+      - generic [ref=f1e19]:
+        - button "Запросить демо" [ref=f1e20] [cursor=pointer]
+        - group "Язык интерфейса" [ref=f1e21]:
+          - button "RU" [pressed] [ref=f1e22] [cursor=pointer]
+          - button "KZ" [ref=f1e23] [cursor=pointer]
+  - main [ref=f1e24]:
+    - generic [ref=f1e28]:
+      - generic [ref=f1e29]: CRAFT BUILDER
+      - heading "Практический курс Искусственному Интеллекту" [level=1] [ref=f1e31]:
+        - text: Практический курс
+        - generic [ref=f1e32]: Искусственному
+        - text: Интеллекту
+      - paragraph [ref=f1e33]: Обучаем школьников создавать веб-сервисы, ботов и цифровые продукты с помощью нейросетей. Переход от пассивного использования чат-ботов к созданию собственных IT-проектов.
+      - generic [ref=f1e34]:
+        - button "Запросить программу курса" [ref=f1e35] [cursor=pointer]
+        - button "Подключить класс" [ref=f1e39] [cursor=pointer]
+    - generic [ref=f1e41]:
+      - generic [ref=f1e42]:
+        - generic [ref=f1e43]: Методологический фундамент
+        - heading "Обучение навыкам, а не кнопкам" [level=2] [ref=f1e44]:
+          - text: Обучение навыкам, а не
+          - generic [ref=f1e45]: кнопкам
+        - paragraph [ref=f1e46]: Технологии ИИ обновляются каждый месяц. Бессмысленно заучивать интерфейс одной конкретной нейросети. Мы даём фундаментальную базу — навык управления ИИ для решения любых задач.
+      - generic [ref=f1e47]:
+        - article [ref=f1e48]:
+          - generic [ref=f1e49]: 01 · «УДОЧКА»
+          - heading "Развитие инженерного мышления («Удочка»)" [level=3] [ref=f1e50]
+          - paragraph [ref=f1e51]: Учим детей правильно формулировать задачи, разбивать сложные цели на шаги (декомпозиция), задавать контекст и критически проверять готовый результат.
+        - article [ref=f1e52]:
+          - generic [ref=f1e53]: 02 · ВАЙБ-КОДИНГ
+          - heading "Создание программ через ИИ (Вайб-кодинг)" [level=3] [ref=f1e54]
+          - paragraph [ref=f1e55]: Ученик описывает идею и логику работы программы на человеческом языке, ИИ генерирует технический код, а школьник тестирует его, исходит из ошибок, находит баги и запускает готовый рабочий продукт.
+      - generic [ref=f1e56]:
+        - generic [ref=f1e57]:
+          - generic [ref=f1e58]:
+            - text: ИНТЕРАКТИВНЫЙ ТРЕНАЖЁР
+            - generic [ref=f1e59]: "Интерактивный тренажёр: от хаоса к точному результату"
+          - paragraph [ref=f1e60]: "Попробуйте собрать точный промпт для нейросети, добавляя необходимые критерии качества:"
+        - generic [ref=f1e62]:
+          - code [ref=f1e64]: Сделай сайт для школьного научного проекта.
+          - generic [ref=f1e65]:
+            - button "+ Роль эксперта" [ref=f1e66] [cursor=pointer]
+            - button "+ Стек и структура" [ref=f1e67] [cursor=pointer]
+            - button "+ Краевые сценарии" [ref=f1e68] [cursor=pointer]
+            - button "+ Лишние вводные (шум)" [ref=f1e69] [cursor=pointer]
+          - generic [ref=f1e70]:
+            - button "Проверить качество промпта" [ref=f1e71] [cursor=pointer]
+            - generic [ref=f1e72]: "Качество промпта: 25% — Слишком размыто, результат непредсказуем"
+          - list [ref=f1e73]:
+            - listitem [ref=f1e74]: ✕ Контекст задачи и целевая аудитория проекта
+            - listitem [ref=f1e75]: ✕ Технические требования и структура артефакта
+            - listitem [ref=f1e76]: ✕ Критерии валидации и обработка ошибок
+    - generic [ref=f1e78]:
+      - generic [ref=f1e79]:
+        - generic [ref=f1e80]: От теории к готовому продукту
+        - 'heading "Программа курса: 4 практических шага" [level=2] [ref=f1e81]':
+          - text: "Программа курса: 4 практических"
+          - generic [ref=f1e82]: шага
+        - paragraph [ref=f1e83]: Каждая тема завершается созданием работающего цифрового артефакта в портфолио школьника.
+      - generic [ref=f1e84]:
+        - generic [ref=f1e85]: 01. Архитектура LLM
+        - generic [ref=f1e88]: 02. Промпт-инжиниринг
+        - generic [ref=f1e91]: 03. Вайб-кодинг
+        - generic [ref=f1e94]: 04. Автономные агенты
+      - generic [ref=f1e95]:
+        - article [ref=f1e96]:
+          - generic [ref=f1e97]: МОДУЛЬ 1
+          - heading "Модуль 1. Как устроен ИИ (Принципы работы LLM)" [level=3] [ref=f1e98]
+          - paragraph [ref=f1e99]: Разбор логики работы больших языковых моделей и нейросетей без «магии» и сложного сленга. Понимание ограничений, галлюцинаций и реальных возможностей современных генеративных моделей.
+        - article [ref=f1e100]:
+          - generic [ref=f1e101]: МОДУЛЬ 2
+          - heading "Модуль 2. Продвинутый промпт-инжиниринг и работа с контекстом" [level=3] [ref=f1e102]
+          - paragraph [ref=f1e103]: Формирование сложных точных запросов, работа с большими объёмами школьных документов, датасетами и базами знаний. Обучение ИИ строго действовать по заданным сценариям и системным инструкциям.
+        - article [ref=f1e104]:
+          - generic [ref=f1e105]: МОДУЛЬ 3
+          - heading "Модуль 3. Разработка приложений через ИИ-ассистентов (Вайб-кодинг)" [level=3] [ref=f1e106]
+          - paragraph [ref=f1e107]: Создание первых веб-сервисов, интерактивных страниц и автоматизационных скриптов без необходимости многолетней зубрежки синтаксиса. Школьник выступает архитектором и продукт-менеджером своего IT-решения.
+        - article [ref=f1e108]:
+          - generic [ref=f1e109]: МОДУЛЬ 4
+          - heading "Модуль 4. Создание и запуск автономных ИИ-агентов" [level=3] [ref=f1e110]
+          - paragraph [ref=f1e111]: Сборка персональных умных помощников (телеграм-ботов, цифровых тьюторов), способных самостоятельно выполнять последовательность действий, анализировать внешние файлы и решать прикладные задачи школы.
+    - generic [ref=f1e113]:
+      - generic [ref=f1e114]:
+        - generic [ref=f1e115]: Ценность для школы и ученика
+        - heading "Что получает школа и ученик на выходе" [level=2] [ref=f1e116]:
+          - text: Что получает школа и ученик на
+          - generic [ref=f1e117]: выходе
+        - paragraph [ref=f1e118]: Измеримые результаты, которые подтверждаются работающими проектами и академическими успехами.
+      - generic [ref=f1e119]:
+        - article [ref=f1e120]:
+          - generic [ref=f1e121]: 01 · ПОРТФОЛИО
+          - heading "Готовое портфолио ученика" [level=3] [ref=f1e122]
+          - paragraph [ref=f1e123]: "У каждого выпускника курса есть 3–4 рабочих IT-проекта: собственный сайт, функциональный бот, персональный ИИ-ассистент, готовые к демонстрации приемным комиссиям вузов."
+        - article [ref=f1e124]:
+          - generic [ref=f1e125]: 02 · ПРОЕКТЫ
+          - heading "Готовая проектная деятельность для школы" [level=3] [ref=f1e126]
+          - paragraph [ref=f1e127]: Ученики получают прочную базу для результативного участия в республиканских научных конкурсах («Дарын», МАН), хакатонах и инновационных школьных олимпиадах.
+        - article [ref=f1e128]:
+          - generic [ref=f1e129]: 03 · БЕЗОПАСНОСТЬ
+          - heading "Безопасность и гигиена" [level=3] [ref=f1e130]
+          - paragraph [ref=f1e131]: Школьники глубоко понимают этику использования ИИ, соблюдают принципы академической честности, уважают авторские права и умеют надежно защищать свои персональные данные.
+    - generic [ref=f1e133]:
+      - heading "Внедрите ИИ в образовательный процесс школы" [level=2] [ref=f1e134]:
+        - text: Внедрите ИИ в образовательный процесс
+        - generic [ref=f1e135]: школы
+      - paragraph [ref=f1e136]: Готовые модули уроков по ГОСО, практический курс прикладного ИИ и тренажеры PISA-2029 в единой защищенной платформе.
+      - generic [ref=f1e137]:
+        - button "Запросить программу курса" [ref=f1e138] [cursor=pointer]
+        - button "Подключить класс" [ref=f1e142] [cursor=pointer]
+  - contentinfo [ref=f1e143]:
+    - generic [ref=f1e144]:
+      - generic [ref=f1e145]:
+        - generic [ref=f1e146]:
+          - text: CRAFT AI
+          - paragraph [ref=f1e147]: CRAFT AI — единая операционная система для интеграции искусственного интеллекта и подготовки к международным исследованиям PISA в школах Казахстана.
+        - generic [ref=f1e148]:
+          - heading "Модули и разделы" [level=4] [ref=f1e149]
+          - list [ref=f1e150]:
+            - listitem [ref=f1e151]:
+              - link "Экосистема" [ref=f1e152] [cursor=pointer]:
+                - /url: index.html
+            - listitem [ref=f1e153]:
+              - link "CRAFT MATRIX" [ref=f1e154] [cursor=pointer]:
+                - /url: matrix.html
+            - listitem [ref=f1e155]:
+              - link "CRAFT PISA" [ref=f1e156] [cursor=pointer]:
+                - /url: pisa.html
+        - generic [ref=f1e157]:
+          - heading "Связаться с нами" [level=4] [ref=f1e158]
+          - list [ref=f1e159]:
+            - listitem [ref=f1e160]:
+              - link "hello@craftai.kz" [ref=f1e161] [cursor=pointer]:
+                - /url: mailto:hello@craftai.kz
+            - listitem [ref=f1e162]:
+              - link "+7 700 000 00 00" [ref=f1e163] [cursor=pointer]:
+                - /url: tel:+77000000000
+            - listitem [ref=f1e164]:
+              - link "Запросить демо" [ref=f1e165] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=f1e166]:
+          - heading "Нормативная база" [level=4] [ref=f1e167]
+          - list [ref=f1e168]:
+            - listitem [ref=f1e169]:
+              - link "Политика конфиденциальности" [ref=f1e170] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=f1e171]:
+              - link "Пользовательское соглашение" [ref=f1e172] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=f1e173]:
+              - link "Безопасность данных РК" [ref=f1e174] [cursor=pointer]:
+                - /url: "#"
+      - generic [ref=f1e175]:
+        - generic [ref=f1e176]: © 2026 CRAFT AI · Все права защищены
+        - group "Язык интерфейса" [ref=f1e177]:
+          - button "RU" [pressed] [ref=f1e178] [cursor=pointer]
+          - button "KZ" [ref=f1e179] [cursor=pointer]

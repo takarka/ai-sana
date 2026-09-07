@@ -1,0 +1,183 @@
+- generic [active] [ref=f3e1]:
+  - link "Перейти к содержанию" [ref=f3e2] [cursor=pointer]:
+    - /url: "#main"
+  - generic [aria-hidden] [ref=f3e3]:
+    - generic [ref=f3e4]: 14%
+    - generic [ref=f3e5]:
+      - generic [ref=f3e6]: CRAFT
+      - generic [ref=f3e8]: PISA
+  - banner [ref=f3e9]:
+    - generic [ref=f3e10]:
+      - link "CRAFT AI PISA" [ref=f3e11] [cursor=pointer]:
+        - /url: index.html
+        - generic [ref=f3e12]: CRAFT AI
+        - generic [ref=f3e13]: PISA
+      - navigation "Основная навигация" [ref=f3e14]:
+        - link "Экосистема" [ref=f3e15] [cursor=pointer]:
+          - /url: index.html
+        - link "CRAFT MATRIX" [ref=f3e16] [cursor=pointer]:
+          - /url: matrix.html
+        - link "CRAFT BUILDER" [ref=f3e17] [cursor=pointer]:
+          - /url: builder.html
+        - link "CRAFT PISA" [ref=f3e18] [cursor=pointer]:
+          - /url: pisa.html
+      - generic [ref=f3e19]:
+        - button "Запросить демо" [ref=f3e20] [cursor=pointer]
+        - group "Язык интерфейса" [ref=f3e21]:
+          - button "RU" [pressed] [ref=f3e22] [cursor=pointer]
+          - button "KZ" [ref=f3e23] [cursor=pointer]
+  - main [ref=f3e24]:
+    - generic [ref=f3e28]:
+      - generic [ref=f3e29]: CRAFT PISA
+      - heading "Подготовка к международным стандартам и PISA-2029" [level=1] [ref=f3e31]:
+        - text: Подготовка к международным стандартам и
+        - generic [ref=f3e32]: PISA-2029
+      - paragraph [ref=f3e33]: Интерактивный архив заданий PISA, тренажеры функциональной грамотности и новый спецмодуль по медиа- и ИИ-грамотности с автоматической диагностикой готовности школы.
+      - generic [ref=f3e34]:
+        - button "Запустить диагностический тест" [ref=f3e35] [cursor=pointer]
+        - button "Подключить школу" [ref=f3e39] [cursor=pointer]
+    - generic [ref=f3e41]:
+      - generic [ref=f3e42]:
+        - generic [ref=f3e43]: Архитектура модуля
+        - 'heading "Структура модуля: три уровня подготовки" [level=2] [ref=f3e44]':
+          - text: "Структура модуля: три уровня"
+          - generic [ref=f3e45]: подготовки
+        - paragraph [ref=f3e46]: Модуль охватывает как классическую подготовку по материалам прошлых лет, так и отработку новых компетенций, проверяемых OECD.
+      - generic [ref=f3e47]:
+        - generic [ref=f3e48]:
+          - generic [ref=f3e49]: УРОВЕНЬ 1 · АРХИВ
+          - strong [ref=f3e50]: Интерактивный архив PISA (Базовая подготовка)
+          - paragraph [ref=f3e51]: Полная оцифрованная база реальных тестовых заданий прошлых циклов с автоматической проверкой.
+          - list [ref=f3e52]:
+            - listitem [ref=f3e53]: • Полнотекстовая оцифрованная база оригинальных заданий PISA прошлых циклов.
+            - listitem [ref=f3e54]: • Автоматический разбор решений, детальное объяснение ошибок и пошаговые подсказки для ученика.
+        - generic [ref=f3e55]:
+          - generic [ref=f3e56]: УРОВЕНЬ 2 · НАПРАВЛЕНИЯ
+          - strong [ref=f3e57]: Тренажеры по 3 ключевым направлениям
+          - paragraph [ref=f3e58]: "Отработка академической функциональной грамотности через интерактивные кейсы:"
+          - list [ref=f3e59]:
+            - listitem [ref=f3e60]: "• Математическая грамотность: решение практических задач в реальном жизненном контексте."
+            - listitem [ref=f3e61]: "• Естественно-научная грамотность: формирование гипотез, проведение виртуальных экспериментов и анализ данных."
+            - listitem [ref=f3e62]: "• Читательская грамотность: работа с критико-аналитическими текстами, выделение сути и фактчекинг."
+        - generic [ref=f3e63]:
+          - generic [ref=f3e64]: УРОВЕНЬ 3 · PISA-2029
+          - strong [ref=f3e65]: "Спецмодуль PISA-2029: Медиа- и ИИ-грамотность"
+          - paragraph [ref=f3e66]: "Фокус будущего: подготовка к новому обязательному направлению оценки OECD:"
+          - list [ref=f3e67]:
+            - listitem [ref=f3e68]: "• Распознавание фейков и дипфейков: навык отличать сгенерированный нейросетями контент от фактов."
+            - listitem [ref=f3e69]: "• Анализ ошибок и галлюцинаций ИИ: поиск логических неувязок и предвзятости в ответах нейросетей."
+            - listitem [ref=f3e70]: "• Работа с мультимодальной информацией: синтез графиков, таблиц и ИИ-сводок в едином окне."
+    - generic [ref=f3e72]:
+      - generic [ref=f3e73]:
+        - generic [ref=f3e74]: Аналитика для администрации
+        - 'heading "Управленческий дашборд: объективная готовность школы" [level=2] [ref=f3e75]':
+          - text: "Управленческий дашборд: объективная"
+          - generic [ref=f3e76]: готовность
+          - text: школы
+        - paragraph [ref=f3e77]: Сквозной срез результатов классов и параллелей без бумажной нагрузки на учителей.
+      - generic [ref=f3e78]:
+        - article [ref=f3e79]:
+          - generic [ref=f3e80]: 01 · ДИАГНОСТИКА
+          - heading "Сквозная диагностика готовности" [level=3] [ref=f3e81]
+          - paragraph [ref=f3e82]: Автоматическое определение реального уровня функциональной грамотности каждого класса и параллели без проведения длительных бумажных срезов.
+        - article [ref=f3e83]:
+          - generic [ref=f3e84]: 02 · ТЕПЛОВАЯ КАРТА
+          - heading "Тепловая карта рисков" [level=3] [ref=f3e85]
+          - paragraph [ref=f3e86]: Система мгновенно подсвечивает темы, разделы и мыслительные навыки, по которым у школьников наблюдается системное проседание.
+        - article [ref=f3e87]:
+          - generic [ref=f3e88]: 03 · ОТЧЕТЫ ДЛЯ УоО
+          - heading "Готовые отчеты для УоО в один клик" [level=3] [ref=f3e89]
+          - paragraph [ref=f3e90]: Формирование выгружаемых отчетов по динамике прироста критического мышления и прогнозу баллов PISA для школьного руководства.
+      - generic [ref=f3e91]:
+        - generic [ref=f3e92]:
+          - heading "Динамика готовности параллелей к PISA-2029" [level=3] [ref=f3e93]
+          - generic [ref=f3e94]: Сравнение контрольных срезов (входной vs текущий срез)
+          - img "Динамика готовности параллелей школы к PISA-2029" [ref=f3e96]:
+            - generic [ref=f3e97]: "40"
+            - generic [ref=f3e98]: "60"
+            - generic [ref=f3e99]: "80"
+            - generic [ref=f3e100]: "100"
+            - generic [ref=f3e103]: 48%
+            - generic [ref=f3e104]: Входной
+            - generic [ref=f3e106]: 59%
+            - generic [ref=f3e107]: 1 четверть
+            - generic [ref=f3e109]: 68%
+            - generic [ref=f3e110]: 2 четверть
+            - generic [ref=f3e112]: 79%
+            - generic [ref=f3e113]: 3 четверть
+            - generic [ref=f3e115]: 88%
+            - generic [ref=f3e116]: Прогноз 2029
+        - generic [ref=f3e117]:
+          - heading "Готовность по направлениям (Текущий срез)" [level=3] [ref=f3e118]
+          - list [ref=f3e119]:
+            - listitem [ref=f3e120]:
+              - generic [ref=f3e121]: Медиа- и ИИ-грамотность (PISA-2029)
+              - generic [ref=f3e124]: 88%
+            - listitem [ref=f3e125]:
+              - generic [ref=f3e126]: Математическая грамотность
+              - generic [ref=f3e129]: 79%
+            - listitem [ref=f3e130]:
+              - generic [ref=f3e131]: Читательская грамотность
+              - generic [ref=f3e134]: 68%
+            - listitem [ref=f3e135]:
+              - generic [ref=f3e136]: Естественно-научные гипотезы
+              - generic [ref=f3e139]: 48%
+          - generic [ref=f3e140]:
+            - text: АЛГОРИТМИЧЕСКИЙ ВЫВОД
+            - paragraph [ref=f3e141]: "Рекомендация алгоритма: усилить блок естественно-научных гипотез в 8–9 классах."
+      - generic [ref=f3e142]: "Примечание: Программа подготовки ориентирована на открытые рамки оценивания и стандарты OECD PISA. PISA является зарегистрированным товарным знаком Организации экономического сотрудничества и развития (OECD). Платформа CRAFT AI является независимым образовательным комплексом."
+    - generic [ref=f3e144]:
+      - heading "Внедрите ИИ в образовательный процесс школы" [level=2] [ref=f3e145]:
+        - text: Внедрите ИИ в образовательный процесс
+        - generic [ref=f3e146]: школы
+      - paragraph [ref=f3e147]: Готовые модули уроков по ГОСО, практический курс прикладного ИИ и тренажеры PISA-2029 в единой защищенной платформе.
+      - generic [ref=f3e148]:
+        - button "Запустить диагностический тест" [ref=f3e149] [cursor=pointer]
+        - button "Подключить школу" [ref=f3e153] [cursor=pointer]
+  - contentinfo [ref=f3e154]:
+    - generic [ref=f3e155]:
+      - generic [ref=f3e156]:
+        - generic [ref=f3e157]:
+          - text: CRAFT AI
+          - paragraph [ref=f3e158]: CRAFT AI — единая операционная система для интеграции искусственного интеллекта и подготовки к международным исследованиям PISA в школах Казахстана.
+        - generic [ref=f3e159]:
+          - heading "Модули и разделы" [level=4] [ref=f3e160]
+          - list [ref=f3e161]:
+            - listitem [ref=f3e162]:
+              - link "Экосистема" [ref=f3e163] [cursor=pointer]:
+                - /url: index.html
+            - listitem [ref=f3e164]:
+              - link "CRAFT MATRIX" [ref=f3e165] [cursor=pointer]:
+                - /url: matrix.html
+            - listitem [ref=f3e166]:
+              - link "CRAFT BUILDER" [ref=f3e167] [cursor=pointer]:
+                - /url: builder.html
+        - generic [ref=f3e168]:
+          - heading "Связаться с нами" [level=4] [ref=f3e169]
+          - list [ref=f3e170]:
+            - listitem [ref=f3e171]:
+              - link "hello@craftai.kz" [ref=f3e172] [cursor=pointer]:
+                - /url: mailto:hello@craftai.kz
+            - listitem [ref=f3e173]:
+              - link "+7 700 000 00 00" [ref=f3e174] [cursor=pointer]:
+                - /url: tel:+77000000000
+            - listitem [ref=f3e175]:
+              - link "Запросить демо" [ref=f3e176] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=f3e177]:
+          - heading "Нормативная база" [level=4] [ref=f3e178]
+          - list [ref=f3e179]:
+            - listitem [ref=f3e180]:
+              - link "Политика конфиденциальности" [ref=f3e181] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=f3e182]:
+              - link "Пользовательское соглашение" [ref=f3e183] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=f3e184]:
+              - link "Безопасность данных РК" [ref=f3e185] [cursor=pointer]:
+                - /url: "#"
+      - generic [ref=f3e186]:
+        - generic [ref=f3e187]: © 2026 CRAFT AI · Все права защищены
+        - group "Язык интерфейса" [ref=f3e188]:
+          - button "RU" [pressed] [ref=f3e189] [cursor=pointer]
+          - button "KZ" [ref=f3e190] [cursor=pointer]
