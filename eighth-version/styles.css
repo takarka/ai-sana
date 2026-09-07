@@ -42,10 +42,16 @@ html {
   --on-paper: #0A0E1C;
   --on-paper-dim: #5B6478;
 
-  /* семантическая шкала статусов и аналитики */
+  /* семантическая шкала статусов и аналитики (для paper-полос) */
   --lvl-high: #1B9E6B;
   --lvl-mid: #D9902B;
   --lvl-low: #D0503C;
+
+  /* та же шкала, но ярче — для дашборда учителя на band--ink:
+     --lvl-high/mid/low недостаточно контрастны на тёмном фоне */
+  --lvl-high-ink: #2ED573;
+  --lvl-mid-ink: #FFA502;
+  --lvl-low-ink: #FF4757;
 
   /* геометрия */
   --r-pill: 10rem;
@@ -351,7 +357,9 @@ p {
   background: var(--signal);
   color: #EAF0FF;
   border-radius: var(--r-pill);
-  padding: 0 .28em .06em;
+  /* нижний паддинг чуть больше, чем у кириллицы: у казахских «қ», «ұ», «ғ»
+     хвост уходит ниже бейзлайна сильнее и обрезался внутри .word-mask */
+  padding: 0 .28em .14em;
   margin-inline: -.06em;
 }
 
@@ -366,8 +374,8 @@ p {
 
 .d-xl .word-mask,
 .d-lg .word-mask {
-  padding: .35em 0;
-  margin-block: -.35em;
+  padding: .42em 0;
+  margin-block: -.42em;
 }
 
 .word-mask:not(:last-child) {
@@ -642,6 +650,10 @@ p {
   display: inline-block;
   font-family: "JetBrains Mono", monospace;
   font-size: 1.1rem;
+  line-height: 1.4;
+  /* Резерв под 2 строки: роль на карточках 4 экспертов разной длины,
+     без этого заголовки .person__focus начинались на разной высоте */
+  min-height: 3.1rem;
   text-transform: uppercase;
   letter-spacing: .06em;
   color: var(--accent);
@@ -1137,21 +1149,21 @@ p {
 }
 
 .desk-badge--green {
-  color: #2ED573;
-  background: rgba(46, 213, 115, .15);
-  border: 1px solid rgba(46, 213, 115, .3);
+  color: var(--lvl-high-ink);
+  background: color-mix(in srgb, var(--lvl-high-ink) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--lvl-high-ink) 30%, transparent);
 }
 
 .desk-badge--yellow {
-  color: #FFA502;
-  background: rgba(255, 165, 2, .15);
-  border: 1px solid rgba(255, 165, 2, .3);
+  color: var(--lvl-mid-ink);
+  background: color-mix(in srgb, var(--lvl-mid-ink) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--lvl-mid-ink) 30%, transparent);
 }
 
 .desk-badge--red {
-  color: #FF4757;
-  background: rgba(255, 71, 87, .18);
-  border: 1px solid rgba(255, 71, 87, .35);
+  color: var(--lvl-low-ink);
+  background: color-mix(in srgb, var(--lvl-low-ink) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--lvl-low-ink) 35%, transparent);
 }
 
 .desk__meter {

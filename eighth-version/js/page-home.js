@@ -160,9 +160,7 @@
       meter.className = "meter";
       var bar = document.createElement("i");
       bar.style.width = s.prog + "%";
-      if (s.status === "green") bar.style.background = "#2ED573";
-      else if (s.status === "yellow") bar.style.background = "#FFA502";
-      else bar.style.background = "#FF4757";
+      bar.style.background = "var(--lvl-" + (s.status === "green" ? "high" : s.status === "yellow" ? "mid" : "low") + "-ink)";
       meter.appendChild(bar);
       var pct = document.createElement("span");
       pct.style.fontFamily = "JetBrains Mono, monospace";
@@ -188,7 +186,7 @@
       /* Действие / Заметка */
       var tdAction = document.createElement("td");
       tdAction.style.fontSize = "1.4rem";
-      tdAction.style.color = s.status === "red" ? "#FF4757" : "var(--on-ink-dim)";
+      tdAction.style.color = s.status === "red" ? "var(--lvl-low-ink)" : "var(--on-ink-dim)";
       tdAction.textContent = lang === "kz" ? s.noteKz : s.noteRu;
 
       tr.appendChild(tdName);
@@ -204,8 +202,12 @@
     var filterBtns = document.querySelectorAll(".desk__filters .chip");
     filterBtns.forEach(function (btn) {
       btn.addEventListener("click", function () {
-        filterBtns.forEach(function (b) { b.classList.remove("is-on"); });
+        filterBtns.forEach(function (b) {
+          b.classList.remove("is-on");
+          b.setAttribute("aria-pressed", "false");
+        });
         btn.classList.add("is-on");
+        btn.setAttribute("aria-pressed", "true");
         currentFilter = btn.dataset.status || "all";
         renderTable();
       });
@@ -236,6 +238,7 @@
         var expanded = q.getAttribute("aria-expanded") === "true";
         q.setAttribute("aria-expanded", String(!expanded));
         a.classList.toggle("is-open", !expanded);
+        a.setAttribute("aria-hidden", String(expanded));
       });
     });
   }

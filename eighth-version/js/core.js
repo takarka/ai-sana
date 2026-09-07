@@ -192,17 +192,64 @@
     var formBox = document.getElementById("modalForm");
     var doneBox = document.getElementById("modalDone");
     var form = document.getElementById("demoForm");
+    /* Всё, что не модалка, прячем от AT и клавиатуры, пока она открыта */
+    var outside = [].slice.call(document.querySelectorAll("body > header, body > main, body > footer"));
+    var lastFocus = null;
+    var scrollY = 0;
+
+    function focusables() {
+      return [].slice.call(modal.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )).filter(function (el) { return el.offsetParent !== null; });
+    }
+
+    function onKeydown(e) {
+      if (e.key === "Escape") { closeModal(); return; }
+      if (e.key !== "Tab") return;
+      var f = focusables();
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    }
 
     function openModal() {
+      lastFocus = document.activeElement;
       modal.classList.add("is-open");
       if (formBox) formBox.hidden = false;
       if (doneBox) doneBox.hidden = true;
+
+      outside.forEach(function (el) { el.setAttribute("aria-hidden", "true"); el.setAttribute("inert", ""); });
+
+      scrollY = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = -scrollY + "px";
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+
+      document.addEventListener("keydown", onKeydown);
+
       var firstInput = modal.querySelector("input");
       if (firstInput) setTimeout(function () { firstInput.focus(); }, 50);
     }
 
     function closeModal() {
+      if (!modal.classList.contains("is-open")) return;
       modal.classList.remove("is-open");
+
+      outside.forEach(function (el) { el.removeAttribute("aria-hidden"); el.removeAttribute("inert"); });
+
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      window.scrollTo(0, scrollY);
+
+      document.removeEventListener("keydown", onKeydown);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
     }
 
     document.querySelectorAll("[data-modal]").forEach(function (btn) {
@@ -214,12 +261,6 @@
 
     modal.querySelectorAll("[data-close]").forEach(function (el) {
       el.addEventListener("click", closeModal);
-    });
-
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && modal.classList.contains("is-open")) {
-        closeModal();
-      }
     });
 
     if (form) {

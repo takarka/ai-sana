@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=JetBrains+Mono:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap&subset=cyrillic,cyrillic-ext,latin" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<noscript><style>.js-rise,.js-fade,.word{opacity:1!important;transform:none!important}.pre{display:none!important}</style></noscript>
 </head>
 <body class="page--home">
 
@@ -182,13 +183,13 @@
       <div class="desk js-rise">
         <div class="desk__top">
           <div class="desk__filters">
-            <button class="chip is-on" data-status="all" data-i18n="home.desk.f.all">Все ученики</button>
-            <button class="chip" data-status="green" data-i18n="home.desk.f.green">В темпе</button>
-            <button class="chip" data-status="yellow" data-i18n="home.desk.f.yellow">Замедление</button>
-            <button class="chip" data-status="red" data-i18n="home.desk.f.red">Нужна помощь</button>
+            <button class="chip is-on" data-status="all" aria-pressed="true" data-i18n="home.desk.f.all">Все ученики</button>
+            <button class="chip" data-status="green" aria-pressed="false" data-i18n="home.desk.f.green">В темпе</button>
+            <button class="chip" data-status="yellow" aria-pressed="false" data-i18n="home.desk.f.yellow">Замедление</button>
+            <button class="chip" data-status="red" aria-pressed="false" data-i18n="home.desk.f.red">Нужна помощь</button>
           </div>
 
-          <input type="text" class="desk__search" id="deskSearch" data-i18n-placeholder="home.desk.search.ph" placeholder="Поиск по имени ученика...">
+          <input type="text" class="desk__search" id="deskSearch" data-i18n-placeholder="home.desk.search.ph" data-i18n-aria="home.desk.search.ph" placeholder="Поиск по имени ученика..." aria-label="Поиск по имени ученика...">
         </div>
 
         <div class="desk__scroll">
@@ -342,56 +343,56 @@
 
       <div class="faq">
         <div class="faq__item">
-          <button class="faq__q" aria-expanded="false">
+          <button class="faq__q" aria-expanded="false" aria-controls="faqA1">
             <span class="micro">01</span>
             <span data-i18n="home.faq.q1">Как экосистема CRAFT AI внедряется в учебный процесс школы?</span>
             <span class="faq__ico"></span>
           </button>
-          <div class="faq__a">
+          <div class="faq__a" id="faqA1" aria-hidden="true">
             <div><p data-i18n="home.faq.a1">Платформа интегрируется бесшовно: модуль MATRIX используется учителями на регулярных уроках предмета «Цифровая грамотность и ИИ», модуль BUILDER запускается как внеурочный кружок или спецкурс, а PISA — для плановой диагностики готовности параллелей.</p></div>
           </div>
         </div>
 
         <div class="faq__item">
-          <button class="faq__q" aria-expanded="false">
+          <button class="faq__q" aria-expanded="false" aria-controls="faqA2">
             <span class="micro">02</span>
             <span data-i18n="home.faq.q2">Нужно ли учителям информатики проходить долгое обучение?</span>
             <span class="faq__ico"></span>
           </button>
-          <div class="faq__a">
+          <div class="faq__a" id="faqA2" aria-hidden="true">
             <div><p data-i18n="home.faq.a2">Нет. Интерфейс учителя интуитивно понятен и сопровождается готовыми поурочными методическими картами. Учителю не требуется быть экспертом в программировании нейросетей — система берёт интерактивное обучение на себя.</p></div>
           </div>
         </div>
 
         <div class="faq__item">
-          <button class="faq__q" aria-expanded="false">
+          <button class="faq__q" aria-expanded="false" aria-controls="faqA3">
             <span class="micro">03</span>
             <span data-i18n="home.faq.q3">Где и как хранятся персональные данные школьников?</span>
             <span class="faq__ico"></span>
           </button>
-          <div class="faq__a">
+          <div class="faq__a" id="faqA3" aria-hidden="true">
             <div><p data-i18n="home.faq.a3">Все серверные мощности и базы данных размещены в защищенном контуре на территории Республики Казахстан в строгом соответствии с Законом РК «О персональных данных и их защите». Платформа не передаёт данные детей сторонним сервисам.</p></div>
           </div>
         </div>
 
         <div class="faq__item">
-          <button class="faq__q" aria-expanded="false">
+          <button class="faq__q" aria-expanded="false" aria-controls="faqA4">
             <span class="micro">04</span>
             <span data-i18n="home.faq.q4">Чем модуль CRAFT PISA отличается от обычных тестов?</span>
             <span class="faq__ico"></span>
           </button>
-          <div class="faq__a">
+          <div class="faq__a" id="faqA4" aria-hidden="true">
             <div><p data-i18n="home.faq.a4">CRAFT PISA включает не только оцифрованный банк заданий OECD прошлых лет, но и впервые в Казахстане готовит детей к спецификации PISA-2029: проверке медиаграмотности, выявлению дипфейков и анализу ошибок искусственного интеллекта.</p></div>
           </div>
         </div>
 
         <div class="faq__item">
-          <button class="faq__q" aria-expanded="false">
+          <button class="faq__q" aria-expanded="false" aria-controls="faqA5">
             <span class="micro">05</span>
             <span data-i18n="home.faq.q5">Как школа может запросить пилотный доступ и демонстрацию?</span>
             <span class="faq__ico"></span>
           </button>
-          <div class="faq__a">
+          <div class="faq__a" id="faqA5" aria-hidden="true">
             <div><p data-i18n="home.faq.a5">Достаточно нажать кнопку «Запросить демо для школы» и оставить контакты руководства. Наша методическая команда свяжется с вами, развернёт тестовый кабинет и покажет живую работу системы на примере одного класса.</p></div>
           </div>
         </div>
