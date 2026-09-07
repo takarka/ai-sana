@@ -1,325 +1,399 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CRAFT BUILDER — Практический курс Искусственному Интеллекту и вайб-кодингу</title>
-<meta name="description" content="Обучаем школьников создавать реальные цифровые продукты, ботов и веб-сервисы с помощью нейросетей. Переход от чат-ботов к созданию IT-проектов и портфолио.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=JetBrains+Mono:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap&subset=cyrillic,cyrillic-ext,latin" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<noscript><style>.js-rise,.js-fade,.word{opacity:1!important;transform:none!important}.pre{display:none!important}</style></noscript>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CRAFT BUILDER — Практический курс Искусственному Интеллекту и вайб-кодингу</title>
+  <meta name="description"
+    content="Обучаем школьников создавать реальные цифровые продукты, ботов и веб-сервисы с помощью нейросетей. Переход от чат-ботов к созданию IT-проектов и портфолио.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=JetBrains+Mono:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap&subset=cyrillic,cyrillic-ext,latin"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=h1">
+  <noscript>
+    <style>
+      .js-rise,
+      .js-fade,
+      .word {
+        opacity: 1 !important;
+        transform: none !important
+      }
+
+      .pre {
+        display: none !important
+      }
+    </style>
+  </noscript>
 </head>
+
 <body class="page--builder">
 
-<!-- Сквозная WebGL-сцена -->
-<canvas id="scene" aria-hidden="true"></canvas>
+  <!-- Сквозная WebGL-сцена -->
+  <canvas id="scene" aria-hidden="true"></canvas>
 
-<!-- Рамка-уголки -->
-<div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <!-- Рамка-уголки -->
+  <div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 
-<a class="skip" href="#main" data-i18n="skip">Перейти к содержанию</a>
+  <a class="skip" href="#main" data-i18n="skip">Перейти к содержанию</a>
 
-<!-- Прелоадер -->
-<div class="pre" id="pre" aria-hidden="true">
-  <div class="pre__pct"><span id="prePct">0</span>%</div>
-  <div class="pre__mark">
-    <span>CRAFT</span>
-    <div class="pre__bar" id="preBar"></div>
-    <span>BUILDER</span>
-  </div>
-</div>
-
-<!-- Шапка -->
-<header class="head" id="head">
-  <div class="head__in">
-    <a class="logo" href="index.html">
-      <span class="logo__mark">CRAFT AI</span>
-      <span class="logo__tag">BUILDER</span>
-    </a>
-
-    <nav class="nav" id="nav" aria-label="Основная навигация">
-      <a href="index.html" data-i18n="nav.home">Экосистема</a>
-      <a href="matrix.html" data-i18n="nav.matrix">CRAFT MATRIX</a>
-      <a href="builder.html" class="is-active" data-i18n="nav.builder">CRAFT BUILDER</a>
-      <a href="pisa.html" data-i18n="nav.pisa">CRAFT PISA</a>
-    </nav>
-
-    <div class="head__side">
-      <button class="btn btn--primary" data-modal data-i18n="nav.cta">Запросить демо</button>
-      <div class="lang" role="group" data-i18n-aria="lang.label" aria-label="Язык интерфейса">
-        <button class="lang-btn is-active" data-lang="ru" aria-pressed="true">RU</button>
-        <button class="lang-btn" data-lang="kz" aria-pressed="false">KZ</button>
-      </div>
-      <button class="burger" id="burger" data-i18n-aria="nav.menu" aria-label="Открыть меню" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h18M3 17h18"/></svg>
-      </button>
+  <!-- Прелоадер -->
+  <div class="pre" id="pre" aria-hidden="true">
+    <div class="pre__pct"><span id="prePct">0</span>%</div>
+    <div class="pre__mark">
+      <span>CRAFT</span>
+      <div class="pre__bar" id="preBar"></div>
+      <span>BUILDER</span>
     </div>
   </div>
-</header>
 
-<main id="main">
-
-  <!-- ================= 1. ГЕРОЙ ================= -->
-  <section class="band band--ink band--air hero" id="hero">
-    <div class="wrap">
-      <div class="hero__grid">
-        <div>
-          <div class="hero__eyebrows">
-            <span class="micro micro--accent" data-i18n="builder.hero.eye">Практический курс ИИ-инженерии</span>
-          </div>
-
-          <h1 class="display d-xl js-split" data-i18n-html="builder.hero.h1">CRAFT BUILDER: Практический курс <span class="hl">Искусственному</span> Интеллекту</h1>
-
-          <p class="lead js-rise" data-i18n="builder.hero.lead">Обучаем школьников создавать веб-сервисы, ботов и цифровые продукты с помощью нейросетей. Переход от пассивного использования чат-ботов к созданию собственных IT-проектов.</p>
-
-          <div class="hero__cta js-rise">
-            <button class="btn btn--primary" data-modal>
-              <span data-i18n="builder.hero.cta.prog">Запросить программу курса</span>
-              <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </button>
-            <button class="btn btn--ghost" data-modal data-i18n="builder.hero.cta.class">Подключить класс</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 2. ГЛАВНЫЙ ПОДХОД ================= -->
-  <section class="band band--paper" id="skills">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="micro micro--accent" data-i18n="builder.way.eye">Методологический фундамент</span>
-        <h2 class="display d-lg js-split" data-i18n-html="builder.way.h2">Обучение навыкам, а не <span class="hl">кнопкам</span></h2>
-        <p class="lead" data-i18n="builder.way.lead">Технологии ИИ обновляются каждый месяц. Бессмысленно заучивать интерфейс одной конкретной нейросети. Мы даём фундаментальную базу — навык управления ИИ для решения любых задач.</p>
-      </div>
-
-      <div class="grid grid-2">
-        <article class="card js-rise">
-          <span class="card__n">01 · «УДОЧКА»</span>
-          <h3 data-i18n="builder.t1.title">Развитие инженерного мышления («Удочка»)</h3>
-          <p data-i18n="builder.t1.desc">Учим детей правильно формулировать задачи, разбивать сложные цели на шаги (декомпозиция), задавать контекст и критически проверять готовый результат.</p>
-        </article>
-
-        <article class="card js-rise">
-          <span class="card__n">02 · ВАЙБ-КОДИНГ</span>
-          <h3 data-i18n="builder.t2.title">Создание программ через ИИ (Вайб-кодинг)</h3>
-          <p data-i18n="builder.t2.desc">Ученик описывает идею и логику работы программы на человеческом языке, ИИ генерирует технический код, а школьник тестирует его, исходит из ошибок, находит баги и запускает готовый рабочий продукт.</p>
-        </article>
-      </div>
-
-      <!-- Интерактивный тренажёр промпта -->
-      <div class="lesson js-rise">
-        <div class="lesson__head">
-          <div>
-            <span class="micro micro--accent">ИНТЕРАКТИВНЫЙ ТРЕНАЖЁР</span>
-            <div class="lesson__title" data-i18n="builder.lz.title">Интерактивный тренажёр: от хаоса к точному результату</div>
-          </div>
-          <p class="micro" data-i18n="builder.lz.lead">Попробуйте собрать точный промпт для нейросети, добавляя необходимые критерии качества:</p>
-        </div>
-
-        <div class="lesson__panes">
-          <div class="lz">
-            <div class="lz__out">
-              <code id="lzCode">Сделай сайт для школьного научного проекта.</code>
-            </div>
-
-            <div class="lz__chips">
-              <button class="lz-chip" data-chip="role" data-i18n="builder.lz.chip.role">+ Роль эксперта</button>
-              <button class="lz-chip" data-chip="format" data-i18n="builder.lz.chip.format">+ Стек и структура</button>
-              <button class="lz-chip" data-chip="cases" data-i18n="builder.lz.chip.cases">+ Краевые сценарии</button>
-              <button class="lz-chip lz-chip--noise" data-chip="noise" data-i18n="builder.lz.chip.noise">+ Лишние вводные (шум)</button>
-            </div>
-
-            <div class="lz__acts">
-              <button class="btn btn--ghost" id="lzCheck" data-i18n="builder.lz.btn.check">Проверить качество промпта</button>
-              <span class="lz__score" id="lzScore" data-i18n="builder.lz.score.low">Качество промпта: 25% — Слишком размыто</span>
-            </div>
-
-            <ul class="lz__verdict" id="lzVerdict">
-              <li class="is-no" data-i18n="builder.lz.v1">Контекст задачи и целевая аудитория проекта</li>
-              <li class="is-no" data-i18n="builder.lz.v2">Технические требования и структура артефакта</li>
-              <li class="is-no" data-i18n="builder.lz.v3">Критерии валидации и обработка ошибок</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 3. ПРОГРАММА КУРСА ================= -->
-  <section class="band band--paper-2" id="curriculum">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="micro micro--accent" data-i18n="builder.prog.eye">От теории к готовому продукту</span>
-        <h2 class="display d-lg js-split" data-i18n-html="builder.prog.h2">Программа курса: 4 практических <span class="hl">шага</span></h2>
-        <p class="lead" data-i18n="builder.prog.lead">Каждая тема завершается созданием работающего цифрового артефакта в портфолио школьника.</p>
-      </div>
-
-      <div class="chain__rail js-rise">
-        <div class="chain__node" data-i18n="builder.chain.m1">01. Архитектура LLM</div>
-        <svg class="chain__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        <div class="chain__node" data-i18n="builder.chain.m2">02. Промпт-инжиниринг</div>
-        <svg class="chain__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        <div class="chain__node" data-i18n="builder.chain.m3">03. Вайб-кодинг</div>
-        <svg class="chain__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        <div class="chain__node chain__node--end" data-i18n="builder.chain.m4">04. Автономные агенты</div>
-      </div>
-
-      <div class="grid grid-2">
-        <article class="card js-rise">
-          <span class="card__n">МОДУЛЬ 1</span>
-          <h3 data-i18n="builder.m1.t">Модуль 1. Как устроен ИИ (Принципы работы LLM)</h3>
-          <p data-i18n="builder.m1.d">Разбор логики работы больших языковых моделей и нейросетей без «магии» и сложного сленга. Понимание ограничений, галлюцинаций и реальных возможностей современных генеративных моделей.</p>
-        </article>
-
-        <article class="card js-rise">
-          <span class="card__n">МОДУЛЬ 2</span>
-          <h3 data-i18n="builder.m2.t">Модуль 2. Продвинутый промпт-инжиниринг и работа с контекстом</h3>
-          <p data-i18n="builder.m2.d">Формирование сложных точных запросов, работа с большими объёмами школьных документов, датасетами и базами знаний. Обучение ИИ строго действовать по заданным сценариям и системным инструкциям.</p>
-        </article>
-
-        <article class="card js-rise">
-          <span class="card__n">МОДУЛЬ 3</span>
-          <h3 data-i18n="builder.m3.t">Модуль 3. Разработка приложений через ИИ-ассистентов (Вайб-кодинг)</h3>
-          <p data-i18n="builder.m3.d">Создание первых веб-сервисов, интерактивных страниц и автоматизационных скриптов без необходимости многолетней зубрежки синтаксиса. Школьник выступает архитектором и продукт-менеджером своего IT-решения.</p>
-        </article>
-
-        <article class="card js-rise">
-          <span class="card__n">МОДУЛЬ 4</span>
-          <h3 data-i18n="builder.m4.t">Модуль 4. Создание и запуск автономных ИИ-агентов</h3>
-          <p data-i18n="builder.m4.d">Сборка персональных умных помощников (телеграм-ботов, цифровых тьюторов), способных самостоятельно выполнять последовательность действий, анализировать внешние файлы и решать прикладные задачи школы.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 4. РЕЗУЛЬТАТЫ ================= -->
-  <section class="band band--paper" id="outcomes">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="micro micro--accent" data-i18n="builder.out.eye">Ценность для школы и ученика</span>
-        <h2 class="display d-lg js-split" data-i18n-html="builder.out.h2">Что получает школа и ученик на <span class="hl">выходе</span></h2>
-        <p class="lead" data-i18n="builder.out.lead">Измеримые результаты, которые подтверждаются работающими проектами и академическими успехами.</p>
-      </div>
-
-      <div class="grid grid-3">
-        <article class="card js-rise">
-          <span class="card__n">01 · ПОРТФОЛИО</span>
-          <h3 data-i18n="builder.out.c1.t">Готовое портфолио ученика</h3>
-          <p data-i18n="builder.out.c1.d">У каждого выпускника курса есть 3–4 рабочих IT-проекта: собственный сайт, функциональный бот, персональный ИИ-ассистент, готовые к демонстрации приемным комиссиям вузов.</p>
-        </article>
-
-        <article class="card js-rise">
-          <span class="card__n">02 · ПРОЕКТЫ</span>
-          <h3 data-i18n="builder.out.c2.t">Готовая проектная деятельность для школы</h3>
-          <p data-i18n="builder.out.c2.d">Ученики получают прочную базу для результативного участия в республиканских научных конкурсах («Дарын», МАН), хакатонах и инновационных школьных олимпиадах.</p>
-        </article>
-
-        <article class="card js-rise">
-          <span class="card__n">03 · БЕЗОПАСНОСТЬ</span>
-          <h3 data-i18n="builder.out.c3.t">Безопасность и гигиена</h3>
-          <p data-i18n="builder.out.c3.d">Школьники глубоко понимают этику использования ИИ, соблюдают принципы академической честности, уважают авторские права и умеют надежно защищать свои персональные данные.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= ФИНАЛЬНЫЙ CTA ================= -->
-  <section class="band band--ink band--air final" id="cta">
-    <div class="wrap">
-      <h2 class="display d-xl js-split" data-i18n-html="cta.final.h2">Внедрите ИИ в образовательный процесс <span class="hl">школы</span></h2>
-      <p class="lead" data-i18n="cta.final.sub">Готовые модули уроков по ГОСО, практический курс прикладного ИИ и тренажеры PISA-2029 в единой защищенной платформе.</p>
-      <div class="final__btns">
-        <button class="btn btn--primary" data-modal>
-          <span data-i18n="builder.hero.cta.prog">Запросить программу курса</span>
-          <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        </button>
-        <button class="btn btn--ghost" data-modal data-i18n="builder.hero.cta.class">Подключить класс</button>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- ================= ФУТЕР ================= -->
-<footer class="foot">
-  <div class="wrap">
-    <div class="foot__grid">
-      <div>
+  <!-- Шапка -->
+  <header class="head" id="head">
+    <div class="head__in">
+      <a class="logo" href="index.html">
         <span class="logo__mark">CRAFT AI</span>
-        <p data-i18n="foot.about">CRAFT AI — единая операционная система для интеграции искусственного интеллекта и подготовки к международным исследованиям PISA в школах Казахстана.</p>
-      </div>
+        <span class="logo__tag">BUILDER</span>
+      </a>
 
-      <div>
-        <h4 data-i18n="foot.nav">Модули и разделы</h4>
-        <ul>
-          <li><a href="index.html" data-i18n="nav.home">Главная экосистема</a></li>
-          <li><a href="matrix.html" data-i18n="nav.matrix">CRAFT MATRIX</a></li>
-          <li><a href="pisa.html" data-i18n="nav.pisa">CRAFT PISA</a></li>
-        </ul>
-      </div>
+      <nav class="nav" id="nav" aria-label="Основная навигация">
+        <a href="index.html" data-i18n="nav.home">Экосистема</a>
+        <a href="matrix.html" data-i18n="nav.matrix">CRAFT MATRIX</a>
+        <a href="builder.html" class="is-active" data-i18n="nav.builder">CRAFT BUILDER</a>
+        <a href="pisa.html" data-i18n="nav.pisa">CRAFT PISA</a>
+      </nav>
 
-      <div>
-        <h4 data-i18n="foot.contacts">Связаться с нами</h4>
-        <ul>
-          <li><a href="mailto:hello@craftai.kz">hello@craftai.kz</a></li>
-          <li><a href="tel:+77000000000">+7 700 000 00 00</a></li>
-          <li><a href="#" data-modal data-i18n="nav.cta">Запросить демонстрацию</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4 data-i18n="foot.docs">Нормативная база</h4>
-        <ul>
-          <li><a href="#" data-modal data-i18n="foot.privacy">Политика конфиденциальности</a></li>
-          <li><a href="#" data-modal data-i18n="foot.terms">Пользовательское соглашение</a></li>
-          <li><a href="#" data-modal data-i18n="foot.data">Безопасность данных РК</a></li>
-        </ul>
+      <div class="head__side">
+        <button class="btn btn--primary" data-modal data-i18n="nav.cta">Запросить демо</button>
+        <div class="lang" role="group" data-i18n-aria="lang.label" aria-label="Язык интерфейса">
+          <button class="lang-btn is-active" data-lang="ru" aria-pressed="true">RU</button>
+          <button class="lang-btn" data-lang="kz" aria-pressed="false">KZ</button>
+        </div>
+        <button class="burger" id="burger" data-i18n-aria="nav.menu" aria-label="Открыть меню" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M3 7h18M3 17h18" />
+          </svg>
+        </button>
       </div>
     </div>
+  </header>
 
-    <div class="foot__bar">
-      <span class="micro">© 2026 CRAFT AI · <span data-i18n="foot.rights">Все права защищены</span></span>
-      <div class="lang" role="group" data-i18n-aria="lang.label" aria-label="Язык интерфейса">
-        <button class="lang-btn is-active" data-lang="ru" aria-pressed="true">RU</button>
-        <button class="lang-btn" data-lang="kz" aria-pressed="false">KZ</button>
+  <main id="main">
+
+    <!-- ================= 1. ГЕРОЙ ================= -->
+    <section class="band band--ink band--air hero" id="hero">
+      <div class="wrap">
+        <div class="hero__grid">
+          <div>
+            <div class="hero__eyebrows">
+              <span class="micro micro--accent" data-i18n="builder.hero.eye">CRAFT BUILDER</span>
+            </div>
+
+            <h1 class="display d-xl js-split" data-i18n-html="builder.hero.h1">Практический курс <span
+                class="hl">Искусственному</span> Интеллекту</h1>
+
+            <p class="lead js-rise" data-i18n="builder.hero.lead">Обучаем школьников создавать веб-сервисы, ботов и
+              цифровые продукты с помощью нейросетей. Переход от пассивного использования чат-ботов к созданию
+              собственных IT-проектов.</p>
+
+            <div class="hero__cta js-rise">
+              <button class="btn btn--primary" data-modal>
+                <span data-i18n="builder.hero.cta.prog">Запросить программу курса</span>
+                <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <path d="M3 8h10M9 4l4 4-4 4" />
+                </svg>
+              </button>
+              <button class="btn btn--ghost" data-modal data-i18n="builder.hero.cta.class">Подключить класс</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 2. ГЛАВНЫЙ ПОДХОД ================= -->
+    <section class="band band--paper" id="skills">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="micro micro--accent" data-i18n="builder.way.eye">Методологический фундамент</span>
+          <h2 class="display d-lg js-split" data-i18n-html="builder.way.h2">Обучение навыкам, а не <span
+              class="hl">кнопкам</span></h2>
+          <p class="lead" data-i18n="builder.way.lead">Технологии ИИ обновляются каждый месяц. Бессмысленно заучивать
+            интерфейс одной конкретной нейросети. Мы даём фундаментальную базу — навык управления ИИ для решения любых
+            задач.</p>
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card js-rise">
+            <span class="card__n">01 · «УДОЧКА»</span>
+            <h3 data-i18n="builder.t1.title">Развитие инженерного мышления («Удочка»)</h3>
+            <p data-i18n="builder.t1.desc">Учим детей правильно формулировать задачи, разбивать сложные цели на шаги
+              (декомпозиция), задавать контекст и критически проверять готовый результат.</p>
+          </article>
+
+          <article class="card js-rise">
+            <span class="card__n">02 · ВАЙБ-КОДИНГ</span>
+            <h3 data-i18n="builder.t2.title">Создание программ через ИИ (Вайб-кодинг)</h3>
+            <p data-i18n="builder.t2.desc">Ученик описывает идею и логику работы программы на человеческом языке, ИИ
+              генерирует технический код, а школьник тестирует его, исходит из ошибок, находит баги и запускает готовый
+              рабочий продукт.</p>
+          </article>
+        </div>
+
+        <!-- Интерактивный тренажёр промпта -->
+        <div class="lesson js-rise">
+          <div class="lesson__head">
+            <div>
+              <span class="micro micro--accent">ИНТЕРАКТИВНЫЙ ТРЕНАЖЁР</span>
+              <div class="lesson__title" data-i18n="builder.lz.title">Интерактивный тренажёр: от хаоса к точному
+                результату</div>
+            </div>
+            <p class="micro" data-i18n="builder.lz.lead">Попробуйте собрать точный промпт для нейросети, добавляя
+              необходимые критерии качества:</p>
+          </div>
+
+          <div class="lesson__panes">
+            <div class="lz">
+              <div class="lz__out">
+                <code id="lzCode">Сделай сайт для школьного научного проекта.</code>
+              </div>
+
+              <div class="lz__chips">
+                <button class="lz-chip" data-chip="role" data-i18n="builder.lz.chip.role">+ Роль эксперта</button>
+                <button class="lz-chip" data-chip="format" data-i18n="builder.lz.chip.format">+ Стек и
+                  структура</button>
+                <button class="lz-chip" data-chip="cases" data-i18n="builder.lz.chip.cases">+ Краевые сценарии</button>
+                <button class="lz-chip lz-chip--noise" data-chip="noise" data-i18n="builder.lz.chip.noise">+ Лишние
+                  вводные (шум)</button>
+              </div>
+
+              <div class="lz__acts">
+                <button class="btn btn--ghost" id="lzCheck" data-i18n="builder.lz.btn.check">Проверить качество
+                  промпта</button>
+                <span class="lz__score" id="lzScore" data-i18n="builder.lz.score.low">Качество промпта: 25% — Слишком
+                  размыто</span>
+              </div>
+
+              <ul class="lz__verdict" id="lzVerdict">
+                <li class="is-no" data-i18n="builder.lz.v1">Контекст задачи и целевая аудитория проекта</li>
+                <li class="is-no" data-i18n="builder.lz.v2">Технические требования и структура артефакта</li>
+                <li class="is-no" data-i18n="builder.lz.v3">Критерии валидации и обработка ошибок</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 3. ПРОГРАММА КУРСА ================= -->
+    <section class="band band--paper-2" id="curriculum">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="micro micro--accent" data-i18n="builder.prog.eye">От теории к готовому продукту</span>
+          <h2 class="display d-lg js-split" data-i18n-html="builder.prog.h2">Программа курса: 4 практических <span
+              class="hl">шага</span></h2>
+          <p class="lead" data-i18n="builder.prog.lead">Каждая тема завершается созданием работающего цифрового
+            артефакта в портфолио школьника.</p>
+        </div>
+
+        <div class="chain__rail js-rise">
+          <div class="chain__node" data-i18n="builder.chain.m1">01. Архитектура LLM</div>
+          <svg class="chain__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.6">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+          <div class="chain__node" data-i18n="builder.chain.m2">02. Промпт-инжиниринг</div>
+          <svg class="chain__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.6">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+          <div class="chain__node" data-i18n="builder.chain.m3">03. Вайб-кодинг</div>
+          <svg class="chain__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.6">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+          <div class="chain__node chain__node--end" data-i18n="builder.chain.m4">04. Автономные агенты</div>
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card js-rise">
+            <span class="card__n">МОДУЛЬ 1</span>
+            <h3 data-i18n="builder.m1.t">Модуль 1. Как устроен ИИ (Принципы работы LLM)</h3>
+            <p data-i18n="builder.m1.d">Разбор логики работы больших языковых моделей и нейросетей без «магии» и
+              сложного сленга. Понимание ограничений, галлюцинаций и реальных возможностей современных генеративных
+              моделей.</p>
+          </article>
+
+          <article class="card js-rise">
+            <span class="card__n">МОДУЛЬ 2</span>
+            <h3 data-i18n="builder.m2.t">Модуль 2. Продвинутый промпт-инжиниринг и работа с контекстом</h3>
+            <p data-i18n="builder.m2.d">Формирование сложных точных запросов, работа с большими объёмами школьных
+              документов, датасетами и базами знаний. Обучение ИИ строго действовать по заданным сценариям и системным
+              инструкциям.</p>
+          </article>
+
+          <article class="card js-rise">
+            <span class="card__n">МОДУЛЬ 3</span>
+            <h3 data-i18n="builder.m3.t">Модуль 3. Разработка приложений через ИИ-ассистентов (Вайб-кодинг)</h3>
+            <p data-i18n="builder.m3.d">Создание первых веб-сервисов, интерактивных страниц и автоматизационных скриптов
+              без необходимости многолетней зубрежки синтаксиса. Школьник выступает архитектором и продукт-менеджером
+              своего IT-решения.</p>
+          </article>
+
+          <article class="card js-rise">
+            <span class="card__n">МОДУЛЬ 4</span>
+            <h3 data-i18n="builder.m4.t">Модуль 4. Создание и запуск автономных ИИ-агентов</h3>
+            <p data-i18n="builder.m4.d">Сборка персональных умных помощников (телеграм-ботов, цифровых тьюторов),
+              способных самостоятельно выполнять последовательность действий, анализировать внешние файлы и решать
+              прикладные задачи школы.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 4. РЕЗУЛЬТАТЫ ================= -->
+    <section class="band band--paper" id="outcomes">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="micro micro--accent" data-i18n="builder.out.eye">Ценность для школы и ученика</span>
+          <h2 class="display d-lg js-split" data-i18n-html="builder.out.h2">Что получает школа и ученик на <span
+              class="hl">выходе</span></h2>
+          <p class="lead" data-i18n="builder.out.lead">Измеримые результаты, которые подтверждаются работающими
+            проектами и академическими успехами.</p>
+        </div>
+
+        <div class="grid grid-3">
+          <article class="card js-rise">
+            <span class="card__n">01 · ПОРТФОЛИО</span>
+            <h3 data-i18n="builder.out.c1.t">Готовое портфолио ученика</h3>
+            <p data-i18n="builder.out.c1.d">У каждого выпускника курса есть 3–4 рабочих IT-проекта: собственный сайт,
+              функциональный бот, персональный ИИ-ассистент, готовые к демонстрации приемным комиссиям вузов.</p>
+          </article>
+
+          <article class="card js-rise">
+            <span class="card__n">02 · ПРОЕКТЫ</span>
+            <h3 data-i18n="builder.out.c2.t">Готовая проектная деятельность для школы</h3>
+            <p data-i18n="builder.out.c2.d">Ученики получают прочную базу для результативного участия в республиканских
+              научных конкурсах («Дарын», МАН), хакатонах и инновационных школьных олимпиадах.</p>
+          </article>
+
+          <article class="card js-rise">
+            <span class="card__n">03 · БЕЗОПАСНОСТЬ</span>
+            <h3 data-i18n="builder.out.c3.t">Безопасность и гигиена</h3>
+            <p data-i18n="builder.out.c3.d">Школьники глубоко понимают этику использования ИИ, соблюдают принципы
+              академической честности, уважают авторские права и умеют надежно защищать свои персональные данные.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ФИНАЛЬНЫЙ CTA ================= -->
+    <section class="band band--ink band--air final" id="cta">
+      <div class="wrap">
+        <h2 class="display d-xl js-split" data-i18n-html="cta.final.h2">Внедрите ИИ в образовательный процесс <span
+            class="hl final-accent-word">школы</span></h2>
+        <p class="lead" data-i18n="cta.final.sub">Готовые модули уроков по ГОСО, практический курс прикладного ИИ и
+          тренажеры PISA-2029 в единой защищенной платформе.</p>
+        <div class="final__btns">
+          <button class="btn btn--primary" data-modal>
+            <span data-i18n="builder.hero.cta.prog">Запросить программу курса</span>
+            <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
+          </button>
+          <button class="btn btn--ghost" data-modal data-i18n="builder.hero.cta.class">Подключить класс</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= ФУТЕР ================= -->
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot__grid">
+        <div>
+          <span class="logo__mark">CRAFT AI</span>
+          <p data-i18n="foot.about">CRAFT AI — единая операционная система для интеграции искусственного интеллекта и
+            подготовки к международным исследованиям PISA в школах Казахстана.</p>
+        </div>
+
+        <div>
+          <h4 data-i18n="foot.nav">Модули и разделы</h4>
+          <ul>
+            <li><a href="index.html" data-i18n="nav.home">Главная экосистема</a></li>
+            <li><a href="matrix.html" data-i18n="nav.matrix">CRAFT MATRIX</a></li>
+            <li><a href="pisa.html" data-i18n="nav.pisa">CRAFT PISA</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 data-i18n="foot.contacts">Связаться с нами</h4>
+          <ul>
+            <li><a href="mailto:hello@craftai.kz">hello@craftai.kz</a></li>
+            <li><a href="tel:+77000000000">+7 700 000 00 00</a></li>
+            <li><a href="#" data-modal data-i18n="nav.cta">Запросить демонстрацию</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 data-i18n="foot.docs">Нормативная база</h4>
+          <ul>
+            <li><a href="#" data-modal data-i18n="foot.privacy">Политика конфиденциальности</a></li>
+            <li><a href="#" data-modal data-i18n="foot.terms">Пользовательское соглашение</a></li>
+            <li><a href="#" data-modal data-i18n="foot.data">Безопасность данных РК</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="foot__bar">
+        <span class="micro">© 2026 CRAFT AI · <span data-i18n="foot.rights">Все права защищены</span></span>
+        <div class="lang" role="group" data-i18n-aria="lang.label" aria-label="Язык интерфейса">
+          <button class="lang-btn is-active" data-lang="ru" aria-pressed="true">RU</button>
+          <button class="lang-btn" data-lang="kz" aria-pressed="false">KZ</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= МОДАЛКА ================= -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal__back" data-close></div>
+    <div class="modal__box">
+      <button class="modal__x" data-close data-i18n-aria="modal.close" aria-label="Закрыть">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M5 5l10 10M15 5L5 15" />
+        </svg>
+      </button>
+      <div id="modalForm">
+        <h3 id="modalTitle" data-i18n="modal.title">Запросить демонстрацию</h3>
+        <p data-i18n="modal.lead">Оставьте контакты — мы свяжемся с администрацией вашей школы и проведем презентацию
+          экосистемы.</p>
+        <form id="demoForm">
+          <label class="field"><span class="micro" data-i18n="modal.name">ФИО представителя школы</span><input
+              type="text" required></label>
+          <label class="field"><span class="micro" data-i18n="modal.org">Номер школы / Название организации</span><input
+              type="text" required></label>
+          <label class="field"><span class="micro" data-i18n="modal.mail">Рабочая электронная почта</span><input
+              type="email" required></label>
+          <label class="field"><span class="micro" data-i18n="modal.phone">Контактный телефон</span><input type="tel"
+              required></label>
+          <button class="btn btn--primary" type="submit" data-i18n="modal.send">Отправить заявку</button>
+        </form>
+      </div>
+      <div id="modalDone" hidden>
+        <h3 data-i18n="modal.done.t">Заявка успешно принята</h3>
+        <p data-i18n="modal.done.d">Методический отдел CRAFT AI свяжется с вами в течение одного рабочего дня.</p>
+        <button class="btn btn--primary" data-close data-i18n="modal.close">Закрыть</button>
       </div>
     </div>
   </div>
-</footer>
 
-<!-- ================= МОДАЛКА ================= -->
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <div class="modal__back" data-close></div>
-  <div class="modal__box">
-    <button class="modal__x" data-close data-i18n-aria="modal.close" aria-label="Закрыть">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 5l10 10M15 5L5 15"/></svg>
-    </button>
-    <div id="modalForm">
-      <h3 id="modalTitle" data-i18n="modal.title">Запросить демонстрацию</h3>
-      <p data-i18n="modal.lead">Оставьте контакты — мы свяжемся с администрацией вашей школы и проведем презентацию экосистемы.</p>
-      <form id="demoForm">
-        <label class="field"><span class="micro" data-i18n="modal.name">ФИО представителя школы</span><input type="text" required></label>
-        <label class="field"><span class="micro" data-i18n="modal.org">Номер школы / Название организации</span><input type="text" required></label>
-        <label class="field"><span class="micro" data-i18n="modal.mail">Рабочая электронная почта</span><input type="email" required></label>
-        <label class="field"><span class="micro" data-i18n="modal.phone">Контактный телефон</span><input type="tel" required></label>
-        <button class="btn btn--primary" type="submit" data-i18n="modal.send">Отправить заявку</button>
-      </form>
-    </div>
-    <div id="modalDone" hidden>
-      <h3 data-i18n="modal.done.t">Заявка успешно принята</h3>
-      <p data-i18n="modal.done.d">Методический отдел CRAFT AI свяжется с вами в течение одного рабочего дня.</p>
-      <button class="btn btn--primary" data-close data-i18n="modal.close">Закрыть</button>
-    </div>
-  </div>
-</div>
-
-<script src="js/i18n.js"></script>
-<script src="js/lang/common.js"></script>
-<script src="js/lang/builder.js"></script>
-<script src="js/core.js?v=craft"></script>
-<script src="js/page-builder.js"></script>
+  <script src="js/i18n.js?v=h3"></script>
+  <script src="js/lang/common.js?v=h3"></script>
+  <script src="js/lang/builder.js?v=h3"></script>
+  <script src="js/core.js?v=h3"></script>
+  <script src="js/page-builder.js?v=h3"></script>
 </body>
+
 </html>

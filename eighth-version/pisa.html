@@ -1,310 +1,368 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CRAFT PISA — Подготовка к международным стандартам и PISA-2029</title>
-<meta name="description" content="Интерактивный архив заданий PISA, тренажеры функциональной грамотности и новый спецмодуль по медиа- и ИИ-грамотности с автоматической диагностикой готовности школы.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=JetBrains+Mono:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap&subset=cyrillic,cyrillic-ext,latin" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<noscript><style>.js-rise,.js-fade,.word{opacity:1!important;transform:none!important}.pre{display:none!important}</style></noscript>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CRAFT PISA — Подготовка к международным стандартам и PISA-2029</title>
+  <meta name="description"
+    content="Интерактивный архив заданий PISA, тренажеры функциональной грамотности и новый спецмодуль по медиа- и ИИ-грамотности с автоматической диагностикой готовности школы.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=JetBrains+Mono:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap&subset=cyrillic,cyrillic-ext,latin"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=h1">
+  <noscript>
+    <style>
+      .js-rise,
+      .js-fade,
+      .word {
+        opacity: 1 !important;
+        transform: none !important
+      }
+
+      .pre {
+        display: none !important
+      }
+    </style>
+  </noscript>
 </head>
+
 <body class="page--pisa">
 
-<!-- Сквозная WebGL-сцена -->
-<canvas id="scene" aria-hidden="true"></canvas>
+  <!-- Сквозная WebGL-сцена -->
+  <canvas id="scene" aria-hidden="true"></canvas>
 
-<!-- Рамка-уголки -->
-<div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <!-- Рамка-уголки -->
+  <div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 
-<a class="skip" href="#main" data-i18n="skip">Перейти к содержанию</a>
+  <a class="skip" href="#main" data-i18n="skip">Перейти к содержанию</a>
 
-<!-- Прелоадер -->
-<div class="pre" id="pre" aria-hidden="true">
-  <div class="pre__pct"><span id="prePct">0</span>%</div>
-  <div class="pre__mark">
-    <span>CRAFT</span>
-    <div class="pre__bar" id="preBar"></div>
-    <span>PISA</span>
-  </div>
-</div>
-
-<!-- Шапка -->
-<header class="head" id="head">
-  <div class="head__in">
-    <a class="logo" href="index.html">
-      <span class="logo__mark">CRAFT AI</span>
-      <span class="logo__tag">PISA</span>
-    </a>
-
-    <nav class="nav" id="nav" aria-label="Основная навигация">
-      <a href="index.html" data-i18n="nav.home">Экосистема</a>
-      <a href="matrix.html" data-i18n="nav.matrix">CRAFT MATRIX</a>
-      <a href="builder.html" data-i18n="nav.builder">CRAFT BUILDER</a>
-      <a href="pisa.html" class="is-active" data-i18n="nav.pisa">CRAFT PISA</a>
-    </nav>
-
-    <div class="head__side">
-      <button class="btn btn--primary" data-modal data-i18n="nav.cta">Запросить демо</button>
-      <div class="lang" role="group" data-i18n-aria="lang.label" aria-label="Язык интерфейса">
-        <button class="lang-btn is-active" data-lang="ru" aria-pressed="true">RU</button>
-        <button class="lang-btn" data-lang="kz" aria-pressed="false">KZ</button>
-      </div>
-      <button class="burger" id="burger" data-i18n-aria="nav.menu" aria-label="Открыть меню" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h18M3 17h18"/></svg>
-      </button>
+  <!-- Прелоадер -->
+  <div class="pre" id="pre" aria-hidden="true">
+    <div class="pre__pct"><span id="prePct">0</span>%</div>
+    <div class="pre__mark">
+      <span>CRAFT</span>
+      <div class="pre__bar" id="preBar"></div>
+      <span>PISA</span>
     </div>
   </div>
-</header>
 
-<main id="main">
-
-  <!-- ================= 1. ГЕРОЙ ================= -->
-  <section class="band band--ink band--air hero" id="hero">
-    <div class="wrap">
-      <div class="hero__grid">
-        <div>
-          <div class="hero__eyebrows">
-            <span class="micro micro--accent" data-i18n="pisa.hero.eye">Международные стандарты OECD</span>
-          </div>
-
-          <h1 class="display d-xl js-split" data-i18n-html="pisa.hero.h1">CRAFT PISA: Подготовка к международным стандартам и <span class="hl">PISA-2029</span></h1>
-
-          <p class="lead js-rise" data-i18n="pisa.hero.lead">Интерактивный архив заданий PISA, тренажеры функциональной грамотности и новый спецмодуль по медиа- и ИИ-грамотности с автоматической диагностикой готовности школы.</p>
-
-          <div class="hero__cta js-rise">
-            <button class="btn btn--primary" data-modal>
-              <span data-i18n="pisa.hero.cta.test">Запустить диагностический тест</span>
-              <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </button>
-            <button class="btn btn--ghost" data-modal data-i18n="pisa.hero.cta.connect">Подключить школу</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 2. ТРИ УРОВНЯ ПОДГОТОВКИ ================= -->
-  <section class="band band--paper" id="levels">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="micro micro--accent" data-i18n="pisa.levels.eye">Архитектура модуля</span>
-        <h2 class="display d-lg js-split" data-i18n-html="pisa.levels.h2">Структура модуля: три уровня <span class="hl">подготовки</span></h2>
-        <p class="lead" data-i18n="pisa.levels.lead">Модуль охватывает как классическую подготовку по материалам прошлых лет, так и отработку новых компетенций, проверяемых OECD.</p>
-      </div>
-
-      <div class="tracks">
-        <!-- Уровень 1 -->
-        <div class="track js-rise">
-          <span class="micro micro--accent">УРОВЕНЬ 1 · АРХИВ</span>
-          <strong data-i18n="pisa.l1.title">Интерактивный архив PISA (Базовая подготовка)</strong>
-          <p data-i18n="pisa.l1.desc">Полная оцифрованная база реальных тестовых заданий прошлых циклов с автоматической проверкой.</p>
-          <ul>
-            <li data-i18n="pisa.l1.i1">Полнотекстовая оцифрованная база оригинальных заданий PISA прошлых циклов.</li>
-            <li data-i18n="pisa.l1.i2">Автоматический разбор решений, детальное объяснение ошибок и пошаговые подсказки для ученика.</li>
-          </ul>
-        </div>
-
-        <!-- Уровень 2 -->
-        <div class="track js-rise">
-          <span class="micro micro--accent">УРОВЕНЬ 2 · НАПРАВЛЕНИЯ</span>
-          <strong data-i18n="pisa.l2.title">Тренажеры по 3 ключевым направлениям</strong>
-          <p data-i18n="pisa.l2.desc">Отработка академической функциональной грамотности через интерактивные кейсы:</p>
-          <ul>
-            <li data-i18n="pisa.l2.i1">Математическая грамотность: решение практических задач в реальном жизненном контексте.</li>
-            <li data-i18n="pisa.l2.i2">Естественно-научная грамотность: формирование гипотез, проведение виртуальных экспериментов и анализ данных.</li>
-            <li data-i18n="pisa.l2.i3">Читательская грамотность: работа с критико-аналитическими текстами, выделение сути и фактчекинг.</li>
-          </ul>
-        </div>
-
-        <!-- Уровень 3 -->
-        <div class="track js-rise">
-          <span class="micro micro--accent">УРОВЕНЬ 3 · PISA-2029</span>
-          <strong data-i18n="pisa.l3.title">Спецмодуль PISA-2029: Медиа- и ИИ-грамотность</strong>
-          <p data-i18n="pisa.l3.desc">Фокус будущего: подготовка к новому обязательному направлению оценки OECD:</p>
-          <ul>
-            <li data-i18n="pisa.l3.i1">Распознавание фейков и дипфейков: навык отличать сгенерированный нейросетями контент от фактов.</li>
-            <li data-i18n="pisa.l3.i2">Анализ ошибок и галлюцинаций ИИ: поиск логических неувязок и предвзятости в ответах нейросетей.</li>
-            <li data-i18n="pisa.l3.i3">Работа с мультимодальной информацией: синтез графиков, таблиц и ИИ-сводок в едином окне.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 3. УПРАВЛЕНЧЕСКИЙ ДАШБОРД ================= -->
-  <section class="band band--paper-2" id="dashboard">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="micro micro--accent" data-i18n="pisa.dash.eye">Аналитика для администрации</span>
-        <h2 class="display d-lg js-split" data-i18n-html="pisa.dash.h2">Управленческий дашборд: объективная <span class="hl">готовность</span> школы</h2>
-        <p class="lead" data-i18n="pisa.dash.lead">Сквозной срез результатов классов и параллелей без бумажной нагрузки на учителей.</p>
-      </div>
-
-      <div class="grid grid-3" style="margin-bottom: 3.6rem;">
-        <article class="card js-rise">
-          <span class="card__n">01 · ДИАГНОСТИКА</span>
-          <h3 data-i18n="pisa.c1.t">Сквозная диагностика готовности</h3>
-          <p data-i18n="pisa.c1.d">Автоматическое определение реального уровня функциональной грамотности каждого класса и параллели без проведения длительных бумажных срезов.</p>
-        </article>
-
-        <article class="card js-rise">
-          <span class="card__n">02 · ТЕПЛОВАЯ КАРТА</span>
-          <h3 data-i18n="pisa.c2.t">Тепловая карта рисков</h3>
-          <p data-i18n="pisa.c2.d">Система мгновенно подсвечивает темы, разделы и мыслительные навыки, по которым у школьников наблюдается системное проседание.</p>
-        </article>
-
-        <article class="card js-rise">
-          <span class="card__n">03 · ОТЧЕТЫ ДЛЯ УоО</span>
-          <h3 data-i18n="pisa.c3.t">Готовые отчеты для УоО в один клик</h3>
-          <p data-i18n="pisa.c3.d">Формирование выгружаемых отчетов по динамике прироста критического мышления и прогнозу баллов PISA для школьного руководства.</p>
-        </article>
-      </div>
-
-      <div class="an__grid js-rise">
-        <!-- Левая колонка: график -->
-        <div class="panel">
-          <h3 data-i18n="pisa.chart.h3">Динамика готовности параллелей к PISA-2029</h3>
-          <figcaption data-i18n="pisa.chart.sub">Сравнение контрольных срезов (входной vs текущий срез)</figcaption>
-          <div class="chart" id="pisaChart"></div>
-        </div>
-
-        <!-- Правая колонка: метрики и рекомендации -->
-        <div class="panel">
-          <h3>Готовность по направлениям (Текущий срез)</h3>
-          <ul class="hard" style="margin-top: 2rem;">
-            <li>
-              <span>Медиа- и ИИ-грамотность (PISA-2029)</span>
-              <div class="meter hard--ready"><i style="width: 88%;"></i></div>
-              <b style="font-family: 'JetBrains Mono', monospace; margin-left: 1.2rem;">88%</b>
-            </li>
-            <li>
-              <span>Математическая грамотность</span>
-              <div class="meter hard--ready"><i style="width: 79%;"></i></div>
-              <b style="font-family: 'JetBrains Mono', monospace; margin-left: 1.2rem;">79%</b>
-            </li>
-            <li>
-              <span>Читательская грамотность</span>
-              <div class="meter hard--ready"><i style="width: 68%;"></i></div>
-              <b style="font-family: 'JetBrains Mono', monospace; margin-left: 1.2rem;">68%</b>
-            </li>
-            <li>
-              <span>Естественно-научные гипотезы</span>
-              <div class="meter"><i style="width: 48%;"></i></div>
-              <b style="font-family: 'JetBrains Mono', monospace; margin-left: 1.2rem; color: var(--lvl-low);">48%</b>
-            </li>
-          </ul>
-
-          <div class="rec">
-            <span class="micro micro--accent">АЛГОРИТМИЧЕСКИЙ ВЫВОД</span>
-            <p data-i18n="pisa.chart.rec">Рекомендация алгоритма: усилить блок естественно-научных гипотез в 8–9 классах.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Юридический дисклеймер -->
-      <div class="disclaimer js-rise" data-i18n="pisa.disclaimer">
-        Примечание: Программа подготовки ориентирована на открытые рамки оценивания и стандарты OECD PISA. PISA является зарегистрированным товарным знаком Организации экономического сотрудничества и развития (OECD). Платформа CRAFT AI является независимым образовательным комплексом.
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= ФИНАЛЬНЫЙ CTA ================= -->
-  <section class="band band--ink band--air final" id="cta">
-    <div class="wrap">
-      <h2 class="display d-xl js-split" data-i18n-html="cta.final.h2">Внедрите ИИ в образовательный процесс <span class="hl">школы</span></h2>
-      <p class="lead" data-i18n="cta.final.sub">Готовые модули уроков по ГОСО, практический курс прикладного ИИ и тренажеры PISA-2029 в единой защищенной платформе.</p>
-      <div class="final__btns">
-        <button class="btn btn--primary" data-modal>
-          <span data-i18n="pisa.hero.cta.test">Запустить диагностический тест</span>
-          <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        </button>
-        <button class="btn btn--ghost" data-modal data-i18n="pisa.hero.cta.connect">Подключить школу</button>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- ================= ФУТЕР ================= -->
-<footer class="foot">
-  <div class="wrap">
-    <div class="foot__grid">
-      <div>
+  <!-- Шапка -->
+  <header class="head" id="head">
+    <div class="head__in">
+      <a class="logo" href="index.html">
         <span class="logo__mark">CRAFT AI</span>
-        <p data-i18n="foot.about">CRAFT AI — единая операционная система для интеграции искусственного интеллекта и подготовки к международным исследованиям PISA в школах Казахстана.</p>
-      </div>
+        <span class="logo__tag">PISA</span>
+      </a>
 
-      <div>
-        <h4 data-i18n="foot.nav">Модули и разделы</h4>
-        <ul>
-          <li><a href="index.html" data-i18n="nav.home">Главная экосистема</a></li>
-          <li><a href="matrix.html" data-i18n="nav.matrix">CRAFT MATRIX</a></li>
-          <li><a href="builder.html" data-i18n="nav.builder">CRAFT BUILDER</a></li>
-        </ul>
-      </div>
+      <nav class="nav" id="nav" aria-label="Основная навигация">
+        <a href="index.html" data-i18n="nav.home">Экосистема</a>
+        <a href="matrix.html" data-i18n="nav.matrix">CRAFT MATRIX</a>
+        <a href="builder.html" data-i18n="nav.builder">CRAFT BUILDER</a>
+        <a href="pisa.html" class="is-active" data-i18n="nav.pisa">CRAFT PISA</a>
+      </nav>
 
-      <div>
-        <h4 data-i18n="foot.contacts">Связаться с нами</h4>
-        <ul>
-          <li><a href="mailto:hello@craftai.kz">hello@craftai.kz</a></li>
-          <li><a href="tel:+77000000000">+7 700 000 00 00</a></li>
-          <li><a href="#" data-modal data-i18n="nav.cta">Запросить демонстрацию</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4 data-i18n="foot.docs">Нормативная база</h4>
-        <ul>
-          <li><a href="#" data-modal data-i18n="foot.privacy">Политика конфиденциальности</a></li>
-          <li><a href="#" data-modal data-i18n="foot.terms">Пользовательское соглашение</a></li>
-          <li><a href="#" data-modal data-i18n="foot.data">Безопасность данных РК</a></li>
-        </ul>
+      <div class="head__side">
+        <button class="btn btn--primary" data-modal data-i18n="nav.cta">Запросить демо</button>
+        <div class="lang" role="group" data-i18n-aria="lang.label" aria-label="Язык интерфейса">
+          <button class="lang-btn is-active" data-lang="ru" aria-pressed="true">RU</button>
+          <button class="lang-btn" data-lang="kz" aria-pressed="false">KZ</button>
+        </div>
+        <button class="burger" id="burger" data-i18n-aria="nav.menu" aria-label="Открыть меню" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M3 7h18M3 17h18" />
+          </svg>
+        </button>
       </div>
     </div>
+  </header>
 
-    <div class="foot__bar">
-      <span class="micro">© 2026 CRAFT AI · <span data-i18n="foot.rights">Все права защищены</span></span>
-      <div class="lang" role="group" data-i18n-aria="lang.label" aria-label="Язык интерфейса">
-        <button class="lang-btn is-active" data-lang="ru" aria-pressed="true">RU</button>
-        <button class="lang-btn" data-lang="kz" aria-pressed="false">KZ</button>
+  <main id="main">
+
+    <!-- ================= 1. ГЕРОЙ ================= -->
+    <section class="band band--ink band--air hero" id="hero">
+      <div class="wrap">
+        <div class="hero__grid">
+          <div>
+            <div class="hero__eyebrows">
+              <span class="micro micro--accent" data-i18n="pisa.hero.eye">CRAFT PISA</span>
+            </div>
+
+            <h1 class="display d-xl js-split" data-i18n-html="pisa.hero.h1">Подготовка к международным стандартам и
+              <span class="hl">PISA-2029</span>
+            </h1>
+
+            <p class="lead js-rise" data-i18n="pisa.hero.lead">Интерактивный архив заданий PISA, тренажеры
+              функциональной грамотности и новый спецмодуль по медиа- и ИИ-грамотности с автоматической диагностикой
+              готовности школы.</p>
+
+            <div class="hero__cta js-rise">
+              <button class="btn btn--primary" data-modal>
+                <span data-i18n="pisa.hero.cta.test">Запустить диагностический тест</span>
+                <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <path d="M3 8h10M9 4l4 4-4 4" />
+                </svg>
+              </button>
+              <button class="btn btn--ghost" data-modal data-i18n="pisa.hero.cta.connect">Подключить школу</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 2. ТРИ УРОВНЯ ПОДГОТОВКИ ================= -->
+    <section class="band band--paper" id="levels">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="micro micro--accent" data-i18n="pisa.levels.eye">Архитектура модуля</span>
+          <h2 class="display d-lg js-split" data-i18n-html="pisa.levels.h2">Структура модуля: три уровня <span
+              class="hl">подготовки</span></h2>
+          <p class="lead" data-i18n="pisa.levels.lead">Модуль охватывает как классическую подготовку по материалам
+            прошлых лет, так и отработку новых компетенций, проверяемых OECD.</p>
+        </div>
+
+        <div class="tracks">
+          <!-- Уровень 1 -->
+          <div class="track js-rise">
+            <span class="micro micro--accent">УРОВЕНЬ 1 · АРХИВ</span>
+            <strong data-i18n="pisa.l1.title">Интерактивный архив PISA (Базовая подготовка)</strong>
+            <p data-i18n="pisa.l1.desc">Полная оцифрованная база реальных тестовых заданий прошлых циклов с
+              автоматической проверкой.</p>
+            <ul>
+              <li data-i18n="pisa.l1.i1">Полнотекстовая оцифрованная база оригинальных заданий PISA прошлых циклов.</li>
+              <li data-i18n="pisa.l1.i2">Автоматический разбор решений, детальное объяснение ошибок и пошаговые
+                подсказки для ученика.</li>
+            </ul>
+          </div>
+
+          <!-- Уровень 2 -->
+          <div class="track js-rise">
+            <span class="micro micro--accent">УРОВЕНЬ 2 · НАПРАВЛЕНИЯ</span>
+            <strong data-i18n="pisa.l2.title">Тренажеры по 3 ключевым направлениям</strong>
+            <p data-i18n="pisa.l2.desc">Отработка академической функциональной грамотности через интерактивные кейсы:
+            </p>
+            <ul>
+              <li data-i18n="pisa.l2.i1">Математическая грамотность: решение практических задач в реальном жизненном
+                контексте.</li>
+              <li data-i18n="pisa.l2.i2">Естественно-научная грамотность: формирование гипотез, проведение виртуальных
+                экспериментов и анализ данных.</li>
+              <li data-i18n="pisa.l2.i3">Читательская грамотность: работа с критико-аналитическими текстами, выделение
+                сути и фактчекинг.</li>
+            </ul>
+          </div>
+
+          <!-- Уровень 3 -->
+          <div class="track js-rise">
+            <span class="micro micro--accent">УРОВЕНЬ 3 · PISA-2029</span>
+            <strong data-i18n="pisa.l3.title">Спецмодуль PISA-2029: Медиа- и ИИ-грамотность</strong>
+            <p data-i18n="pisa.l3.desc">Фокус будущего: подготовка к новому обязательному направлению оценки OECD:</p>
+            <ul>
+              <li data-i18n="pisa.l3.i1">Распознавание фейков и дипфейков: навык отличать сгенерированный нейросетями
+                контент от фактов.</li>
+              <li data-i18n="pisa.l3.i2">Анализ ошибок и галлюцинаций ИИ: поиск логических неувязок и предвзятости в
+                ответах нейросетей.</li>
+              <li data-i18n="pisa.l3.i3">Работа с мультимодальной информацией: синтез графиков, таблиц и ИИ-сводок в
+                едином окне.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 3. УПРАВЛЕНЧЕСКИЙ ДАШБОРД ================= -->
+    <section class="band band--paper-2" id="dashboard">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="micro micro--accent" data-i18n="pisa.dash.eye">Аналитика для администрации</span>
+          <h2 class="display d-lg js-split" data-i18n-html="pisa.dash.h2">Управленческий дашборд: объективная <span
+              class="hl">готовность</span> школы</h2>
+          <p class="lead" data-i18n="pisa.dash.lead">Сквозной срез результатов классов и параллелей без бумажной
+            нагрузки на учителей.</p>
+        </div>
+
+        <div class="grid grid-3" style="margin-bottom: 3.6rem;">
+          <article class="card js-rise">
+            <span class="card__n">01 · ДИАГНОСТИКА</span>
+            <h3 data-i18n="pisa.c1.t">Сквозная диагностика готовности</h3>
+            <p data-i18n="pisa.c1.d">Автоматическое определение реального уровня функциональной грамотности каждого
+              класса и параллели без проведения длительных бумажных срезов.</p>
+          </article>
+
+          <article class="card js-rise">
+            <span class="card__n">02 · ТЕПЛОВАЯ КАРТА</span>
+            <h3 data-i18n="pisa.c2.t">Тепловая карта рисков</h3>
+            <p data-i18n="pisa.c2.d">Система мгновенно подсвечивает темы, разделы и мыслительные навыки, по которым у
+              школьников наблюдается системное проседание.</p>
+          </article>
+
+          <article class="card js-rise">
+            <span class="card__n">03 · ОТЧЕТЫ ДЛЯ УоО</span>
+            <h3 data-i18n="pisa.c3.t">Готовые отчеты для УоО в один клик</h3>
+            <p data-i18n="pisa.c3.d">Формирование выгружаемых отчетов по динамике прироста критического мышления и
+              прогнозу баллов PISA для школьного руководства.</p>
+          </article>
+        </div>
+
+        <div class="an__grid js-rise">
+          <!-- Левая колонка: график -->
+          <div class="panel">
+            <h3 data-i18n="pisa.chart.h3">Динамика готовности параллелей к PISA-2029</h3>
+            <figcaption data-i18n="pisa.chart.sub">Сравнение контрольных срезов (входной vs текущий срез)</figcaption>
+            <div class="chart" id="pisaChart"></div>
+          </div>
+
+          <!-- Правая колонка: метрики и рекомендации -->
+          <div class="panel">
+            <h3>Готовность по направлениям (Текущий срез)</h3>
+            <ul class="hard" style="margin-top: 2rem;">
+              <li>
+                <span>Медиа- и ИИ-грамотность (PISA-2029)</span>
+                <div class="meter hard--ready"><i style="width: 88%;"></i></div>
+                <b style="font-family: 'JetBrains Mono', monospace; margin-left: 1.2rem;">88%</b>
+              </li>
+              <li>
+                <span>Математическая грамотность</span>
+                <div class="meter hard--ready"><i style="width: 79%;"></i></div>
+                <b style="font-family: 'JetBrains Mono', monospace; margin-left: 1.2rem;">79%</b>
+              </li>
+              <li>
+                <span>Читательская грамотность</span>
+                <div class="meter hard--ready"><i style="width: 68%;"></i></div>
+                <b style="font-family: 'JetBrains Mono', monospace; margin-left: 1.2rem;">68%</b>
+              </li>
+              <li>
+                <span>Естественно-научные гипотезы</span>
+                <div class="meter"><i style="width: 48%;"></i></div>
+                <b style="font-family: 'JetBrains Mono', monospace; margin-left: 1.2rem; color: var(--lvl-low);">48%</b>
+              </li>
+            </ul>
+
+            <div class="rec">
+              <span class="micro micro--accent">АЛГОРИТМИЧЕСКИЙ ВЫВОД</span>
+              <p data-i18n="pisa.chart.rec">Рекомендация алгоритма: усилить блок естественно-научных гипотез в 8–9
+                классах.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Юридический дисклеймер -->
+        <div class="disclaimer js-rise" data-i18n="pisa.disclaimer">
+          Примечание: Программа подготовки ориентирована на открытые рамки оценивания и стандарты OECD PISA. PISA
+          является зарегистрированным товарным знаком Организации экономического сотрудничества и развития (OECD).
+          Платформа CRAFT AI является независимым образовательным комплексом.
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ФИНАЛЬНЫЙ CTA ================= -->
+    <section class="band band--ink band--air final" id="cta">
+      <div class="wrap">
+        <h2 class="display d-xl js-split" data-i18n-html="cta.final.h2">Внедрите ИИ в образовательный процесс <span
+            class="hl final-accent-word">школы</span></h2>
+        <p class="lead" data-i18n="cta.final.sub">Готовые модули уроков по ГОСО, практический курс прикладного ИИ и
+          тренажеры PISA-2029 в единой защищенной платформе.</p>
+        <div class="final__btns">
+          <button class="btn btn--primary" data-modal>
+            <span data-i18n="pisa.hero.cta.test">Запустить диагностический тест</span>
+            <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
+          </button>
+          <button class="btn btn--ghost" data-modal data-i18n="pisa.hero.cta.connect">Подключить школу</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= ФУТЕР ================= -->
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot__grid">
+        <div>
+          <span class="logo__mark">CRAFT AI</span>
+          <p data-i18n="foot.about">CRAFT AI — единая операционная система для интеграции искусственного интеллекта и
+            подготовки к международным исследованиям PISA в школах Казахстана.</p>
+        </div>
+
+        <div>
+          <h4 data-i18n="foot.nav">Модули и разделы</h4>
+          <ul>
+            <li><a href="index.html" data-i18n="nav.home">Главная экосистема</a></li>
+            <li><a href="matrix.html" data-i18n="nav.matrix">CRAFT MATRIX</a></li>
+            <li><a href="builder.html" data-i18n="nav.builder">CRAFT BUILDER</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 data-i18n="foot.contacts">Связаться с нами</h4>
+          <ul>
+            <li><a href="mailto:hello@craftai.kz">hello@craftai.kz</a></li>
+            <li><a href="tel:+77000000000">+7 700 000 00 00</a></li>
+            <li><a href="#" data-modal data-i18n="nav.cta">Запросить демонстрацию</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 data-i18n="foot.docs">Нормативная база</h4>
+          <ul>
+            <li><a href="#" data-modal data-i18n="foot.privacy">Политика конфиденциальности</a></li>
+            <li><a href="#" data-modal data-i18n="foot.terms">Пользовательское соглашение</a></li>
+            <li><a href="#" data-modal data-i18n="foot.data">Безопасность данных РК</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="foot__bar">
+        <span class="micro">© 2026 CRAFT AI · <span data-i18n="foot.rights">Все права защищены</span></span>
+        <div class="lang" role="group" data-i18n-aria="lang.label" aria-label="Язык интерфейса">
+          <button class="lang-btn is-active" data-lang="ru" aria-pressed="true">RU</button>
+          <button class="lang-btn" data-lang="kz" aria-pressed="false">KZ</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= МОДАЛКА ================= -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal__back" data-close></div>
+    <div class="modal__box">
+      <button class="modal__x" data-close data-i18n-aria="modal.close" aria-label="Закрыть">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M5 5l10 10M15 5L5 15" />
+        </svg>
+      </button>
+      <div id="modalForm">
+        <h3 id="modalTitle" data-i18n="modal.title">Запросить демонстрацию</h3>
+        <p data-i18n="modal.lead">Оставьте контакты — мы свяжемся с администрацией вашей школы и проведем презентацию
+          экосистемы.</p>
+        <form id="demoForm">
+          <label class="field"><span class="micro" data-i18n="modal.name">ФИО представителя школы</span><input
+              type="text" required></label>
+          <label class="field"><span class="micro" data-i18n="modal.org">Номер школы / Название организации</span><input
+              type="text" required></label>
+          <label class="field"><span class="micro" data-i18n="modal.mail">Рабочая электронная почта</span><input
+              type="email" required></label>
+          <label class="field"><span class="micro" data-i18n="modal.phone">Контактный телефон</span><input type="tel"
+              required></label>
+          <button class="btn btn--primary" type="submit" data-i18n="modal.send">Отправить заявку</button>
+        </form>
+      </div>
+      <div id="modalDone" hidden>
+        <h3 data-i18n="modal.done.t">Заявка успешно принята</h3>
+        <p data-i18n="modal.done.d">Методический отдел CRAFT AI свяжется с вами в течение одного рабочего дня.</p>
+        <button class="btn btn--primary" data-close data-i18n="modal.close">Закрыть</button>
       </div>
     </div>
   </div>
-</footer>
 
-<!-- ================= МОДАЛКА ================= -->
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <div class="modal__back" data-close></div>
-  <div class="modal__box">
-    <button class="modal__x" data-close data-i18n-aria="modal.close" aria-label="Закрыть">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 5l10 10M15 5L5 15"/></svg>
-    </button>
-    <div id="modalForm">
-      <h3 id="modalTitle" data-i18n="modal.title">Запросить демонстрацию</h3>
-      <p data-i18n="modal.lead">Оставьте контакты — мы свяжемся с администрацией вашей школы и проведем презентацию экосистемы.</p>
-      <form id="demoForm">
-        <label class="field"><span class="micro" data-i18n="modal.name">ФИО представителя школы</span><input type="text" required></label>
-        <label class="field"><span class="micro" data-i18n="modal.org">Номер школы / Название организации</span><input type="text" required></label>
-        <label class="field"><span class="micro" data-i18n="modal.mail">Рабочая электронная почта</span><input type="email" required></label>
-        <label class="field"><span class="micro" data-i18n="modal.phone">Контактный телефон</span><input type="tel" required></label>
-        <button class="btn btn--primary" type="submit" data-i18n="modal.send">Отправить заявку</button>
-      </form>
-    </div>
-    <div id="modalDone" hidden>
-      <h3 data-i18n="modal.done.t">Заявка успешно принята</h3>
-      <p data-i18n="modal.done.d">Методический отдел CRAFT AI свяжется с вами в течение одного рабочего дня.</p>
-      <button class="btn btn--primary" data-close data-i18n="modal.close">Закрыть</button>
-    </div>
-  </div>
-</div>
-
-<script src="js/i18n.js"></script>
-<script src="js/lang/common.js"></script>
-<script src="js/lang/pisa.js"></script>
-<script src="js/core.js?v=craft"></script>
-<script src="js/page-pisa.js"></script>
+  <script src="js/i18n.js?v=h3"></script>
+  <script src="js/lang/common.js?v=h3"></script>
+  <script src="js/lang/pisa.js?v=h3"></script>
+  <script src="js/core.js?v=h3"></script>
+  <script src="js/page-pisa.js?v=h3"></script>
 </body>
+
 </html>

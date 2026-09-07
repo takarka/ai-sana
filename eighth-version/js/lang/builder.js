@@ -7,8 +7,8 @@
   "use strict";
 
   const builderRu = {
-    "builder.hero.eye": "Практический курс ИИ-инженерии",
-    "builder.hero.h1": "CRAFT BUILDER: Практический курс <span class=\"hl\">Искусственному</span> Интеллекту",
+    "builder.hero.eye": "CRAFT BUILDER",
+    "builder.hero.h1": "Практический курс <span class=\"hl\">Искусственному</span> Интеллекту",
     "builder.hero.lead": "Обучаем школьников создавать веб-сервисы, ботов и цифровые продукты с помощью нейросетей. Переход от пассивного использования чат-ботов к созданию собственных IT-проектов.",
     "builder.hero.cta.prog": "Запросить программу курса",
     "builder.hero.cta.class": "Подключить класс",
@@ -78,8 +78,8 @@
   };
 
   const builderKz = {
-    "builder.hero.eye": "ЖИ-инженериясының практикалық курсы",
-    "builder.hero.h1": "CRAFT BUILDER: Оқушыларға арналған Жасанды Интеллект <span class=\"hl\">практикалық</span> курсы",
+    "builder.hero.eye": "CRAFT BUILDER",
+    "builder.hero.h1": "Оқушыларға арналған Жасанды Интеллект <span class=\"hl\">практикалық</span> курсы",
     "builder.hero.lead": "Оқушыларды нейрожелілер арқылы веб-сервистер, боттар және цифрлық өнімдер жасауға үйретеміз. Чат-боттарды жай ғана тұтынудан жеке IT-жобаларды құруға көшу.",
     "builder.hero.cta.prog": "Курс бағдарламасын сұрау",
     "builder.hero.cta.class": "Сыныпты қосу",

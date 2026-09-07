@@ -75,6 +75,10 @@
           out.push(word);
         });
       } else if (node.nodeType === 1) {
+        if (node.tagName === "BR") {
+          frag.appendChild(document.createElement("br"));
+          return;
+        }
         var mask2 = document.createElement("span");
         mask2.className = "word-mask";
         node.classList.add("word");

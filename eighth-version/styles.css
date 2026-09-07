@@ -368,7 +368,7 @@ p {
   border-radius: var(--r-pill);
   /* нижний паддинг чуть больше, чем у кириллицы: у казахских «қ», «ұ», «ғ»
      хвост уходит ниже бейзлайна сильнее и обрезался внутри .word-mask */
-  padding: 0 .28em .14em;
+  padding: .14em .28em;
   margin-inline: -.06em;
 }
 
@@ -384,11 +384,19 @@ p {
 .d-xl .word-mask,
 .d-lg .word-mask {
   padding: .42em 0;
-  margin-block: -.42em;
+  margin-block: -.3em;
 }
 
 .word-mask:not(:last-child) {
   margin-right: .26em;
+}
+
+.word-mask:has(.final-accent-word) {
+  padding: 21px 6px .42em;
+}
+
+.word-mask:has(.hl.word) {
+  padding: .42em .1em;
 }
 
 .word {
@@ -399,8 +407,16 @@ p {
   transition-delay: var(--d, 0s);
 }
 
+.final-accent-word {
+  padding-top: 10px;
+}
+
 .js-reveal.is-in .word {
   transform: translateY(0);
+}
+
+.js-reveal.is-in .final-accent-word {
+  transform: translateY(12px);
 }
 
 .js-lit .word {
@@ -921,7 +937,7 @@ p {
 
 .hero__grid {
   display: grid;
-  grid-template-columns: minmax(0, 72rem) 1fr;
+  grid-template-columns: minmax(0, 84rem) 1fr;
   gap: 6rem;
   align-items: center;
 }
@@ -1015,7 +1031,7 @@ p {
   /* Заголовки героев по ТЗ длинные (70+ знаков), поэтому у них своя шкала,
      а не .d-xl: иначе H1 занимает весь первый экран и выталкивает CTA за сгиб.
      .d-xl остаётся для коротких заголовков финальных CTA. */
-  font-size: clamp(3.2rem, 6vw, 6.2rem);
+  font-size: clamp(2.8rem, 4.5vw, 5.2rem);
   margin-bottom: 3.2rem;
 }
 
