@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRAFT AI — Готовая ИИ-экосистема для казахстанской школы: от ГОСО до PISA-2029</title>
+<meta name="description" content="Единая образовательная операционная система для школ Казахстана: готовые уроки по ГОСО (CRAFT MATRIX), практический курс ИИ (CRAFT BUILDER) и подготовка к PISA-2029 (CRAFT PISA).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=JetBrains+Mono:wght@400;500;600&family=Onest:wght@400;500;600;700&display=swap&subset=cyrillic,cyrillic-ext,latin" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="page--home">
+
+<!-- Сквозная WebGL-сцена -->
+<canvas id="scene" aria-hidden="true"></canvas>
+
+<!-- Рамка-уголки -->
+<div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+<a class="skip" href="#main" data-i18n="skip">Перейти к содержанию</a>
+
+<!-- Прелоадер -->
+<div class="pre" id="pre" aria-hidden="true">
+  <div class="pre__pct"><span id="prePct">0</span>%</div>
+  <div class="pre__mark">
+    <span>CRAFT</span>
+    <div class="pre__bar" id="preBar"></div>
+    <span>AI</span>
+  </div>
+</div>
+
+<!-- Шапка -->
+<header class="head" id="head">
+  <div class="head__in">
+    <a class="logo" href="index.html">
+      <span class="logo__mark">CRAFT AI</span>
+      <span class="logo__tag" data-i18n="brand.tag">Операционная система школы</span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Основная навигация">
+      <a href="index.html" class="is-active" data-i18n="nav.home">Экосистема</a>
+      <a href="matrix.html" data-i18n="nav.matrix">CRAFT MATRIX</a>
+      <a href="builder.html" data-i18n="nav.builder">CRAFT BUILDER</a>
+      <a href="pisa.html" data-i18n="nav.pisa">CRAFT PISA</a>
+    </nav>
+
+    <div class="head__side">
+      <button class="btn btn--primary" data-modal data-i18n="nav.cta">Запросить демо</button>
+      <div class="lang" role="group" data-i18n-aria="lang.label" aria-label="Язык интерфейса">
+        <button class="lang-btn is-active" data-lang="ru" aria-pressed="true">RU</button>
+        <button class="lang-btn" data-lang="kz" aria-pressed="false">KZ</button>
+      </div>
+      <button class="burger" id="burger" data-i18n-aria="nav.menu" aria-label="Открыть меню" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h18M3 17h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ================= 1. ГЕРОЙ ================= -->
+  <section class="band band--ink band--air hero" id="hero">
+    <div class="hero__pins" id="heroPins"></div>
+
+    <div class="wrap">
+      <div class="hero__grid">
+        <div>
+          <div class="hero__eyebrows">
+            <span class="micro" data-i18n="home.hero.eye1">Школьники учатся искусственному интеллекту</span>
+            <span class="micro micro--accent" data-i18n="home.hero.eye2">Единая образовательная операционная система</span>
+          </div>
+
+          <h1 class="display d-xl js-split" data-i18n-html="home.hero.h1">Готовая ИИ-экосистема для казахстанской школы: от уроков <span class="hl">ГОСО</span> до PISA-2029</h1>
+
+          <p class="lead js-rise" data-i18n="home.hero.lead">Единая платформа для школ: готовые интерактивные уроки по учебным целям ИИ с автопроверкой, практический курс ИИ для учеников и тренажеры PISA с новым модулем по ИИ-грамотности.</p>
+
+          <div class="hero__cta js-rise">
+            <button class="btn btn--primary" data-modal>
+              <span data-i18n="home.hero.cta.demo">Запросить демо для школы</span>
+              <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </button>
+            <button class="btn btn--ghost" data-modal data-i18n="home.hero.cta.deck">Скачать презентацию экосистемы</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 2. ТРИ МОДУЛЯ ================= -->
+  <section class="band band--paper" id="modules">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro micro--accent" data-i18n="home.mod.eye">Архитектура экосистемы</span>
+        <h2 class="display d-lg js-split" data-i18n-html="home.mod.h2">Три модуля CRAFT AI — полное покрытие образовательной <span class="hl">среды</span></h2>
+        <p class="lead" data-i18n="home.mod.lead">Все звенья школьного ИИ-образования: регулярные уроки, внеурочная проектная инженерия и внешняя диагностика готовности.</p>
+      </div>
+
+      <div class="grid grid-3">
+        <!-- 01 MATRIX -->
+        <article class="card card--module js-rise">
+          <div class="card__meta">
+            <span class="card__n">01 MATRIX</span>
+            <span class="tag" data-i18n="home.m1.tag">1–11 классы</span>
+          </div>
+          <h3 data-i18n="home.m1.desc">Готовый цифровой комплекс для предмета «Цифровая грамотность и ИИ».</h3>
+          <div class="card__part">
+            <strong data-i18n="home.m1.how.t">Как работает:</strong>
+            <p data-i18n="home.m1.how.d">Ученики проходят тему в интерактивных симуляторах в собственном темпе и сразу отрабатывают навыки на практике.</p>
+          </div>
+          <div class="card__part">
+            <strong data-i18n="home.m1.res.t">Результат для школы:</strong>
+            <p data-i18n="home.m1.res.d">Учителю не нужно писать планы и искать задания. На экранах дашборда он в реальном времени видит, кто из детей отстает, и помогает им адресно. Полное соответствие ТУП и ИМП 2026–2027.</p>
+          </div>
+          <div class="card__foot">
+            <a class="link-roll" href="matrix.html">
+              <span class="r1" data-i18n="home.m1.link">Подробнее о MATRIX →</span>
+              <span class="r2" data-i18n="home.m1.link">Подробнее о MATRIX →</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- 02 BUILDER -->
+        <article class="card card--module js-rise">
+          <div class="card__meta">
+            <span class="card__n">02 BUILDER</span>
+            <span class="tag" data-i18n="home.m2.tag">Внеурочный курс</span>
+          </div>
+          <h3 data-i18n="home.m2.desc">Внеурочный курс, который учит школьников создавать реальные цифровые продукты с помощью нейросетей.</h3>
+          <div class="card__part">
+            <strong data-i18n="home.m2.how.t">Как работает:</strong>
+            <p data-i18n="home.m2.how.d">Дети осваивают промпт-инжиниринг и «вайб-кодинг» — создание программ, ботов и сайтов через формулирование задач искусственному интеллекту на обычном языке.</p>
+          </div>
+          <div class="card__part">
+            <strong data-i18n="home.m2.res.t">Результат для школы:</strong>
+            <p data-i18n="home.m2.res.d">Ученики переходят от банального использования чат-ботов к созданию собственных проектов и пониманию логики работы ИИ.</p>
+          </div>
+          <div class="card__foot">
+            <a class="link-roll" href="builder.html">
+              <span class="r1" data-i18n="home.m2.link">Подробнее о BUILDER →</span>
+              <span class="r2" data-i18n="home.m2.link">Подробнее о BUILDER →</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- 03 PISA -->
+        <article class="card card--module js-rise">
+          <div class="card__meta">
+            <span class="card__n">03 PISA</span>
+            <span class="tag" data-i18n="home.m3.tag">OECD стандарты</span>
+          </div>
+          <h3 data-i18n="home.m3.desc">Единый тренажер функциональной грамотности по стандартам OECD для защиты показателей школы.</h3>
+          <div class="card__part">
+            <strong data-i18n="home.m3.how.t">Как работает:</strong>
+            <p data-i18n="home.m3.how.d">Архив реальных заданий прошлых лет, тренажеры по 3 направлениям (математика, естествознание, чтение) и спецмодуль PISA-2029 (распознавание фейков, фактчекинг, анализ галлюцинаций ИИ).</p>
+          </div>
+          <div class="card__part">
+            <strong data-i18n="home.m3.res.t">Результат для школы:</strong>
+            <p data-i18n="home.m3.res.d">Ученики перестают бояться нестандартных задач, а администрация получает точную диагностику готовности каждого класса к международным и государственным срезам.</p>
+          </div>
+          <div class="card__foot">
+            <a class="link-roll" href="pisa.html">
+              <span class="r1" data-i18n="home.m3.link">Подробнее о PISA →</span>
+              <span class="r2" data-i18n="home.m3.link">Подробнее о PISA →</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 3. ДАШБОРД УЧИТЕЛЯ ================= -->
+  <section class="band band--ink band--air" id="desk">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro micro--accent" data-i18n="home.desk.eye">Self-Paced трекинг</span>
+        <h2 class="display d-lg js-split" data-i18n-html="home.desk.h2">Дашборд учителя: управление классом в реальном <span class="hl">времени</span></h2>
+        <p class="lead" data-i18n="home.desk.lead">Учитель не лектор, а тьютор. Система учит, учитель адресно помогает тем, кто «буксует».</p>
+      </div>
+
+      <div class="desk js-rise">
+        <div class="desk__top">
+          <div class="desk__filters">
+            <button class="chip is-on" data-status="all" data-i18n="home.desk.f.all">Все ученики</button>
+            <button class="chip" data-status="green" data-i18n="home.desk.f.green">В темпе</button>
+            <button class="chip" data-status="yellow" data-i18n="home.desk.f.yellow">Замедление</button>
+            <button class="chip" data-status="red" data-i18n="home.desk.f.red">Нужна помощь</button>
+          </div>
+
+          <input type="text" class="desk__search" id="deskSearch" data-i18n-placeholder="home.desk.search.ph" placeholder="Поиск по имени ученика...">
+        </div>
+
+        <div class="desk__scroll">
+          <table class="desk__table">
+            <thead>
+              <tr>
+                <th data-i18n="home.desk.th.name">Ученик / Класс</th>
+                <th data-i18n="home.desk.th.mod">Текущая тема</th>
+                <th data-i18n="home.desk.th.prog">Прогресс</th>
+                <th data-i18n="home.desk.th.status">Статус ученика</th>
+                <th data-i18n="home.desk.th.action">Действие учителя</th>
+              </tr>
+            </thead>
+            <tbody id="deskBody">
+              <!-- Заполняется js/page-home.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 4. ЭКСПЕРТЫ ================= -->
+  <section class="band band--paper" id="experts">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro micro--accent" data-i18n="home.team.eye">Методика и инженерия</span>
+        <h2 class="display d-lg js-split" data-i18n-html="home.team.h2">Команда, которая создаёт будущее казахстанского <span class="hl">образования</span></h2>
+        <p class="lead" data-i18n="home.team.lead">Сочетание практического школьного опыта, глубокой методики, ИИ-технологий и надежной инженерии.</p>
+      </div>
+
+      <div class="grid grid-4">
+        <!-- Эксперт 1 -->
+        <article class="card card--person js-rise">
+          <div class="person__header">
+            <div class="person__avatar">ТА</div>
+            <div class="person__info">
+              <h3 data-i18n="home.exp1.name">Тусюбжанов Айдын</h3>
+              <span class="person__role" data-i18n="home.exp1.role">Product Manager / Продукт-менеджер</span>
+            </div>
+          </div>
+          <div class="person__focus" data-i18n="home.exp1.focus">
+            Архитектура экосистемы, продуктовая стратегия, синхронизация с государственными стандартами и методологией обучения.
+          </div>
+          <ul class="person__creds">
+            <li data-i18n="home.exp1.c1">Почётный работник образования Республики Казахстан, 2015 г.</li>
+            <li data-i18n="home.exp1.c2">Директор издательства “Астана-Кітап”, 2015-18 г.</li>
+            <li data-i18n="home.exp1.c3">Соавтор учебников по физике для 7-8 классов для школ НИШ.</li>
+            <li data-i18n="home.exp1.c4">Автор пособия для абитуриентов ШЫҢКІТАП, 2005-09 г.</li>
+          </ul>
+        </article>
+
+        <!-- Эксперт 2 -->
+        <article class="card card--person js-rise">
+          <div class="person__header">
+            <div class="person__avatar">БМ</div>
+            <div class="person__info">
+              <h3 data-i18n="home.exp2.name">Бегайым Мұрат</h3>
+              <span class="person__role" data-i18n="home.exp2.role">AI Specialist / Специалист по ИИ</span>
+            </div>
+          </div>
+          <div class="person__focus" data-i18n="home.exp2.focus">
+            Разработка ИИ-моделей, проектирование безопасных учебных промптов, интеграция нейросетей в симуляторы и тренажеры PISA.
+          </div>
+          <ul class="person__creds">
+            <li data-i18n="home.exp2.c1">Сертифицированный Google эксперт по Gemini.</li>
+            <li data-i18n="home.exp2.c2">Сертифицированный международной организацией ISTE лидер в сфере образовательных технологий.</li>
+            <li data-i18n="home.exp2.c3">Автор курса «Интеграция ИИ в педагогику».</li>
+          </ul>
+        </article>
+
+        <!-- Эксперт 3 -->
+        <article class="card card--person js-rise">
+          <div class="person__header">
+            <div class="person__avatar">ФА</div>
+            <div class="person__info">
+              <h3 data-i18n="home.exp3.name">Фархад Абылаев</h3>
+              <span class="person__role" data-i18n="home.exp3.role">CS Teacher & Methodologist / Методист информатики</span>
+            </div>
+          </div>
+          <div class="person__focus" data-i18n="home.exp3.focus">
+            Методическая адаптация материалов под ГОСО и ТУП, поурочные сценарии, проверка симуляторов в реальных школьных условиях.
+          </div>
+          <ul class="person__creds">
+            <li data-i18n="home.exp3.c1">Педагог-эксперт по информатике с 10+ годами стажа.</li>
+            <li data-i18n="home.exp3.c2">Разработчик критериальной базы оценивания цифровых навыков.</li>
+            <li data-i18n="home.exp3.c3">Победитель республиканских педагогических конкурсов по цифровизации.</li>
+          </ul>
+        </article>
+
+        <!-- Эксперт 4 -->
+        <article class="card card--person js-rise">
+          <div class="person__header">
+            <div class="person__avatar">АН</div>
+            <div class="person__info">
+              <h3 data-i18n="home.exp4.name">Анарбек</h3>
+              <span class="person__role" data-i18n="home.exp4.role">Lead Software Engineer / Ведущий программист</span>
+            </div>
+          </div>
+          <div class="person__focus" data-i18n="home.exp4.focus">
+            Техническая реализация платформы, устойчивость инфраструктуры, разработка дашбордов и защищенного учебного контура.
+          </div>
+          <ul class="person__creds">
+            <li data-i18n="home.exp4.c1">Архитектура высоконагруженных образовательных веб-платформ.</li>
+            <li data-i18n="home.exp4.c2">Реализация интерактивных симуляторов без внешних тяжелых зависимостей.</li>
+            <li data-i18n="home.exp4.c3">Обеспечение отказоустойчивости и соответствия закону РК о персональных данных.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 5. НОРМАТИВНАЯ БАЗА РК ================= -->
+  <section class="band band--paper-2" id="standards">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro micro--accent" data-i18n="home.law.eye">Институциональное соответствие</span>
+        <h2 class="display d-lg js-split" data-i18n-html="home.law.h2">Соответствие нормативной базе <span class="hl">РК</span></h2>
+        <p class="lead" data-i18n="home.law.lead">Разработано специально для директоров школ и управлений образования: полное соответствие образовательным стандартам и законодательству Республики Казахстан.</p>
+      </div>
+
+      <div class="mats">
+        <div class="mat js-rise">
+          <span class="micro micro--accent">01 · ТУП И ПРОГРАММЫ</span>
+          <strong data-i18n="home.law.c1.t">ИМП 2026–2027</strong>
+          <p data-i18n="home.law.c1.d">Полное покрытие требований Инструктивно-методического письма Министерства просвещения РК по направлению «Цифровая грамотность и ИИ».</p>
+        </div>
+
+        <div class="mat js-rise">
+          <span class="micro micro--accent">02 · ДЕСКРИПТОРЫ</span>
+          <strong data-i18n="home.law.c2.t">Критерии оценивания</strong>
+          <p data-i18n="home.law.c2.d">Вшитые критерии формативного (F) и суммативного (P) оценивания для 2–4 классов и балльные шкалы 5–11 классов.</p>
+        </div>
+
+        <div class="mat js-rise">
+          <span class="micro micro--accent">03 · БЕЗОПАСНОСТЬ</span>
+          <strong data-i18n="home.law.c3.t">Безопасность данных</strong>
+          <p data-i18n="home.law.c3.d">Соблюдение норм безопасности данных, Закона РК «О персональных данных», академической честности и защищенный контур ученика.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 6. FAQ ================= -->
+  <section class="band band--paper" id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="micro micro--accent" data-i18n="home.faq.eye">Вопросы администрации</span>
+        <h2 class="display d-lg js-split" data-i18n-html="home.faq.h2">Часто задаваемые вопросы <span class="hl">директоров</span></h2>
+      </div>
+
+      <div class="faq">
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">
+            <span class="micro">01</span>
+            <span data-i18n="home.faq.q1">Как экосистема CRAFT AI внедряется в учебный процесс школы?</span>
+            <span class="faq__ico"></span>
+          </button>
+          <div class="faq__a">
+            <div><p data-i18n="home.faq.a1">Платформа интегрируется бесшовно: модуль MATRIX используется учителями на регулярных уроках предмета «Цифровая грамотность и ИИ», модуль BUILDER запускается как внеурочный кружок или спецкурс, а PISA — для плановой диагностики готовности параллелей.</p></div>
+          </div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">
+            <span class="micro">02</span>
+            <span data-i18n="home.faq.q2">Нужно ли учителям информатики проходить долгое обучение?</span>
+            <span class="faq__ico"></span>
+          </button>
+          <div class="faq__a">
+            <div><p data-i18n="home.faq.a2">Нет. Интерфейс учителя интуитивно понятен и сопровождается готовыми поурочными методическими картами. Учителю не требуется быть экспертом в программировании нейросетей — система берёт интерактивное обучение на себя.</p></div>
+          </div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">
+            <span class="micro">03</span>
+            <span data-i18n="home.faq.q3">Где и как хранятся персональные данные школьников?</span>
+            <span class="faq__ico"></span>
+          </button>
+          <div class="faq__a">
+            <div><p data-i18n="home.faq.a3">Все серверные мощности и базы данных размещены в защищенном контуре на территории Республики Казахстан в строгом соответствии с Законом РК «О персональных данных и их защите». Платформа не передаёт данные детей сторонним сервисам.</p></div>
+          </div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">
+            <span class="micro">04</span>
+            <span data-i18n="home.faq.q4">Чем модуль CRAFT PISA отличается от обычных тестов?</span>
+            <span class="faq__ico"></span>
+          </button>
+          <div class="faq__a">
+            <div><p data-i18n="home.faq.a4">CRAFT PISA включает не только оцифрованный банк заданий OECD прошлых лет, но и впервые в Казахстане готовит детей к спецификации PISA-2029: проверке медиаграмотности, выявлению дипфейков и анализу ошибок искусственного интеллекта.</p></div>
+          </div>
+        </div>
+
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">
+            <span class="micro">05</span>
+            <span data-i18n="home.faq.q5">Как школа может запросить пилотный доступ и демонстрацию?</span>
+            <span class="faq__ico"></span>
+          </button>
+          <div class="faq__a">
+            <div><p data-i18n="home.faq.a5">Достаточно нажать кнопку «Запросить демо для школы» и оставить контакты руководства. Наша методическая команда свяжется с вами, развернёт тестовый кабинет и покажет живую работу системы на примере одного класса.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 7. ФИНАЛЬНЫЙ CTA ================= -->
+  <section class="band band--ink band--air final" id="cta">
+    <div class="wrap">
+      <h2 class="display d-xl js-split" data-i18n-html="cta.final.h2">Внедрите ИИ в образовательный процесс <span class="hl">школы</span></h2>
+      <p class="lead" data-i18n="cta.final.sub">Готовые модули уроков по ГОСО, практический курс прикладного ИИ и тренажеры PISA-2029 в единой защищенной платформе.</p>
+      <div class="final__btns">
+        <button class="btn btn--primary" data-modal>
+          <span data-i18n="cta.btn.demo">Запросить демо для школы</span>
+          <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </button>
+        <button class="btn btn--ghost" data-modal data-i18n="cta.btn.connect">Подключить школу</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= ФУТЕР ================= -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <span class="logo__mark">CRAFT AI</span>
+        <p data-i18n="foot.about">CRAFT AI — единая операционная система для интеграции искусственного интеллекта и подготовки к международным исследованиям PISA в школах Казахстана.</p>
+      </div>
+
+      <div>
+        <h4 data-i18n="foot.nav">Модули и разделы</h4>
+        <ul>
+          <li><a href="matrix.html" data-i18n="nav.matrix">CRAFT MATRIX</a></li>
+          <li><a href="builder.html" data-i18n="nav.builder">CRAFT BUILDER</a></li>
+          <li><a href="pisa.html" data-i18n="nav.pisa">CRAFT PISA</a></li>
+          <li><a href="#desk" data-i18n="nav.desk">Дашборд учителя</a></li>
+          <li><a href="#experts" data-i18n="nav.experts">Эксперты</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 data-i18n="foot.contacts">Связаться с нами</h4>
+        <ul>
+          <li><a href="mailto:hello@craftai.kz">hello@craftai.kz</a></li>
+          <li><a href="tel:+77000000000">+7 700 000 00 00</a></li>
+          <li><a href="#" data-modal data-i18n="nav.cta">Запросить демонстрацию</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 data-i18n="foot.docs">Нормативная база</h4>
+        <ul>
+          <li><a href="#" data-modal data-i18n="foot.privacy">Политика конфиденциальности</a></li>
+          <li><a href="#" data-modal data-i18n="foot.terms">Пользовательское соглашение</a></li>
+          <li><a href="#" data-modal data-i18n="foot.data">Безопасность данных РК</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot__bar">
+      <span class="micro">© 2026 CRAFT AI · <span data-i18n="foot.rights">Все права защищены</span></span>
+      <div class="lang" role="group" data-i18n-aria="lang.label" aria-label="Язык интерфейса">
+        <button class="lang-btn is-active" data-lang="ru" aria-pressed="true">RU</button>
+        <button class="lang-btn" data-lang="kz" aria-pressed="false">KZ</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= МОДАЛКА ================= -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal__back" data-close></div>
+  <div class="modal__box">
+    <button class="modal__x" data-close data-i18n-aria="modal.close" aria-label="Закрыть">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 5l10 10M15 5L5 15"/></svg>
+    </button>
+    <div id="modalForm">
+      <h3 id="modalTitle" data-i18n="modal.title">Запросить демонстрацию</h3>
+      <p data-i18n="modal.lead">Оставьте контакты — мы свяжемся с администрацией вашей школы и проведем презентацию экосистемы.</p>
+      <form id="demoForm">
+        <label class="field"><span class="micro" data-i18n="modal.name">ФИО представителя школы</span><input type="text" required></label>
+        <label class="field"><span class="micro" data-i18n="modal.org">Номер школы / Название организации</span><input type="text" required></label>
+        <label class="field"><span class="micro" data-i18n="modal.mail">Рабочая электронная почта</span><input type="email" required></label>
+        <label class="field"><span class="micro" data-i18n="modal.phone">Контактный телефон</span><input type="tel" required></label>
+        <button class="btn btn--primary" type="submit" data-i18n="modal.send">Отправить заявку</button>
+      </form>
+    </div>
+    <div id="modalDone" hidden>
+      <h3 data-i18n="modal.done.t">Заявка успешно принята</h3>
+      <p data-i18n="modal.done.d">Методический отдел CRAFT AI свяжется с вами в течение одного рабочего дня.</p>
+      <button class="btn btn--primary" data-close data-i18n="modal.close">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/i18n.js"></script>
+<script src="js/lang/common.js"></script>
+<script src="js/lang/home.js"></script>
+<script src="js/core.js?v=craft"></script>
+<script src="js/page-home.js"></script>
+</body>
+</html>
