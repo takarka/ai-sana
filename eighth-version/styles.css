@@ -379,6 +379,7 @@ p {
   display: inline-flex;
   overflow: hidden;
   vertical-align: bottom;
+  max-width: 100%;
 }
 
 .d-xl .word-mask,
@@ -405,6 +406,14 @@ p {
   transform: translateY(155%);
   transition: transform .9s var(--ease-signal);
   transition-delay: var(--d, 0s);
+}
+
+/* Длинные слова (напр. «образовательный» в d-xl на узких экранах)
+   иначе выталкивают страницу в горизонтальный скролл — у .hl не включаем:
+   у бейджа и так есть запас, а разрыв внутри короткого слова ломает пилюлю. */
+.word:not(.hl) {
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 .final-accent-word {
@@ -1973,7 +1982,11 @@ p {
     flex-direction: column;
     gap: 0;
     margin: 0;
-    background: rgba(4, 6, 15, .97);
+    /* Сплошной цвет, а не rgba(...,.97): полупрозрачный фон в паре с
+       .word (will-change: transform в героях, множество composited-слоёв)
+       на части мобильных рендереров даёт просвечивание текста геро сквозь
+       открытое меню — пункты навигации становятся нечитаемыми. */
+    background: rgb(4, 6, 15);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--ink-line);
     max-height: 0;
@@ -2128,6 +2141,12 @@ p {
   .final__btns .btn {
     flex: 1 1 100%;
     justify-content: center;
+    /* min-width:auto (flex default) держит кнопку не уже её nowrap-текста —
+       у длинных лейблов (напр. «Запустить диагностический тест» на PISA)
+       это выталкивает кнопку за узкие экраны. Разрешаем перенос в 2 строки. */
+    min-width: 0;
+    white-space: normal;
+    text-align: center;
   }
 
   .foot__grid {
