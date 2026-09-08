@@ -818,6 +818,13 @@ p {
   text-transform: uppercase;
   letter-spacing: -.02em;
   color: var(--on-ink);
+  display: inline-flex;
+}
+
+.logo__mark svg {
+  height: 2.2rem;
+  width: auto;
+  display: block;
 }
 
 .logo__tag {
