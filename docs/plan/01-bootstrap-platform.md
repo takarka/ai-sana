@@ -3,6 +3,9 @@
 **Задача.** Создать в репозитории каталог `platform/` с двумя подпроектами:
 `front` — пустой монорепозиторий Nx + Angular, `back` — backend на .NET.
 
+**Смежный документ.** Состав продуктовых модулей MATRIX / BUILDER / PISA и их
+отображение на модули кода — [02-moduli-matrix-builder-pisa.md](02-moduli-matrix-builder-pisa.md).
+
 **Результат этапа.** Работающий скелет: оба проекта собираются, запускаются
 локально, отдают health-check и «пустую» страницу, покрыты CI. Бизнес-логики нет —
 она приходит на этапе 1 по [ТЗ](../tz/README.md).
@@ -132,12 +135,18 @@ platform/back/
 │   └── Modules/
 │       ├── Identity/                    # FR-CORE-03…06, FR-RBAC-*
 │       ├── Organizations/               # FR-CORE-01, 02, 08
-│       ├── Content/                     # FR-CNT-*, FR-CMS-*
-│       ├── Learning/                    # FR-MTX-*, FR-SIM-*
-│       ├── Assessment/                  # FR-ASM-*, FR-PSA-*
+│       ├── Content/                     # FR-CNT-*, FR-CMS-*, ЦО/ТУП, методкарты
+│       ├── Learning/                    # FR-MTX-*, FR-SIM-* — ядро CRAFT MATRIX
+│       ├── Assessment/                  # FR-ASM-* — движок заданий и оценивания
 │       ├── AiGateway/                   # FR-AI-*
+│       ├── Builder/                     # FR-BLD-* — надстройка CRAFT BUILDER
+│       ├── Pisa/                        # FR-PSA-* — надстройка CRAFT PISA
 │       ├── Analytics/                   # FR-ANL-*
 │       └── Notifications/               # FR-NTF-*
+
+Отдельного модуля `Matrix` нет: CRAFT MATRIX собирается из Content + Learning +
+Assessment. Разбор состава всех трёх продуктовых модулей —
+в [02-moduli-matrix-builder-pisa.md](02-moduli-matrix-builder-pisa.md).
 └── tests/
     ├── CraftAi.Architecture.Tests/      # границы модулей
     ├── CraftAi.Api.IntegrationTests/    # Testcontainers + WebApplicationFactory
@@ -294,7 +303,7 @@ dotnet new classlib -o src/Shared/CraftAi.SharedKernel
 dotnet new classlib -o src/Shared/CraftAi.Contracts
 
 # Модули (по два проекта на каждый)
-for m in Identity Organizations Content Learning Assessment AiGateway Analytics Notifications; do
+for m in Identity Organizations Content Learning Assessment AiGateway Builder Pisa Analytics Notifications; do
   dotnet new classlib -o "src/Modules/$m/CraftAi.Modules.$m"
   dotnet new classlib -o "src/Modules/$m/CraftAi.Modules.$m.Contracts"
 done
@@ -315,7 +324,7 @@ dotnet sln add $(find src tests -name '*.csproj')
 - [ ] Проставить ссылки между проектами по правилу из раздела 3.
 - [ ] В каждом модуле — заглушка `<Module>Module.cs` с методами
       `Add<Module>Module(IServiceCollection, IConfiguration)` и
-      `Map<Module>Endpoints(IEndpointRouteBuilder)`; в `Program.cs` API вызываются все восемь.
+      `Map<Module>Endpoints(IEndpointRouteBuilder)`; в `Program.cs` API вызываются все десять.
 - [ ] В `CraftAi.Api`: подключить `ServiceDefaults`, OpenAPI, Scalar UI, глобальный
       обработчик ошибок в формате `ProblemDetails` (API-04), заголовок `X-Request-Id` (API-03).
 - [ ] В `CraftAi.AppHost`: описать `postgres`, `redis` и ссылку на `CraftAi.Api`.
