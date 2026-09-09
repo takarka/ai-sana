@@ -348,7 +348,8 @@ platform/front/
 ├── apps/craft-web/                       # один SPA, роли — маршрутизацией
 └── libs/
     ├── shared/
-    │   ├── ui/                           # дизайн-система из eighth-version
+    │   ├── ui/                           # компоненты — см. 03-design-system.md
+    │   ├── ui-tokens/                    # токены, перенесённые с лендинга
     │   ├── data-access/                  # HTTP-клиент, интерцепторы, авторизация
     │   ├── api-client/                   # ← генерируется из OpenAPI, не пишется руками
     │   └── i18n/                         # RU/KZ
