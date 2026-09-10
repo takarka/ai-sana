@@ -259,7 +259,14 @@ p {
   color: var(--fg-dim);
 }
 
+// Прокрутка подписи при наведении — перенос .link-roll .r1/.r2 из
+// eighth-version/styles.css (находка 15, docs/plan/04-landing-migration-audit.md).
+// Разметка — два span с одинаковым текстом (.link-roll в шаблонах карточек
+// модулей), .r2 лежит абсолютно под .r1 и въезжает снизу при наведении.
 .link-roll {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
   font-family: var(--font-micro);
   font-size: 1.25rem;
   font-weight: 500;
@@ -268,8 +275,29 @@ p {
   color: var(--accent);
 }
 
-.link-roll:hover {
-  text-decoration: underline;
+.link-roll span {
+  display: block;
+  transition: transform 0.42s var(--ease-signal);
+}
+
+.link-roll .r2 {
+  position: absolute;
+  inset: 0;
+  transform: translateY(100%);
+}
+
+.link-roll:hover .r1 {
+  transform: translateY(-100%);
+}
+
+.link-roll:hover .r2 {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link-roll span {
+    transition: none;
+  }
 }
 
 .mats {
