@@ -2,67 +2,39 @@ import { defineConfig, devices } from '@playwright/test';
 import { nxE2EPreset } from '@nx/playwright/preset';
 import { workspaceRoot } from '@nx/devkit';
 
-// For CI, you may want to set BASE_URL to the deployed application.
-const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
+// Локализованная prod-сборка обязательна: маршрутизация по локалям
+// (/ru/, /kk/) — это subPath каждого собранного бандла (angular.json i18n),
+// а не что-то, что умеет обслуживать CSR dev-server. Поэтому e2e поднимает
+// не `landing:serve`, а реальный SSR-сервер поверх `--localize`-сборки —
+// тот же способ, каким проверялись страницы вручную в шагах 3–4 плана
+// 04-landing-migration.md. NG_ALLOWED_HOSTS обязателен для @angular/ssr
+// (см. server.ts) — без него сервер отвечает 400 на любой Host.
+const PORT = 4310;
+const baseURL = process.env['BASE_URL'] || `http://localhost:${PORT}`;
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
-
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
 export default defineConfig({
   ...nxE2EPreset(__filename, { testDir: './src' }),
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL,
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
-  /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npx nx run landing:serve',
-    url: 'http://localhost:4200',
-    reuseExistingServer: true,
+    command: `npx nx run landing:build:production --localize && NG_ALLOWED_HOSTS=localhost PORT=${PORT} node dist/apps/landing/server/server.mjs`,
+    url: `${baseURL}/ru/`,
+    reuseExistingServer: !process.env['CI'],
+    timeout: 120_000,
     cwd: workspaceRoot,
   },
+  // Только Chromium: это единственный браузер, предустановленный в текущем
+  // окружении (PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers), а `playwright
+  // install` здесь запускать нельзя (нет сети на скачивание firefox/webkit).
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions: { executablePath: '/opt/pw-browsers/chromium' },
+      },
     },
-
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-
-    // Uncomment for mobile browsers support
-    /* {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
-    },
-    {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
-    }, */
-
-    // Uncomment for branded browsers
-    /* {
-      name: 'Microsoft Edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    },
-    {
-      name: 'Google Chrome',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    } */
   ],
 });

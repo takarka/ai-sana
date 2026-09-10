@@ -11,8 +11,16 @@
       </span>
     </a>
 
-    <nav id="app-nav" class="nav" [class.nav--open]="navOpen()" aria-label="Основная навигация" i18n-aria-label="@@header.navLabel">
-      <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeNav()" i18n="@@nav.home">Экосистема</a>
+    <nav
+      id="app-nav"
+      class="nav"
+      [class.nav--open]="navOpen()"
+      aria-label="Основная навигация"
+      i18n-aria-label="@@header.navLabel"
+      tabindex="-1"
+      (keydown.escape)="onNavEscape()"
+    >
+      <a #firstNavLink routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeNav()" i18n="@@nav.home">Экосистема</a>
       <a routerLink="/matrix" routerLinkActive="is-active" (click)="closeNav()" i18n="@@nav.matrix">CRAFT MATRIX</a>
       <a routerLink="/builder" routerLinkActive="is-active" (click)="closeNav()" i18n="@@nav.builder">CRAFT BUILDER</a>
       <a routerLink="/pisa" routerLinkActive="is-active" (click)="closeNav()" i18n="@@nav.pisa">CRAFT PISA</a>
@@ -23,6 +31,7 @@
       <craft-button class="header-cta" variant="primary" (click)="openDemo()" i18n="@@nav.cta">Запросить демо</craft-button>
       <app-lang-switcher></app-lang-switcher>
       <button
+        #burgerBtn
         class="burger"
         (click)="toggleNav()"
         [attr.aria-expanded]="navOpen()"
