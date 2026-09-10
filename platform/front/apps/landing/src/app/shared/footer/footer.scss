@@ -81,3 +81,13 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+// eighth-version схлопывала футер в одну колонку ещё раньше, на ≤768px —
+// без этого брейкпойнта на телефоне заголовки разделов переносились на
+// две строки в узкой колонке 1fr 1fr (находка 10,
+// docs/plan/04-landing-migration-audit.md).
+@media (max-width: 768px) {
+  .foot__grid {
+    grid-template-columns: 1fr;
+  }
+}
