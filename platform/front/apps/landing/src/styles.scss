@@ -14,6 +14,15 @@ body {
   // eighth-version от этого защищал этот же overflow-x на body (находка 02,
   // docs/plan/04-landing-migration-audit.md).
   overflow-x: hidden;
+  // base/_reset.scss даёт кабинету и лендингу общий --fs-body (1.6rem) и
+  // line-height 1.5 — фиксированная rem-шкала, специально без clamp()/vw,
+  // это требование кабинета для масштаба 200% (NFR-A11Y-06, см. tokens/
+  // _typography.scss). У лендинга нет этого требования, и eighth-version
+  // читалась крупнее и просторнее (1.7rem/1.6) — правим только здесь,
+  // не трогая общий токен, чтобы не менять типографику кабинета
+  // (находка 06, docs/plan/04-landing-migration-audit.md).
+  font-size: 1.7rem;
+  line-height: 1.6;
 }
 
 // CDK Dialog рендерит подложку вне дерева компонента — стилизуется глобально.

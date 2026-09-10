@@ -77,20 +77,26 @@
   margin-inline: auto;
 }
 
+// line-height 0.94 (не 0.98) и clamp-верхние границы ниже — находка 06,
+// docs/plan/04-landing-migration-audit.md: на 1440px .d-lg держал 63px, стало
+// 46px, .d-xl — 96px против 72px. text-wrap:balance не переносился вовсе —
+// без него длинные заголовки переносятся по словам как попало, а не ровными
+// строками.
 .display {
   font-family: var(--font-display);
   font-weight: 800;
   text-transform: uppercase;
-  line-height: 0.98;
+  line-height: 0.94;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .d-xl {
-  font-size: clamp(3.2rem, 6vw, 7.2rem);
+  font-size: clamp(3.8rem, 6.8vw, 9.6rem);
 }
 
 .d-lg {
-  font-size: clamp(2.8rem, 4vw, 4.6rem);
+  font-size: clamp(3rem, 4.4vw, 6rem);
 }
 
 .micro {
@@ -107,9 +113,17 @@
 }
 
 .lead {
-  font-size: 1.7rem;
+  // Было фиксированные 1.7rem — на 1440px старая версия держала 20px, а не
+  // 17px (находка 06 того же аудита).
+  font-size: clamp(1.7rem, 1.4vw, 2rem);
   color: var(--fg-dim);
   max-width: 65ch;
+}
+
+// Глобальное p{max-width} из eighth-version/styles.css — строки текста не
+// должны растягиваться шире ~68 символов вне явно заданной .lead/.card p.
+p {
+  max-width: 68ch;
 }
 
 .hl {

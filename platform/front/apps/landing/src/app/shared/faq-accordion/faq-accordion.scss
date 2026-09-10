@@ -14,7 +14,8 @@
   gap: 2.4rem;
   padding: 2.6rem 0;
   text-align: left;
-  font-size: 1.8rem;
+  // eighth-version держала 2rem (находка 06, docs/plan/04-landing-migration-audit.md).
+  font-size: 2rem;
   font-weight: 500;
   line-height: 1.35;
   color: var(--fg);
