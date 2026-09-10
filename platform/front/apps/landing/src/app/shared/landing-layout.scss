@@ -197,8 +197,15 @@ p {
   grid-template-columns: repeat(4, 1fr);
 }
 
+// .grid-3 схлопывалась в одну колонку уже на ≤1024px (не только на ≤640px
+// ниже) — иначе третья карточка модуля виснет одна во втором ряду на
+// планшетной ширине (находка 12, docs/plan/04-landing-migration-audit.md).
+// .grid-4 (эксперты) ведёт себя как и раньше — 2 колонки.
 @media (max-width: 1024px) {
-  .grid-3,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+
   .grid-4 {
     grid-template-columns: repeat(2, 1fr);
   }
