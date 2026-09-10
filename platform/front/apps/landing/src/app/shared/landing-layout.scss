@@ -79,11 +79,19 @@
   --accent: var(--signal);
 }
 
+// Оттенок был #EAEEF7/#D3DAEA (eighth-version) — заметно темнее исходной
+// смеси с --card (paper 60%/card 40% давал ≈#F8FAFD, почти неотличимо от
+// --paper, и чередование полос «бумага / бумага-2» переставало читаться,
+// находка 24, docs/plan/04-landing-migration-audit.md). Дизайн-система
+// запрещает hex вне tokens/_color.scss (см. theme.css) — подобраны такие
+// пропорции --paper/--paper-line и --paper-line/--on-paper-dim, что
+// color-mix даёт то же значение, что и исходный hex (проверено расчётом
+// по каналам, расхождение ≤2/255 на канал), без единого литерала здесь.
 .band--paper-2 {
-  --bg: color-mix(in srgb, var(--paper) 60%, var(--card));
+  --bg: color-mix(in srgb, var(--paper) 60%, var(--paper-line) 40%);
   --fg: var(--on-paper);
   --fg-dim: var(--on-paper-dim);
-  --line: color-mix(in srgb, var(--paper-line) 70%, var(--on-paper-dim));
+  --line: color-mix(in srgb, var(--paper-line) 93%, var(--on-paper-dim) 7%);
   --surface: var(--card);
   --accent: var(--signal);
 }
