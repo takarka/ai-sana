@@ -5,6 +5,7 @@ import { useModuleTheme } from '../../shared/module-theme';
 import { RevealOnScroll } from '../../shared/reveal/reveal-on-scroll';
 import { SplitWords } from '../../shared/reveal/split-words';
 import { openDemoModal } from '../../shared/demo-modal/demo-modal';
+import { setSeo } from '../../shared/seo';
 
 interface ChartPoint {
   x: number;
@@ -74,6 +75,11 @@ export class Pisa {
 
   constructor() {
     useModuleTheme('pisa');
+    setSeo({
+      title: $localize`:@@seo.pisa.title:CRAFT PISA — Подготовка к международным стандартам и PISA-2029`,
+      description: $localize`:@@seo.pisa.desc:Интерактивный архив заданий PISA, тренажеры функциональной грамотности и новый спецмодуль по медиа- и ИИ-грамотности с автоматической диагностикой готовности школы.`,
+      path: 'pisa',
+    });
   }
 
   protected readonly chartViewBox = `0 0 ${CHART_W} ${CHART_H}`;

@@ -5,7 +5,7 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
-import { dirname, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
@@ -30,6 +30,18 @@ function resolvePreferredLocale(acceptLanguage: string | undefined): string {
 app.get('/', (req, res) => {
   const locale = resolvePreferredLocale(req.headers['accept-language']);
   res.redirect(302, `/${locale}/`);
+});
+
+// robots.txt и sitemap.xml обязаны отдаваться с корня домена, а не из-под
+// префикса локали (/ru, /kk) — сами файлы копируются из apps/landing/public
+// в КАЖДУЮ локальную сборку (assets в project.json настроен на каждый
+// outputPath отдельно), содержимое идентично в обеих, поэтому для корневого
+// запроса достаточно любой копии (находка 05,
+// docs/plan/04-landing-migration-audit.md).
+app.get(['/robots.txt', '/sitemap.xml'], (req, res, next) => {
+  res.sendFile(join(browserDistFolder, DEFAULT_LOCALE, req.path), (err) => {
+    if (err) next(err);
+  });
 });
 
 /**

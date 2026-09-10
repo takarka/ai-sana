@@ -5,6 +5,7 @@ import { useModuleTheme } from '../../shared/module-theme';
 import { RevealOnScroll } from '../../shared/reveal/reveal-on-scroll';
 import { SplitWords } from '../../shared/reveal/split-words';
 import { openDemoModal } from '../../shared/demo-modal/demo-modal';
+import { setSeo } from '../../shared/seo';
 
 type ChipKey = 'role' | 'format' | 'cases' | 'noise';
 
@@ -67,6 +68,11 @@ export class Builder {
 
   constructor() {
     useModuleTheme('builder');
+    setSeo({
+      title: $localize`:@@seo.builder.title:CRAFT BUILDER — Практический курс Искусственному Интеллекту и вайб-кодингу`,
+      description: $localize`:@@seo.builder.desc:Обучаем школьников создавать реальные цифровые продукты, ботов и веб-сервисы с помощью нейросетей. Переход от чат-ботов к созданию IT-проектов и портфолио.`,
+      path: 'builder',
+    });
   }
 
   protected readonly prompt = computed(() => {

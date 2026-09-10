@@ -14,6 +14,7 @@ import { RevealOnScroll } from '../../shared/reveal/reveal-on-scroll';
 import { SplitWords } from '../../shared/reveal/split-words';
 import { whenIdle } from '../../shared/when-idle';
 import { openDemoModal } from '../../shared/demo-modal/demo-modal';
+import { setSeo } from '../../shared/seo';
 
 interface HowStep {
   nav: string;
@@ -59,6 +60,11 @@ export class Matrix {
 
   constructor() {
     useModuleTheme('matrix');
+    setSeo({
+      title: $localize`:@@seo.matrix.title:CRAFT MATRIX — Готовые интерактивные уроки по целям обучения ИИ для школы`,
+      description: $localize`:@@seo.matrix.desc:Полноценный цифровой комплекс по предмету «Цифровая грамотность и ИИ» для 1–11 классов: пошаговая теория, практические симуляторы, автопроверка и соответствие ГОСО/ТУП.`,
+      path: 'matrix',
+    });
 
     // Скролл-скраб — надстройка над кликом, а не замена: клик работает всегда
     // и на любой ширине, скролл добавляется только на десктопе и только если

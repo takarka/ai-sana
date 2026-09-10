@@ -2326,6 +2326,70 @@
           <context context-type="linenumber">41,42</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="seo.home.title" datatype="html">
+        <source>CRAFT AI — Готовая ИИ-экосистема для казахстанской школы: от ГОСО до PISA-2029</source>
+        <target>CRAFT AI — Қазақстан мектептеріне арналған дайын ЖИ-экожүйе: МЖМБС-тан PISA-2029-ға дейін</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.ts</context>
+          <context context-type="linenumber">50,50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="seo.home.desc" datatype="html">
+        <source>Единая образовательная операционная система для школ Казахстана: готовые уроки по ГОСО (CRAFT MATRIX), практический курс ИИ (CRAFT BUILDER) и подготовка к PISA-2029 (CRAFT PISA).</source>
+        <target>Қазақстан мектептеріне арналған біртұтас білім беру жүйесі: МЖМБС бойынша дайын сабақтар (CRAFT MATRIX), практикалық ЖИ курсы (CRAFT BUILDER) және PISA-2029-ға дайындық (CRAFT PISA).</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.ts</context>
+          <context context-type="linenumber">51,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="seo.matrix.title" datatype="html">
+        <source>CRAFT MATRIX — Готовые интерактивные уроки по целям обучения ИИ для школы</source>
+        <target>CRAFT MATRIX — «Цифрлық сауаттылық және ЖИ» пәні бойынша дайын интерактивті сабақтар</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.ts</context>
+          <context context-type="linenumber">64,64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="seo.matrix.desc" datatype="html">
+        <source>Полноценный цифровой комплекс по предмету «Цифровая грамотность и ИИ» для 1–11 классов: пошаговая теория, практические симуляторы, автопроверка и соответствие ГОСО/ТУП.</source>
+        <target>«Цифрлық сауаттылық және ЖИ» пәні бойынша 1–11 сыныптарға арналған толыққанды цифрлық кешен: сатылы теория, практикалық симуляторлар, автотексеру және МЖМБС/ТУП-қа сәйкестік.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.ts</context>
+          <context context-type="linenumber">65,65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="seo.builder.title" datatype="html">
+        <source>CRAFT BUILDER — Практический курс Искусственному Интеллекту и вайб-кодингу</source>
+        <target>CRAFT BUILDER — Оқушыларға арналған Жасанды Интеллект және вайб-кодинг практикалық курсы</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.ts</context>
+          <context context-type="linenumber">72,72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="seo.builder.desc" datatype="html">
+        <source>Обучаем школьников создавать реальные цифровые продукты, ботов и веб-сервисы с помощью нейросетей. Переход от чат-ботов к созданию IT-проектов и портфолио.</source>
+        <target>Оқушыларды нейрожелілер арқылы шынайы цифрлық өнімдер, боттар және веб-сервистер жасауға үйретеміз. Чат-боттардан IT-жобалар мен портфолио құруға көшу.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.ts</context>
+          <context context-type="linenumber">73,73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="seo.pisa.title" datatype="html">
+        <source>CRAFT PISA — Подготовка к международным стандартам и PISA-2029</source>
+        <target>CRAFT PISA — Халықаралық стандарттар мен PISA-2029-ға дайындық</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.ts</context>
+          <context context-type="linenumber">79,79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="seo.pisa.desc" datatype="html">
+        <source>Интерактивный архив заданий PISA, тренажеры функциональной грамотности и новый спецмодуль по медиа- и ИИ-грамотности с автоматической диагностикой готовности школы.</source>
+        <target>PISA тапсырмаларының интерактивті архиві, функционалдық сауаттылық тренажерлері және мектептің дайындығын автоматты диагностикалайтын медиа- және ЖИ-сауаттылық бойынша жаңа арнайы модуль.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.ts</context>
+          <context context-type="linenumber">80,80</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

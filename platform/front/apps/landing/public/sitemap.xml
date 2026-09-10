@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Статический sitemap на 4 маршрута × 2 локали — соответствует
+  serverRoutes (RenderMode.Prerender для "**") и project.json i18n.locales.
+  Перегенерировать вручную при добавлении нового маршрута в app.routes.ts;
+  список путей ниже — единственное место, где он продублирован (находка 05,
+  docs/plan/04-landing-migration-audit.md).
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://craftai.kz/ru/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://craftai.kz/ru/"/>
+    <xhtml:link rel="alternate" hreflang="kk" href="https://craftai.kz/kk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://craftai.kz/ru/"/>
+  </url>
+  <url>
+    <loc>https://craftai.kz/kk/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://craftai.kz/ru/"/>
+    <xhtml:link rel="alternate" hreflang="kk" href="https://craftai.kz/kk/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://craftai.kz/ru/"/>
+  </url>
+  <url>
+    <loc>https://craftai.kz/ru/matrix/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://craftai.kz/ru/matrix/"/>
+    <xhtml:link rel="alternate" hreflang="kk" href="https://craftai.kz/kk/matrix/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://craftai.kz/ru/matrix/"/>
+  </url>
+  <url>
+    <loc>https://craftai.kz/kk/matrix/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://craftai.kz/ru/matrix/"/>
+    <xhtml:link rel="alternate" hreflang="kk" href="https://craftai.kz/kk/matrix/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://craftai.kz/ru/matrix/"/>
+  </url>
+  <url>
+    <loc>https://craftai.kz/ru/builder/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://craftai.kz/ru/builder/"/>
+    <xhtml:link rel="alternate" hreflang="kk" href="https://craftai.kz/kk/builder/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://craftai.kz/ru/builder/"/>
+  </url>
+  <url>
+    <loc>https://craftai.kz/kk/builder/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://craftai.kz/ru/builder/"/>
+    <xhtml:link rel="alternate" hreflang="kk" href="https://craftai.kz/kk/builder/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://craftai.kz/ru/builder/"/>
+  </url>
+  <url>
+    <loc>https://craftai.kz/ru/pisa/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://craftai.kz/ru/pisa/"/>
+    <xhtml:link rel="alternate" hreflang="kk" href="https://craftai.kz/kk/pisa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://craftai.kz/ru/pisa/"/>
+  </url>
+  <url>
+    <loc>https://craftai.kz/kk/pisa/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://craftai.kz/ru/pisa/"/>
+    <xhtml:link rel="alternate" hreflang="kk" href="https://craftai.kz/kk/pisa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://craftai.kz/ru/pisa/"/>
+  </url>
+</urlset>

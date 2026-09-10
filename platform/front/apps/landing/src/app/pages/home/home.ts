@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CraftButton } from '@front/ui';
 import { openDemoModal } from '../../shared/demo-modal/demo-modal';
+import { setSeo } from '../../shared/seo';
 import { FaqAccordion, FaqEntry } from '../../shared/faq-accordion/faq-accordion';
 import { DeskPreview } from './desk-preview/desk-preview';
 import { RevealOnScroll } from '../../shared/reveal/reveal-on-scroll';
@@ -43,6 +44,14 @@ const FAQ_ENTRIES: FaqEntry[] = [
 export class Home {
   private readonly dialog = inject(Dialog);
   protected readonly faqEntries = FAQ_ENTRIES;
+
+  constructor() {
+    setSeo({
+      title: $localize`:@@seo.home.title:CRAFT AI — Готовая ИИ-экосистема для казахстанской школы: от ГОСО до PISA-2029`,
+      description: $localize`:@@seo.home.desc:Единая образовательная операционная система для школ Казахстана: готовые уроки по ГОСО (CRAFT MATRIX), практический курс ИИ (CRAFT BUILDER) и подготовка к PISA-2029 (CRAFT PISA).`,
+      path: '',
+    });
+  }
 
   protected openDemo(): void {
     openDemoModal(this.dialog);
