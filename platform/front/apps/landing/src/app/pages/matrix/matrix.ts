@@ -8,6 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { CraftButton } from '@front/ui';
+import { useModuleTheme } from '../../shared/module-theme';
 import { prefersReducedMotion } from '../../shared/reveal/reduced-motion';
 import { RevealOnScroll } from '../../shared/reveal/reveal-on-scroll';
 import { SplitWords } from '../../shared/reveal/split-words';
@@ -57,6 +58,8 @@ export class Matrix {
   protected readonly activeStep = signal(0);
 
   constructor() {
+    useModuleTheme('matrix');
+
     // Скролл-скраб — надстройка над кликом, а не замена: клик работает всегда
     // и на любой ширине, скролл добавляется только на десктопе и только если
     // пользователь не просил меньше движения (как в eighth-version).

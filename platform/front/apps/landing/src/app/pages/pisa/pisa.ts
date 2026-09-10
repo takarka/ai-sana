@@ -1,6 +1,7 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CraftButton } from '@front/ui';
+import { useModuleTheme } from '../../shared/module-theme';
 import { RevealOnScroll } from '../../shared/reveal/reveal-on-scroll';
 import { SplitWords } from '../../shared/reveal/split-words';
 import { openDemoModal } from '../../shared/demo-modal/demo-modal';
@@ -70,6 +71,10 @@ const READINESS: ReadinessItem[] = [
 })
 export class Pisa {
   private readonly dialog = inject(Dialog);
+
+  constructor() {
+    useModuleTheme('pisa');
+  }
 
   protected readonly chartViewBox = `0 0 ${CHART_W} ${CHART_H}`;
   protected readonly chartAxisY = PAD_T + (CHART_H - PAD_T - PAD_B);
