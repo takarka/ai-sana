@@ -1,0 +1,31 @@
+// Доступность — фокус, skip-link, sr-only. Перенесено из eighth-version.
+:focus-visible {
+  outline: 2px solid var(--signal-lift);
+  outline-offset: 3px;
+  border-radius: 0.4rem;
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -8rem;
+  z-index: 200;
+  padding: 1.2rem 2rem;
+  background: var(--signal);
+  color: #fff;
+  border-radius: var(--r-pill);
+  transition: top 0.2s var(--ease-signal);
+}
+
+.skip:focus {
+  top: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -1,0 +1,197 @@
+// .band/.wrap/.hero/.card/.grid/.final__btns — глобальные, см.
+// apps/landing/src/app/shared/landing-layout.scss. Здесь — тренажёр промпта
+// и рельс модулей курса (перенесено из eighth-version .lesson/.lz*/.chain__*).
+:host {
+  display: block;
+}
+
+.lesson {
+  margin-top: 4rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+
+.lesson__head {
+  padding: 2.4rem 3.2rem;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.lesson__title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 0.6rem;
+}
+
+.lesson__panes {
+  padding: 3.2rem;
+}
+
+.lz {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  align-items: flex-start;
+}
+
+.lz__out {
+  width: 100%;
+  min-height: 8.4rem;
+  display: flex;
+  align-items: center;
+  background: var(--signal-wash);
+  border: 1px solid var(--line);
+  border-radius: var(--r-chip);
+  padding: 1.8rem 2rem;
+}
+
+.lz__out code {
+  font-family: var(--font-micro);
+  font-size: 1.45rem;
+  line-height: 1.6;
+  color: var(--fg);
+}
+
+.lz__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.lz-chip {
+  font-family: var(--font-micro);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  padding: 0.8rem 1.8rem;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  color: var(--fg-dim);
+  // `all` включал бы outline от глобального :focus-visible (base/_a11y.scss)
+  // в анимацию — фокус-рамка на Tab доходила бы до полной видимости за
+  // 250мс вместо мгновенного появления (WCAG 2.4.7). Переходят только цвета.
+  transition:
+    background-color 0.25s var(--ease-signal),
+    border-color 0.25s var(--ease-signal),
+    color 0.25s var(--ease-signal);
+}
+
+.lz-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.lz-chip.is-on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-signal);
+}
+
+.lz__acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  align-items: center;
+}
+
+// Цвет уровня (--lvl-high/mid/low) недостаточно контрастен как цвет текста на
+// paper-фоне (AA требует 4.5:1, замер axe даёт ~4.29:1 для --lvl-low) — текст
+// остаётся --fg, а уровень передаёт цветной индикатор перед текстом.
+.lz__score {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: var(--font-micro);
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.lz__score::before {
+  content: '';
+  flex: none;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+}
+
+.lz__score--high::before {
+  background: var(--lvl-high);
+}
+
+.lz__score--mid::before {
+  background: var(--lvl-mid);
+}
+
+.lz__score--low::before {
+  background: var(--lvl-low);
+}
+
+.lz__verdict {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  width: 100%;
+}
+
+.lz__verdict li {
+  font-size: 1.55rem;
+  padding-left: 2.8rem;
+  position: relative;
+  color: var(--fg-dim);
+}
+
+.lz__verdict li::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-micro);
+  font-weight: 700;
+}
+
+.lz__verdict li.is-ok::before {
+  content: '✓';
+  color: var(--lvl-high);
+}
+
+.lz__verdict li.is-no::before {
+  content: '✕';
+  color: var(--lvl-low);
+}
+
+.chain__rail {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+}
+
+.chain__node {
+  font-family: var(--font-micro);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 1.1rem 2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+}
+
+.chain__node--end {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--on-signal);
+}
+
+.chain__arrow {
+  color: var(--fg-dim);
+  flex: none;
+}

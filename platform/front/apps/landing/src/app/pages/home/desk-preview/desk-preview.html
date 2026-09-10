@@ -1,0 +1,96 @@
+<div class="desk">
+  <div class="desk__top">
+    <div class="desk__filters">
+      <button
+        type="button"
+        class="chip"
+        [class.is-on]="filter() === 'all'"
+        [attr.aria-pressed]="filter() === 'all'"
+        (click)="setFilter('all')"
+        i18n="@@desk.filter.all"
+      >
+        Все ученики
+      </button>
+      <button
+        type="button"
+        class="chip"
+        [class.is-on]="filter() === 'high'"
+        [attr.aria-pressed]="filter() === 'high'"
+        (click)="setFilter('high')"
+        i18n="@@desk.filter.high"
+      >
+        В темпе
+      </button>
+      <button
+        type="button"
+        class="chip"
+        [class.is-on]="filter() === 'mid'"
+        [attr.aria-pressed]="filter() === 'mid'"
+        (click)="setFilter('mid')"
+        i18n="@@desk.filter.mid"
+      >
+        Замедление
+      </button>
+      <button
+        type="button"
+        class="chip"
+        [class.is-on]="filter() === 'low'"
+        [attr.aria-pressed]="filter() === 'low'"
+        (click)="setFilter('low')"
+        i18n="@@desk.filter.low"
+      >
+        Нужна помощь
+      </button>
+    </div>
+
+    <label class="desk__search-label">
+      <span class="sr-only" i18n="@@desk.search.label">Поиск по имени ученика</span>
+      <input
+        type="text"
+        class="desk__search"
+        placeholder="Поиск по имени ученика..."
+        i18n-placeholder="@@desk.search.placeholder"
+        (input)="onSearch($any($event.target).value)"
+      />
+    </label>
+  </div>
+
+  <div class="desk__scroll">
+    <table class="desk__table">
+      <thead>
+        <tr>
+          <th i18n="@@desk.th.name">Ученик / Класс</th>
+          <th i18n="@@desk.th.topic">Текущая тема</th>
+          <th i18n="@@desk.th.progress">Прогресс</th>
+          <th i18n="@@desk.th.status">Статус ученика</th>
+          <th i18n="@@desk.th.action">Действие учителя</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (student of rows(); track student.name) {
+          <tr>
+            <td class="desk__student">
+              <strong>{{ student.name }}</strong>
+              <span>{{ student.grade }}</span>
+            </td>
+            <td>{{ student.topic }}</td>
+            <td>
+              <div class="desk__meter">
+                <div class="meter">
+                  <i [style.width.%]="student.progress" [style.background]="meterColorVar(student.status)"></i>
+                </div>
+                <span class="desk__meter-pct">{{ student.progress }}%</span>
+              </div>
+            </td>
+            <td><craft-status-badge [level]="student.status" [label]="statusLabel[student.status]"></craft-status-badge></td>
+            <td class="desk__note" [class.desk__note--low]="student.status === 'low'">{{ student.note }}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="desk__empty" i18n="@@desk.empty">Ученики не найдены</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div cdkAccordion class="faq">
+  @for (item of items(); track item.question; let i = $index) {
+    <div cdkAccordionItem #accordionItem="cdkAccordionItem" class="faq__item" #panel="cdkAccordionItem">
+      <button
+        class="faq__q"
+        (click)="panel.toggle()"
+        [attr.aria-expanded]="panel.expanded"
+        [attr.aria-controls]="'faq-panel-' + i"
+        [id]="'faq-header-' + i"
+      >
+        <span class="micro">{{ (i + 1).toString().padStart(2, '0') }}</span>
+        <span class="faq__q-text">{{ item.question }}</span>
+        <span class="faq__ico" [class.faq__ico--open]="panel.expanded" aria-hidden="true"></span>
+      </button>
+      <div
+        class="faq__a"
+        [class.faq__a--open]="panel.expanded"
+        [id]="'faq-panel-' + i"
+        role="region"
+        [attr.aria-labelledby]="'faq-header-' + i"
+        [attr.aria-hidden]="!panel.expanded"
+      >
+        <div><p>{{ item.answer }}</p></div>
+      </div>
+    </div>
+  }
+</div>

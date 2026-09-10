@@ -1,0 +1,117 @@
+// Специфика главной страницы — общие band/wrap/типографика/card/grid/mats/
+// hero/final__btns вынесены в apps/landing/src/app/shared/landing-layout.scss
+// (подключён глобально), потому что matrix тоже использует hero и финальный
+// CTA (план 04-landing-migration.md, §3, шаг 3).
+:host {
+  display: block;
+}
+
+.card--module {
+  padding: 3.6rem;
+  gap: 2rem;
+}
+
+.card--module .card__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.card--module .card__part {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.card--module .card__part strong {
+  font-family: var(--font-micro);
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+.card--module .card__foot {
+  margin-top: auto;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--line);
+}
+
+.card--person {
+  padding: 3rem;
+  gap: 1.8rem;
+}
+
+.person__header {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.person__avatar {
+  width: 5.6rem;
+  height: 5.6rem;
+  border-radius: 50%;
+  background: var(--signal-wash);
+  border: 1px solid var(--line);
+  flex: none;
+  overflow: hidden;
+}
+
+.person__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.person__info h3 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.person__role {
+  display: inline-block;
+  font-family: var(--font-micro);
+  font-size: 1.1rem;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+.person__focus {
+  font-size: 1.45rem;
+  color: var(--fg);
+  line-height: 1.5;
+  padding: 1.2rem;
+  background: var(--signal-wash);
+  border-radius: 0.8rem;
+}
+
+.person__creds {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  list-style: none;
+  margin-top: auto;
+}
+
+.person__creds li {
+  font-size: 1.35rem;
+  color: var(--fg-dim);
+  line-height: 1.45;
+  padding-left: 1.8rem;
+  position: relative;
+}
+
+.person__creds li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-family: var(--font-micro);
+}

@@ -1,0 +1,11 @@
+// Геометрия и корневой размер — перенесены как есть (план 03-design-system.md,
+// §2.5). 1rem = 10px, чтобы значения совпадали с исходными в eighth-version.
+html {
+  font-size: 62.5%;
+}
+
+:root {
+  --r-pill: 10rem;
+  --r-card: 1.6rem;
+  --r-chip: 0.6rem;
+}

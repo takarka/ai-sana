@@ -1,0 +1,215 @@
+// .band/.wrap/.hero/.card/.grid/.final__btns/.meter — глобальные, см.
+// apps/landing/src/app/shared/landing-layout.scss. Здесь — блоки уровней
+// подготовки и управленческого дашборда (перенесено из eighth-version
+// .tracks/.an__grid/.panel/.pl-*/.hard/.rec/.disclaimer).
+:host {
+  display: block;
+}
+
+.tracks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.4rem;
+  margin-bottom: 4rem;
+}
+
+@media (max-width: 900px) {
+  .tracks {
+    grid-template-columns: 1fr;
+  }
+}
+
+.track {
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 3.2rem;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  transition:
+    border-color 0.3s var(--ease-out),
+    transform 0.3s var(--ease-out);
+}
+
+.track:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.track strong {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 2.2rem;
+}
+
+.track p {
+  font-size: 1.55rem;
+  color: var(--fg-dim);
+  line-height: 1.6;
+}
+
+.track ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+}
+
+.track li {
+  font-size: 1.45rem;
+  color: var(--fg-dim);
+  padding-left: 1.6rem;
+  position: relative;
+}
+
+.track li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.dash__cards {
+  margin-bottom: 3.6rem;
+}
+
+.an__grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 2.4rem;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .an__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 3.2rem;
+}
+
+.panel h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.panel figcaption {
+  font-size: 1.4rem;
+  color: var(--fg-dim);
+  margin-top: 1.4rem;
+}
+
+.chart {
+  margin-top: 2rem;
+}
+
+.chart svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.pl-grid {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.pl-axis {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.pl-line {
+  fill: none;
+  stroke: var(--signal);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.pl-dot {
+  fill: var(--signal);
+}
+
+.pl-val {
+  font-family: var(--font-micro);
+  font-size: 1.3rem;
+  fill: var(--fg);
+}
+
+.pl-tx {
+  font-family: var(--font-micro);
+  font-size: 1.1rem;
+  fill: var(--fg-dim);
+  text-transform: uppercase;
+}
+
+.hard {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.hard li {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 1.6rem 0;
+  border-top: 1px solid var(--line);
+  font-size: 1.55rem;
+}
+
+.hard li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.hard .meter {
+  max-width: 8rem;
+  margin-left: auto;
+}
+
+.hard .meter i {
+  background: var(--lvl-low);
+}
+
+.hard--ready .meter i {
+  background: var(--accent);
+}
+
+// Цвет уровня уже передаёт заполнение .meter i (readiness/не-readiness);
+// текст процента остаётся --fg, а не var(--lvl-low) — тот же ~4.29:1 против
+// paper-фона, что и в builder .lz__score, ниже требуемых AA 4.5:1.
+.hard__pct {
+  font-family: var(--font-micro);
+  margin-left: 1.2rem;
+}
+
+.rec {
+  margin-top: 2.4rem;
+  padding: 2.8rem;
+  border: 1px solid var(--signal);
+  border-radius: var(--r-card);
+  background: var(--signal-wash);
+}
+
+.rec p {
+  font-size: 1.65rem;
+  margin-top: 1.2rem;
+}
+
+.disclaimer {
+  margin-top: 4rem;
+  padding: 2rem;
+  border-top: 1px solid var(--line);
+  font-size: 1.3rem;
+  color: var(--fg-dim);
+  line-height: 1.6;
+}

@@ -1,0 +1,102 @@
+// .band/.wrap/.hero/.mats/.final__btns — глобальные, см.
+// apps/landing/src/app/shared/landing-layout.scss. Здесь — только степпер
+// "как проходит урок" (перенесено из eighth-version .how__*).
+:host {
+  display: block;
+}
+
+.how__stage {
+  display: grid;
+  grid-template-columns: 24rem 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .how__stage {
+    grid-template-columns: 1fr;
+  }
+}
+
+.how__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  position: relative;
+}
+
+.how__nav button {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  text-align: left;
+  font-family: var(--font-micro);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+  transition: color 0.35s var(--ease-signal);
+}
+
+.how__nav button::before {
+  content: '';
+  width: 3.2rem;
+  height: 1px;
+  background: currentColor;
+  flex: none;
+  transition: width 0.35s var(--ease-signal);
+}
+
+.how__nav button.is-on {
+  color: var(--accent);
+}
+
+.how__nav button.is-on::before {
+  width: 5.6rem;
+}
+
+.how__panes {
+  position: relative;
+  min-height: 34rem;
+}
+
+.how__pane {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(2rem);
+  transition:
+    opacity 0.5s var(--ease-signal),
+    transform 0.5s var(--ease-signal),
+    visibility 0.5s;
+}
+
+.how__pane.is-on {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.how__pane .num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(6rem, 10vw, 12rem);
+  line-height: 0.85;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--on-ink-dim);
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.how__pane h3 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 1.8rem;
+}
+
+.how__pane p {
+  font-size: 1.7rem;
+  color: var(--fg-dim);
+  line-height: 1.6;
+}

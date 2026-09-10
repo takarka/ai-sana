@@ -1,0 +1,11 @@
+@use 'tailwindcss';
+@use 'index' as tokens;
+@use 'theme.css';
+@use 'app/shared/landing-layout';
+
+// CDK Dialog рендерит подложку вне дерева компонента — стилизуется глобально.
+// Перенесено из eighth-version .modal__back (план 04-landing-migration.md, §3).
+.cdk-overlay-dark-backdrop {
+  background: rgba(4, 6, 15, 0.8);
+  backdrop-filter: blur(6px);
+}

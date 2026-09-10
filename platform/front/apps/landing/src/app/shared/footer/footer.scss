@@ -1,0 +1,83 @@
+// Перенесено из eighth-version .foot (план 04-landing-migration.md, §3).
+// [data-surface="ink"] на хосте (см. header.html/footer.html) переключает
+// --fg/--fg-dim на тёмную сцену — тот же механизм токенов, что и в кабинете
+// (03-design-system.md, §2.2), просто применённый на лендинге к футеру/шапке,
+// которые всегда тёмные независимо от полосы под ними.
+.foot {
+  background: var(--ink-900);
+  color: var(--on-ink);
+  padding: 8rem 2rem 4rem;
+  border-top: 1px solid var(--ink-line);
+}
+
+.foot__grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 4rem;
+  width: min(100%, 132rem);
+  margin-inline: auto;
+}
+
+.foot__grid p {
+  font-size: 1.5rem;
+  color: var(--on-ink-dim);
+  margin-top: 2rem;
+}
+
+.foot h4 {
+  font-family: var(--font-micro);
+  font-size: 1.15rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--on-ink-dim);
+  margin-bottom: 2rem;
+}
+
+.foot ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.foot li a,
+.foot li button {
+  font-size: 1.5rem;
+  color: var(--on-ink);
+  transition: color 0.25s var(--ease-signal);
+}
+
+.foot li button {
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.foot li a:hover,
+.foot li button:hover {
+  color: var(--signal-lift);
+}
+
+.foot__bar {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  flex-wrap: wrap;
+  width: min(100%, 132rem);
+  margin: 6rem auto 0;
+  padding-top: 2.4rem;
+  border-top: 1px solid var(--ink-line);
+}
+
+.foot__bar app-lang-switcher {
+  margin-left: auto;
+}
+
+@media (max-width: 900px) {
+  .foot__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

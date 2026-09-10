@@ -1,0 +1,11 @@
+// Единая точка входа дизайн-системы. Подключается один раз в styles.scss
+// приложения: `@use 'index';` (requires stylePreprocessorOptions.includePaths
+// → libs/shared/ui-tokens/src, см. apps/craft-web/project.json).
+@use 'tokens/color';
+@use 'tokens/typography';
+@use 'tokens/density';
+@use 'tokens/geometry';
+@use 'tokens/motion';
+@use 'base/reset';
+@use 'base/fonts';
+@use 'base/a11y';

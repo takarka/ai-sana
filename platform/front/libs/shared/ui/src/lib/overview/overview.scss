@@ -1,0 +1,62 @@
+.overview {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  font-family: var(--font-body);
+  color: var(--fg);
+}
+
+.overview__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-md);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.overview__section-title {
+  margin-top: 1.6rem;
+  font-family: var(--font-micro);
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-dim);
+}
+
+.overview__swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  width: 12rem;
+}
+
+.swatch__chip {
+  width: 6rem;
+  height: 6rem;
+  border-radius: var(--r-card);
+  border: 1px solid var(--line);
+}
+
+.swatch__label {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.swatch__token {
+  font-family: var(--font-micro);
+  font-size: 1.1rem;
+  color: var(--fg-dim);
+}
+
+.overview__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.2rem;
+}

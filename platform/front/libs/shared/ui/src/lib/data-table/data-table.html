@@ -1,0 +1,30 @@
+<table cdk-table [dataSource]="sortedRows()" class="craft-table">
+  @for (column of columns(); track column.key) {
+    <ng-container [cdkColumnDef]="column.key">
+      <th cdk-header-cell *cdkHeaderCellDef scope="col" [attr.aria-sort]="ariaSort(column)">
+        @if (column.sortable) {
+          <button
+            type="button"
+            class="craft-table__sort"
+            (click)="onSort(column)"
+          >
+            {{ column.label }}
+            <span class="craft-table__sort-icon" aria-hidden="true">
+              {{ ariaSort(column) === 'ascending' ? '↑' : ariaSort(column) === 'descending' ? '↓' : '↕' }}
+            </span>
+          </button>
+        } @else {
+          {{ column.label }}
+        }
+      </th>
+      <td cdk-cell *cdkCellDef="let row">{{ row[column.key] }}</td>
+    </ng-container>
+  }
+
+  <tr cdk-header-row *cdkHeaderRowDef="displayedColumns()"></tr>
+  <tr cdk-row *cdkRowDef="let row; columns: displayedColumns()"></tr>
+</table>
+
+@if (sortedRows().length === 0) {
+  <p class="craft-table__empty">{{ emptyLabel() }}</p>
+}

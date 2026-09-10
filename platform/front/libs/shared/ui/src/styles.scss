@@ -1,0 +1,6 @@
+// Глобальные стили только для Storybook (план 03-design-system.md, §5.3) —
+// тот же набор, что в apps/craft-web/src/styles.scss. includePaths на
+// libs/shared/ui-tokens/src задан в project.json (storybook/build-storybook).
+@use 'tailwindcss';
+@use 'index' as tokens;
+@use 'theme.css';

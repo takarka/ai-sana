@@ -1,0 +1,329 @@
+<!-- ================= 1. ГЕРОЙ ================= -->
+<!-- WebGL-сцена и текстовые ревилы (word-mask) из eighth-version/scene.js и
+     core.js на этом шаге не перенесены — решение сфокусироваться сначала на
+     структуре/контенте/переводе/доступности, см. заметку в плане 04, шаг 3. -->
+<section class="band band--ink band--air hero">
+  <div class="wrap">
+    <div class="hero__grid">
+      <div>
+        <div class="hero__eyebrows">
+          <span class="micro micro--accent" i18n="@@home.hero.eye">Единая образовательная система</span>
+        </div>
+
+        <h1 class="display d-xl" i18n="@@home.hero.h1">
+          <span class="hl">ИИ-ЭКОСИСТЕМА</span><br />ДЛЯ ШКОЛ КАЗАХСТАНА<br />ГОСО • УРОКИ • PISA-2029
+        </h1>
+
+        <p class="lead" i18n="@@home.hero.lead">
+          Готовые интерактивные уроки по учебным целям ИИ с автопроверкой, практический курс ИИ для учеников и
+          тренажеры PISA с новым модулем по ИИ-грамотности.
+        </p>
+
+        <div class="hero__cta">
+          <craft-button variant="primary" (click)="openDemo()">
+            <span i18n="@@home.hero.cta.demo">Запросить демо для школы</span>
+          </craft-button>
+          <craft-button variant="ghost" (click)="openDemo()" i18n="@@home.hero.cta.deck"
+            >Скачать презентацию экосистемы</craft-button
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2. ТРИ МОДУЛЯ ================= -->
+<section class="band band--paper">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro micro--accent" i18n="@@home.mod.eye">Архитектура экосистемы</span>
+      <h2 class="display d-lg" i18n="@@home.mod.h2">
+        Три модуля CRAFT AI — полное покрытие образовательной <span class="hl">среды</span>
+      </h2>
+      <p class="lead" i18n="@@home.mod.lead">
+        Все звенья школьного ИИ-образования: регулярные уроки, внеурочная проектная инженерия и внешняя диагностика
+        готовности.
+      </p>
+    </div>
+
+    <div class="grid grid-3">
+      <article class="card card--module">
+        <div class="card__meta">
+          <span class="card__n">01 MATRIX</span>
+          <span class="tag" i18n="@@home.m1.tag">1–11 классы</span>
+        </div>
+        <h3 i18n="@@home.m1.desc">Готовый цифровой комплекс для предмета «Цифровая грамотность и ИИ».</h3>
+        <div class="card__part">
+          <strong i18n="@@home.m1.how.t">Как работает:</strong>
+          <p i18n="@@home.m1.how.d">
+            Ученики проходят тему в интерактивных симуляторах в собственном темпе и сразу отрабатывают навыки на
+            практике.
+          </p>
+        </div>
+        <div class="card__part">
+          <strong i18n="@@home.m1.res.t">Результат для школы:</strong>
+          <p i18n="@@home.m1.res.d">
+            Учителю не нужно писать планы и искать задания. На экранах дашборда он в реальном времени видит, кто из
+            детей отстает, и помогает им адресно. Полное соответствие ТУП и ИМП 2026–2027.
+          </p>
+        </div>
+        <div class="card__foot">
+          <a class="link-roll" routerLink="/matrix" i18n="@@home.m1.link">Подробнее о MATRIX →</a>
+        </div>
+      </article>
+
+      <article class="card card--module">
+        <div class="card__meta">
+          <span class="card__n">02 BUILDER</span>
+          <span class="tag" i18n="@@home.m2.tag">Внеурочный курс</span>
+        </div>
+        <h3 i18n="@@home.m2.desc">
+          Внеурочный курс, который учит школьников создавать реальные цифровые продукты с помощью нейросетей.
+        </h3>
+        <div class="card__part">
+          <strong i18n="@@home.m2.how.t">Как работает:</strong>
+          <p i18n="@@home.m2.how.d">
+            Дети осваивают промпт-инжиниринг и «вайб-кодинг» — создание программ, ботов и сайтов через
+            формулирование задач искусственному интеллекту на обычном языке.
+          </p>
+        </div>
+        <div class="card__part">
+          <strong i18n="@@home.m2.res.t">Результат для школы:</strong>
+          <p i18n="@@home.m2.res.d">
+            Ученики переходят от банального использования чат-ботов к созданию собственных проектов и пониманию
+            логики работы ИИ.
+          </p>
+        </div>
+        <div class="card__foot">
+          <a class="link-roll" routerLink="/builder" i18n="@@home.m2.link">Подробнее о BUILDER →</a>
+        </div>
+      </article>
+
+      <article class="card card--module">
+        <div class="card__meta">
+          <span class="card__n">03 PISA</span>
+          <span class="tag" i18n="@@home.m3.tag">OECD стандарты</span>
+        </div>
+        <h3 i18n="@@home.m3.desc">
+          Единый тренажер функциональной грамотности по стандартам OECD для защиты показателей школы.
+        </h3>
+        <div class="card__part">
+          <strong i18n="@@home.m3.how.t">Как работает:</strong>
+          <p i18n="@@home.m3.how.d">
+            Архив реальных заданий прошлых лет, тренажеры по 3 направлениям (математика, естествознание, чтение) и
+            спецмодуль PISA-2029 (распознавание фейков, фактчекинг, анализ галлюцинаций ИИ).
+          </p>
+        </div>
+        <div class="card__part">
+          <strong i18n="@@home.m3.res.t">Результат для школы:</strong>
+          <p i18n="@@home.m3.res.d">
+            Ученики перестают бояться нестандартных задач, а администрация получает точную диагностику готовности
+            каждого класса к международным и государственным срезам.
+          </p>
+        </div>
+        <div class="card__foot">
+          <a class="link-roll" routerLink="/pisa" i18n="@@home.m3.link">Подробнее о PISA →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3. ДАШБОРД УЧИТЕЛЯ ================= -->
+<section class="band band--ink band--air" data-surface="ink" id="desk">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro micro--accent" i18n="@@home.desk.eye">Self-Paced трекинг</span>
+      <h2 class="display d-lg" i18n="@@home.desk.h2">
+        Дашборд учителя: управление классом в реальном <span class="hl">времени</span>
+      </h2>
+      <p class="lead" i18n="@@home.desk.lead">
+        Учитель не лектор, а тьютор. Система учит, учитель адресно помогает тем, кто «буксует».
+      </p>
+    </div>
+
+    <app-desk-preview></app-desk-preview>
+  </div>
+</section>
+
+<!-- ================= 4. ЭКСПЕРТЫ ================= -->
+<section class="band band--paper" id="experts">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro micro--accent" i18n="@@home.team.eye">Методика и инженерия</span>
+      <h2 class="display d-lg" i18n="@@home.team.h2">
+        Команда, которая создаёт будущее казахстанского <span class="hl">образования</span>
+      </h2>
+      <p class="lead" i18n="@@home.team.lead">
+        Сочетание практического школьного опыта, глубокой методики, ИИ-технологий и надежной инженерии.
+      </p>
+    </div>
+
+    <div class="grid grid-4">
+      <article class="card card--person">
+        <div class="person__header">
+          <div class="person__avatar">
+            <img src="img/team/aidyn.jpg" alt="Тусюбжанов Айдын" loading="lazy" style="object-position: top" />
+          </div>
+          <div class="person__info">
+            <h3 i18n="@@home.exp1.name">Тусюбжанов Айдын</h3>
+            <span class="person__role" i18n="@@home.exp1.role">Product Manager / Продукт-менеджер</span>
+          </div>
+        </div>
+        <div class="person__focus" i18n="@@home.exp1.focus">
+          Архитектура экосистемы, продуктовая стратегия, синхронизация с государственными стандартами и методологией
+          обучения.
+        </div>
+        <ul class="person__creds">
+          <li i18n="@@home.exp1.c1">Почётный работник образования Республики Казахстан, 2015 г.</li>
+          <li i18n="@@home.exp1.c2">Директор издательства "Астана-Кітап", 2015-18 г.</li>
+          <li i18n="@@home.exp1.c3">Соавтор учебников по физике для 7-8 классов для школ НИШ.</li>
+          <li i18n="@@home.exp1.c4">Автор методического пособия для абитуриентов по физике ШЫҢКІТАП, 2005-09 г.</li>
+        </ul>
+      </article>
+
+      <article class="card card--person">
+        <div class="person__header">
+          <div class="person__avatar">
+            <img src="img/team/begaiym.jpg" alt="Бегайым Мұрат" loading="lazy" />
+          </div>
+          <div class="person__info">
+            <h3 i18n="@@home.exp2.name">Бегайым Мұрат</h3>
+            <span class="person__role" i18n="@@home.exp2.role">AI Specialist / Специалист по ИИ</span>
+          </div>
+        </div>
+        <div class="person__focus" i18n="@@home.exp2.focus">
+          Разработка ИИ-моделей, проектирование безопасных учебных промптов, интеграция нейросетей в симуляторы и
+          тренажеры PISA.
+        </div>
+        <ul class="person__creds">
+          <li i18n="@@home.exp2.c1">Сертифицированный Google эксперт по Gemini.</li>
+          <li i18n="@@home.exp2.c2">
+            Сертифицированный международной организацией ISTE лидер в сфере образовательных технологий.
+          </li>
+          <li i18n="@@home.exp2.c3">Автор курса «Интеграция ИИ в педагогику».</li>
+        </ul>
+      </article>
+
+      <article class="card card--person">
+        <div class="person__header">
+          <div class="person__avatar">
+            <img src="img/team/farkhad.jpg" alt="Фархад Абылаев" loading="lazy" style="object-position: top" />
+          </div>
+          <div class="person__info">
+            <h3 i18n="@@home.exp3.name">Фархад Абылаев</h3>
+            <span class="person__role" i18n="@@home.exp3.role"
+              >CS Teacher &amp; Methodologist / Методист информатики</span
+            >
+          </div>
+        </div>
+        <div class="person__focus" i18n="@@home.exp3.focus">
+          Методическая адаптация материалов под ГОСО и ТУП, поурочные сценарии, проверка симуляторов в реальных
+          школьных условиях.
+        </div>
+        <ul class="person__creds">
+          <li i18n="@@home.exp3.c1">Педагог-эксперт по информатике с 10+ годами стажа.</li>
+          <li i18n="@@home.exp3.c2">Разработчик критериальной базы оценивания цифровых навыков.</li>
+          <li i18n="@@home.exp3.c3">Победитель республиканских педагогических конкурсов по цифровизации.</li>
+        </ul>
+      </article>
+
+      <article class="card card--person">
+        <div class="person__header">
+          <div class="person__avatar">
+            <img src="img/team/anarbek.jpg" alt="Анарбек" loading="lazy" />
+          </div>
+          <div class="person__info">
+            <h3 i18n="@@home.exp4.name">Анарбек</h3>
+            <span class="person__role" i18n="@@home.exp4.role">Lead Software Engineer / Ведущий программист</span>
+          </div>
+        </div>
+        <div class="person__focus" i18n="@@home.exp4.focus">
+          Техническая реализация платформы, устойчивость инфраструктуры, разработка дашбордов и защищенного учебного
+          контура.
+        </div>
+        <ul class="person__creds">
+          <li i18n="@@home.exp4.c1">Архитектура высоконагруженных образовательных веб-платформ.</li>
+          <li i18n="@@home.exp4.c2">Реализация интерактивных симуляторов без внешних тяжелых зависимостей.</li>
+          <li i18n="@@home.exp4.c3">Обеспечение отказоустойчивости и соответствия закону РК о персональных данных.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5. НОРМАТИВНАЯ БАЗА РК ================= -->
+<section class="band band--paper-2">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro micro--accent" i18n="@@home.law.eye">Институциональное соответствие</span>
+      <h2 class="display d-lg" i18n="@@home.law.h2">
+        Соответствие нормативной базе <span class="hl">РК</span>
+      </h2>
+      <p class="lead" i18n="@@home.law.lead">
+        Разработано специально для директоров школ и управлений образования: полное соответствие образовательным
+        стандартам и законодательству Республики Казахстан.
+      </p>
+    </div>
+
+    <div class="mats">
+      <div class="mat">
+        <span class="micro micro--accent">01 · ТУП И ПРОГРАММЫ</span>
+        <strong i18n="@@home.law.c1.t">ИМП 2026–2027</strong>
+        <p i18n="@@home.law.c1.d">
+          Полное покрытие требований Инструктивно-методического письма Министерства просвещения РК по направлению
+          «Цифровая грамотность и ИИ».
+        </p>
+      </div>
+
+      <div class="mat">
+        <span class="micro micro--accent">02 · ДЕСКРИПТОРЫ</span>
+        <strong i18n="@@home.law.c2.t">Критерии оценивания</strong>
+        <p i18n="@@home.law.c2.d">
+          Вшитые критерии формативного (F) и суммативного (P) оценивания для 2–4 классов и балльные шкалы 5–11
+          классов.
+        </p>
+      </div>
+
+      <div class="mat">
+        <span class="micro micro--accent">03 · БЕЗОПАСНОСТЬ</span>
+        <strong i18n="@@home.law.c3.t">Безопасность данных</strong>
+        <p i18n="@@home.law.c3.d">
+          Соблюдение норм безопасности данных, Закона РК «О персональных данных», академической честности и
+          защищенный контур ученика.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 6. FAQ ================= -->
+<section class="band band--paper">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro micro--accent" i18n="@@home.faq.eye">Вопросы администрации</span>
+      <h2 class="display d-lg" i18n="@@home.faq.h2">
+        Часто задаваемые вопросы <span class="hl">директоров</span>
+      </h2>
+    </div>
+
+    <app-faq-accordion [items]="faqEntries"></app-faq-accordion>
+  </div>
+</section>
+
+<!-- ================= 7. ФИНАЛЬНЫЙ CTA ================= -->
+<section class="band band--ink band--air final" data-surface="ink">
+  <div class="wrap">
+    <h2 class="display d-xl" i18n="@@cta.final.h2">
+      Внедрите ИИ в образовательный процесс <span class="hl">школы</span>
+    </h2>
+    <p class="lead" i18n="@@cta.final.sub">
+      Готовые модули уроков по ГОСО, практический курс прикладного ИИ и тренажеры PISA-2029 в единой защищенной
+      платформе.
+    </p>
+    <div class="final__btns">
+      <craft-button variant="primary" (click)="openDemo()" i18n="@@cta.btn.demo">Запросить демо для школы</craft-button>
+      <craft-button variant="ghost" (click)="openDemo()" i18n="@@cta.btn.connect">Подключить школу</craft-button>
+    </div>
+  </div>
+</section>

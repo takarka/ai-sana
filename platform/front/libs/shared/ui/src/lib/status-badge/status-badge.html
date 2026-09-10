@@ -1,0 +1,26 @@
+<span
+  class="craft-status-badge"
+  [class.craft-status-badge--high]="level() === 'high'"
+  [class.craft-status-badge--mid]="level() === 'mid'"
+  [class.craft-status-badge--low]="level() === 'low'"
+>
+  <svg
+    class="craft-status-badge__icon"
+    viewBox="0 0 16 16"
+    width="12"
+    height="12"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <circle cx="8" cy="8" r="7.25" fill="none" stroke="currentColor" stroke-width="1.5" />
+    <path
+      [attr.d]="iconPath"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+  <span class="craft-status-badge__label">{{ label() }}</span>
+</span>
