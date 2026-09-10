@@ -1,5 +1,14 @@
 import { Dialog } from '@angular/cdk/dialog';
-import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, signal, viewChild } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CraftButton } from '@front/ui';
 import { filter } from 'rxjs/operators';
@@ -39,11 +48,25 @@ export class Header {
   private readonly firstNavLink = viewChild<ElementRef<HTMLElement>>('firstNavLink');
   private readonly burgerBtn = viewChild<ElementRef<HTMLElement>>('burgerBtn');
 
+  // Перенос is-stuck из eighth-version/js/core.js — только нижняя граница
+  // (не фон: opacity фиксирована на .90 сознательно, см. комментарий над
+  // .head в header.scss — при .76 контраст .nav a не проходил AA). Без
+  // границы в самом верху страницы шапка ближе к «стеклу над героем» из
+  // оригинала (находка 18, docs/plan/04-landing-migration-audit.md).
+  protected readonly isStuck = signal(false);
+
   constructor() {
     const navigation = this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event) => this.moduleTag.set(moduleTagFor(event.urlAfterRedirects)));
     this.destroyRef.onDestroy(() => navigation.unsubscribe());
+
+    afterNextRender(() => {
+      const onScroll = () => this.isStuck.set(window.scrollY > 30);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      this.destroyRef.onDestroy(() => window.removeEventListener('scroll', onScroll));
+    });
   }
 
   // Ниже 1180px .nav — не инлайн-строка, а fixed-дропдаун (см. header.scss),
