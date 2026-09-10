@@ -1,0 +1,94 @@
+// Цветовые токены — перенесены без изменений из eighth-version/styles.css.
+// Контраст всех восьми модульных значений уже проверен на WCAG AA
+// (6.4:1…10.9:1, см. eighth-version/DESIGN.md) — не пересчитывать, не менять.
+:root {
+  // сцена
+  --ink-900: #04060f;
+  --ink-800: #0a0e1c;
+  --ink-700: #131a2e;
+  --ink-line: rgba(214, 227, 252, 0.14);
+
+  // бумага
+  --paper: #f4f6fb;
+  --card: #ffffff;
+  --paper-line: #dde3f0;
+
+  // базовый акцент CRAFT AI (ядро)
+  --brand: #0004eb;
+  --brand-lift: #7e8bff;
+  --signal: var(--brand);
+  --signal-lift: var(--brand-lift);
+  --signal-wash: rgba(0, 4, 235, 0.07);
+  // текст/иконки поверх заливки --signal (кнопки, .hl на лендинге)
+  --on-signal: #eaf0ff;
+
+  // модульные акценты с проверенным WCAG AA контрастом
+  --m-matrix: #0047ba;
+  --m-matrix-lift: #58b2ff;
+  --m-builder: #5b16d0;
+  --m-builder-lift: #a78bfa;
+  --m-pisa: #006c59;
+  --m-pisa-lift: #2dd4bf;
+
+  // сине-белые тона
+  --on-ink: #d6e3fc;
+  --on-ink-dim: #93a2c4;
+  --on-paper: #0a0e1c;
+  --on-paper-dim: #5b6478;
+
+  // семантическая шкала статусов (для paper-поверхностей)
+  --lvl-high: #1b9e6b;
+  --lvl-mid: #d9902b;
+  --lvl-low: #d0503c;
+
+  // та же шкала, ярче — для дашборда учителя и проекционного режима на тёмной
+  // сцене: --lvl-high/mid/low недостаточно контрастны на --ink-900
+  --lvl-high-ink: #2ed573;
+  --lvl-mid-ink: #ffa502;
+  --lvl-low-ink: #ff4757;
+
+  // активные токены текущей поверхности (по умолчанию — бумага, см. §3.2 плана
+  // 03-design-system.md: кабинет работает на paper постоянно, ink — точечно)
+  --bg: var(--paper);
+  --fg: var(--on-paper);
+  --fg-dim: var(--on-paper-dim);
+  --line: var(--paper-line);
+  --surface: var(--card);
+  --accent: var(--signal);
+}
+
+// Модульная тема — акцент меняется на контейнере маршрута, а не на body,
+// как на лендинге (кабинет открывает несколько модулей за одну сессию).
+[data-module='matrix'] {
+  --signal: var(--m-matrix);
+  --signal-lift: var(--m-matrix-lift);
+  --signal-wash: rgba(0, 71, 186, 0.08);
+}
+
+[data-module='builder'] {
+  --signal: var(--m-builder);
+  --signal-lift: var(--m-builder-lift);
+  --signal-wash: rgba(91, 22, 208, 0.08);
+}
+
+[data-module='pisa'] {
+  --signal: var(--m-pisa);
+  --signal-lift: var(--m-pisa-lift);
+  --signal-wash: rgba(0, 108, 89, 0.08);
+}
+
+// Тёмная сцена — только дашборд учителя и проекционный режим (§3.2).
+// --lvl-high/mid/low недостаточно контрастны на --ink-900 — на этой
+// поверхности статус-токены переключаются на яркую -ink шкалу автоматически,
+// компонентам (status-badge) не нужно знать про поверхность самим.
+[data-surface='ink'] {
+  --bg: var(--ink-900);
+  --fg: var(--on-ink);
+  --fg-dim: var(--on-ink-dim);
+  --line: var(--ink-line);
+  --surface: var(--ink-800);
+  --accent: var(--signal-lift);
+  --lvl-high: var(--lvl-high-ink);
+  --lvl-mid: var(--lvl-mid-ink);
+  --lvl-low: var(--lvl-low-ink);
+}

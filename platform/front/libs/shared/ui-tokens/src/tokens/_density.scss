@@ -1,0 +1,28 @@
+// Шкала плотности (план 03-design-system.md, §3.1). Три значения, не свободные
+// числа: `junior` — требование FR-MTX-05 для 1–4 классов, а не «крупнее для
+// красоты». Выбирается автоматически по параллели ученика, переопределяется
+// учителем вручную через [data-density] на контейнере.
+[data-density='comfortable'] {
+  --row-h: 5.6rem;
+  --gap: 2.4rem;
+  --fs-base: 1.6rem;
+}
+
+[data-density='compact'] {
+  --row-h: 4.4rem;
+  --gap: 1.6rem;
+  --fs-base: 1.5rem;
+}
+
+[data-density='junior'] {
+  --row-h: 7.2rem;
+  --gap: 3.2rem;
+  --fs-base: 2rem;
+}
+
+:root {
+  // значение по умолчанию, пока контейнер не задал [data-density]
+  --row-h: 5.6rem;
+  --gap: 2.4rem;
+  --fs-base: 1.6rem;
+}

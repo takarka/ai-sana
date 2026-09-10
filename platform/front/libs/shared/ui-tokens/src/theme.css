@@ -1,0 +1,31 @@
+/* Мост Tailwind ↔ токены (план 03-design-system.md, §4.5). Значения не
+   дублируются: каждая утилита читает уже объявленную CSS-переменную из
+   tokens/_color.scss, tokens/_typography.scss, tokens/_density.scss,
+   tokens/_geometry.scss. Произвольные hex-значения в шаблонах (bg-[#…]) вне
+   этого блока запрещены — тот же запрет, что и на hex в SCSS. */
+@theme {
+  --color-brand: var(--brand);
+  --color-signal: var(--signal);
+  --color-signal-lift: var(--signal-lift);
+  --color-ink-900: var(--ink-900);
+  --color-paper: var(--paper);
+  --color-card: var(--card);
+  --color-fg: var(--fg);
+  --color-fg-dim: var(--fg-dim);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-lvl-high: var(--lvl-high);
+  --color-lvl-mid: var(--lvl-mid);
+  --color-lvl-low: var(--lvl-low);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-micro: var(--font-micro);
+
+  --radius-pill: var(--r-pill);
+  --radius-card: var(--r-card);
+  --radius-chip: var(--r-chip);
+
+  --spacing-row: var(--row-h);
+  --spacing-gap: var(--gap);
+}

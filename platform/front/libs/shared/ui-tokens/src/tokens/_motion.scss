@@ -1,0 +1,20 @@
+// Моторика — перенесена как есть (план 03-design-system.md, §2.5).
+:root {
+  --ease-signal: cubic-bezier(0.65, 0.05, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 0.2s;
+  --duration-base: 0.3s;
+}
+
+// prefers-reduced-motion отключает анимацию глобально (план §5.2: проверяется
+// unit-тестом на утилиту моторики — см. libs/shared/ui-tokens/src/motion.spec).
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,16 @@
+// Три типографических голоса (план 03-design-system.md, §2.3).
+// Размеры — фиксированная rem-шкала, без clamp()/vw: на лендинге типографика
+// плавает с шириной вьюпорта, но при масштабе 200% (NFR-A11Y-06) vw-размеры не
+// растут вместе с текстом — в кабинете это запрещено (§3.3).
+:root {
+  --font-display: 'Inter Tight', system-ui, sans-serif;
+  --font-body: 'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-micro: 'JetBrains Mono', ui-monospace, monospace;
+
+  --fs-display-lg: 3.6rem;
+  --fs-display-md: 2.8rem;
+  --fs-display-sm: 2.2rem;
+  --fs-body: 1.6rem;
+  --fs-body-sm: 1.4rem;
+  --fs-micro: 1.2rem;
+}

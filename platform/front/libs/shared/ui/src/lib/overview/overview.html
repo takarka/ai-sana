@@ -1,0 +1,57 @@
+<section class="overview">
+  <h1 class="overview__title">CRAFT AI — токены и компоненты</h1>
+
+  <h2 class="overview__section-title">Цвет</h2>
+  <div class="overview__swatches">
+    @for (swatch of brandSwatches; track swatch.token) {
+      <div class="swatch">
+        <div class="swatch__chip" [style.background]="'var(' + swatch.token + ')'"></div>
+        <span class="swatch__label">{{ swatch.name }}</span>
+        <span class="swatch__token">{{ swatch.token }}</span>
+      </div>
+    }
+    @for (swatch of moduleSwatches; track swatch.token) {
+      <div class="swatch">
+        <div class="swatch__chip" [style.background]="'var(' + swatch.token + ')'"></div>
+        <span class="swatch__label">{{ swatch.name }}</span>
+        <span class="swatch__token">{{ swatch.token }}</span>
+      </div>
+    }
+    @for (swatch of statusSwatches; track swatch.token) {
+      <div class="swatch">
+        <div class="swatch__chip" [style.background]="'var(' + swatch.token + ')'"></div>
+        <span class="swatch__label">{{ swatch.name }}</span>
+        <span class="swatch__token">{{ swatch.token }}</span>
+      </div>
+    }
+  </div>
+
+  <h2 class="overview__section-title">Типографика</h2>
+  <p class="overview__type" style="font-family: var(--font-display); font-size: var(--fs-display-lg); font-weight: 800; text-transform: uppercase;">
+    Display / Inter Tight
+  </p>
+  <p class="overview__type" style="font-family: var(--font-body); font-size: var(--fs-body);">
+    Body / Onest — основной текст, теория урока, таблицы.
+  </p>
+  <p class="overview__type" style="font-family: var(--font-micro); font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: .1em;">
+    Micro / JetBrains Mono — статусы, таймеры, метки
+  </p>
+
+  <h2 class="overview__section-title">Button</h2>
+  <div class="overview__row">
+    <craft-button variant="primary">Сохранить</craft-button>
+    <craft-button variant="ghost">Отмена</craft-button>
+    <craft-button variant="solid">Подробнее</craft-button>
+    <craft-button variant="primary" [disabled]="true">Недоступно</craft-button>
+  </div>
+
+  <h2 class="overview__section-title">StatusBadge</h2>
+  <div class="overview__row">
+    <craft-status-badge level="high" label="Готов"></craft-status-badge>
+    <craft-status-badge level="mid" label="Нужна помощь"></craft-status-badge>
+    <craft-status-badge level="low" label="Риск"></craft-status-badge>
+  </div>
+
+  <h2 class="overview__section-title">DataTable</h2>
+  <craft-data-table [columns]="columns" [rows]="rows"></craft-data-table>
+</section>

@@ -1,0 +1,10 @@
+<button
+  class="craft-btn"
+  [class.craft-btn--primary]="variant() === 'primary'"
+  [class.craft-btn--ghost]="variant() === 'ghost'"
+  [class.craft-btn--solid]="variant() === 'solid'"
+  [type]="type()"
+  [disabled]="disabled()"
+>
+  <ng-content></ng-content>
+</button>

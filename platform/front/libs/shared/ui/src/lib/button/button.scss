@@ -1,0 +1,57 @@
+// Геометрия и голос — из eighth-version .btn (план 03-design-system.md, §4.1).
+// Никаких hex: все цвета — токены из libs/shared/ui-tokens.
+.craft-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 2.8rem;
+  border: 0;
+  border-radius: var(--r-pill);
+  font-family: var(--font-micro);
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition:
+    transform var(--duration-base) var(--ease-signal),
+    background-color var(--duration-base) var(--ease-signal),
+    color var(--duration-base) var(--ease-signal),
+    opacity var(--duration-base) var(--ease-signal);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.craft-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.craft-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+}
+
+.craft-btn--primary {
+  background: var(--signal);
+  color: var(--on-signal);
+}
+
+.craft-btn--primary:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.craft-btn--ghost {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--fg);
+}
+
+.craft-btn--ghost:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.craft-btn--solid {
+  background: var(--fg);
+  color: var(--bg);
+}

@@ -1,0 +1,14 @@
+{
+  "customSyntax": "postcss-scss",
+  "rules": {
+    "color-no-hex": true
+  },
+  "overrides": [
+    {
+      "files": ["libs/shared/ui-tokens/**/*.{css,scss}"],
+      "rules": {
+        "color-no-hex": null
+      }
+    }
+  ]
+}
