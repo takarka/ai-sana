@@ -1,0 +1,72 @@
+// Перенесено из eighth-version .modal__box (план 04-landing-migration.md, §3).
+// CDK Dialog не даёт своей визуальной "коробки" — оформление живёт на :host
+// этого компонента, а не на контейнере CDK.
+:host {
+  position: relative;
+  display: block;
+  width: min(90vw, 52rem);
+  background: var(--card);
+  color: var(--on-paper);
+  border-radius: var(--r-card);
+  padding: 4rem;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 2.8rem;
+  line-height: 1.05;
+  margin-bottom: 1.2rem;
+}
+
+.demo-modal__lead,
+p {
+  color: var(--on-paper-dim);
+  font-size: 1.6rem;
+}
+
+.demo-modal__close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  color: var(--on-paper-dim);
+}
+
+.demo-modal__close:hover {
+  color: var(--on-paper);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+
+.field input {
+  padding: 1.4rem 1.6rem;
+  border: 1px solid var(--paper-line);
+  border-radius: 1rem;
+  background: var(--card);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.field input:focus-visible {
+  border-color: var(--signal);
+}
+
+.field--honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+craft-button {
+  display: block;
+  margin-top: 2.4rem;
+}

@@ -2,11 +2,1117 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="ru" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="landing.tagline" datatype="html">
-        <source>Платформа для школ Казахстана</source>
+      <trans-unit id="skip" datatype="html">
+        <source>Перейти к содержанию</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/landing/src/app/app.html</context>
-          <context context-type="linenumber">2,3</context>
+          <context context-type="linenumber">1,2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.matrix" datatype="html">
+        <source>CRAFT MATRIX</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/app.routes.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">21,22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.builder" datatype="html">
+        <source>CRAFT BUILDER</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/app.routes.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.pisa" datatype="html">
+        <source>CRAFT PISA</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/app.routes.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
+          <context context-type="linenumber">18,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="comingSoon.eyebrow" datatype="html">
+        <source>Страница в разработке</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/coming-soon/coming-soon.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="comingSoon.text" datatype="html">
+        <source> Мы переносим содержимое этого раздела с текущего сайта. Загляните чуть позже — а пока расскажем подробнее на демонстрации. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/coming-soon/coming-soon.html</context>
+          <context context-type="linenumber">6,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.filter.all" datatype="html">
+        <source> Все ученики </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.html</context>
+          <context context-type="linenumber">12,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.filter.high" datatype="html">
+        <source> В темпе </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.html</context>
+          <context context-type="linenumber">22,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.filter.mid" datatype="html">
+        <source> Замедление </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.html</context>
+          <context context-type="linenumber">32,34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.filter.low" datatype="html">
+        <source> Нужна помощь </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.html</context>
+          <context context-type="linenumber">42,44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.search.label" datatype="html">
+        <source>Поиск по имени ученика</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.html</context>
+          <context context-type="linenumber">47,49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.search.placeholder" datatype="html">
+        <source>Поиск по имени ученика...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.html</context>
+          <context context-type="linenumber">51,52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.th.name" datatype="html">
+        <source>Ученик / Класс</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.html</context>
+          <context context-type="linenumber">62,63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.th.topic" datatype="html">
+        <source>Текущая тема</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.html</context>
+          <context context-type="linenumber">63,64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.th.progress" datatype="html">
+        <source>Прогресс</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.html</context>
+          <context context-type="linenumber">64,65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.th.status" datatype="html">
+        <source>Статус ученика</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.html</context>
+          <context context-type="linenumber">65,66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.th.action" datatype="html">
+        <source>Действие учителя</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.html</context>
+          <context context-type="linenumber">66,68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.empty" datatype="html">
+        <source>Ученики не найдены</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.html</context>
+          <context context-type="linenumber">90,92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.status.high" datatype="html">
+        <source>В темпе</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.status.mid" datatype="html">
+        <source>Замедление</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.status.low" datatype="html">
+        <source>Нужна помощь</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student1.name" datatype="html">
+        <source>Айсулу Қасымова</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student1.topic" datatype="html">
+        <source>Архитектура LLM · Симулятор</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student1.note" datatype="html">
+        <source>Опережает темп на 2 шага</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student2.name" datatype="html">
+        <source>Данияр Төлеген</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student2.topic" datatype="html">
+        <source>Промпт-инжиниринг · Шаг 4</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student2.note" datatype="html">
+        <source>Самостоятельное решение</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student3.name" datatype="html">
+        <source>Мадина Сапар</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student3.topic" datatype="html">
+        <source>Вайб-кодинг веб-страницы</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student3.note" datatype="html">
+        <source>В пределах нормы</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student4.name" datatype="html">
+        <source>Ерлан Бақыт</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student4.topic" datatype="html">
+        <source>Распознавание фейков PISA</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student4.note" datatype="html">
+        <source>Задержка на шаге 3 (валидация)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student5.name" datatype="html">
+        <source>Алина Жұмабек</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student5.topic" datatype="html">
+        <source>Декомпозиция задач ИИ</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student5.note" datatype="html">
+        <source>Требуется уточнение критерия</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student6.name" datatype="html">
+        <source>Тимур Ахметов</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student6.topic" datatype="html">
+        <source>Синтаксис системного промпта</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student6.note" datatype="html">
+        <source>3 ошибки подряд в симуляторе</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student7.name" datatype="html">
+        <source>Асель Мұрат</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student7.topic" datatype="html">
+        <source>Автономные ИИ-агенты</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student7.note" datatype="html">
+        <source>Высокая точность ответов</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student8.name" datatype="html">
+        <source>Санжар Омар</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student8.topic" datatype="html">
+        <source>Анализ галлюцинаций модели</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="desk.student8.note" datatype="html">
+        <source>Застрял на фактчекинге датасета</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/desk-preview/desk-preview.ts</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.hero.eye" datatype="html">
+        <source>Единая образовательная система</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">10,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.hero.h1" datatype="html">
+        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>ИИ-ЭКОСИСТЕМА<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>ДЛЯ ШКОЛ КАЗАХСТАНА<x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br /&gt;"/>ГОСО • УРОКИ • PISA-2029 </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">14,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.hero.lead" datatype="html">
+        <source> Готовые интерактивные уроки по учебным целям ИИ с автопроверкой, практический курс ИИ для учеников и тренажеры PISA с новым модулем по ИИ-грамотности. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">18,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.hero.cta.demo" datatype="html">
+        <source>Запросить демо для школы</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.hero.cta.deck" datatype="html">
+        <source>Скачать презентацию экосистемы</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">27,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.mod.eye" datatype="html">
+        <source>Архитектура экосистемы</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">39,40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.mod.h2" datatype="html">
+        <source> Три модуля CRAFT AI — полное покрытие образовательной <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>среды<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">41,43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.mod.lead" datatype="html">
+        <source> Все звенья школьного ИИ-образования: регулярные уроки, внеурочная проектная инженерия и внешняя диагностика готовности. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">44,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m1.tag" datatype="html">
+        <source>1–11 классы</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">53,55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m1.desc" datatype="html">
+        <source>Готовый цифровой комплекс для предмета «Цифровая грамотность и ИИ».</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">55,56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m1.how.t" datatype="html">
+        <source>Как работает:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">57,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m1.how.d" datatype="html">
+        <source> Ученики проходят тему в интерактивных симуляторах в собственном темпе и сразу отрабатывают навыки на практике. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">59,61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m1.res.t" datatype="html">
+        <source>Результат для школы:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">64,65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m1.res.d" datatype="html">
+        <source> Учителю не нужно писать планы и искать задания. На экранах дашборда он в реальном времени видит, кто из детей отстает, и помогает им адресно. Полное соответствие ТУП и ИМП 2026–2027. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">66,68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m1.link" datatype="html">
+        <source>Подробнее о MATRIX →</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">71,73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m2.tag" datatype="html">
+        <source>Внеурочный курс</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">78,80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m2.desc" datatype="html">
+        <source> Внеурочный курс, который учит школьников создавать реальные цифровые продукты с помощью нейросетей. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">81,83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m2.how.t" datatype="html">
+        <source>Как работает:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">84,85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m2.how.d" datatype="html">
+        <source> Дети осваивают промпт-инжиниринг и «вайб-кодинг» — создание программ, ботов и сайтов через формулирование задач искусственному интеллекту на обычном языке. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">86,88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m2.res.t" datatype="html">
+        <source>Результат для школы:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">91,92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m2.res.d" datatype="html">
+        <source> Ученики переходят от банального использования чат-ботов к созданию собственных проектов и пониманию логики работы ИИ. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">93,95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m2.link" datatype="html">
+        <source>Подробнее о BUILDER →</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">98,100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m3.tag" datatype="html">
+        <source>OECD стандарты</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">105,107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m3.desc" datatype="html">
+        <source> Единый тренажер функциональной грамотности по стандартам OECD для защиты показателей школы. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">108,110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m3.how.t" datatype="html">
+        <source>Как работает:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">111,112</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m3.how.d" datatype="html">
+        <source> Архив реальных заданий прошлых лет, тренажеры по 3 направлениям (математика, естествознание, чтение) и спецмодуль PISA-2029 (распознавание фейков, фактчекинг, анализ галлюцинаций ИИ). </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">113,115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m3.res.t" datatype="html">
+        <source>Результат для школы:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">118,119</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m3.res.d" datatype="html">
+        <source> Ученики перестают бояться нестандартных задач, а администрация получает точную диагностику готовности каждого класса к международным и государственным срезам. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">120,122</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.m3.link" datatype="html">
+        <source>Подробнее о PISA →</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">125,127</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.desk.eye" datatype="html">
+        <source>Self-Paced трекинг</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">136,137</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.desk.h2" datatype="html">
+        <source> Дашборд учителя: управление классом в реальном <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>времени<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">138,140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.desk.lead" datatype="html">
+        <source> Учитель не лектор, а тьютор. Система учит, учитель адресно помогает тем, кто «буксует». </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">141,143</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.team.eye" datatype="html">
+        <source>Методика и инженерия</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">153,154</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.team.h2" datatype="html">
+        <source> Команда, которая создаёт будущее казахстанского <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>образования<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">155,157</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.team.lead" datatype="html">
+        <source> Сочетание практического школьного опыта, глубокой методики, ИИ-технологий и надежной инженерии. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">158,160</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp1.name" datatype="html">
+        <source>Тусюбжанов Айдын</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">169,170</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp1.role" datatype="html">
+        <source>Product Manager / Продукт-менеджер</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">170,172</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp1.focus" datatype="html">
+        <source> Архитектура экосистемы, продуктовая стратегия, синхронизация с государственными стандартами и методологией обучения. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">174,176</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp1.c1" datatype="html">
+        <source>Почётный работник образования Республики Казахстан, 2015 г.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">178,179</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp1.c2" datatype="html">
+        <source>Директор издательства &quot;Астана-Кітап&quot;, 2015-18 г.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">179,180</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp1.c3" datatype="html">
+        <source>Соавтор учебников по физике для 7-8 классов для школ НИШ.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">180,181</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp1.c4" datatype="html">
+        <source>Автор методического пособия для абитуриентов по физике ШЫҢКІТАП, 2005-09 г.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">181,183</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp2.name" datatype="html">
+        <source>Бегайым Мұрат</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">191,192</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp2.role" datatype="html">
+        <source>AI Specialist / Специалист по ИИ</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">192,194</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp2.focus" datatype="html">
+        <source> Разработка ИИ-моделей, проектирование безопасных учебных промптов, интеграция нейросетей в симуляторы и тренажеры PISA. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">196,198</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp2.c1" datatype="html">
+        <source>Сертифицированный Google эксперт по Gemini.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">200,201</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp2.c2" datatype="html">
+        <source> Сертифицированный международной организацией ISTE лидер в сфере образовательных технологий. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">202,203</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp2.c3" datatype="html">
+        <source>Автор курса «Интеграция ИИ в педагогику».</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">204,206</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp3.name" datatype="html">
+        <source>Фархад Абылаев</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">214,215</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp3.role" datatype="html">
+        <source>CS Teacher &amp; Methodologist / Методист информатики</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">216,218</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp3.focus" datatype="html">
+        <source> Методическая адаптация материалов под ГОСО и ТУП, поурочные сценарии, проверка симуляторов в реальных школьных условиях. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">221,223</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp3.c1" datatype="html">
+        <source>Педагог-эксперт по информатике с 10+ годами стажа.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">225,226</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp3.c2" datatype="html">
+        <source>Разработчик критериальной базы оценивания цифровых навыков.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">226,227</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp3.c3" datatype="html">
+        <source>Победитель республиканских педагогических конкурсов по цифровизации.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">227,229</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp4.name" datatype="html">
+        <source>Анарбек</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">237,238</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp4.role" datatype="html">
+        <source>Lead Software Engineer / Ведущий программист</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">238,240</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp4.focus" datatype="html">
+        <source> Техническая реализация платформы, устойчивость инфраструктуры, разработка дашбордов и защищенного учебного контура. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">242,244</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp4.c1" datatype="html">
+        <source>Архитектура высоконагруженных образовательных веб-платформ.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">246,247</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp4.c2" datatype="html">
+        <source>Реализация интерактивных симуляторов без внешних тяжелых зависимостей.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">247,248</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.exp4.c3" datatype="html">
+        <source>Обеспечение отказоустойчивости и соответствия закону РК о персональных данных.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">248,250</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.law.eye" datatype="html">
+        <source>Институциональное соответствие</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">259,260</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.law.h2" datatype="html">
+        <source> Соответствие нормативной базе <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>РК<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">261,263</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.law.lead" datatype="html">
+        <source> Разработано специально для директоров школ и управлений образования: полное соответствие образовательным стандартам и законодательству Республики Казахстан. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">264,267</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.law.c1.t" datatype="html">
+        <source>ИМП 2026–2027</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">272,273</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.law.c1.d" datatype="html">
+        <source> Полное покрытие требований Инструктивно-методического письма Министерства просвещения РК по направлению «Цифровая грамотность и ИИ». </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">274,276</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.law.c2.t" datatype="html">
+        <source>Критерии оценивания</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">281,282</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.law.c2.d" datatype="html">
+        <source> Вшитые критерии формативного (F) и суммативного (P) оценивания для 2–4 классов и балльные шкалы 5–11 классов. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">283,285</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.law.c3.t" datatype="html">
+        <source>Безопасность данных</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">290,291</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.law.c3.d" datatype="html">
+        <source> Соблюдение норм безопасности данных, Закона РК «О персональных данных», академической честности и защищенный контур ученика. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">292,294</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.faq.eye" datatype="html">
+        <source>Вопросы администрации</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">304,305</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.faq.h2" datatype="html">
+        <source> Часто задаваемые вопросы <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>директоров<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">306,308</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cta.final.h2" datatype="html">
+        <source> Внедрите ИИ в образовательный процесс <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>школы<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">318,320</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cta.final.sub" datatype="html">
+        <source> Готовые модули уроков по ГОСО, практический курс прикладного ИИ и тренажеры PISA-2029 в единой защищенной платформе. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">321,324</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cta.btn.demo" datatype="html">
+        <source>Запросить демо для школы</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">325,326</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cta.btn.connect" datatype="html">
+        <source>Подключить школу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">326,328</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.faq.q1" datatype="html">
+        <source>Как экосистема CRAFT AI внедряется в учебный процесс школы?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.faq.a1" datatype="html">
+        <source>Платформа интегрируется бесшовно: модуль MATRIX используется учителями на регулярных уроках предмета «Цифровая грамотность и ИИ», модуль BUILDER запускается как внеурочный кружок или спецкурс, а PISA — для плановой диагностики готовности параллелей.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.faq.q2" datatype="html">
+        <source>Нужно ли учителям информатики проходить долгое обучение?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.faq.a2" datatype="html">
+        <source>Нет. Интерфейс учителя интуитивно понятен и сопровождается готовыми поурочными методическими картами. Учителю не требуется быть экспертом в программировании нейросетей — система берёт интерактивное обучение на себя.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.faq.q3" datatype="html">
+        <source>Где и как хранятся персональные данные школьников?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.faq.a3" datatype="html">
+        <source>Все серверные мощности и базы данных размещены в защищенном контуре на территории Республики Казахстан в строгом соответствии с Законом РК «О персональных данных и их защите». Платформа не передаёт данные детей сторонним сервисам.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.faq.q4" datatype="html">
+        <source>Чем модуль CRAFT PISA отличается от обычных тестов?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.faq.a4" datatype="html">
+        <source>CRAFT PISA включает не только оцифрованный банк заданий OECD прошлых лет, но и впервые в Казахстане готовит детей к спецификации PISA-2029: проверке медиаграмотности, выявлению дипфейков и анализу ошибок искусственного интеллекта.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.faq.q5" datatype="html">
+        <source>Как школа может запросить пилотный доступ и демонстрацию?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.faq.a5" datatype="html">
+        <source>Достаточно нажать кнопку «Запросить демо для школы» и оставить контакты руководства. Наша методическая команда свяжется с вами, развернёт тестовый кабинет и покажет живую работу системы на примере одного класса.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="demoModal.close" datatype="html">
+        <source>Закрыть</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/demo-modal/demo-modal.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="demoModal.title" datatype="html">
+        <source>Запросить демонстрацию</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/demo-modal/demo-modal.html</context>
+          <context context-type="linenumber">15,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="demoModal.lead" datatype="html">
+        <source> Оставьте контакты — мы свяжемся с администрацией вашей школы и проведём презентацию экосистемы. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/demo-modal/demo-modal.html</context>
+          <context context-type="linenumber">17,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="demoModal.name" datatype="html">
+        <source>ФИО представителя школы</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/demo-modal/demo-modal.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="demoModal.org" datatype="html">
+        <source>Номер школы / Название организации</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/demo-modal/demo-modal.html</context>
+          <context context-type="linenumber">26,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="demoModal.mail" datatype="html">
+        <source>Рабочая электронная почта</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/demo-modal/demo-modal.html</context>
+          <context context-type="linenumber">30,31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="demoModal.phone" datatype="html">
+        <source>Контактный телефон</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/demo-modal/demo-modal.html</context>
+          <context context-type="linenumber">34,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="demoModal.send" datatype="html">
+        <source>Отправить заявку</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/demo-modal/demo-modal.html</context>
+          <context context-type="linenumber">44,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="demoModal.done.title" datatype="html">
+        <source>Заявка успешно принята</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/demo-modal/demo-modal.html</context>
+          <context context-type="linenumber">47,48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="demoModal.done.text" datatype="html">
+        <source> Методический отдел CRAFT AI свяжется с вами в течение одного рабочего дня. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/demo-modal/demo-modal.html</context>
+          <context context-type="linenumber">49,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="demoModal.close2" datatype="html">
+        <source>Закрыть</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/demo-modal/demo-modal.html</context>
+          <context context-type="linenumber">51,54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="foot.about" datatype="html">
+        <source> CRAFT AI — единая операционная система для интеграции искусственного интеллекта и подготовки к международным исследованиям PISA в школах Казахстана. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">13,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="foot.nav" datatype="html">
+        <source>Модули и разделы</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">19,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.desk" datatype="html">
+        <source>Дашборд учителя</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.experts" datatype="html">
+        <source>Эксперты</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">25,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="foot.contacts" datatype="html">
+        <source>Связаться с нами</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">30,32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.cta" datatype="html">
+        <source>Запросить демо</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">35,36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="foot.docs" datatype="html">
+        <source>Нормативная база</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">41,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="foot.privacy" datatype="html">
+        <source>Политика конфиденциальности</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">45,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="foot.terms" datatype="html">
+        <source>Пользовательское соглашение</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="foot.data" datatype="html">
+        <source>Безопасность данных РК</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">47,48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="foot.rights" datatype="html">
+        <source>Все права защищены</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">53,54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.navLabel" datatype="html">
+        <source>Основная навигация</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.home" datatype="html">
+        <source>Экосистема</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
+          <context context-type="linenumber">15,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.menu" datatype="html">
+        <source>Открыть меню</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
+          <context context-type="linenumber">28,29</context>
         </context-group>
       </trans-unit>
     </body>

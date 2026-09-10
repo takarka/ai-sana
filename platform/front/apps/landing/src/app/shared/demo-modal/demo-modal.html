@@ -1,0 +1,53 @@
+<div class="demo-modal">
+  <button
+    type="button"
+    class="demo-modal__close"
+    (click)="close()"
+    aria-label="Закрыть"
+    i18n-aria-label="@@demoModal.close"
+  >
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M5 5l10 10M15 5L5 15" />
+    </svg>
+  </button>
+
+  @if (!submitted()) {
+    <h3 id="demo-modal-title" i18n="@@demoModal.title">Запросить демонстрацию</h3>
+    <p class="demo-modal__lead" i18n="@@demoModal.lead">
+      Оставьте контакты — мы свяжемся с администрацией вашей школы и проведём презентацию экосистемы.
+    </p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <label class="field">
+        <span class="micro" i18n="@@demoModal.name">ФИО представителя школы</span>
+        <input type="text" formControlName="name" required />
+      </label>
+      <label class="field">
+        <span class="micro" i18n="@@demoModal.org">Номер школы / Название организации</span>
+        <input type="text" formControlName="organization" required />
+      </label>
+      <label class="field">
+        <span class="micro" i18n="@@demoModal.mail">Рабочая электронная почта</span>
+        <input type="email" formControlName="email" required />
+      </label>
+      <label class="field">
+        <span class="micro" i18n="@@demoModal.phone">Контактный телефон</span>
+        <input type="tel" formControlName="phone" required />
+      </label>
+
+      <!-- honeypot: скрыто визуально и от вспомогательных технологий, боты часто заполняют все поля -->
+      <label class="field field--honeypot" aria-hidden="true">
+        <span>Website</span>
+        <input type="text" formControlName="website" tabindex="-1" autocomplete="off" />
+      </label>
+
+      <craft-button type="submit" variant="primary" i18n="@@demoModal.send">Отправить заявку</craft-button>
+    </form>
+  } @else {
+    <h3 i18n="@@demoModal.done.title">Заявка успешно принята</h3>
+    <p i18n="@@demoModal.done.text">
+      Методический отдел CRAFT AI свяжется с вами в течение одного рабочего дня.
+    </p>
+    <craft-button variant="primary" (click)="close()" i18n="@@demoModal.close2">Закрыть</craft-button>
+  }
+</div>

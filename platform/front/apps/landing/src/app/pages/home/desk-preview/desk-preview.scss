@@ -1,0 +1,163 @@
+// Перенесено из eighth-version .desk/.chip/.meter (план 04-landing-migration.md,
+// §3). Секция-обёртка ставит [data-surface="ink"] (см. home.html) — здесь
+// используются только --on-ink/--ink-* токены напрямую, тот же приём, что и
+// в шапке/футере.
+.desk {
+  background: var(--ink-800);
+  border: 1px solid var(--ink-line);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+
+.desk__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.4rem;
+  border-bottom: 1px solid var(--ink-line);
+  flex-wrap: wrap;
+  gap: 1.6rem;
+}
+
+.desk__filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.chip {
+  font-family: var(--font-micro);
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.8rem 1.6rem;
+  border: 1px solid var(--ink-line);
+  border-radius: var(--r-pill);
+  color: var(--on-ink-dim);
+  transition: all 0.25s var(--ease-signal);
+  cursor: pointer;
+}
+
+.chip.is-on {
+  background: var(--on-ink);
+  border-color: var(--on-ink);
+  color: var(--ink-900);
+}
+
+.desk__search {
+  padding: 0.8rem 1.6rem;
+  border: 1px solid var(--ink-line);
+  border-radius: var(--r-pill);
+  background: var(--ink-900);
+  color: var(--on-ink);
+  font-size: 1.3rem;
+  font-family: var(--font-micro);
+  min-width: 22rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.desk__search:focus-visible {
+  border-color: var(--signal-lift);
+}
+
+.desk__scroll {
+  overflow-x: auto;
+}
+
+.desk__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.desk__table th {
+  text-align: left;
+  padding: 1.6rem 2.4rem;
+  font-family: var(--font-micro);
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--on-ink-dim);
+  border-bottom: 1px solid var(--ink-line);
+  white-space: nowrap;
+}
+
+.desk__table td {
+  padding: 1.6rem 2.4rem;
+  border-bottom: 1px solid var(--ink-line);
+  font-size: 1.55rem;
+  color: var(--on-ink);
+}
+
+.desk__table tr:last-child td {
+  border-bottom: 0;
+}
+
+.desk__student {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.desk__student strong {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.desk__student span {
+  font-family: var(--font-micro);
+  font-size: 1.2rem;
+  color: var(--on-ink-dim);
+}
+
+.desk__meter {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  min-width: 14rem;
+}
+
+.meter {
+  flex: 1;
+  height: 0.6rem;
+  border-radius: var(--r-pill);
+  background: var(--ink-line);
+  overflow: hidden;
+}
+
+.meter i {
+  display: block;
+  height: 100%;
+  border-radius: var(--r-pill);
+}
+
+.desk__meter-pct {
+  font-family: var(--font-micro);
+  font-size: 1.2rem;
+  flex: none;
+}
+
+.desk__note {
+  font-size: 1.4rem;
+  color: var(--on-ink-dim);
+}
+
+.desk__note--low {
+  color: var(--lvl-low-ink);
+}
+
+.desk__empty {
+  text-align: center;
+  padding: 3rem;
+  color: var(--on-ink-dim);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

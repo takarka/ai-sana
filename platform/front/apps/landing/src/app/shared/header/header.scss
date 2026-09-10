@@ -1,0 +1,143 @@
+// Перенесено из eighth-version .head/.nav/.burger (план 04-landing-migration.md,
+// §3, шаг 3). Шапка всегда на тёмном стекле поверх контента — это
+// сознательно не привязано к --bg/--fg текущей полосы, как на лендинге.
+// Состояние "is-stuck" (потемнение при скролле, .76 → .94) на этом шаге не
+// переносится как отдельный scroll-эффект, но его нижняя граница непрозрачности
+// нужна и без анимации: header — position:sticky, а не предок секций под ним,
+// поэтому axe/color-contrast считает контраст `.nav a` (--on-ink-dim) против
+// paper-фона страницы, просвечивающего через полупрозрачную подложку — при
+// исходных .76 это давало 4.06:1 (не проходит 4.5:1 AA), при .90 — 6.49:1.
+:host {
+  display: contents;
+}
+
+.head {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  height: var(--head-h, 7.2rem);
+  display: flex;
+  align-items: center;
+  background: color-mix(in srgb, var(--ink-900) 90%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--ink-line);
+  color: var(--on-ink);
+}
+
+.head__in {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+  width: min(100% - 4rem, 132rem);
+  margin-inline: auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: var(--on-ink);
+  flex: none;
+}
+
+.logo__mark svg {
+  height: 2.2rem;
+  width: auto;
+  display: block;
+}
+
+.nav {
+  display: flex;
+  gap: 2.2rem;
+  margin-left: auto;
+}
+
+.nav a {
+  font-family: var(--font-micro);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--on-ink-dim);
+  white-space: nowrap;
+  transition: color 0.25s var(--ease-signal);
+}
+
+.nav a:hover,
+.nav a.is-active {
+  color: var(--on-ink);
+}
+
+.nav a.is-active {
+  border-bottom: 1px solid var(--signal-lift);
+}
+
+.head__side {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+// Дублируется в .nav как .nav__cta для мобильного меню (см. ниже) — на
+// десктопе CTA в шапке остаётся отдельной кнопкой в .head__side.
+.nav__cta {
+  display: none;
+}
+
+.burger {
+  display: none;
+  width: 4rem;
+  height: 4rem;
+  align-items: center;
+  justify-content: center;
+  color: var(--on-ink);
+  flex: none;
+}
+
+.burger svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+// Порог подобран под фактическую ширину навигации четырёх пунктов: контент
+// "CRAFT AI · Экосистема · MATRIX · BUILDER · PISA · кнопка · lang · burger"
+// перестаёт помещаться заметно раньше классических планшетных 1024px.
+@media (max-width: 1180px) {
+  .nav {
+    position: fixed;
+    inset: var(--head-h, 7.2rem) 0 auto;
+    flex-direction: column;
+    gap: 0;
+    padding: 1.6rem 2rem;
+    background: var(--ink-900);
+    border-bottom: 1px solid var(--ink-line);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      transform 0.25s var(--ease-signal),
+      opacity 0.25s var(--ease-signal);
+  }
+
+  .nav a {
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--ink-line);
+  }
+
+  .nav--open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .burger {
+    display: inline-flex;
+  }
+
+  .header-cta {
+    display: none;
+  }
+
+  .nav__cta {
+    display: block;
+    margin-top: 1.6rem;
+  }
+}

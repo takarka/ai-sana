@@ -1,4 +1,6 @@
-<app-lang-switcher></app-lang-switcher>
-<h1>{{ title }}</h1>
-<p i18n="@@landing.tagline">Платформа для школ Казахстана</p>
-<router-outlet></router-outlet>
+<a class="skip" href="#main" i18n="@@skip">Перейти к содержанию</a>
+<app-header></app-header>
+<main id="main">
+  <router-outlet></router-outlet>
+</main>
+<app-footer></app-footer>

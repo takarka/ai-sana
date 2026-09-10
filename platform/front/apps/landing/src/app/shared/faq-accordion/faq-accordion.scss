@@ -1,0 +1,76 @@
+// Перенесено из eighth-version .faq (план 04-landing-migration.md, §3, шаг 3).
+.faq {
+  border-top: 1px solid var(--line);
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--line);
+}
+
+.faq__q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  padding: 2.6rem 0;
+  text-align: left;
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--fg);
+  transition: color 0.25s var(--ease-signal);
+}
+
+.faq__q:hover {
+  color: var(--signal);
+}
+
+.faq__q-text {
+  flex: 1;
+}
+
+.faq__ico {
+  margin-left: auto;
+  flex: none;
+  width: 1.6rem;
+  height: 1.6rem;
+  position: relative;
+}
+
+.faq__ico::before,
+.faq__ico::after {
+  content: '';
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.35s var(--ease-signal);
+}
+
+.faq__ico::after {
+  transform: rotate(90deg);
+}
+
+.faq__ico--open::after {
+  transform: rotate(0);
+}
+
+.faq__a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s var(--ease-signal);
+}
+
+.faq__a > div {
+  overflow: hidden;
+}
+
+.faq__a--open {
+  grid-template-rows: 1fr;
+}
+
+.faq__a p {
+  padding-bottom: 2.6rem;
+  color: var(--fg-dim);
+  max-width: 68ch;
+}

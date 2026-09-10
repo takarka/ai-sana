@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { LangSwitcher } from './shared/lang-switcher/lang-switcher';
+import { RouterOutlet } from '@angular/router';
+import { Footer } from './shared/footer/footer';
+import { Header } from './shared/header/header';
 
 @Component({
-  imports: [RouterModule, LangSwitcher],
+  imports: [RouterOutlet, Header, Footer],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {
-  protected title = 'CRAFT AI';
-}
+export class App {}

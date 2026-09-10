@@ -1,0 +1,27 @@
+// .band/.wrap/.display/.micro/.lead — глобальные, см.
+// apps/landing/src/app/shared/landing-layout.scss.
+:host {
+  display: block;
+}
+
+.coming-soon {
+  min-height: 60svh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.coming-soon .wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.coming-soon .display {
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+  margin-block: 1.6rem;
+}
+
+.coming-soon .lead {
+  max-width: 60ch;
+}
