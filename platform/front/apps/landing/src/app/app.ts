@@ -12,6 +12,12 @@ import { Scene } from './shared/scene/scene';
   styleUrl: './app.scss',
 })
 export class App {
+  // Один показ на вкладку: любой следующий вход в этой сессии (переход по
+  // меню, если он всё-таки делает полную перезагрузку страницы, открытие
+  // другого маршрута по прямой ссылке и т.п.) не должен снова прятать уже
+  // видимый сайт за прелоадером.
+  private static readonly SESSION_KEY = 'craft-preloader-shown';
+
   private readonly destroyRef = inject(DestroyRef);
 
   // Прикрывает окно гидратации между SSR-версткой и JS-эффектами (appReveal,
@@ -27,7 +33,7 @@ export class App {
   }
 
   private runPreloader(): void {
-    if (prefersReducedMotion()) {
+    if (prefersReducedMotion() || this.wasAlreadyShown()) {
       this.preVisible.set(false);
       return;
     }
@@ -54,6 +60,7 @@ export class App {
       finished = true;
       clearInterval(tick);
       this.prePct.set(100);
+      this.markAsShown();
       setTimeout(() => {
         this.preDone.set(true);
         setTimeout(() => this.preVisible.set(false), 700);
@@ -66,5 +73,22 @@ export class App {
       clearInterval(tick);
       clearTimeout(cap);
     });
+  }
+
+  private wasAlreadyShown(): boolean {
+    try {
+      return sessionStorage.getItem(App.SESSION_KEY) === '1';
+    } catch {
+      // Приватный режим и т.п. — считаем, что не показывали.
+      return false;
+    }
+  }
+
+  private markAsShown(): void {
+    try {
+      sessionStorage.setItem(App.SESSION_KEY, '1');
+    } catch {
+      // Недоступность sessionStorage не должна ломать анимацию скрытия.
+    }
   }
 }
