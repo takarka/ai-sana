@@ -9,6 +9,11 @@
   </div>
 }
 <app-scene></app-scene>
+<!-- Рамка-уголки — фирменная деталь "интерфейса-прибора", видна на каждой
+     тёмной полосе через прозрачный фон .band--ink. Одна на всё приложение
+     (position:fixed), а не на страницу — перенесена сюда, а не в каждый
+     page-компонент (находка 13, docs/plan/04-landing-migration-audit.md). -->
+<div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <a class="skip" href="#main" i18n="@@skip">Перейти к содержанию</a>
 <app-header></app-header>
 <main id="main">

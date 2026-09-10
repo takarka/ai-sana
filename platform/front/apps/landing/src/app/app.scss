@@ -48,3 +48,54 @@
   border-radius: var(--r-pill);
   transition: width 0.25s linear;
 }
+
+// Рамка-уголки — перенос .frame из eighth-version/styles.css (находка 13,
+// docs/plan/04-landing-migration-audit.md). z-index ниже шапки (90) и
+// прелоадера (300) — декоративный слой, pointer-events:none.
+.frame {
+  position: fixed;
+  inset: 2rem;
+  pointer-events: none;
+  z-index: 40;
+}
+
+.frame i {
+  position: absolute;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 1px solid rgba(214, 227, 252, 0.22);
+}
+
+.frame i:nth-child(1) {
+  top: 0;
+  left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.frame i:nth-child(2) {
+  top: 0;
+  right: 0;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.frame i:nth-child(3) {
+  bottom: 0;
+  left: 0;
+  border-right: 0;
+  border-top: 0;
+}
+
+.frame i:nth-child(4) {
+  bottom: 0;
+  right: 0;
+  border-left: 0;
+  border-top: 0;
+}
+
+@media (max-width: 768px) {
+  .frame {
+    display: none;
+  }
+}
