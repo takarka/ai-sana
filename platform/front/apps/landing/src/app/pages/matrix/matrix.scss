@@ -12,12 +12,6 @@
   align-items: start;
 }
 
-@media (max-width: 900px) {
-  .how__stage {
-    grid-template-columns: 1fr;
-  }
-}
-
 .how__nav {
   display: flex;
   flex-direction: column;
@@ -99,4 +93,37 @@
   font-size: 1.7rem;
   color: var(--fg-dim);
   line-height: 1.6;
+}
+
+// how-scrub на планшете/телефоне переходит в вертикальный список — степпер
+// с кликом по .how__nav не помещается рядом с контентом на узкой ширине, а
+// скрывать шаги 02/03 за одним видимым — терять две трети контента секции
+// (было не перенесено вовсе: виден был только шаг 01, находка 17,
+// docs/plan/04-landing-migration-audit.md). Блок должен идти после базовых
+// правил .how__nav/.how__panes/.how__pane — та же специфичность класса,
+// выигрывает порядок в каскаде, а не медиа-условие само по себе.
+@media (max-width: 1024px) {
+  .how__stage {
+    grid-template-columns: 1fr;
+    gap: 3.2rem;
+  }
+
+  .how__nav {
+    display: none;
+  }
+
+  .how__panes {
+    position: static;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4.8rem;
+  }
+
+  .how__pane {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
 }
