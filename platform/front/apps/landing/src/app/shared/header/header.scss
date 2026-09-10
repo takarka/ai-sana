@@ -34,7 +34,8 @@
 
 .logo {
   display: flex;
-  align-items: center;
+  align-items: baseline;
+  gap: 0.9rem;
   color: var(--on-ink);
   flex: none;
 }
@@ -43,6 +44,14 @@
   height: 2.2rem;
   width: auto;
   display: block;
+}
+
+.logo__tag {
+  font-family: var(--font-micro);
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--on-ink-dim);
 }
 
 .nav {
@@ -134,6 +143,14 @@
 
   .header-cta {
     display: none;
+  }
+
+  // .nav уходит в position:fixed и больше не занимает место в строке —
+  // без этого .head__side (переключатель языка + бургер) остаётся
+  // прижатым к лого, а не к правому краю шапки (см. eighth-version
+  // .logo { margin-right: auto } в той же точке излома).
+  .head__side {
+    margin-left: auto;
   }
 
   .nav__cta {

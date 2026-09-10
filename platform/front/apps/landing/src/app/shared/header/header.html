@@ -9,6 +9,9 @@
           />
         </svg>
       </span>
+      @if (moduleTag(); as tag) {
+        <span class="logo__tag">{{ tag }}</span>
+      }
     </a>
 
     <nav
