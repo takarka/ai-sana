@@ -1,6 +1,8 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CraftButton } from '@front/ui';
+import { RevealOnScroll } from '../../shared/reveal/reveal-on-scroll';
+import { SplitWords } from '../../shared/reveal/split-words';
 import { openDemoModal } from '../../shared/demo-modal/demo-modal';
 
 interface ChartPoint {
@@ -61,7 +63,7 @@ const READINESS: ReadinessItem[] = [
 
 @Component({
   selector: 'app-pisa',
-  imports: [CraftButton],
+  imports: [CraftButton, RevealOnScroll, SplitWords],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pisa.html',
   styleUrl: './pisa.scss',

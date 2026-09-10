@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { whenIdle } from '../when-idle';
 import type { SceneHandle } from './scene-globe';
 import { SceneHost } from './scene-host';
 
@@ -57,13 +58,6 @@ function isLowPower(): boolean {
     deviceMemory() <= 4 ||
     !!(conn && (conn.saveData || /2g/.test(conn.effectiveType || '')))
   );
-}
-
-function whenIdle(run: () => void): void {
-  const idle = (window as Window & { requestIdleCallback?: (cb: () => void) => number })
-    .requestIdleCallback;
-  if (idle) idle(run);
-  else setTimeout(run, 400);
 }
 
 @Component({

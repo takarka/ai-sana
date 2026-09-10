@@ -7,16 +7,16 @@
           <span class="micro micro--accent">CRAFT MATRIX</span>
         </div>
 
-        <h1 class="display d-xl" i18n="@@matrix.hero.h1">
+        <h1 class="display d-xl" appSplitWords i18n="@@matrix.hero.h1">
           Цифровая грамотность и ИИ через <span class="hl">интерактивную</span> практику
         </h1>
 
-        <p class="lead" i18n="@@matrix.hero.lead">
+        <p class="lead" appReveal i18n="@@matrix.hero.lead">
           Учителю не нужно писать планы и искать задания. На экранах дашборда он в реальном времени видит, кто из
           детей отстает, и помогает им адресно. Полное соответствие ТУП и ИМП 2026–2027.
         </p>
 
-        <div class="hero__cta">
+        <div class="hero__cta" appReveal>
           <craft-button variant="primary" (click)="openDemo()" i18n="@@matrix.hero.cta.lesson">Пройти демо-урок</craft-button>
           <craft-button variant="ghost" (click)="openDemo()" i18n="@@matrix.hero.cta.connect">Подключить школу</craft-button>
         </div>
@@ -26,11 +26,12 @@
 </section>
 
 <!-- ================= 2. ПОШАГОВЫЙ СЦЕНАРИЙ ================= -->
-<section class="band band--paper">
+<!-- id="how" — якорь скролл-скраба (см. matrix.ts / matrix-scrub.ts). -->
+<section class="band band--paper" id="how">
   <div class="wrap">
     <div class="sec-head">
       <span class="micro micro--accent" i18n="@@matrix.how.eye">Пошаговый сценарий</span>
-      <h2 class="display d-lg" i18n="@@matrix.how.h2">
+      <h2 class="display d-lg" appSplitWords i18n="@@matrix.how.h2">
         Как проходит урок с <span class="hl">CRAFT MATRIX</span>
       </h2>
       <p class="lead" i18n="@@matrix.how.lead">
@@ -70,7 +71,7 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="micro micro--accent" i18n="@@matrix.std.eye">ГОСО и ТУП РК</span>
-      <h2 class="display d-lg" i18n="@@matrix.std.h2">
+      <h2 class="display d-lg" appSplitWords i18n="@@matrix.std.h2">
         Полное соответствие государственным <span class="hl">стандартам</span>
       </h2>
       <p class="lead" i18n="@@matrix.std.lead">
@@ -80,7 +81,7 @@
     </div>
 
     <div class="mats">
-      <div class="mat">
+      <div class="mat" appReveal>
         <span class="micro micro--accent">01 · ЦЕЛИ ОБУЧЕНИЯ</span>
         <strong i18n="@@matrix.c1.t">100% покрытие учебной программы (1–11 классы)</strong>
         <p i18n="@@matrix.c1.d">
@@ -89,7 +90,7 @@
         </p>
       </div>
 
-      <div class="mat">
+      <div class="mat" appReveal>
         <span class="micro micro--accent">02 · ПРАКТИКА</span>
         <strong i18n="@@matrix.c2.t">Интерактивные симуляторы по ключевым темам</strong>
         <p i18n="@@matrix.c2.d">
@@ -98,7 +99,7 @@
         </p>
       </div>
 
-      <div class="mat">
+      <div class="mat" appReveal>
         <span class="micro micro--accent">03 · КРИТЕРИИ ОЦЕНКИ</span>
         <strong i18n="@@matrix.c3.t">Готовый инструментарий оценивания</strong>
         <p i18n="@@matrix.c3.d">
@@ -113,7 +114,7 @@
 <!-- ================= ФИНАЛЬНЫЙ CTA ================= -->
 <section class="band band--ink band--air final" data-surface="ink">
   <div class="wrap">
-    <h2 class="display d-xl" i18n="@@cta.final.h2">
+    <h2 class="display d-xl" appSplitWords i18n="@@cta.final.h2">
       Внедрите ИИ в образовательный процесс <span class="hl">школы</span>
     </h2>
     <p class="lead" i18n="@@cta.final.sub">

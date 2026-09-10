@@ -5,6 +5,7 @@ import {
   signal,
 } from '@angular/core';
 import { CraftStatusBadge, CraftStatusLevel } from '@front/ui';
+import { RevealOnScroll } from '../../../shared/reveal/reveal-on-scroll';
 
 interface StudentRow {
   name: string;
@@ -98,7 +99,7 @@ const STUDENTS: StudentRow[] = [
 
 @Component({
   selector: 'app-desk-preview',
-  imports: [CraftStatusBadge],
+  imports: [CraftStatusBadge, RevealOnScroll],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './desk-preview.html',
   styleUrl: './desk-preview.scss',

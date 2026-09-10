@@ -29,6 +29,12 @@ class NoopIntersectionObserver implements IntersectionObserver {
 
 globalThis.IntersectionObserver = NoopIntersectionObserver;
 
+// jsdom не реализует getContext и на каждый вызов пишет «Not implemented» в
+// консоль — из-за этого шума легко пропустить настоящую ошибку в выводе
+// тестов. Возвращаем null: ровно так ведёт себя браузер без WebGL, а это и
+// есть ветка, которую проверяет scene.spec.ts.
+HTMLCanvasElement.prototype.getContext = () => null;
+
 // Тот же случай: jsdom не реализует matchMedia, а по нему сцена решает,
 // запускаться ли (prefers-reduced-motion) и слабое ли устройство.
 window.matchMedia = (query: string): MediaQueryList =>

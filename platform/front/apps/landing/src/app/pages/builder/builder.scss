@@ -195,3 +195,21 @@
   color: var(--fg-dim);
   flex: none;
 }
+
+// Стрелки рельса прочерчиваются, когда он доезжает до вьюпорта (класс is-in
+// вешает appReveal) — перенесено из eighth-version/styles.css.
+.chain__arrow path {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset 0.55s var(--ease-out) var(--d, 0s);
+}
+
+.chain__rail.is-in .chain__arrow path {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chain__arrow path {
+    stroke-dashoffset: 0 !important;
+  }
+}

@@ -12,16 +12,16 @@
           <span class="micro micro--accent" i18n="@@home.hero.eye">Единая образовательная система</span>
         </div>
 
-        <h1 class="display d-xl" i18n="@@home.hero.h1">
+        <h1 class="display d-xl" appSplitWords i18n="@@home.hero.h1">
           <span class="hl">ИИ-ЭКОСИСТЕМА</span><br />ДЛЯ ШКОЛ КАЗАХСТАНА<br />ГОСО • УРОКИ • PISA-2029
         </h1>
 
-        <p class="lead" i18n="@@home.hero.lead">
+        <p class="lead" appReveal i18n="@@home.hero.lead">
           Готовые интерактивные уроки по учебным целям ИИ с автопроверкой, практический курс ИИ для учеников и
           тренажеры PISA с новым модулем по ИИ-грамотности.
         </p>
 
-        <div class="hero__cta">
+        <div class="hero__cta" appReveal>
           <craft-button variant="primary" (click)="openDemo()">
             <span i18n="@@home.hero.cta.demo">Запросить демо для школы</span>
           </craft-button>
@@ -39,7 +39,7 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="micro micro--accent" i18n="@@home.mod.eye">Архитектура экосистемы</span>
-      <h2 class="display d-lg" i18n="@@home.mod.h2">
+      <h2 class="display d-lg" appSplitWords i18n="@@home.mod.h2">
         Три модуля CRAFT AI — полное покрытие образовательной <span class="hl">среды</span>
       </h2>
       <p class="lead" i18n="@@home.mod.lead">
@@ -49,7 +49,7 @@
     </div>
 
     <div class="grid grid-3">
-      <article class="card card--module">
+      <article class="card card--module" appReveal>
         <div class="card__meta">
           <span class="card__n">01 MATRIX</span>
           <span class="tag" i18n="@@home.m1.tag">1–11 классы</span>
@@ -74,7 +74,7 @@
         </div>
       </article>
 
-      <article class="card card--module">
+      <article class="card card--module" appReveal>
         <div class="card__meta">
           <span class="card__n">02 BUILDER</span>
           <span class="tag" i18n="@@home.m2.tag">Внеурочный курс</span>
@@ -101,7 +101,7 @@
         </div>
       </article>
 
-      <article class="card card--module">
+      <article class="card card--module" appReveal>
         <div class="card__meta">
           <span class="card__n">03 PISA</span>
           <span class="tag" i18n="@@home.m3.tag">OECD стандарты</span>
@@ -136,7 +136,7 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="micro micro--accent" i18n="@@home.desk.eye">Self-Paced трекинг</span>
-      <h2 class="display d-lg" i18n="@@home.desk.h2">
+      <h2 class="display d-lg" appSplitWords i18n="@@home.desk.h2">
         Дашборд учителя: управление классом в реальном <span class="hl">времени</span>
       </h2>
       <p class="lead" i18n="@@home.desk.lead">
@@ -153,7 +153,7 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="micro micro--accent" i18n="@@home.team.eye">Методика и инженерия</span>
-      <h2 class="display d-lg" i18n="@@home.team.h2">
+      <h2 class="display d-lg" appSplitWords i18n="@@home.team.h2">
         Команда, которая создаёт будущее казахстанского <span class="hl">образования</span>
       </h2>
       <p class="lead" i18n="@@home.team.lead">
@@ -162,7 +162,7 @@
     </div>
 
     <div class="grid grid-4">
-      <article class="card card--person">
+      <article class="card card--person" appReveal>
         <div class="person__header">
           <div class="person__avatar">
             <img src="img/team/aidyn.jpg" alt="Тусюбжанов Айдын" loading="lazy" style="object-position: top" />
@@ -184,7 +184,7 @@
         </ul>
       </article>
 
-      <article class="card card--person">
+      <article class="card card--person" appReveal>
         <div class="person__header">
           <div class="person__avatar">
             <img src="img/team/begaiym.jpg" alt="Бегайым Мұрат" loading="lazy" />
@@ -207,7 +207,7 @@
         </ul>
       </article>
 
-      <article class="card card--person">
+      <article class="card card--person" appReveal>
         <div class="person__header">
           <div class="person__avatar">
             <img src="img/team/farkhad.jpg" alt="Фархад Абылаев" loading="lazy" style="object-position: top" />
@@ -230,7 +230,7 @@
         </ul>
       </article>
 
-      <article class="card card--person">
+      <article class="card card--person" appReveal>
         <div class="person__header">
           <div class="person__avatar">
             <img src="img/team/anarbek.jpg" alt="Анарбек" loading="lazy" />
@@ -259,7 +259,7 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="micro micro--accent" i18n="@@home.law.eye">Институциональное соответствие</span>
-      <h2 class="display d-lg" i18n="@@home.law.h2">
+      <h2 class="display d-lg" appSplitWords i18n="@@home.law.h2">
         Соответствие нормативной базе <span class="hl">РК</span>
       </h2>
       <p class="lead" i18n="@@home.law.lead">
@@ -269,7 +269,7 @@
     </div>
 
     <div class="mats">
-      <div class="mat">
+      <div class="mat" appReveal>
         <span class="micro micro--accent">01 · ТУП И ПРОГРАММЫ</span>
         <strong i18n="@@home.law.c1.t">ИМП 2026–2027</strong>
         <p i18n="@@home.law.c1.d">
@@ -278,7 +278,7 @@
         </p>
       </div>
 
-      <div class="mat">
+      <div class="mat" appReveal>
         <span class="micro micro--accent">02 · ДЕСКРИПТОРЫ</span>
         <strong i18n="@@home.law.c2.t">Критерии оценивания</strong>
         <p i18n="@@home.law.c2.d">
@@ -287,7 +287,7 @@
         </p>
       </div>
 
-      <div class="mat">
+      <div class="mat" appReveal>
         <span class="micro micro--accent">03 · БЕЗОПАСНОСТЬ</span>
         <strong i18n="@@home.law.c3.t">Безопасность данных</strong>
         <p i18n="@@home.law.c3.d">
@@ -304,7 +304,7 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="micro micro--accent" i18n="@@home.faq.eye">Вопросы администрации</span>
-      <h2 class="display d-lg" i18n="@@home.faq.h2">
+      <h2 class="display d-lg" appSplitWords i18n="@@home.faq.h2">
         Часто задаваемые вопросы <span class="hl">директоров</span>
       </h2>
     </div>
@@ -316,7 +316,7 @@
 <!-- ================= 7. ФИНАЛЬНЫЙ CTA ================= -->
 <section class="band band--ink band--air final" data-surface="ink">
   <div class="wrap">
-    <h2 class="display d-xl" i18n="@@cta.final.h2">
+    <h2 class="display d-xl" appSplitWords i18n="@@cta.final.h2">
       Внедрите ИИ в образовательный процесс <span class="hl">школы</span>
     </h2>
     <p class="lead" i18n="@@cta.final.sub">

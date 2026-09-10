@@ -1,6 +1,17 @@
 import { Dialog } from '@angular/cdk/dialog';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  signal,
+} from '@angular/core';
 import { CraftButton } from '@front/ui';
+import { prefersReducedMotion } from '../../shared/reveal/reduced-motion';
+import { RevealOnScroll } from '../../shared/reveal/reveal-on-scroll';
+import { SplitWords } from '../../shared/reveal/split-words';
+import { whenIdle } from '../../shared/when-idle';
 import { openDemoModal } from '../../shared/demo-modal/demo-modal';
 
 interface HowStep {
@@ -34,15 +45,34 @@ const HOW_STEPS: HowStep[] = [
 
 @Component({
   selector: 'app-matrix',
-  imports: [CraftButton],
+  imports: [CraftButton, RevealOnScroll, SplitWords],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './matrix.html',
   styleUrl: './matrix.scss',
 })
 export class Matrix {
   private readonly dialog = inject(Dialog);
+  private readonly destroyRef = inject(DestroyRef);
   protected readonly steps = HOW_STEPS;
   protected readonly activeStep = signal(0);
+
+  constructor() {
+    // Скролл-скраб — надстройка над кликом, а не замена: клик работает всегда
+    // и на любой ширине, скролл добавляется только на десктопе и только если
+    // пользователь не просил меньше движения (как в eighth-version).
+    afterNextRender(() => {
+      if (prefersReducedMotion()) return;
+      whenIdle(async () => {
+        const { createStepScrub } = await import('./matrix-scrub');
+        const dispose = createStepScrub({
+          trigger: '#how',
+          steps: HOW_STEPS.length,
+          onStep: (index) => this.activeStep.set(index),
+        });
+        this.destroyRef.onDestroy(dispose);
+      });
+    });
+  }
 
   protected setStep(index: number): void {
     this.activeStep.set(index);

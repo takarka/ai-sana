@@ -1,6 +1,8 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CraftButton } from '@front/ui';
+import { RevealOnScroll } from '../../shared/reveal/reveal-on-scroll';
+import { SplitWords } from '../../shared/reveal/split-words';
 import { openDemoModal } from '../../shared/demo-modal/demo-modal';
 
 type ChipKey = 'role' | 'format' | 'cases' | 'noise';
@@ -47,7 +49,7 @@ const CHIPS: ChipConfig[] = [
 
 @Component({
   selector: 'app-builder',
-  imports: [CraftButton],
+  imports: [CraftButton, RevealOnScroll, SplitWords],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './builder.html',
   styleUrl: './builder.scss',
