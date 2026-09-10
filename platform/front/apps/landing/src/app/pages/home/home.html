@@ -22,7 +22,7 @@
         </p>
 
         <div class="hero__cta" appReveal>
-          <craft-button variant="primary" (click)="openDemo()">
+          <craft-button variant="primary" [arrow]="true" (click)="openDemo()">
             <span i18n="@@home.hero.cta.demo">Запросить демо для школы</span>
           </craft-button>
           <craft-button variant="ghost" (click)="openDemo()" i18n="@@home.hero.cta.deck"
@@ -324,7 +324,7 @@
       платформе.
     </p>
     <div class="final__btns">
-      <craft-button variant="primary" (click)="openDemo()" i18n="@@cta.btn.demo">Запросить демо для школы</craft-button>
+      <craft-button variant="primary" [arrow]="true" (click)="openDemo()" i18n="@@cta.btn.demo">Запросить демо для школы</craft-button>
       <craft-button variant="ghost" (click)="openDemo()" i18n="@@cta.btn.connect">Подключить школу</craft-button>
     </div>
   </div>

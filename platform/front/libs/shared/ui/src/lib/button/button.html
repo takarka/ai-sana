@@ -7,4 +7,9 @@
   [disabled]="disabled()"
 >
   <ng-content></ng-content>
+  @if (arrow()) {
+    <svg class="craft-btn__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M3 8h10M9 4l4 4-4 4" />
+    </svg>
+  }
 </button>

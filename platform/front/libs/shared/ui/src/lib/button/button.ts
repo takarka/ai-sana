@@ -15,4 +15,8 @@ export class CraftButton {
   readonly variant = input<CraftButtonVariant>('primary');
   readonly type = input<'button' | 'submit' | 'reset'>('button');
   readonly disabled = input(false);
+  // Перенос .btn__arrow из eighth-version/styles.css — стрелка стояла
+  // только на primary-кнопках главных CTA (hero/final), не на каждой
+  // (находка 14, docs/plan/04-landing-migration-audit.md).
+  readonly arrow = input(false);
 }

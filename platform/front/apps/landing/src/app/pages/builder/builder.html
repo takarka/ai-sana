@@ -17,7 +17,7 @@
         </p>
 
         <div class="hero__cta" appReveal>
-          <craft-button variant="primary" (click)="openDemo()" i18n="@@builder.hero.cta.prog">Запросить программу курса</craft-button>
+          <craft-button variant="primary" [arrow]="true" (click)="openDemo()" i18n="@@builder.hero.cta.prog">Запросить программу курса</craft-button>
           <craft-button variant="ghost" (click)="openDemo()" i18n="@@builder.hero.cta.class">Подключить класс</craft-button>
         </div>
       </div>
@@ -238,7 +238,7 @@
       платформе.
     </p>
     <div class="final__btns">
-      <craft-button variant="primary" (click)="openDemo()" i18n="@@builder.hero.cta.prog">Запросить программу курса</craft-button>
+      <craft-button variant="primary" [arrow]="true" (click)="openDemo()" i18n="@@builder.hero.cta.prog">Запросить программу курса</craft-button>
       <craft-button variant="ghost" (click)="openDemo()" i18n="@@builder.hero.cta.class">Подключить класс</craft-button>
     </div>
   </div>
