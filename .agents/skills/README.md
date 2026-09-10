@@ -8,6 +8,16 @@
 | --- | --- |
 | `angular-developer` | Официальный скилл Angular: генерация кода и архитектурные подсказки по сигналам, формам, DI, роутингу, SSR, доступности, тестам и CLI. 40 файлов в `references/` подгружаются по мере надобности. |
 | `angular-new-app` | Официальный скилл Angular: создание нового приложения через Angular CLI (`ng new`) с современными настройками. |
+| `setup-local-sdk` | .NET: локальная установка SDK и `global.json` без вмешательства в системную. |
+| `dotnet-webapi` | .NET: endpoints ASP.NET Core — HTTP-семантика, `TypedResults`, OpenAPI, обработка ошибок. |
+| `create-datadriven-aspnetcore` | .NET: CRUD-эндпоинты и страницы поверх EF Core без CLI-скаффолдинга. |
+| `optimizing-ef-core-queries` | .NET: ускорение запросов EF Core — меньше SQL и обращений к БД. |
+| `configuring-opentelemetry-dotnet` | .NET: трассировки, метрики и логи через OpenTelemetry и OTLP. |
+| `convert-to-cpm` | .NET: перевод solution на Central Package Management (`Directory.Packages.props`). |
+| `directory-build-organization` | .NET: организация `Directory.Build.props/.targets`, порядок вычисления MSBuild. |
+| `run-tests` | .NET: подбор корректной команды `dotnet test` — фильтры, покрытие, диагностика. |
+| `scaffold-dotnet-test-project` | .NET: создание и подключение тестового проекта к solution и CI (xUnit/NUnit/MSTest). |
+| `technology-selection` | .NET: выбор технологий для ИИ-функций — `Microsoft.Extensions.AI`, RAG, агенты, ML.NET. |
 | `nx-workspace` | Nx: разбор монорепозитория — проекты, таргеты, граф зависимостей, разбор падений `nx`-команд. |
 | `nx-generate` | Nx: генерация кода через генераторы Nx по конвенциям рабочей области. |
 | `nx-run-tasks` | Nx: запуск и кэширование задач (`nx run`, `run-many`, `affected`). |
@@ -32,7 +42,14 @@
 ```bash
 npx skills add https://github.com/angular/skills   # angular-developer, angular-new-app
 npx skills add nrwl/nx-ai-agents-config             # семь nx-* скиллов
+npx skills add dotnet/skills --full-depth \
+  --skill setup-local-sdk --skill dotnet-webapi ... # выборка .NET-скиллов
 ```
+
+`dotnet/skills` — официальный репозиторий команды .NET, там 106 скиллов на все
+случаи (MAUI, Blazor, диагностика дампов и прочее). Мы вендорим только то, что
+отвечает нашему стеку; полный набор вместе с C#-LSP и MCP-сервером для binlog
+ставится как плагины Claude Code: `/plugin marketplace add dotnet/skills`.
 
 Скиллы `grilling`, `grill-with-docs` и `domain-modeling` лежат в репозитории как
 есть (перенесены из личных скиллов) и в `skills-lock.json` не записаны.
