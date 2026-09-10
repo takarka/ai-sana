@@ -118,36 +118,50 @@ URL-префикс (`/ru/matrix` → `/kk/matrix`) с полной переза�
 
 ### Шаг 0. Предусловия
 
-- [ ] `platform/front` уже создан (шаг 2 плана [01](01-bootstrap-platform.md)) и в нём есть `apps/craft-web`.
-- [ ] Уточнить у заказчика конфликт с FR-WEB-01 (см. §7) до начала переноса контента —
+- [x] `platform/front` уже создан (шаг 2 плана [01](01-bootstrap-platform.md)) и в нём есть `apps/craft-web`.
+- [x] Уточнить у заказчика конфликт с FR-WEB-01 (см. §7) до начала переноса контента —
       каркас приложения (шаги 1–2) можно готовить параллельно, перенос контента (шаг 3) — нет.
+      Решено ADR-0003 до начала этого этапа (L-1 закрыт).
 
 ### Шаг 1. Генерация `apps/landing`
 
 ```bash
 cd platform/front
-npx nx g @nx/angular:application landing \
-  --directory=apps/landing \
+npx nx g @nx/angular:application apps/landing \
   --ssr=true \
   --style=scss \
-  --standalone \
-  --routing \
+  --standalone=true \
+  --routing=true \
   --unitTestRunner=jest \
   --e2eTestRunner=playwright \
+  --linter=eslint \
   --tags=type:app,scope:landing
 ```
 
-> Точный набор флагов сверить с `npx nx g @nx/angular:application --help` на
-> фактической версии Nx (см. таблицу версий в [01-bootstrap-platform.md, §2.3](01-bootstrap-platform.md)).
+> Фактическая команда (Nx 21.6.11, см. примечание по версии в
+> [01-bootstrap-platform.md, §2.3](01-bootstrap-platform.md)): каталог передаётся
+> позиционным аргументом (`apps/landing`), а не через `--directory` — в этой версии
+> генератора имя проекта берётся из последнего сегмента пути (`landing`), как и у
+> `craft-web`; `--directory` в этом генераторе не поддерживается как отдельный флаг.
 
-- [ ] Проверить, что сгенерирован `server.ts` (Express) и таргет `serve-ssr`/`serve-static` в `project.json`.
-- [ ] Подключить `libs/shared/ui-tokens` (Tailwind `@theme`, шрифты) — так же, как в `craft-web`.
-- [ ] Убрать демо-контент со стартовой страницы генератора.
+- [x] Проверить, что сгенерирован `server.ts` (Express) и таргет `serve-ssr`/`serve-static` в `project.json`.
+      Фактически: `server.ts` + `main.server.ts` + `app.config.server.ts`/`app.routes.server.ts`
+      сгенерированы; таргет называется `serve-static` (не `serve-ssr` — SSR в dev-режиме
+      обслуживает сам `serve` через `@angular/build:dev-server`, `serve-static` — это
+      раздача уже собранного `browser/` без SSR, для контейнера/CDN).
+- [x] Подключить `libs/shared/ui-tokens` (Tailwind `@theme`, шрифты) — так же, как в `craft-web`.
+      `stylePreprocessorOptions.includePaths` в `project.json` + `@use 'tailwindcss'; @use 'index' as tokens; @use 'theme.css';`
+      в `styles.scss` — идентично `craft-web`.
+- [x] Убрать демо-контент со стартовой страницы генератора (пустой layout с заголовком «CRAFT AI»,
+      как и в `craft-web` на шаге 2 плана 01 — реальный контент лендинга переносится на шаге 3).
 
 **DoD:**
 ```bash
-npx nx build landing        # клиентский и серверный бандлы собираются
-npx nx serve landing        # SSR-сервер поднимается, HTML приходит с сервера (view-source без пустого <app-root>)
+npx nx build landing        # клиентский и серверный бандлы собираются — OK, плюс
+                             # пререндер главного маршрута «из коробки»
+npx nx serve landing        # SSR-сервер поднимается, HTML приходит с сервера — OK
+                             # (curl http://localhost:4200/ содержит <h1>CRAFT AI</h1>,
+                             # не пустой <app-root>)
 ```
 
 ### Шаг 2. `@angular/localize` и локали
