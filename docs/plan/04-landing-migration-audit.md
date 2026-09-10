@@ -4,6 +4,10 @@
 Angular-версией (`platform/front/apps/landing`, она же craftai.kz) после
 выполнения плана [04-landing-migration.md](04-landing-migration.md).
 
+**Статус.** 19 из 24 находок ниже исправлены — см.
+[04-landing-migration-fixes.md](04-landing-migration-fixes.md) для списка
+коммитов и того, что оставлено сознательно.
+
 **Что сравнивалось:** 4 страницы (Экосистема, MATRIX, BUILDER, PISA) × 2
 вьюпорта (390 × 844 и 1440 × 900), плюс замеры на 360, 414, 600, 768, 900,
 1024, 1180, 1280, 1600, 1920 px.

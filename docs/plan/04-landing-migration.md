@@ -21,6 +21,9 @@ FR-WEB-01 обновлён по [ADR-0003](../adr/0003-landing-eighth-version-to
 [04-landing-migration-audit.md](04-landing-migration-audit.md) — аудит паритета
 после переноса: что не доехало из `eighth-version` и что чинить в первую
 очередь.
+[04-landing-migration-fixes.md](04-landing-migration-fixes.md) — что из
+аудита исправлено (19 из 24 находок, по коммиту на каждую), что оставлено
+сознательно и почему.
 
 **Результат этапа.** `apps/landing` в `platform/front` — Angular-приложение с
 SSR, четырьмя маршрутами (главная, MATRIX, BUILDER, PISA), полным переносом
