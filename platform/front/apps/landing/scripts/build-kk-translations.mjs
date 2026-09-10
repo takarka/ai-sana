@@ -60,6 +60,10 @@ const translations = {
   'home.hero.cta.demo': 'Мектепке демо сұрау',
   'home.hero.cta.deck': 'Экожүйе тұсаукесерін жүктеу',
 
+  'home.pin.m1': '01 MATRIX · 1–11 МЖМБС сыныптары',
+  'home.pin.m2': '02 BUILDER · Вайб-кодинг & ЖИ',
+  'home.pin.m3': '03 PISA · 2029 тренажерлері',
+
   'home.mod.eye': 'Экожүйе архитектурасы',
   'home.mod.h2': 'CRAFT AI үш модулі — білім беру ортасын толық <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>қамту<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>',
   'home.mod.lead': 'Мектептегі ЖИ-білім берудің барлық кезеңдері: тұрақты сабақтар, сабақтан тыс жобалық инженерия және сыртқы бақылауға дайындық диагностикасы.',

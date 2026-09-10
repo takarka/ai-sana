@@ -1,0 +1,7 @@
+@for (pin of pins; track pin.label) {
+  <div #pin class="pin" [class.pin--left]="pin.side === 'left'" [class.pin--right]="pin.side === 'right'">
+    <div class="pin__label">{{ pin.label }}</div>
+    <div class="pin__line"></div>
+    <div class="pin__dot"></div>
+  </div>
+}

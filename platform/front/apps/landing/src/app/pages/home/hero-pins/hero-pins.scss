@@ -1,0 +1,80 @@
+// Перенесено из eighth-version/styles.css (.hero__pins, .pin*). Пин — это
+// точка + линия-выноска + подпись; позицию каждый кадр проставляет
+// hero-pins.ts, а видимость — класс .is-on.
+:host {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(62vw, 92rem);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.pin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.pin.is-on {
+  opacity: 1;
+}
+
+.pin__label {
+  position: absolute;
+  top: -5.4rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--on-ink);
+  color: var(--ink-900);
+  font-family: var(--font-micro);
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.pin--left .pin__label {
+  right: 4.6rem;
+}
+
+.pin--right .pin__label {
+  left: 4.6rem;
+}
+
+.pin__line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4rem;
+  height: 1px;
+  background: var(--on-ink);
+  transform-origin: left center;
+  transform: rotate(-52deg);
+}
+
+.pin--left .pin__line {
+  transform: rotate(-128deg);
+}
+
+.pin__dot {
+  position: absolute;
+  left: -0.5rem;
+  top: -0.5rem;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid var(--on-ink);
+  box-shadow:
+    inset 0 0 0 3px var(--ink-900),
+    inset 0 0 0 5px var(--on-ink);
+}
+
+// На узких экранах сфера уже не «держит» выноски — как и в оригинале, прячем.
+@media (max-width: 1024px) {
+  :host {
+    display: none;
+  }
+}

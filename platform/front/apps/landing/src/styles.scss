@@ -3,6 +3,14 @@
 @use 'theme.css';
 @use 'app/shared/landing-layout';
 
+// Страница лендинга лежит на тёмном: сквозь прозрачные .band--ink видно
+// WebGL-сцену (app/shared/scene), а под ней должен быть ink-900, а не
+// дефолтный paper из base/_reset.scss. Правится только здесь — кабинет
+// (craft-web) работает на светлой поверхности и этот фон ему не нужен.
+body {
+  background: var(--ink-900);
+}
+
 // CDK Dialog рендерит подложку вне дерева компонента — стилизуется глобально.
 // Перенесено из eighth-version .modal__back (план 04-landing-migration.md, §3).
 .cdk-overlay-dark-backdrop {

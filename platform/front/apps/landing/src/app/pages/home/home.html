@@ -1,8 +1,10 @@
 <!-- ================= 1. ГЕРОЙ ================= -->
-<!-- WebGL-сцена и текстовые ревилы (word-mask) из eighth-version/scene.js и
-     core.js на этом шаге не перенесены — решение сфокусироваться сначала на
-     структуре/контенте/переводе/доступности, см. заметку в плане 04, шаг 3. -->
+<!-- Сквозная WebGL-сцена живёт в app.html (app/shared/scene) — здесь только
+     её выноски-пины. Текстовые ревилы (word-mask) из core.js по-прежнему не
+     перенесены, см. план 04, шаг 3. -->
 <section class="band band--ink band--air hero">
+  <app-hero-pins></app-hero-pins>
+
   <div class="wrap">
     <div class="hero__grid">
       <div>

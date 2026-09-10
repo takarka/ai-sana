@@ -5,6 +5,7 @@ import { CraftButton } from '@front/ui';
 import { openDemoModal } from '../../shared/demo-modal/demo-modal';
 import { FaqAccordion, FaqEntry } from '../../shared/faq-accordion/faq-accordion';
 import { DeskPreview } from './desk-preview/desk-preview';
+import { HeroPins } from './hero-pins/hero-pins';
 
 // FAQ — данные, не разметка: то же соображение, что и в desk-preview.ts.
 const FAQ_ENTRIES: FaqEntry[] = [
@@ -32,7 +33,7 @@ const FAQ_ENTRIES: FaqEntry[] = [
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, CraftButton, DeskPreview, FaqAccordion],
+  imports: [RouterLink, CraftButton, DeskPreview, FaqAccordion, HeroPins],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.html',
   styleUrl: './home.scss',

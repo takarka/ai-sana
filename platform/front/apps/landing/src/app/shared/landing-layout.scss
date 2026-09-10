@@ -11,13 +11,31 @@
   padding: 12rem 2rem;
 }
 
+// Прозрачная, а не залитая --ink-900: именно сквозь ink-полосы видно
+// WebGL-сцену под страницей (app/shared/scene). Тем же ink-900 покрашен body
+// в apps/landing/src/styles.scss, поэтому цвет фона полосы не меняется —
+// меняется только то, что сквозь неё что-то видно.
 .band--ink {
+  background: transparent;
   --bg: var(--ink-900);
   --fg: var(--on-ink);
   --fg-dim: var(--on-ink-dim);
   --line: var(--ink-line);
   --surface: var(--ink-800);
   --accent: var(--signal-lift);
+}
+
+.band--ink::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(90rem 50rem at 15% 0%, var(--signal-wash), transparent 70%);
+  pointer-events: none;
+}
+
+// ::before лежит поверх фона, но под контентом полосы.
+.band > * {
+  position: relative;
 }
 
 .band--paper {

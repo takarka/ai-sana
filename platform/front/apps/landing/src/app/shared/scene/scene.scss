@@ -1,0 +1,28 @@
+// Перенесено из eighth-version/styles.css (#scene). Канвас лежит под всей
+// страницей и виден только сквозь прозрачные .band--ink; маска гасит его
+// левую треть, где живёт текст героя.
+:host {
+  display: contents;
+}
+
+#scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  // В маске значим только альфа-канал, сам цвет роли не играет — поэтому
+  // здесь не токен палитры, а просто «непрозрачно».
+  mask-image: linear-gradient(90deg, transparent 0%, black 34%);
+}
+
+// На узких экранах сфера уходит за текст, поэтому вместо маски — общая
+// приглушённость (так же было в оригинале).
+@media (max-width: 1024px) {
+  #scene {
+    mask-image: none;
+    opacity: 0.45;
+  }
+}
