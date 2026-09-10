@@ -342,6 +342,22 @@ p {
   gap: 1.4rem;
 }
 
+// .final не наследует отбивки .sec-head (не секция с заголовком слева и
+// текстом, а центральная полоса из h2/lead/кнопок по левому краю) — без
+// собственных margin текст и кнопки стояли вплотную друг к другу (находка
+// 08, docs/plan/04-landing-migration-audit.md).
+.final {
+  text-align: left;
+}
+
+.final h2 {
+  margin-bottom: 3.2rem;
+}
+
+.final .lead {
+  margin-bottom: 4rem;
+}
+
 .final__btns {
   display: flex;
   flex-wrap: wrap;
