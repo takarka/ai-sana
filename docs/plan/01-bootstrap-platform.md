@@ -9,6 +9,9 @@
 продуктовых модулей и их отображение на модули кода.
 [03-design-system.md](03-design-system.md) — дизайн-система кабинета на бренде
 `eighth-version` (шаг 2.5 ниже).
+[04-landing-migration.md](04-landing-migration.md) — перенос публичного сайта
+`eighth-version/` в это же Nx-приложение как второе приложение `apps/landing`
+(SSR + `@angular/localize`); отдельный этап после шага 2 ниже.
 [../adr/](../adr/README.md) — принятые решения по стеку: [ADR-0001](../adr/0001-backend-stack-dotnet.md)
 (бэкенд) и [ADR-0002](../adr/0002-frontend-stack-angular-tailwind.md) (фронтенд).
 
@@ -17,7 +20,8 @@
 она приходит на этапе 1 по [ТЗ](../tz/README.md).
 
 **Что этот этап НЕ делает:** не реализует ни одного требования FR-*, не создаёт
-схему БД предметной области, не переносит контент из `eighth-version/`.
+схему БД предметной области, не переносит контент из `eighth-version/` — перенос
+публичного сайта в `apps/landing` описан отдельно, в [04-landing-migration.md](04-landing-migration.md).
 
 ---
 
@@ -273,6 +277,8 @@ npx create-nx-workspace@latest front \
 Далее:
 
 - [ ] Проверить структуру: `apps/craft-web/`, `libs/` (пустой), `nx.json`, `tsconfig.base.json`.
+      Второе приложение, `apps/landing`, в этот скелет не входит — оно добавляется
+      отдельным этапом по [04-landing-migration.md](04-landing-migration.md).
 - [ ] Включить строгий режим TypeScript (`strict: true`, `strictTemplates: true` в
       `angular.compilerOptions`) — сразу, потом включать больно.
 - [ ] Настроить границы модулей в ESLint (`@nx/enforce-module-boundaries`) с тегами

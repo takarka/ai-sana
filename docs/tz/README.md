@@ -25,6 +25,10 @@ CRAFT AI — учебная платформа (LMS + симуляторы + И�
 
 - [`../plan/01-bootstrap-platform.md`](../plan/01-bootstrap-platform.md) — план
   инициализации каркаса `platform/` (Nx + Angular и .NET), предшествует этапу 1.
+- [`../plan/04-landing-migration.md`](../plan/04-landing-migration.md) — перенос
+  публичного сайта `eighth-version/` в Angular (`apps/landing`, SSR,
+  `@angular/localize`); требует корректировки FR-WEB-01 (см. открытый вопрос L-1
+  в этом плане).
 
 ## Принятые решения заказчика
 
