@@ -13,17 +13,20 @@
 кабинета и лендинга, живут в `libs/shared/ui-tokens` и `libs/shared/ui`;
 `landing` их переиспользует, а не заводит копию.
 [ADR-0002](../adr/0002-frontend-stack-angular-tailwind.md) — стек фронтенда.
-[ТЗ, FR-WEB-01…05](../tz/01-tz-platforma.md) — требования к публичному сайту
-(см. раздел 7 «Открытые вопросы» ниже: FR-WEB-01 в текущей редакции требует
-`eighth-version/` **не трогать**, этот план идёт вразрез и нуждается в
-подтверждении заказчика).
+[ADR-0003](../adr/0003-landing-eighth-version-to-angular.md) — решение о переносе
+и об удалении всех версий лендинга из root после cutover; закрывает открытый
+вопрос L-1 (ниже оставлен как запись истории решения).
+[ТЗ, FR-WEB-01…05](../tz/01-tz-platforma.md) — требования к публичному сайту,
+FR-WEB-01 обновлён по [ADR-0003](../adr/0003-landing-eighth-version-to-angular.md).
 
 **Результат этапа.** `apps/landing` в `platform/front` — Angular-приложение с
 SSR, четырьмя маршрутами (главная, MATRIX, BUILDER, PISA), полным переносом
 контента и визуальных эффектов `eighth-version/`, переводом на `@angular/localize`
 (RU — исходный язык, KZ — вторая локаль) и токенами из `libs/shared/ui-tokens`.
 Статический `eighth-version/` перестаёт быть источником правды для публичного
-сайта, но не удаляется до контрольной точки перехода (шаг 8).
+сайта; он и все более ранние версии лендинга в root удаляются из репозитория
+на шаге 6 (cutover), после подтверждения `apps/landing` на проде — см.
+[ADR-0003](../adr/0003-landing-eighth-version-to-angular.md).
 
 **Что этот этап НЕ делает:** не меняет `craft-web` и кабинет; не реализует
 CRM-бэкенд для формы «Запросить демо» (FR-WEB-02) — на этом этапе форма только
@@ -189,14 +192,28 @@ npx nx g @angular/localize:init landing   # либо `ng add @angular/localize` 
 
 **DoD:** пайплайн зелёный на pull request, затрагивающем `apps/landing`.
 
-### Шаг 6. Точка перехода (cutover)
+### Шаг 6. Точка перехода (cutover) и удаление старых версий лендинга
 
 - [ ] `apps/landing` разворачивается на стейджинге, параллельно с текущим статическим `eighth-version/`.
 - [ ] Сверка контента и форм с заказчиком/методистом.
+- [ ] Убедиться, что весь нужный материал уже перенесён: токены и обоснование контраста
+      из `eighth-version/DESIGN.md` — в [03-design-system.md](03-design-system.md);
+      переводы из `js/lang/*.js` и `*/i18n.js` каждой версии — в `apps/landing/src/locale/*.xlf`
+      (см. §3 выше). После шага 6 эти файлы недоступны иначе, чем через git-историю.
 - [ ] Домен/прокси переключается на SSR-сервер `landing`.
-- [ ] `eighth-version/` помечается как архив (README с пометкой «заменён на `platform/front/apps/landing`, хранится для истории») — не удаляется в рамках этого этапа.
+- [ ] Удалить из root **все** версии лендинга, по решению [ADR-0003](../adr/0003-landing-eighth-version-to-angular.md):
+  - [ ] папки `second-version/`, `third-version/`, `fourth-version/`, `fifth-version/`,
+        `sixth-version/`, `seventh-version/`, `eighth-version/`;
+  - [ ] лендинг-файлы без версии прямо в root: `index.html`, `app.js`, `styles.css`, `i18n.js`, `hero-1440.png`.
+  - [ ] `requrement` (исходное текстовое ТЗ на лендинг) — не версия сайта, а документ;
+        оставить в root либо перенести в `docs/`, решение — отдельным мелким коммитом,
+        не блокирует cutover.
+- [ ] Один коммит `chore(landing): remove legacy landing versions, superseded by apps/landing`
+      — не смешивать с кодовыми изменениями `apps/landing`.
 
-**DoD:** публичный сайт обслуживается `apps/landing`; `eighth-version/` не изменяется и не деплоится.
+**DoD:** публичный сайт обслуживается `apps/landing`; в root не осталось ни
+`eighth-version/`, ни более ранних версий (`second-version` … `seventh-version`),
+ни лендинг-файлов без версии; `git log` по удалённым путям сохраняет историю.
 
 ---
 
@@ -220,7 +237,8 @@ npx nx g @angular/localize:init landing   # либо `ng add @angular/localize` 
 4. Перевод — через `@angular/localize`, ключи `js/lang/*.js` перенесены в XLIFF, ни одной строки мимо `i18n`.
 5. axe (A/AA) и Playwright e2e — зелёные на обеих локалях.
 6. CI-пайплайн для `landing` зелёный на pull request.
-7. Cutover выполнен: прод обслуживается `apps/landing`, `eighth-version/` помечен архивным.
+7. Cutover выполнен: прод обслуживается `apps/landing`; `eighth-version/` и все
+   более ранние версии лендинга удалены из root (ADR-0003).
 
 **Оценка трудоёмкости:** 8–12 рабочих дней для одного фронтенд-инженера — перенос
 четырёх страниц с WebGL/GSAP-эффектами и двуязычным SSR ощутимо больше, чем
@@ -233,7 +251,7 @@ npx nx g @angular/localize:init landing   # либо `ng add @angular/localize` 
 
 | № | Вопрос | Рекомендация |
 |---|---|---|
-| L-1 | **Конфликт с [FR-WEB-01](../tz/01-tz-platforma.md)**: ТЗ прямо требует сохранить `eighth-version/` как есть («сохраняется как витрина», добавляется только кнопка «Войти в кабинет»). Этот план — полный перенос в Angular. Нужно решение заказчика: обновить FR-WEB-01 под новый план (по аналогии с тем, как ADR-0002 закрыл конфликт ТЗ/плана по стеку) | Обновить FR-WEB-01: витрина остаётся требованием (контент и цели не меняются), но реализация переезжает на `apps/landing` |
+| L-1 | ~~Конфликт с FR-WEB-01~~ — **решено**, см. [ADR-0003](../adr/0003-landing-eighth-version-to-angular.md): FR-WEB-01 обновлён, реализация переезжает на `apps/landing`, все версии лендинга в root удаляются после cutover (шаг 6) | — |
 | L-2 | Хостинг Node-SSR: тот же контур, что backend (.NET/Aspire), или отдельный (например, Vercel/статический CDN + edge-функции)? | Требует решения по инфраструктуре — вне рамок этого плана, зависит от DevOps-стратегии платформы |
 | L-3 | Определение локали на `/`: по `Accept-Language`, по гео (RU/KZ регион) или всегда редирект на `ru`? | По умолчанию `ru` с редиректом при явном казахском `Accept-Language` — проще всего проверить и не даёт «прыгающего» UX |
 | L-4 | Пререндер (SSG) вместо SSR для полностью статичных секций (FAQ, О продукте)? | Не блокирует этот этап: `prerender` — опция поверх уже настроенного SSR-билдера, можно включить точечно после шага 3 |
@@ -245,7 +263,7 @@ npx nx g @angular/localize:init landing   # либо `ng add @angular/localize` 
 
 | Элемент этапа | Требования, которые он закрывает |
 |---|---|
-| SSR + `apps/landing` | FR-WEB-01 (в скорректированной редакции, см. L-1), NFR-I18N-01 |
+| SSR + `apps/landing` | FR-WEB-01 (в редакции по [ADR-0003](../adr/0003-landing-eighth-version-to-angular.md)), NFR-I18N-01 |
 | `@angular/localize`, локали `ru`/`kk-KZ` | NFR-I18N-01, NFR-I18N-02, NFR-I18N-05 |
 | Токены из `libs/shared/ui-tokens` | FR-WEB-03 |
 | Форма «Запросить демо» (каркас) | FR-WEB-02 (без интеграции с CRM) |
