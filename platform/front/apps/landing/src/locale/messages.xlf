@@ -9,63 +9,421 @@
           <context context-type="linenumber">1,2</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="nav.matrix" datatype="html">
-        <source>CRAFT MATRIX</source>
+      <trans-unit id="builder.hero.h1" datatype="html">
+        <source> Практический курс <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>Искусственному<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Интеллекту </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/landing/src/app/app.routes.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
-          <context context-type="linenumber">21,22</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
-          <context context-type="linenumber">16,17</context>
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">11,14</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="nav.builder" datatype="html">
-        <source>CRAFT BUILDER</source>
+      <trans-unit id="builder.hero.lead" datatype="html">
+        <source> Обучаем школьников создавать веб-сервисы, ботов и цифровые продукты с помощью нейросетей. Переход от пассивного использования чат-ботов к созданию собственных IT-проектов. </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/landing/src/app/app.routes.ts</context>
-          <context context-type="linenumber">15</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
-          <context context-type="linenumber">22,23</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
-          <context context-type="linenumber">17,18</context>
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">15,17</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="nav.pisa" datatype="html">
-        <source>CRAFT PISA</source>
+      <trans-unit id="builder.hero.cta.prog" datatype="html">
+        <source>Запросить программу курса</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/landing/src/app/app.routes.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">20,21</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
-          <context context-type="linenumber">23,24</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
-          <context context-type="linenumber">18,21</context>
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">241,242</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="comingSoon.eyebrow" datatype="html">
-        <source>Страница в разработке</source>
+      <trans-unit id="builder.hero.cta.class" datatype="html">
+        <source>Подключить класс</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/landing/src/app/pages/coming-soon/coming-soon.html</context>
-          <context context-type="linenumber">3,4</context>
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">21,23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">242,245</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="comingSoon.text" datatype="html">
-        <source> Мы переносим содержимое этого раздела с текущего сайта. Загляните чуть позже — а пока расскажем подробнее на демонстрации. </source>
+      <trans-unit id="builder.way.eye" datatype="html">
+        <source>Методологический фундамент</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">apps/landing/src/app/pages/coming-soon/coming-soon.html</context>
-          <context context-type="linenumber">6,10</context>
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.way.h2" datatype="html">
+        <source> Обучение навыкам, а не <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>кнопкам<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">34,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.way.lead" datatype="html">
+        <source> Технологии ИИ обновляются каждый месяц. Бессмысленно заучивать интерфейс одной конкретной нейросети. Мы даём фундаментальную базу — навык управления ИИ для решения любых задач. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">37,40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.t1.title" datatype="html">
+        <source>Развитие инженерного мышления («Удочка»)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">45,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.t1.desc" datatype="html">
+        <source> Учим детей правильно формулировать задачи, разбивать сложные цели на шаги (декомпозиция), задавать контекст и критически проверять готовый результат. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">47,49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.t2.title" datatype="html">
+        <source>Создание программ через ИИ (Вайб-кодинг)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">54,55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.t2.desc" datatype="html">
+        <source> Ученик описывает идею и логику работы программы на человеческом языке, ИИ генерирует технический код, а школьник тестирует его, исходит из ошибок, находит баги и запускает готовый рабочий продукт. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">56,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.eyebrow" datatype="html">
+        <source>Интерактивный тренажёр</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">66,67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.title" datatype="html">
+        <source> Интерактивный тренажёр: от хаоса к точному результату </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">68,70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.lead" datatype="html">
+        <source> Попробуйте собрать точный промпт для нейросети, добавляя необходимые критерии качества: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">72,74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.v1" datatype="html">
+        <source> Контекст задачи и целевая аудитория проекта </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">102,103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.v2" datatype="html">
+        <source> Технические требования и структура артефакта </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">105,106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.v3" datatype="html">
+        <source> Критерии валидации и обработка ошибок </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">108,109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.prog.eye" datatype="html">
+        <source>От теории к готовому продукту</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">121,122</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.prog.h2" datatype="html">
+        <source> Программа курса: 4 практических <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>шага<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">123,125</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.prog.lead" datatype="html">
+        <source> Каждая тема завершается созданием работающего цифрового артефакта в портфолио школьника. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">126,130</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.chain.m1" datatype="html">
+        <source>01. Архитектура LLM</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">131,132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.chain.m2" datatype="html">
+        <source>02. Промпт-инжиниринг</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">135,136</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.chain.m3" datatype="html">
+        <source>03. Вайб-кодинг</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">139,140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.chain.m4" datatype="html">
+        <source>04. Автономные агенты</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">143,146</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.m1.t" datatype="html">
+        <source>Модуль 1. Как устроен ИИ (Принципы работы LLM)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">149,150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.m1.d" datatype="html">
+        <source> Разбор логики работы больших языковых моделей и нейросетей без «магии» и сложного сленга. Понимание ограничений, галлюцинаций и реальных возможностей современных генеративных моделей. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">151,153</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.m2.t" datatype="html">
+        <source>Модуль 2. Продвинутый промпт-инжиниринг и работа с контекстом</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">158,159</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.m2.d" datatype="html">
+        <source> Формирование сложных точных запросов, работа с большими объёмами школьных документов, датасетами и базами знаний. Обучение ИИ строго действовать по заданным сценариям и системным инструкциям. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">160,162</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.m3.t" datatype="html">
+        <source>Модуль 3. Разработка приложений через ИИ-ассистентов (Вайб-кодинг)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">167,168</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.m3.d" datatype="html">
+        <source> Создание первых веб-сервисов, интерактивных страниц и автоматизационных скриптов без необходимости многолетней зубрежки синтаксиса. Школьник выступает архитектором и продукт-менеджером своего IT-решения. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">169,171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.m4.t" datatype="html">
+        <source>Модуль 4. Создание и запуск автономных ИИ-агентов</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">176,177</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.m4.d" datatype="html">
+        <source> Сборка персональных умных помощников (телеграм-ботов, цифровых тьюторов), способных самостоятельно выполнять последовательность действий, анализировать внешние файлы и решать прикладные задачи школы. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">178,180</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.out.eye" datatype="html">
+        <source>Ценность для школы и ученика</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">190,191</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.out.h2" datatype="html">
+        <source> Что получает школа и ученик на <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>выходе<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">192,194</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.out.lead" datatype="html">
+        <source> Измеримые результаты, которые подтверждаются работающими проектами и академическими успехами. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">195,199</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.out.c1.t" datatype="html">
+        <source>Готовое портфолио ученика</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">202,203</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.out.c1.d" datatype="html">
+        <source> У каждого выпускника курса есть 3–4 рабочих IT-проекта: собственный сайт, функциональный бот, персональный ИИ-ассистент, готовые к демонстрации приемным комиссиям вузов. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">204,206</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.out.c2.t" datatype="html">
+        <source>Готовая проектная деятельность для школы</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">211,212</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.out.c2.d" datatype="html">
+        <source> Ученики получают прочную базу для результативного участия в республиканских научных конкурсах («Дарын», МАН), хакатонах и инновационных школьных олимпиадах. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">213,215</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.out.c3.t" datatype="html">
+        <source>Безопасность и гигиена</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">220,221</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.out.c3.d" datatype="html">
+        <source> Школьники глубоко понимают этику использования ИИ, соблюдают принципы академической честности, уважают авторские права и умеют надежно защищать свои персональные данные. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">222,224</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cta.final.h2" datatype="html">
+        <source> Внедрите ИИ в образовательный процесс <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>школы<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">234,236</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">318,320</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">117,119</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">193,195</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cta.final.sub" datatype="html">
+        <source> Готовые модули уроков по ГОСО, практический курс прикладного ИИ и тренажеры PISA-2029 в единой защищенной платформе. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.html</context>
+          <context context-type="linenumber">237,240</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
+          <context context-type="linenumber">321,324</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">120,123</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">196,199</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.base" datatype="html">
+        <source>Сделай сайт для школьного научного проекта.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.chip.role" datatype="html">
+        <source>+ Роль эксперта</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.fragment.role" datatype="html">
+        <source>Действуй как опытный frontend-инженер и ментор школьных IT-проектов.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.chip.format" datatype="html">
+        <source>+ Стек и структура</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.fragment.format" datatype="html">
+        <source>Технический стек: Чистый семантический HTML/CSS, строгая модульная структура и адаптивная верстка.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.chip.cases" datatype="html">
+        <source>+ Краевые сценарии</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.fragment.cases" datatype="html">
+        <source>Краевые сценарии: Предусмотри обработку пустого ввода и вывод понятных сообщений об ошибках.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.chip.noise" datatype="html">
+        <source>+ Лишние вводные (шум)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.fragment.noise" datatype="html">
+        <source>И сделай так, чтобы всем очень понравилось и было максимально красиво.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.score.high" datatype="html">
+        <source>Качество промпта: 95% — Инженерный промпт: точный код с первой попытки</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.ts</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.score.mid" datatype="html">
+        <source>Качество промпта: 65% — Хорошая база, но не хватает строгих ограничений</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="builder.lz.score.low" datatype="html">
+        <source>Качество промпта: 25% — Слишком размыто, результат непредсказуем</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/builder/builder.ts</context>
+          <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="desk.filter.all" datatype="html">
@@ -838,20 +1196,6 @@
           <context context-type="linenumber">306,308</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="cta.final.h2" datatype="html">
-        <source> Внедрите ИИ в образовательный процесс <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>школы<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
-          <context context-type="linenumber">318,320</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="cta.final.sub" datatype="html">
-        <source> Готовые модули уроков по ГОСО, практический курс прикладного ИИ и тренажеры PISA-2029 в единой защищенной платформе. </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">apps/landing/src/app/pages/home/home.html</context>
-          <context context-type="linenumber">321,324</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="cta.btn.demo" datatype="html">
         <source>Запросить демо для школы</source>
         <context-group purpose="location">
@@ -934,6 +1278,533 @@
         <context-group purpose="location">
           <context context-type="sourcefile">apps/landing/src/app/pages/home/home.ts</context>
           <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.hero.h1" datatype="html">
+        <source> Цифровая грамотность и ИИ через <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>интерактивную<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> практику </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">11,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.hero.lead" datatype="html">
+        <source> Учителю не нужно писать планы и искать задания. На экранах дашборда он в реальном времени видит, кто из детей отстает, и помогает им адресно. Полное соответствие ТУП и ИМП 2026–2027. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">15,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.hero.cta.lesson" datatype="html">
+        <source>Пройти демо-урок</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">124,125</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.hero.cta.connect" datatype="html">
+        <source>Подключить школу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">21,23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">125,128</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.how.eye" datatype="html">
+        <source>Пошаговый сценарий</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.how.h2" datatype="html">
+        <source> Как проходит урок с <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>CRAFT MATRIX<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">34,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.how.lead" datatype="html">
+        <source> Вместо лекций и исписывания доски — формат, где дети обучаются самостоятельно, а учитель управляет процессом. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">37,40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.how.navLabel" datatype="html">
+        <source>Шаги урока</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.std.eye" datatype="html">
+        <source>ГОСО и ТУП РК</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">72,73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.std.h2" datatype="html">
+        <source> Полное соответствие государственным <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>стандартам<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">74,76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.std.lead" datatype="html">
+        <source> Каждый урок, симулятор и проверочная работа строго синхронизированы с требованиями Министерства просвещения РК. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">77,80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.c1.t" datatype="html">
+        <source>100% покрытие учебной программы (1–11 классы)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">85,86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.c1.d" datatype="html">
+        <source> Все модули и задания жестко привязаны к конкретным Целям Обучения (ЦО) предмета «Цифровая грамотность и ИИ» и Типовым учебным планам Республики Казахстан. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">87,89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.c2.t" datatype="html">
+        <source>Интерактивные симуляторы по ключевым темам</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">94,95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.c2.d" datatype="html">
+        <source> Готовые практические модули: «Принципы работы нейросетей», «Распознавание образов», «Правила безопасного промптинга», «Фактчекинг и анализ достоверности данных». </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">96,98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.c3.t" datatype="html">
+        <source>Готовый инструментарий оценивания</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">103,104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.c3.d" datatype="html">
+        <source> Встроенные критерии и дескрипторы для формативного и суммативного оценивания. Учителю больше не нужно вручную составлять проверочные карточки — система генерирует их и проверяет автоматически. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.html</context>
+          <context context-type="linenumber">105,107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.step1.nav" datatype="html">
+        <source>Самостоятельное прохождение</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.step1.title" datatype="html">
+        <source>Самостоятельное прохождение (Индивидуальный темп)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.step1.desc" datatype="html">
+        <source>Ученик заходит на платформу, изучает короткий теоретический блок и переходит к практическому симулятору. Каждый сильный ученик идет вперед, не дожидаясь остальных, а симуляторы удерживают фокус внимания.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.step2.nav" datatype="html">
+        <source>Безопасная практика с ИИ</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.step2.title" datatype="html">
+        <source>Безопасная практика с ИИ прямо в уроках</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.step2.desc" datatype="html">
+        <source>Школьники сами формулируют промпты, тестируют ответы нейросетей, наглядно видят ошибки (галлюцинации моделей) и учатся их исправлять. Вся работа идет в защищенном учебном контуре без риска утечки данных.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.step3.nav" datatype="html">
+        <source>Адресная помощь учителя</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.step3.title" datatype="html">
+        <source>Адресная помощь учителя</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="matrix.step3.desc" datatype="html">
+        <source>Учитель не тратит время на фронтальное объяснение у доски. На своем экране он видит «тепловую карту» класса: система автоматически подсвечивает учеников, у которых возникли сложности с текущим заданием. Учитель подходит и помогает строго тем, кому это действительно нужно.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/matrix/matrix.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.hero.eye" datatype="html">
+        <source>CRAFT PISA</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">7,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.hero.h1" datatype="html">
+        <source> Подготовка к международным стандартам и <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>PISA-2029<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">11,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.hero.lead" datatype="html">
+        <source> Интерактивный архив заданий PISA, тренажеры функциональной грамотности и новый спецмодуль по медиа- и ИИ-грамотности с автоматической диагностикой готовности школы. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">15,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.hero.cta.test" datatype="html">
+        <source>Запустить диагностический тест</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">200,201</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.hero.cta.connect" datatype="html">
+        <source>Подключить школу</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">21,23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">201,204</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.levels.eye" datatype="html">
+        <source>Архитектура модуля</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.levels.h2" datatype="html">
+        <source> Структура модуля: три уровня <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>подготовки<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">34,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.levels.lead" datatype="html">
+        <source> Модуль охватывает как классическую подготовку по материалам прошлых лет, так и отработку новых компетенций, проверяемых OECD. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">37,40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.l1.title" datatype="html">
+        <source>Интерактивный архив PISA (Базовая подготовка)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">45,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.l1.desc" datatype="html">
+        <source> Полная оцифрованная база реальных тестовых заданий прошлых циклов с автоматической проверкой. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">47,49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.l1.i1" datatype="html">
+        <source>Полнотекстовая оцифрованная база оригинальных заданий PISA прошлых циклов.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">50,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.l1.i2" datatype="html">
+        <source> Автоматический разбор решений, детальное объяснение ошибок и пошаговые подсказки для ученика. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">52,53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.l2.title" datatype="html">
+        <source>Тренажеры по 3 ключевым направлениям</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">59,60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.l2.desc" datatype="html">
+        <source>Отработка академической функциональной грамотности через интерактивные кейсы:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">60,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.l2.i1" datatype="html">
+        <source> Математическая грамотность: решение практических задач в реальном жизненном контексте. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">63,64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.l2.i2" datatype="html">
+        <source> Естественно-научная грамотность: формирование гипотез, проведение виртуальных экспериментов и анализ данных. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">66,68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.l2.i3" datatype="html">
+        <source> Читательская грамотность: работа с критико-аналитическими текстами, выделение сути и фактчекинг. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">70,71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.l3.title" datatype="html">
+        <source>Спецмодуль PISA-2029: Медиа- и ИИ-грамотность</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">77,78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.l3.desc" datatype="html">
+        <source>Фокус будущего: подготовка к новому обязательному направлению оценки OECD:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">78,80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.l3.i1" datatype="html">
+        <source> Распознавание фейков и дипфейков: навык отличать сгенерированный нейросетями контент от фактов. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">81,82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.l3.i2" datatype="html">
+        <source> Анализ ошибок и галлюцинаций ИИ: поиск логических неувязок и предвзятости в ответах нейросетей. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">84,85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.l3.i3" datatype="html">
+        <source> Работа с мультимодальной информацией: синтез графиков, таблиц и ИИ-сводок в едином окне. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">87,88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.dash.eye" datatype="html">
+        <source>Аналитика для администрации</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">99,100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.dash.h2" datatype="html">
+        <source> Управленческий дашборд: объективная <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;hl&quot;&gt;"/>готовность<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> школы </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">101,103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.dash.lead" datatype="html">
+        <source> Сквозной срез результатов классов и параллелей без бумажной нагрузки на учителей. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">104,106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.c1.t" datatype="html">
+        <source>Сквозная диагностика готовности</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">111,112</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.c1.d" datatype="html">
+        <source> Автоматическое определение реального уровня функциональной грамотности каждого класса и параллели без проведения длительных бумажных срезов. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">113,115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.c2.t" datatype="html">
+        <source>Тепловая карта рисков</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">120,121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.c2.d" datatype="html">
+        <source> Система мгновенно подсвечивает темы, разделы и мыслительные навыки, по которым у школьников наблюдается системное проседание. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">122,124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.c3.t" datatype="html">
+        <source>Готовые отчеты для УоО в один клик</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">129,130</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.c3.d" datatype="html">
+        <source> Формирование выгружаемых отчетов по динамике прироста критического мышления и прогнозу баллов PISA для школьного руководства. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">131,133</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.chart.h3" datatype="html">
+        <source>Динамика готовности параллелей к PISA-2029</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">139,140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.chart.sub" datatype="html">
+        <source>Сравнение контрольных срезов (входной vs текущий срез)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">140,141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.dash.hard.h3" datatype="html">
+        <source>Готовность по направлениям (Текущий срез)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">163,165</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.chart.rec.eye" datatype="html">
+        <source>АЛГОРИТМИЧЕСКИЙ ВЫВОД</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">175,176</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.chart.rec" datatype="html">
+        <source>Рекомендация алгоритма: усилить блок естественно-научных гипотез в 8–9 классах.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">176,178</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.disclaimer" datatype="html">
+        <source> Примечание: Программа подготовки ориентирована на открытые рамки оценивания и стандарты OECD PISA. PISA является зарегистрированным товарным знаком Организации экономического сотрудничества и развития (OECD). Платформа CRAFT AI является независимым образовательным комплексом. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.html</context>
+          <context context-type="linenumber">182,186</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.chart.label.0" datatype="html">
+        <source>Входной</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.chart.label.1" datatype="html">
+        <source>1 четверть</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.chart.label.2" datatype="html">
+        <source>2 четверть</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.chart.label.3" datatype="html">
+        <source>3 четверть</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.chart.label.4" datatype="html">
+        <source>Прогноз 2029</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.hard.media" datatype="html">
+        <source>Медиа- и ИИ-грамотность (PISA-2029)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.hard.math" datatype="html">
+        <source>Математическая грамотность</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.hard.read" datatype="html">
+        <source>Читательская грамотность</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.hard.science" datatype="html">
+        <source>Естественно-научные гипотезы</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pisa.chart.aria" datatype="html">
+        <source>Динамика готовности параллелей школы к PISA-2029</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/pages/pisa/pisa.ts</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="demoModal.close" datatype="html">
@@ -1027,6 +1898,39 @@
           <context context-type="linenumber">19,21</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="nav.matrix" datatype="html">
+        <source>CRAFT MATRIX</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">21,22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.builder" datatype="html">
+        <source>CRAFT BUILDER</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.pisa" datatype="html">
+        <source>CRAFT PISA</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/footer/footer.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
+          <context context-type="linenumber">18,19</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="nav.desk" datatype="html">
         <source>Дашборд учителя</source>
         <context-group purpose="location">
@@ -1056,7 +1960,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
-          <context context-type="linenumber">22,23</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
+          <context context-type="linenumber">23,24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="foot.docs" datatype="html">
@@ -1112,7 +2020,7 @@
         <source>Открыть меню</source>
         <context-group purpose="location">
           <context context-type="sourcefile">apps/landing/src/app/shared/header/header.html</context>
-          <context context-type="linenumber">28,29</context>
+          <context context-type="linenumber">29,30</context>
         </context-group>
       </trans-unit>
     </body>

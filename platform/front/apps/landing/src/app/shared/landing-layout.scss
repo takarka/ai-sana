@@ -109,6 +109,10 @@
   gap: 2.4rem;
 }
 
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
 .grid-3 {
   grid-template-columns: repeat(3, 1fr);
 }
@@ -125,6 +129,7 @@
 }
 
 @media (max-width: 640px) {
+  .grid-2,
   .grid-3,
   .grid-4 {
     grid-template-columns: 1fr;
@@ -218,4 +223,55 @@
   font-size: 1.5rem;
   color: var(--fg-dim);
   line-height: 1.55;
+}
+
+// Герой и финальный CTA — общие для home и matrix (builder/pisa тоже будут
+// их использовать).
+.hero {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-block: calc(var(--head-h, 7.2rem) + 5rem) 9rem;
+}
+
+.hero__eyebrows {
+  margin-bottom: 3rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.8rem, 4.5vw, 5.2rem);
+  margin-bottom: 3.2rem;
+  max-width: 80rem;
+}
+
+.hero .lead {
+  margin-bottom: 4rem;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+}
+
+.final__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+}
+
+// Индикатор-полоса (используется в pisa .hard, потенциально переиспользуема).
+.meter {
+  flex: 1;
+  height: 0.6rem;
+  border-radius: var(--r-pill);
+  background: var(--ink-line);
+  overflow: hidden;
+}
+
+.meter i {
+  display: block;
+  height: 100%;
+  background: var(--signal-lift);
+  border-radius: var(--r-pill);
 }

@@ -1,0 +1,245 @@
+<!-- ================= 1. ГЕРОЙ ================= -->
+<section class="band band--ink band--air hero">
+  <div class="wrap">
+    <div class="hero__grid">
+      <div>
+        <div class="hero__eyebrows">
+          <span class="micro micro--accent">CRAFT BUILDER</span>
+        </div>
+
+        <h1 class="display d-xl" i18n="@@builder.hero.h1">
+          Практический курс <span class="hl">Искусственному</span> Интеллекту
+        </h1>
+
+        <p class="lead" i18n="@@builder.hero.lead">
+          Обучаем школьников создавать веб-сервисы, ботов и цифровые продукты с помощью нейросетей. Переход от
+          пассивного использования чат-ботов к созданию собственных IT-проектов.
+        </p>
+
+        <div class="hero__cta">
+          <craft-button variant="primary" (click)="openDemo()" i18n="@@builder.hero.cta.prog">Запросить программу курса</craft-button>
+          <craft-button variant="ghost" (click)="openDemo()" i18n="@@builder.hero.cta.class">Подключить класс</craft-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2. ГЛАВНЫЙ ПОДХОД + ТРЕНАЖЁР ================= -->
+<section class="band band--paper">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro micro--accent" i18n="@@builder.way.eye">Методологический фундамент</span>
+      <h2 class="display d-lg" i18n="@@builder.way.h2">
+        Обучение навыкам, а не <span class="hl">кнопкам</span>
+      </h2>
+      <p class="lead" i18n="@@builder.way.lead">
+        Технологии ИИ обновляются каждый месяц. Бессмысленно заучивать интерфейс одной конкретной нейросети. Мы
+        даём фундаментальную базу — навык управления ИИ для решения любых задач.
+      </p>
+    </div>
+
+    <div class="grid grid-2">
+      <article class="card">
+        <span class="card__n">01 · «УДОЧКА»</span>
+        <h3 i18n="@@builder.t1.title">Развитие инженерного мышления («Удочка»)</h3>
+        <p i18n="@@builder.t1.desc">
+          Учим детей правильно формулировать задачи, разбивать сложные цели на шаги (декомпозиция), задавать
+          контекст и критически проверять готовый результат.
+        </p>
+      </article>
+
+      <article class="card">
+        <span class="card__n">02 · ВАЙБ-КОДИНГ</span>
+        <h3 i18n="@@builder.t2.title">Создание программ через ИИ (Вайб-кодинг)</h3>
+        <p i18n="@@builder.t2.desc">
+          Ученик описывает идею и логику работы программы на человеческом языке, ИИ генерирует технический код, а
+          школьник тестирует его, исходит из ошибок, находит баги и запускает готовый рабочий продукт.
+        </p>
+      </article>
+    </div>
+
+    <!-- Интерактивный тренажёр промпта -->
+    <div class="lesson">
+      <div class="lesson__head">
+        <div>
+          <span class="micro micro--accent" i18n="@@builder.lz.eyebrow">Интерактивный тренажёр</span>
+          <div class="lesson__title" i18n="@@builder.lz.title">
+            Интерактивный тренажёр: от хаоса к точному результату
+          </div>
+        </div>
+        <p class="micro" i18n="@@builder.lz.lead">
+          Попробуйте собрать точный промпт для нейросети, добавляя необходимые критерии качества:
+        </p>
+      </div>
+
+      <div class="lesson__panes">
+        <div class="lz">
+          <div class="lz__out">
+            <code>{{ prompt() }}</code>
+          </div>
+
+          <div class="lz__chips">
+            @for (chip of chips; track chip.key) {
+              <button
+                type="button"
+                class="lz-chip"
+                [class.is-on]="isActive(chip.key)"
+                [attr.aria-pressed]="isActive(chip.key)"
+                (click)="toggleChip(chip.key)"
+              >
+                {{ chip.label }}
+              </button>
+            }
+          </div>
+
+          <div class="lz__acts">
+            <span class="lz__score" [class]="'lz__score lz__score--' + scoreLevel()">{{ scoreLabel() }}</span>
+          </div>
+
+          <ul class="lz__verdict">
+            <li [class.is-ok]="isActive('role')" [class.is-no]="!isActive('role')" i18n="@@builder.lz.v1">
+              Контекст задачи и целевая аудитория проекта
+            </li>
+            <li [class.is-ok]="isActive('format')" [class.is-no]="!isActive('format')" i18n="@@builder.lz.v2">
+              Технические требования и структура артефакта
+            </li>
+            <li [class.is-ok]="isActive('cases')" [class.is-no]="!isActive('cases')" i18n="@@builder.lz.v3">
+              Критерии валидации и обработка ошибок
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3. ПРОГРАММА КУРСА ================= -->
+<section class="band band--paper-2">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro micro--accent" i18n="@@builder.prog.eye">От теории к готовому продукту</span>
+      <h2 class="display d-lg" i18n="@@builder.prog.h2">
+        Программа курса: 4 практических <span class="hl">шага</span>
+      </h2>
+      <p class="lead" i18n="@@builder.prog.lead">
+        Каждая тема завершается созданием работающего цифрового артефакта в портфолио школьника.
+      </p>
+    </div>
+
+    <div class="chain__rail">
+      <div class="chain__node" i18n="@@builder.chain.m1">01. Архитектура LLM</div>
+      <svg class="chain__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M5 12h14M12 5l7 7-7 7" />
+      </svg>
+      <div class="chain__node" i18n="@@builder.chain.m2">02. Промпт-инжиниринг</div>
+      <svg class="chain__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M5 12h14M12 5l7 7-7 7" />
+      </svg>
+      <div class="chain__node" i18n="@@builder.chain.m3">03. Вайб-кодинг</div>
+      <svg class="chain__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M5 12h14M12 5l7 7-7 7" />
+      </svg>
+      <div class="chain__node chain__node--end" i18n="@@builder.chain.m4">04. Автономные агенты</div>
+    </div>
+
+    <div class="grid grid-2">
+      <article class="card">
+        <span class="card__n">МОДУЛЬ 1</span>
+        <h3 i18n="@@builder.m1.t">Модуль 1. Как устроен ИИ (Принципы работы LLM)</h3>
+        <p i18n="@@builder.m1.d">
+          Разбор логики работы больших языковых моделей и нейросетей без «магии» и сложного сленга. Понимание
+          ограничений, галлюцинаций и реальных возможностей современных генеративных моделей.
+        </p>
+      </article>
+
+      <article class="card">
+        <span class="card__n">МОДУЛЬ 2</span>
+        <h3 i18n="@@builder.m2.t">Модуль 2. Продвинутый промпт-инжиниринг и работа с контекстом</h3>
+        <p i18n="@@builder.m2.d">
+          Формирование сложных точных запросов, работа с большими объёмами школьных документов, датасетами и базами
+          знаний. Обучение ИИ строго действовать по заданным сценариям и системным инструкциям.
+        </p>
+      </article>
+
+      <article class="card">
+        <span class="card__n">МОДУЛЬ 3</span>
+        <h3 i18n="@@builder.m3.t">Модуль 3. Разработка приложений через ИИ-ассистентов (Вайб-кодинг)</h3>
+        <p i18n="@@builder.m3.d">
+          Создание первых веб-сервисов, интерактивных страниц и автоматизационных скриптов без необходимости
+          многолетней зубрежки синтаксиса. Школьник выступает архитектором и продукт-менеджером своего IT-решения.
+        </p>
+      </article>
+
+      <article class="card">
+        <span class="card__n">МОДУЛЬ 4</span>
+        <h3 i18n="@@builder.m4.t">Модуль 4. Создание и запуск автономных ИИ-агентов</h3>
+        <p i18n="@@builder.m4.d">
+          Сборка персональных умных помощников (телеграм-ботов, цифровых тьюторов), способных самостоятельно
+          выполнять последовательность действий, анализировать внешние файлы и решать прикладные задачи школы.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4. РЕЗУЛЬТАТЫ ================= -->
+<section class="band band--paper">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="micro micro--accent" i18n="@@builder.out.eye">Ценность для школы и ученика</span>
+      <h2 class="display d-lg" i18n="@@builder.out.h2">
+        Что получает школа и ученик на <span class="hl">выходе</span>
+      </h2>
+      <p class="lead" i18n="@@builder.out.lead">
+        Измеримые результаты, которые подтверждаются работающими проектами и академическими успехами.
+      </p>
+    </div>
+
+    <div class="grid grid-3">
+      <article class="card">
+        <span class="card__n">01 · ПОРТФОЛИО</span>
+        <h3 i18n="@@builder.out.c1.t">Готовое портфолио ученика</h3>
+        <p i18n="@@builder.out.c1.d">
+          У каждого выпускника курса есть 3–4 рабочих IT-проекта: собственный сайт, функциональный бот, персональный
+          ИИ-ассистент, готовые к демонстрации приемным комиссиям вузов.
+        </p>
+      </article>
+
+      <article class="card">
+        <span class="card__n">02 · ПРОЕКТЫ</span>
+        <h3 i18n="@@builder.out.c2.t">Готовая проектная деятельность для школы</h3>
+        <p i18n="@@builder.out.c2.d">
+          Ученики получают прочную базу для результативного участия в республиканских научных конкурсах («Дарын»,
+          МАН), хакатонах и инновационных школьных олимпиадах.
+        </p>
+      </article>
+
+      <article class="card">
+        <span class="card__n">03 · БЕЗОПАСНОСТЬ</span>
+        <h3 i18n="@@builder.out.c3.t">Безопасность и гигиена</h3>
+        <p i18n="@@builder.out.c3.d">
+          Школьники глубоко понимают этику использования ИИ, соблюдают принципы академической честности, уважают
+          авторские права и умеют надежно защищать свои персональные данные.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ФИНАЛЬНЫЙ CTA ================= -->
+<section class="band band--ink band--air final" data-surface="ink">
+  <div class="wrap">
+    <h2 class="display d-xl" i18n="@@cta.final.h2">
+      Внедрите ИИ в образовательный процесс <span class="hl">школы</span>
+    </h2>
+    <p class="lead" i18n="@@cta.final.sub">
+      Готовые модули уроков по ГОСО, практический курс прикладного ИИ и тренажеры PISA-2029 в единой защищенной
+      платформе.
+    </p>
+    <div class="final__btns">
+      <craft-button variant="primary" (click)="openDemo()" i18n="@@builder.hero.cta.prog">Запросить программу курса</craft-button>
+      <craft-button variant="ghost" (click)="openDemo()" i18n="@@builder.hero.cta.class">Подключить класс</craft-button>
+    </div>
+  </div>
+</section>

@@ -1,36 +1,9 @@
-// Специфика главной страницы — общие band/wrap/типографика/card/grid/mats
-// вынесены в apps/landing/src/app/shared/landing-layout.scss (подключён
-// глобально), чтобы coming-soon и будущие matrix/builder/pisa могли их
-// переиспользовать без копирования (план 04-landing-migration.md, §3, шаг 3).
+// Специфика главной страницы — общие band/wrap/типографика/card/grid/mats/
+// hero/final__btns вынесены в apps/landing/src/app/shared/landing-layout.scss
+// (подключён глобально), потому что matrix тоже использует hero и финальный
+// CTA (план 04-landing-migration.md, §3, шаг 3).
 :host {
   display: block;
-}
-
-.hero {
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
-  padding-block: calc(var(--head-h, 7.2rem) + 5rem) 9rem;
-}
-
-.hero__eyebrows {
-  margin-bottom: 3rem;
-}
-
-.hero h1 {
-  font-size: clamp(2.8rem, 4.5vw, 5.2rem);
-  margin-bottom: 3.2rem;
-  max-width: 80rem;
-}
-
-.hero .lead {
-  margin-bottom: 4rem;
-}
-
-.hero__cta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.4rem;
 }
 
 .card--module {
@@ -141,10 +114,4 @@
   left: 0;
   color: var(--accent);
   font-family: var(--font-micro);
-}
-
-.final__btns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.4rem;
 }
