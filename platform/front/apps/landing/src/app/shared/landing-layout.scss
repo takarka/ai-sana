@@ -245,11 +245,23 @@
 
 // Герой и финальный CTA — общие для home и matrix (builder/pisa тоже будут
 // их использовать).
+//
+// В eighth-version шапка была position:fixed (лежала поверх героя, не
+// занимая места в потоке), поэтому .hero был ровно 100svh, а padding-top
+// (--head-h + 5rem) был единственным способом отодвинуть контент из-под
+// неё. Здесь шапка (shared/header) — position:sticky и уже занимает
+// var(--head-h) в потоке document, так что герой должен быть короче
+// вьюпорта ровно на эту высоту, а не добавлять её ещё раз паддингом —
+// иначе первый экран становится 100svh + var(--head-h) и низ героя с
+// кнопками уезжает за сгиб (находка 03, docs/plan/04-landing-migration-audit.md).
 .hero {
-  min-height: 100svh;
+  min-height: calc(100svh - var(--head-h, 7.2rem));
   display: flex;
   align-items: center;
-  padding-block: calc(var(--head-h, 7.2rem) + 5rem) 9rem;
+  // Оверфлоу выносок героя (.hero__pins) наружу вьюпорта — находка 02
+  // того же аудита.
+  overflow: hidden;
+  padding-block: 5rem 9rem;
 }
 
 .hero__eyebrows {
