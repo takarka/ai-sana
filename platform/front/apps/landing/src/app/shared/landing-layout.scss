@@ -227,6 +227,18 @@ p {
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+  transition:
+    border-color 0.35s var(--ease-signal),
+    transform 0.35s var(--ease-signal);
+}
+
+// Подъём и акцентная рамка на hover — на всех .card, не только на
+// кликабельных карточках модулей: в eighth-version это общая деталь
+// поверхности карточки, не сигнал интерактивности (не перенесено — находка
+// 16, docs/plan/04-landing-migration-audit.md).
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
 }
 
 .card h3 {
@@ -322,6 +334,14 @@ p {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  transition:
+    border-color 0.3s var(--ease-out),
+    transform 0.3s var(--ease-out);
+}
+
+.mat:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
 }
 
 .mat strong {
