@@ -6,13 +6,15 @@
 для проверки перед cutover.
 
 **Смежные документы.**
-[04-landing-migration.md](04-landing-migration.md) — этот план предполагает, что
-`apps/landing` уже собирается (`npx nx build landing`) и отдаёт SSR через
-`server.ts`; здесь описан только контур, на котором этот процесс работает в
-проде. [01-bootstrap-platform.md](01-bootstrap-platform.md) — паттерн
-`docker-compose.yml` для локальной разработки, переиспользуемый здесь для
-прод-оркестрации. [ADR-0004](../adr/0004-frontend-vps-hosting.md) — решение о
-контуре (self-managed VPS, не PaaS/edge), закрывает открытый вопрос L-2 плана
+[04-landing-migration.md](04-landing-migration.md) — шаги 0–4 этого плана уже
+выполнены в `main`: `platform/front/apps/landing` существует, собирается
+(`npx nx build landing` из `platform/front/`, `defaultConfiguration: production`)
+и отдаёт SSR через `apps/landing/src/server.ts`. Ниже — контур, на котором этот
+процесс работает в проде; конкретные пути и команды ниже сверены с реальным
+кодом, а не предполагаются. [01-bootstrap-platform.md](01-bootstrap-platform.md) —
+паттерн `docker-compose.yml` для локальной разработки, переиспользуемый здесь
+для прод-оркестрации. [ADR-0004](../adr/0004-frontend-vps-hosting.md) — решение
+о контуре (self-managed VPS, не PaaS/edge), закрывает открытый вопрос L-2 плана
 04. [ТЗ, NFR-REL-01…03, NFR-OBS-01…03, PD-01](../tz/02-tz-nfr-i-priemka.md) —
 требования к доступности, наблюдаемости и размещению данных, на которые
 опирается этот план.
@@ -67,13 +69,23 @@ API — у них будет собственный план при перехо
 |---|---|---|
 | ОС | Ubuntu LTS (24.04 на момент написания) | Самая предсказуемая база для Docker/nginx/certbot, максимум документации и пакетов |
 | Контейнеризация | Docker + Docker Compose | Тот же инструмент, что уже в `platform/docker-compose.yml` для локальной разработки (01-bootstrap-platform.md) — не вводим второй способ упаковки |
-| Образ | Multi-stage `Dockerfile` в `apps/landing`: сборка (`npx nx build landing`) в одном слое, рантайм — `node:<LTS>-slim` с собранным `dist/apps/landing/server` | Минимизирует размер образа и поверхность атаки в рантайм-слое |
+| Образ | Multi-stage `Dockerfile`, build-контекст — весь Nx-воркспейс `platform/front/` (не `apps/landing/` отдельно: нужны `nx.json`, `tsconfig.base.json`, `libs/shared/*`). Сборка — `node:22` (`platform/front/.nvmrc`), рантайм — `node:22-slim` | Версия Node зафиксирована в `.nvmrc`, не берём произвольный LTS; минимизирует размер образа и поверхность атаки в рантайм-слое |
+| Точка входа рантайма | `node server/server.mjs` с рабочей директорией `dist/apps/landing` — путь проверен сборкой (`npx nx build landing` → `dist/apps/landing/{browser,server}/server.mjs`), локали лежат в `browser/ru`, `browser/kk` и `server/ru`, `server/kk` | `server.ts` резолвит `browserDistFolder` относительно `server/`, поэтому оба каталога должны копироваться в образ рядом |
 | Реестр образов | GitHub Container Registry (`ghcr.io`) | Уже есть доступ через тот же GitHub-репозиторий и токен CI, не нужен третий провайдер |
 | Процесс на хосте | Контейнер, а не systemd-unit с голым `node server.js` | Совпадает по рантайму с CI-сборкой (то же, что тестировалось), упрощает откат — смена тега образа, а не пересборка на хосте |
 | Реверс-прокси / TLS | nginx (хост-пакет) + `certbot --nginx` | Стандартная связка, автопродление через systemd-таймер `certbot.timer`, не требует контейнеризации самого nginx |
 | Доставка (CI/CD) | GitHub Actions: `build` → `push в ghcr.io` → `ssh deploy` (`docker compose pull && up -d`) | Тот же CI, что уже упоминается в 04-landing-migration.md §4 шаг 5 (`platform-front.yml`); отдельный джоб `deploy`, срабатывающий на пуш в ветку развёртывания (например, `main`) после зелёного `lint,test,build` |
 | Секреты деплоя | GitHub Actions Secrets: адрес хоста, приватный SSH-ключ деплой-пользователя (не `root`), путь на сервере | Никогда не в репозитории; деплой-пользователь — отдельный, с правом только на `docker compose` в своей директории (см. §5) |
 | Откат | `docker compose pull ghcr.io/<org>/landing:<предыдущий-sha> && up -d` вручную или повторным запуском деплой-джоба на предыдущем коммите | Быстрее пересборки: образ предыдущего релиза уже в реестре |
+
+**Замечание по сборке.** Текущий `production`-билд уже пререндерит 8 статических
+маршрутов (главная/MATRIX/BUILDER/PISA × ru/kk) поверх SSR — Angular application
+builder включает это по умолчанию для не персонализированных маршрутов. Это
+частично закрывает открытый вопрос L-4 плана 04 (SSG вместо SSR для статичных
+секций); дальнейшая настройка prerender-конфигурации — задача плана 04, не
+этого плана, но контейнеру это ничего не меняет: SSR-процесс всё равно нужен
+для маршрутов, не попавших в prerender, и обслуживает уже собранные
+пререндеренные файлы как статику.
 
 ---
 
@@ -93,8 +105,8 @@ API — у них будет собственный план при перехо
 ```
 
 `docker-compose.yml` в `prod/` и `staging/` — из репозитория (директория
-`apps/landing/deploy/` — см. шаг 2 ниже), различается только `.env` и тегом
-образа, который проставляет деплой-джоб.
+`platform/front/apps/landing/deploy/` — см. шаг 2 ниже), различается только
+`.env` и тегом образа, который проставляет деплой-джоб.
 
 ---
 
@@ -105,11 +117,13 @@ API — у них будет собственный план при перехо
 - [ ] VPS выбран и выделен заказчиком/DevOps (РК-провайдер — по
       [Q-2 ТЗ](../tz/02-tz-nfr-i-priemka.md#14-риски-и-открытые-вопросы), см. §7).
 - [ ] Домен и DNS-доступ для A-записи прод- и staging-поддомена.
-- [ ] `apps/landing` собирается локально (04-landing-migration.md выполнен как
-      минимум до шага 3 — контент перенесён, SSR работает).
+- [x] `apps/landing` собирается локально — выполнено в `main`: 04-landing-migration.md
+      пройден до шага 4 включительно (контент MATRIX/BUILDER/PISA перенесён,
+      SSR и `@angular/localize` работают, доступность проверена).
 
-**DoD:** есть SSH-доступ к пустому VPS с root, есть домен, `npx nx build landing`
-проходит локально.
+**DoD:** есть SSH-доступ к пустому VPS с root, есть домен; `cd platform/front &&
+npx nx build landing` проходит локально (проверено — production-конфигурация
+по умолчанию, вывод в `dist/apps/landing/{browser,server}`).
 
 ### Шаг 1. Базовая настройка VPS
 
@@ -139,20 +153,32 @@ API — у них будет собственный план при перехо
 
 ### Шаг 2. `Dockerfile` и compose-файлы в репозитории
 
-- [ ] `apps/landing/Dockerfile` — multi-stage:
-      1. `node:<LTS>` — `npm ci`, `npx nx build landing` (клиентский + серверный бандл);
-      2. `node:<LTS>-slim` — копируется только `dist/apps/landing/server` и
-         продакшен-`node_modules`, `CMD ["node", "server/server.mjs"]` (точный
-         путь — по факту вывода Nx SSR-билдера).
-- [ ] `apps/landing/deploy/docker-compose.yml` — один сервис `landing`, `image`
-      без тега (проставляется деплоем), `restart: unless-stopped`, `env_file: .env`,
-      порт публикуется только на `127.0.0.1:<PORT>` (наружу — через nginx, не
-      напрямую).
-- [ ] `.dockerignore` в корне `apps/landing` — исключает `node_modules`,
-      `.angular/cache`, тесты.
+- [ ] `platform/front/apps/landing/Dockerfile` — multi-stage, **контекст сборки —
+      `platform/front/`** (весь Nx-воркспейс, не только `apps/landing/`: нужны
+      `nx.json`, `tsconfig.base.json`, `libs/shared/ui`, `libs/shared/ui-tokens`):
+      1. `node:22` — `npm ci` (по `package.json`/`package-lock.json` воркспейса),
+         `npx nx build landing` (клиентский + серверный бандл, локали `ru`/`kk`);
+      2. `node:22-slim` — свежий `npm ci --omit=dev` в этом слое (по тем же
+         `package.json`/`package-lock.json`, скопированным отдельно, чтобы не
+         тащить в рантайм `@nx/*`, ESLint, Playwright и прочие dev-зависимости
+         воркспейса) + копируются `dist/apps/landing/browser` и
+         `dist/apps/landing/server` из слоя сборки; `WORKDIR /app/dist/apps/landing`,
+         `CMD ["node", "server/server.mjs"]` — путь подтверждён реальной сборкой,
+         не предполагается.
+- [ ] `platform/front/apps/landing/deploy/docker-compose.yml` — один сервис
+      `landing`, `image` без тега (проставляется деплоем), `restart:
+      unless-stopped`, `env_file: .env`, порт публикуется только на
+      `127.0.0.1:<PORT>` (наружу — через nginx, не напрямую); `PORT` — та же
+      переменная окружения, что уже читает `server.ts` (по умолчанию `4000`).
+- [ ] `.dockerignore` в `platform/front/` (build-контекст) — исключает
+      `node_modules`, `dist`, `.angular/cache`, `coverage`, тесты обоих
+      приложений (`craft-web`, `landing`) и `craft-web`/`landing-e2e`, если они
+      не нужны в образе.
 
-**DoD:** `docker build -f apps/landing/Dockerfile .` собирает образ локально,
-`docker run -p 4000:4000 <образ>` отдаёт SSR-страницу на `localhost:4000`.
+**DoD:** `docker build -f platform/front/apps/landing/Dockerfile platform/front`
+собирает образ локально, `docker run -p 4000:4000 <образ>` отдаёт SSR-страницу
+на `localhost:4000` (редирект `/` → `/ru/` по умолчанию, `/kk/` при
+`Accept-Language: kk`).
 
 ### Шаг 3. nginx и TLS
 
@@ -190,7 +216,10 @@ API — у них будет собственный план при перехо
 
 ### Шаг 5. Здоровье и наблюдаемость
 
-- [ ] SSR-сервер отдаёт `/healthz` (простой 200 OK без побочных эффектов) —
+- [ ] Добавить в `apps/landing/src/server.ts` маршрут `/healthz` (простой 200 OK
+      без побочных эффектов, регистрируется до `app.use('/**', ...)`, который
+      сейчас перехватывает всё) — на момент написания этого плана в `server.ts`
+      такого маршрута нет, это входит в объём данного шага, а не уже сделано.
       Docker healthcheck в compose (`healthcheck:` с `curl`/`wget`) и точка для
       будущего внешнего мониторинга (NFR-OBS-02).
 - [ ] Логи контейнера — через `docker compose logs` на первое время;
