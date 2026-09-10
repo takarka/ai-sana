@@ -18,6 +18,9 @@
 вопрос L-1 (ниже оставлен как запись истории решения).
 [ТЗ, FR-WEB-01…05](../tz/01-tz-platforma.md) — требования к публичному сайту,
 FR-WEB-01 обновлён по [ADR-0003](../adr/0003-landing-eighth-version-to-angular.md).
+[04-landing-migration-audit.md](04-landing-migration-audit.md) — аудит паритета
+после переноса: что не доехало из `eighth-version` и что чинить в первую
+очередь.
 
 **Результат этапа.** `apps/landing` в `platform/front` — Angular-приложение с
 SSR, четырьмя маршрутами (главная, MATRIX, BUILDER, PISA), полным переносом
