@@ -16,11 +16,31 @@
   display: block;
 }
 
+// Вертикальный ритм полосы сжимается на планшете/телефоне — в
+// eighth-version это делал --band-air (12 → 9 → 7.2rem), здесь то же самое
+// через padding-block без переменной: единственный потребитель --band-air в
+// старой версии — сама .band, вводить токен ради одного места незачем.
+// Горизонтальные поля (2rem здесь + ещё 4rem в .wrap ниже) сознательно не
+// трогаем — двойной отступ шире исходного лендинга, но так и было решено
+// оставить (находка 23, docs/plan/04-landing-migration-audit.md). Сама
+// сжимаемость по брейкпойнтам — находка 07 того же аудита.
 .band {
   position: relative;
   background: var(--bg);
   color: var(--fg);
   padding: 12rem 2rem;
+}
+
+@media (max-width: 1024px) {
+  .band {
+    padding-block: 9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .band {
+    padding-block: 7.2rem;
+  }
 }
 
 // Прозрачная, а не залитая --ink-900: именно сквозь ink-полосы видно
@@ -70,6 +90,18 @@
 
 .band--air {
   padding-block: 16rem;
+}
+
+@media (max-width: 1024px) {
+  .band--air {
+    padding-block: 12rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .band--air {
+    padding-block: 9rem;
+  }
 }
 
 .wrap {
