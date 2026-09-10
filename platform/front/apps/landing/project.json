@@ -4,15 +4,35 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/landing/src",
-  "tags": ["type:app", "scope:landing"],
+  "tags": [
+    "type:app",
+    "scope:landing"
+  ],
+  "i18n": {
+    "sourceLocale": {
+      "code": "ru",
+      "subPath": "ru"
+    },
+    "locales": {
+      "kk-KZ": {
+        "translation": "apps/landing/src/locale/messages.kk-KZ.xlf",
+        "subPath": "kk"
+      }
+    }
+  },
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/landing",
         "browser": "apps/landing/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js",
+          "@angular/localize/init"
+        ],
         "tsConfig": "apps/landing/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -21,9 +41,13 @@
             "input": "apps/landing/public"
           }
         ],
-        "styles": ["apps/landing/src/styles.scss"],
+        "styles": [
+          "apps/landing/src/styles.scss"
+        ],
         "stylePreprocessorOptions": {
-          "includePaths": ["libs/shared/ui-tokens/src"]
+          "includePaths": [
+            "libs/shared/ui-tokens/src"
+          ]
         },
         "server": "apps/landing/src/main.server.ts",
         "ssr": {
@@ -33,6 +57,7 @@
       },
       "configurations": {
         "production": {
+          "localize": true,
           "budgets": [
             {
               "type": "initial",
@@ -71,7 +96,8 @@
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",
       "options": {
-        "buildTarget": "landing:build"
+        "buildTarget": "landing:build",
+        "outputPath": "apps/landing/src/locale"
       }
     },
     "lint": {
@@ -79,7 +105,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/landing/jest.config.ts",
         "tsConfig": "apps/landing/tsconfig.spec.json"

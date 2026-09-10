@@ -1,0 +1,18 @@
+<nav class="lang-switcher" aria-label="Язык / Тіл">
+  <a
+    class="lang-switcher__link"
+    [href]="links.ruHref"
+    hreflang="ru"
+    lang="ru"
+    [attr.aria-current]="links.isRu ? 'page' : null"
+    >RU</a
+  >
+  <a
+    class="lang-switcher__link"
+    [href]="links.kkHref"
+    hreflang="kk"
+    lang="kk"
+    [attr.aria-current]="links.isRu ? null : 'page'"
+    >KZ</a
+  >
+</nav>

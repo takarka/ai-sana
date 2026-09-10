@@ -1,0 +1,17 @@
+.lang-switcher {
+  display: inline-flex;
+  gap: 0.8rem;
+  font-family: var(--font-micro);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.lang-switcher__link {
+  color: var(--fg-dim);
+}
+
+.lang-switcher__link[aria-current='page'] {
+  color: var(--fg);
+  font-weight: 600;
+}

@@ -167,17 +167,63 @@ npx nx serve landing        # SSR-сервер поднимается, HTML пр
 ### Шаг 2. `@angular/localize` и локали
 
 ```bash
-npx nx g @angular/localize:init landing   # либо `ng add @angular/localize` в контексте проекта
+npx nx g @angular/localize:ng-add --project=landing
 ```
 
-- [ ] В `project.json` / `angular.json` прописать `i18n.sourceLocale: "ru"` и `i18n.locales.kk-KZ`.
-- [ ] `npx nx run landing:extract-i18n` → `src/locale/messages.xlf` (источник RU).
-- [ ] Скопировать в `messages.kk-KZ.xlf`, перенести переводы из `js/lang/*.js` (маппинг — таблица §3).
-- [ ] Настроить билд на обе локали (два бандла, `/ru` и `/kk`, `baseHref` на локаль).
-- [ ] Редирект с `/` на локаль по `Accept-Language` (или на `ru` по умолчанию) — в `server.ts` или на уровне реверс-прокси (см. открытый вопрос §7).
-- [ ] Переключатель языка (`app/shared/lang-switcher`) — ссылки на текущий путь в другой локали, `hreflang` в `<head>` на обеих версиях страницы.
+> `nx g @angular/localize:init` из первой редакции плана не существует — генератор
+> называется `ng-add` (`npx nx list @angular/localize` перечисляет фактические
+> генераторы пакета). Добавляет `@angular/localize/init` в полифиллы проекта и
+> `/// <reference types="@angular/localize" />` в `main.ts` — сам по себе локали
+> не настраивает, это следующие пункты.
 
-**DoD:** `npx nx build landing --localize` собирает `dist/apps/landing/browser/{ru,kk-KZ}` и соответствующие серверные бандлы; страница на `/kk/...` отдаёт переведённый HTML без JS (view-source).
+- [x] В `project.json` / `angular.json` прописать `i18n.sourceLocale: "ru"` и `i18n.locales.kk-KZ`.
+      Фактически — не `baseHref`, а **`subPath`**: билдер (`@angular/build`) явно
+      предупреждает, что `baseHref` в `i18n.sourceLocale`/`i18n.locales.*` «may
+      lead to undefined behavior when used with SSR», и рекомендует `subPath`
+      (задаёт и HTML `<base href>`, и имя выходной папки локали одним полем).
+      `sourceLocale: { code: "ru", subPath: "ru" }`, `locales["kk-KZ"]: { translation: "...", subPath: "kk" }`
+      → папки на выходе называются `ru`/`kk`, а не `ru`/`kk-KZ` (Angular обрезает
+      код локали до `subPath`, если он задан).
+- [x] `npx nx run landing:extract-i18n` → `src/locale/messages.xlf` (источник RU).
+      По умолчанию `extract-i18n` пишет `messages.xlf` в корень воркспейса, а не
+      в `src/locale/` — пришлось явно задать `options.outputPath` в таргете.
+- [x] Скопировать в `messages.kk-KZ.xlf`, перенести переводы из `js/lang/*.js` (маппинг — таблица §3).
+      На этом шаге перенесена только одна демонстрационная строка (`app.html`
+      сейчас — временная заглушка из шага 1, не контент лендинга); полный перенос
+      словарей `js/lang/*.js` — часть шага 3, когда появится реальная вёрстка,
+      которую есть чем наполнять.
+- [x] Настроить билд на обе локали (два бандла, `/ru` и `/kk`, `baseHref` на локаль).
+      `localize: true` в конфигурации `production`; `nx build landing --localize`
+      собирает `dist/apps/landing/browser/{ru,kk}` и `dist/apps/landing/server/{ru,kk}`
+      с корректными `<base href>`/`<html lang>` в каждом.
+- [x] Редирект с `/` на локаль по `Accept-Language` (или на `ru` по умолчанию) — в `server.ts` или на уровне реверс-прокси (см. открытый вопрос §7).
+      Реализовано в `server.ts`: `GET /` смотрит `Accept-Language`, 302 на `/ru/`
+      или `/kk/`. **Важная находка:** `@angular/ssr` по умолчанию отклоняет SSR
+      живого рендеринга запросов, чей заголовок `Host` не входит в явный
+      allowlist (защита от SSRF, добавлена в недавних версиях `@angular/ssr`) —
+      без него `/ru/`/`/kk/` либо падают в CSR-заглушку, либо возвращают 400.
+      Нужна переменная окружения `NG_ALLOWED_HOSTS` (список через запятую,
+      **имя хоста без порта**, напр. `NG_ALLOWED_HOSTS=localhost` локально) — это
+      реальный пункт для чек-листа деплоя, привязан к открытому вопросу L-2
+      (хостинг SSR): без правильного значения на проде сайт будет отдавать
+      пустой `<app-root>` или 400 на каждый запрос.
+- [x] Переключатель языка (`app/shared/lang-switcher`) — ссылки на текущий путь в другой локали, `hreflang` в `<head>` на обеих версиях страницы.
+      Каждая локаль — отдельный собранный бандл под своим `subPath`, общего
+      клиентского роутера, знающего обе локали, нет — переключатель не роутит,
+      а строит `<a href>` на текущий путь под другим префиксом через
+      `document.location.pathname` (доступен и при SSR, и на клиенте).
+      Чистая логика вынесена в `computeLangLinks()` и покрыта unit-тестами
+      отдельно от Angular TestBed (мокать `document.location` в jsdom не
+      получилось — свойство `location`/`location.pathname` не переопределяется).
+      `hreflang` пока статический в `index.html` (один маршрут `/`); с
+      добавлением маршрутов на шаге 3 должен стать per-route через `Meta`/`Title`.
+
+**DoD:** `npx nx build landing --localize` собирает `dist/apps/landing/browser/{ru,kk}`
+и соответствующие серверные бандлы — подтверждено. Страница на `/kk/...` отдаёт
+переведённый HTML без JS (view-source) — подтверждено на собранном
+`dist/apps/landing/server/server.mjs` (`NG_ALLOWED_HOSTS=localhost node dist/apps/landing/server/server.mjs`,
+затем `curl localhost:4000/kk/`): `<html lang="kk-KZ">`, `<base href="/kk/">`,
+переведённый текст присутствует в исходном HTML.
 
 ### Шаг 3. Перенос контента и компонентов
 

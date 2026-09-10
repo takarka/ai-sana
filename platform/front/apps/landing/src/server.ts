@@ -14,17 +14,23 @@ const browserDistFolder = resolve(serverDistFolder, '../browser');
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/**', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+// Локаль по умолчанию — ru, редирект на неё уважает Accept-Language: kk
+// (план 04-landing-migration.md, шаг 2). Каждая локаль — отдельный собранный
+// бандл под своим префиксом (/ru, /kk), сам AngularNodeAppEngine их не выбирает
+// за пользователя — сюда попадают только запросы без префикса локали.
+const DEFAULT_LOCALE = 'ru';
+
+function resolvePreferredLocale(acceptLanguage: string | undefined): string {
+  if (acceptLanguage && /\bkk\b/i.test(acceptLanguage)) {
+    return 'kk';
+  }
+  return DEFAULT_LOCALE;
+}
+
+app.get('/', (req, res) => {
+  const locale = resolvePreferredLocale(req.headers['accept-language']);
+  res.redirect(302, `/${locale}/`);
+});
 
 /**
  * Serve static files from /browser
