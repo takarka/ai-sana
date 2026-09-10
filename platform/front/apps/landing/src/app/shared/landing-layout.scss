@@ -364,6 +364,28 @@ p {
   gap: 1.4rem;
 }
 
+// Было .hero__cta .btn/.final__btns .btn — теперь кнопка сама не флекс-item
+// (им стал <craft-button>, .craft-btn — её внутренний <button>), поэтому
+// flex:1 1 100% ставится на craft-button, а заполнение и центрирование
+// текста — на .craft-btn внутри. white-space:normal нужен для длинных
+// лейблов вроде «Запустить диагностический тест» на PISA — без него кнопка
+// распирает узкий экран (находка 09, docs/plan/04-landing-migration-audit.md).
+@media (max-width: 768px) {
+  .hero__cta craft-button,
+  .final__btns craft-button {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .hero__cta .craft-btn,
+  .final__btns .craft-btn {
+    width: 100%;
+    justify-content: center;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
 // ============================================================
 // РЕВИЛЫ — перенесено из eighth-version/styles.css.
 // Стили обязаны быть глобальными: слова заголовков создаёт из JS директива
