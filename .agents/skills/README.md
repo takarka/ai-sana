@@ -1,4 +1,4 @@
-# Скиллы репозитория
+# Скиллы и MCP репозитория
 
 Скиллы лежат в `.agents/skills/<имя>/SKILL.md` (открытый формат Agent Skills).
 Для Claude Code каталог продублирован симлинком `.claude/skills` → `../.agents/skills`,
@@ -29,3 +29,21 @@ npx skills add https://github.com/angular/skills   # angular-developer, angular-
 
 Скиллы `grilling`, `grill-with-docs` и `domain-modeling` лежат в репозитории как
 есть (перенесены из личных скиллов) и в `skills-lock.json` не записаны.
+
+## MCP-сервер Angular CLI
+
+В корне лежит `.mcp.json` — конфигурация MCP-сервера, встроенного в Angular CLI
+(`npx -y @angular/cli mcp`). Claude Code подхватывает её автоматически при работе
+в этом репозитории и спрашивает подтверждение при первом запуске. Для других
+клиентов тот же блок кладётся в `.vscode/mcp.json`, `.cursor/mcp.json`,
+`.gemini/settings.json` или `.antigravity/mcp.json` — подробности в
+[references/mcp.md](angular-developer/references/mcp.md).
+
+Что даёт: `get_best_practices` (актуальные правила под версию Angular в проекте),
+`search_documentation` и `find_examples` (поиск по angular.dev), `list_projects`
+(чтение `angular.json`), `onpush_zoneless_migration`, `ai_tutor`. Инструменты
+`devserver.*` и `run_target` появляются только когда в рабочем каталоге есть
+Angular workspace — то есть после создания `platform/front`.
+
+Полезные флаги в `args`: `--read-only` (только инструменты, не меняющие проект),
+`--local-only` (без обращений в интернет).
