@@ -126,10 +126,21 @@ ai-sana/
 | Компонент | Планируемая | Фактическая (заполнить) |
 |---|---|---|
 | .NET SDK | 10.x (LTS) | |
-| Node.js | 22.x LTS | |
-| Nx | последняя стабильная | |
-| Angular | последняя стабильная | |
+| Node.js | 22.x LTS | 22.22.2 |
+| Nx | последняя стабильная | 21.6.11 — см. примечание ниже |
+| Angular | последняя стабильная | 20.3.0 |
 | PostgreSQL | 16+ | |
+
+> **Примечание по Nx.** `create-nx-workspace@latest` (23.2.1) на момент выполнения
+> шага 2 сменил генерацию воркспейса на шаблонный движок (`nrwl/angular-template`
+> вместо классического пресета `angular-monorepo`): вместо `apps/`+`libs/` с Jest
+> получаются `packages/`, Vitest, `canvas`, `msw` и файлы AI-агентов — не то, что
+> описано в этом плане. Кроме того, установка зависимостей падала с багом npm/arborist
+> (`Cannot read properties of null (reading 'edgesOut')`), воспроизводимым дважды подряд
+> после очистки кэша. Зафиксирована последняя стабильная версия `21.x`
+> (`create-nx-workspace@21.6.11`), которая всё ещё генерирует классическую структуру
+> `apps/`+`libs/` с Jest, как и предполагает раздел 2.1. Пересмотреть при следующем
+> апдейте зависимостей фронтенда.
 
 ---
 
@@ -259,7 +270,7 @@ cd platform
 
 ```bash
 cd platform
-npx create-nx-workspace@latest front \
+npx create-nx-workspace@21.6.11 front \
   --preset=angular-monorepo \
   --appName=craft-web \
   --style=scss \
@@ -268,41 +279,46 @@ npx create-nx-workspace@latest front \
   --e2eTestRunner=playwright \
   --bundler=esbuild \
   --packageManager=npm \
-  --nxCloud=skip
+  --nxCloud=skip \
+  --interactive=false
 ```
 
-> Набор флагов зависит от версии Nx. Перед запуском сверить с
-> `npx create-nx-workspace@latest --help` и записать фактическую команду в `platform/README.md`.
+> Пин на `21.6.11`, а не `@latest` — см. примечание по Nx в разделе 2.3: `@latest`
+> (23.2.1) генерирует другую структуру и падает на баге npm/arborist при установке.
+> При обновлении Nx перепроверить, что классический пресет `angular-monorepo`
+> (`apps/`+`libs/`, Jest) всё ещё доступен, прежде чем поднимать версию.
 
 Далее:
 
-- [ ] Проверить структуру: `apps/craft-web/`, `libs/` (пустой), `nx.json`, `tsconfig.base.json`.
+- [x] Проверить структуру: `apps/craft-web/`, `libs/` (пустой), `nx.json`, `tsconfig.base.json`.
       Второе приложение, `apps/landing`, в этот скелет не входит — оно добавляется
       отдельным этапом по [04-landing-migration.md](04-landing-migration.md).
-- [ ] Включить строгий режим TypeScript (`strict: true`, `strictTemplates: true` в
+- [x] Включить строгий режим TypeScript (`strict: true`, `strictTemplates: true` в
       `angular.compilerOptions`) — сразу, потом включать больно.
-- [ ] Настроить границы модулей в ESLint (`@nx/enforce-module-boundaries`) с тегами
+      Генератор уже включает оба флага по умолчанию в `apps/craft-web/tsconfig.json`.
+- [x] Настроить границы модулей в ESLint (`@nx/enforce-module-boundaries`) с тегами
       `type:app`, `type:feature`, `type:ui`, `type:data-access`, `type:util` —
-      правила заводим сейчас, библиотеки появятся позже.
-- [ ] Прописать proxy на backend: `apps/craft-web/proxy.conf.json` → `/api` на `https://localhost:5001`.
-- [ ] Убрать сгенерированный демо-контент со стартовой страницы, оставить пустой
+      правила заводим сейчас, библиотеки появятся позже. `craft-web` помечен `type:app`.
+- [x] Прописать proxy на backend: `apps/craft-web/proxy.conf.json` → `/api` на `https://localhost:5001`.
+      Подключен в `serve`-таргете (`project.json`, `options.proxyConfig`).
+- [x] Убрать сгенерированный демо-контент со стартовой страницы, оставить пустой
       layout с заголовком «CRAFT AI».
-- [ ] `.nvmrc` с версией Node.
-- [ ] Подключить Tailwind CSS: `npx ng add tailwindcss` в рабочей области.
-      В Nx **нет** генератора `setup-tailwind` (удалён), ставим средствами
-      Angular CLI. Ручной вариант: `npm i tailwindcss @tailwindcss/postcss postcss`,
-      `.postcssrc.json` с плагином `@tailwindcss/postcss`, `@use 'tailwindcss';`
-      в `styles.scss`.
-- [ ] Убедиться, что `tailwind.config.js` **не создан**: в v4 тема живёт в CSS
-      (`@theme`), файл конфигурации ломает сборку.
+- [x] `.nvmrc` с версией Node.
+- [x] Подключить Tailwind CSS. Генератор `@nx/angular:setup-tailwind` в Nx 21 всё ещё
+      ставит Tailwind v3 с `tailwind.config.js` — использован ручной вариант из плана:
+      `npm i -D tailwindcss@4 @tailwindcss/postcss@4 postcss`, `.postcssrc.json` с
+      плагином `@tailwindcss/postcss`, `@use 'tailwindcss';` в `styles.scss`.
+- [x] Убедиться, что `tailwind.config.js` **не создан**: в v4 тема живёт в CSS
+      (`@theme`), файл конфигурации ломает сборку. Подтверждено — файла нет,
+      собранный CSS содержит `@layer theme,base,components,utilities`.
 
 **DoD:**
 ```bash
 cd platform/front
-npx nx build craft-web        # успешная сборка
-npx nx test craft-web         # тесты проходят
-npx nx lint craft-web         # без ошибок
-npx nx serve craft-web        # открывается на localhost:4200
+npx nx build craft-web        # успешная сборка — OK
+npx nx test craft-web         # тесты проходят — OK
+npx nx lint craft-web         # без ошибок — OK
+npx nx serve craft-web        # открывается на localhost:4200 — OK (curl 200, app-root в разметке)
 ```
 
 ---
