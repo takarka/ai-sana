@@ -1,3 +1,13 @@
+@if (preVisible()) {
+  <div class="pre" [class.is-done]="preDone()" aria-hidden="true">
+    <div class="pre__pct">{{ prePct() }}%</div>
+    <div class="pre__mark">
+      <span>CRAFT</span>
+      <div class="pre__bar" [style.width.rem]="6 + prePct() * 0.34"></div>
+      <span>AI</span>
+    </div>
+  </div>
+}
 <app-scene></app-scene>
 <a class="skip" href="#main" i18n="@@skip">Перейти к содержанию</a>
 <app-header></app-header>

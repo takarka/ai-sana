@@ -1,0 +1,50 @@
+// Прелоадер — перенос .pre/.pre__pct/.pre__mark/.pre__bar из
+// eighth-version/styles.css (см. app.ts). z-index выше шапки (.head — 90),
+// чтобы перекрывать её вместе со сценой на время гидратации.
+.pre {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: var(--ink-900);
+  color: var(--on-ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  transition: transform 0.7s var(--ease-signal);
+}
+
+.pre.is-done {
+  transform: translateY(-101%);
+}
+
+.pre__pct {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.2rem, 5vw, 5.6rem);
+  line-height: 1;
+}
+
+.pre__mark {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+}
+
+.pre__mark span {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.6rem, 8vw, 10rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+}
+
+.pre__bar {
+  height: clamp(3rem, 6.4vw, 7.6rem);
+  width: 6rem;
+  border: 0.6rem solid var(--on-ink);
+  border-radius: var(--r-pill);
+  transition: width 0.25s linear;
+}
