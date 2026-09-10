@@ -6,16 +6,26 @@
 
 | Скилл | Зачем |
 | --- | --- |
+| `angular-developer` | Официальный скилл Angular: генерация кода и архитектурные подсказки по сигналам, формам, DI, роутингу, SSR, доступности, тестам и CLI. 40 файлов в `references/` подгружаются по мере надобности. |
+| `angular-new-app` | Официальный скилл Angular: создание нового приложения через Angular CLI (`ng new`) с современными настройками. |
 | `grilling` | Допрос по плану или решению: агент задаёт вопросы по одному, факты выясняет сам, решения оставляет за вами. |
 | `grill-with-docs` | То же самое, но по ходу разговора пишутся документы: глоссарий `CONTEXT.md` и ADR. |
 | `domain-modeling` | Ведение доменной модели: термины в `CONTEXT.md`, архитектурные решения в `docs/adr/`. Используется скиллом `grill-with-docs`. |
 | `design-taste-frontend` | Фронтенд-дизайн лендингов и портфолио без «шаблонного» вида. |
 
-Вызов: `/grilling`, `/grill-with-docs`, `/domain-modeling`.
+Вызов: `/angular-developer`, `/angular-new-app`, `/grilling`, `/grill-with-docs`,
+`/domain-modeling`.
 
 `grill-with-docs` тянет за собой `domain-modeling` — удалять его отдельно нельзя.
 
-`skills-lock.json` в корне фиксирует источник и хеш только для скиллов, скачанных
-из внешних репозиториев (`design-taste-frontend`). Скиллы `grilling`,
-`grill-with-docs` и `domain-modeling` лежат в репозитории как есть и в lock-файле
-не записаны.
+## Установка и обновление
+
+Скиллы из внешних репозиториев ставятся утилитой [skills.sh](https://skills.sh/),
+она же пишет источник и хеш в корневой `skills-lock.json`:
+
+```bash
+npx skills add https://github.com/angular/skills   # angular-developer, angular-new-app
+```
+
+Скиллы `grilling`, `grill-with-docs` и `domain-modeling` лежат в репозитории как
+есть (перенесены из личных скиллов) и в `skills-lock.json` не записаны.
