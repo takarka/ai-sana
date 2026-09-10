@@ -1,13 +1,16 @@
 # План работ: инициализация каркаса платформы `platform/`
 
 **Задача.** Создать в репозитории каталог `platform/` с двумя подпроектами:
-`front` — пустой монорепозиторий Nx + Angular, `back` — backend на .NET.
+`front` — пустой монорепозиторий Nx + Angular с Tailwind CSS v4, `back` — backend
+на .NET 10.
 
 **Смежные документы.**
 [02-moduli-matrix-builder-pisa.md](02-moduli-matrix-builder-pisa.md) — состав
 продуктовых модулей и их отображение на модули кода.
 [03-design-system.md](03-design-system.md) — дизайн-система кабинета на бренде
 `eighth-version` (шаг 2.5 ниже).
+[../adr/](../adr/README.md) — принятые решения по стеку: [ADR-0001](../adr/0001-backend-stack-dotnet.md)
+(бэкенд) и [ADR-0002](../adr/0002-frontend-stack-angular-tailwind.md) (фронтенд).
 
 **Результат этапа.** Работающий скелет: оба проекта собираются, запускаются
 локально, отдают health-check и «пустую» страницу, покрыты CI. Бизнес-логики нет —
@@ -38,7 +41,11 @@ ai-sana/
 
 ## 2. Решения по стеку
 
-### 2.1. Frontend
+### 2.1. Frontend — принятое решение
+
+> **Стек утверждён:** Nx + Angular + Tailwind CSS v4. Решение и сверка с
+> официальными скиллами Angular — [ADR-0002](../adr/0002-frontend-stack-angular-tailwind.md);
+> таблица стека в [части 1 ТЗ](../tz/01-tz-platforma.md) приведена в соответствие.
 
 | Решение | Значение | Обоснование |
 |---|---|---|
@@ -46,7 +53,9 @@ ai-sana/
 | Фреймворк | Angular (последняя стабильная) | Требование заказчика. Строгая структура и типизация подходят для долгоживущей платформы с большой командой |
 | Пресет Nx | `angular-monorepo` | Сразу создаёт `apps/` + `libs/`, в отличие от standalone-варианта |
 | Приложение | одно: `craft-web` | Кабинеты ученика/учителя/администрации — роли внутри одного SPA, а не разные приложения |
-| Стили | SCSS + CSS-переменные | Дизайн-система переносится с лендинга — см. [03-design-system.md](03-design-system.md) |
+| Стили | Tailwind CSS v4 поверх токенов дизайн-системы | Утилиты закрывают раскладку и плотность, бренд-слой остаётся в CSS-переменных с лендинга — см. [03-design-system.md](03-design-system.md) |
+| Конфигурация Tailwind | Только CSS (`@import 'tailwindcss'` + `@theme`), без `tailwind.config.js` | Требование Tailwind v4: файла конфигурации больше нет, тема задаётся переменными |
+| Токены и глобальные стили | SCSS в `libs/shared/ui-tokens` | Токены, `@font-face`, reset и a11y-база не выражаются утилитами |
 | Тесты | Jest (unit) + Playwright (e2e) | Playwright уже используется в репозитории (`.playwright-mcp/`) |
 | SSR | выключен | Кабинет за авторизацией, SEO не нужен; SSR усложняет разработку без выгоды |
 | Nx Cloud | отключён | Не заводим внешнюю зависимость до решения по CI |
@@ -273,6 +282,13 @@ npx create-nx-workspace@latest front \
 - [ ] Убрать сгенерированный демо-контент со стартовой страницы, оставить пустой
       layout с заголовком «CRAFT AI».
 - [ ] `.nvmrc` с версией Node.
+- [ ] Подключить Tailwind CSS: `npx ng add tailwindcss` в рабочей области.
+      В Nx **нет** генератора `setup-tailwind` (удалён), ставим средствами
+      Angular CLI. Ручной вариант: `npm i tailwindcss @tailwindcss/postcss postcss`,
+      `.postcssrc.json` с плагином `@tailwindcss/postcss`, `@use 'tailwindcss';`
+      в `styles.scss`.
+- [ ] Убедиться, что `tailwind.config.js` **не создан**: в v4 тема живёт в CSS
+      (`@theme`), файл конфигурации ломает сборку.
 
 **DoD:**
 ```bash
@@ -290,7 +306,8 @@ npx nx serve craft-web        # открывается на localhost:4200
 Полное описание — в [03-design-system.md](03-design-system.md), раздел 6.
 Коротко: `libs/shared/ui-tokens` (токены с лендинга + шкала плотности),
 `libs/shared/ui` на Angular CDK, три эталонных компонента, Storybook,
-Stylelint с запретом hex вне токенов.
+Stylelint с запретом hex вне токенов, блок `@theme` для Tailwind на тех же
+токенах.
 
 **DoD:** Storybook открывается; `button`, `status-badge`, `data-table` проходят
 axe без нарушений A и AA; `data-module` переключает акцент MATRIX/BUILDER/PISA;
