@@ -108,6 +108,15 @@
   margin-top: 1.4rem;
 }
 
+// Тот же паддинг на телефоне, что и у .card/.mat в landing-layout.scss —
+// находка 11, docs/plan/04-landing-migration-audit.md.
+@media (max-width: 768px) {
+  .track,
+  .panel {
+    padding: 2.4rem;
+  }
+}
+
 .chart {
   margin-top: 2rem;
 }

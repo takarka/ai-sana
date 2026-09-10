@@ -115,3 +115,18 @@
   color: var(--accent);
   font-family: var(--font-micro);
 }
+
+// landing-layout.scss ставит общий .card{padding:2.4rem} на ≤768px, но
+// Angular добавляет к каждому правилу этого файла атрибут-селектор
+// компонента — специфичность .card--module/.card--person здесь всегда выше
+// одного класса .card из глобального файла, и общее правило никогда не
+// побеждает. В плоском eighth-version/styles.css оба правила были classes
+// той же специфичности, и там побеждало то, что ниже по каскаду (медиа-блок
+// в конце файла) — переопределяем здесь явно, чтобы получить тот же
+// результат (находка 11, docs/plan/04-landing-migration-audit.md).
+@media (max-width: 768px) {
+  .card--module,
+  .card--person {
+    padding: 2.4rem;
+  }
+}

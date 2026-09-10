@@ -301,6 +301,21 @@ p {
   line-height: 1.55;
 }
 
+// Плотность карточек и отбивка заголовка секции на телефоне — находка 11,
+// docs/plan/04-landing-migration-audit.md. .track/.panel (используются
+// только на PISA) сжимаются тем же правилом в pages/pisa/pisa.scss —
+// они не общие для всех страниц лендинга и здесь не место.
+@media (max-width: 768px) {
+  .card,
+  .mat {
+    padding: 2.4rem;
+  }
+
+  .sec-head {
+    margin-bottom: 4rem;
+  }
+}
+
 // Герой и финальный CTA — общие для home и matrix (builder/pisa тоже будут
 // их использовать).
 //
