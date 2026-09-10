@@ -4,6 +4,18 @@
 // потому что Angular по умолчанию скоупит styleUrl на конкретный компонент,
 // а .band/.wrap/.card нужны на каждой странице (home, matrix, builder, pisa,
 // coming-soon), а не только там, где их написали в первый раз.
+
+// Логотип-марка встречается и в шапке (app-header, внутри <a class="logo">),
+// и в футере (app-footer, внутри голого <span class="logo__mark">). Правило
+// размера жило только в header.scss (заскоуплен на компонент шапки) — футер
+// его не видел, и SVG растягивался на всю колонку грида (находка 04,
+// docs/plan/04-landing-migration-audit.md).
+.logo__mark svg {
+  height: 2.2rem;
+  width: auto;
+  display: block;
+}
+
 .band {
   position: relative;
   background: var(--bg);
