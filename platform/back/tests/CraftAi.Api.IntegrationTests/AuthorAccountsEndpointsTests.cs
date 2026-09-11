@@ -73,7 +73,7 @@ public sealed class AuthorAccountsEndpointsTests(PlatformApiFactory factory)
         Assert.Equal(HttpStatusCode.Forbidden, response.StatusCode);
     }
 
-    private static async Task<HttpClient> AuthorizedClientAsync(string email, string password)
+    private async Task<HttpClient> AuthorizedClientAsync(string email, string password)
     {
         var client = factory.CreateClient();
         var response = await client.PostAsJsonAsync("/auth/login", new { email, password });
