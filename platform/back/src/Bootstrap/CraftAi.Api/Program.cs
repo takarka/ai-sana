@@ -3,6 +3,7 @@ using CraftAi.Modules.Assessment;
 using CraftAi.Modules.Content;
 using CraftAi.Modules.Identity;
 using CraftAi.Modules.Organizations;
+using CraftAi.Modules.Pisa;
 using CraftAi.SharedKernel.Http.Idempotency;
 using CraftAi.SharedKernel.Http.RequestId;
 using CraftAi.SharedKernel.Modularity;
@@ -39,7 +40,8 @@ if (builder.Environment.IsDevelopment())
 }
 
 // Каждый модуль регистрируется здесь одной строкой.
-IReadOnlyList<IModule> modules = [new IdentityModule(), new OrganizationsModule(), new AssessmentModule(), new ContentModule()];
+IReadOnlyList<IModule> modules =
+    [new IdentityModule(), new OrganizationsModule(), new AssessmentModule(), new ContentModule(), new PisaModule()];
 
 foreach (var module in modules)
 {

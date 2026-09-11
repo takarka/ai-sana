@@ -2,6 +2,7 @@ using CraftAi.Modules.Content.Persistence;
 using CraftAi.Modules.Identity.Domain;
 using CraftAi.Modules.Identity.Persistence;
 using CraftAi.Modules.Organizations.Persistence;
+using CraftAi.Modules.Pisa.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -58,6 +59,9 @@ public sealed class PlatformApiFactory : WebApplicationFactory<Program>, IAsyncL
 
         var contentDb = scope.ServiceProvider.GetRequiredService<ContentDbContext>();
         await contentDb.Database.MigrateAsync();
+
+        var pisaDb = scope.ServiceProvider.GetRequiredService<PisaDbContext>();
+        await pisaDb.Database.MigrateAsync();
 
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
         foreach (var role in PlatformRoles.All)

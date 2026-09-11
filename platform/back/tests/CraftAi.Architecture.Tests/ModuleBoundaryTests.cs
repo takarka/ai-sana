@@ -8,7 +8,8 @@ namespace CraftAi.Architecture.Tests;
 /// A2 (план 09 §3.3): <c>Organizations</c> заводит учётные записи через
 /// <c>Identity.Contracts.IUserProvisioningService</c>, не касаясь реализации Identity.
 /// A3 (план 09 §3.5) добавляет вторую: <c>Content</c> проверяет структуру вопроса через
-/// <c>Assessment.Contracts.IQuestionValidationService</c>.
+/// <c>Assessment.Contracts.IQuestionValidationService</c>. A4 добавляет третью — тем же
+/// путём: <c>Pisa</c> проверяет структуру вопросов составного задания через тот же сервис.
 ///
 /// Проверяется на уровне ССЫЛОК СБОРОК, а не через NetArchTest.Rules по неймспейсам:
 /// «CraftAi.Modules.Identity» — префикс «CraftAi.Modules.Identity.Contracts», поэтому
@@ -21,6 +22,7 @@ public sealed class ModuleBoundaryTests
     private static readonly Assembly OrganizationsAssembly = typeof(Modules.Organizations.OrganizationsModule).Assembly;
     private static readonly Assembly AssessmentAssembly = typeof(Modules.Assessment.AssessmentModule).Assembly;
     private static readonly Assembly ContentAssembly = typeof(Modules.Content.ContentModule).Assembly;
+    private static readonly Assembly PisaAssembly = typeof(Modules.Pisa.PisaModule).Assembly;
 
     [Theory]
     [MemberData(nameof(ForbiddenDependencies))]
@@ -35,5 +37,6 @@ public sealed class ModuleBoundaryTests
     {
         yield return [OrganizationsAssembly, IdentityAssembly];
         yield return [ContentAssembly, AssessmentAssembly];
+        yield return [PisaAssembly, AssessmentAssembly];
     }
 }

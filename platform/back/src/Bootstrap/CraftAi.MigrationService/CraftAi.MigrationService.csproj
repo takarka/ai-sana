@@ -17,6 +17,7 @@
     <ProjectReference Include="..\..\Modules\Organizations\CraftAi.Modules.Organizations\CraftAi.Modules.Organizations.csproj" />
     <ProjectReference Include="..\..\Modules\Assessment\CraftAi.Modules.Assessment\CraftAi.Modules.Assessment.csproj" />
     <ProjectReference Include="..\..\Modules\Content\CraftAi.Modules.Content\CraftAi.Modules.Content.csproj" />
+    <ProjectReference Include="..\..\Modules\Pisa\CraftAi.Modules.Pisa\CraftAi.Modules.Pisa.csproj" />
   </ItemGroup>
 
 </Project>
