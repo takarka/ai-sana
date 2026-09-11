@@ -13,8 +13,10 @@
 `eighth-version/` в это же Nx-приложение как второе приложение `apps/landing`
 (SSR + `@angular/localize`); отдельный этап после шага 2 ниже.
 [05-kabinet-craft-web.md](05-kabinet-craft-web.md) — проектирование самого
-кабинета `apps/craft-web` (контуры, маршруты, библиотеки, данные, i18n);
-следующий шаг после этого плана.
+кабинета (контуры, маршруты, библиотеки, данные, i18n); следующий шаг после
+этого плана.
+[09-admin-panel-razrabotka.md](09-admin-panel-razrabotka.md) — план работ по
+админ-панели; его шаг A0 доделывает backend-часть этого плана (шаг 3 ниже).
 [../adr/](../adr/README.md) — принятые решения по стеку: [ADR-0001](../adr/0001-backend-stack-dotnet.md)
 (бэкенд) и [ADR-0002](../adr/0002-frontend-stack-angular-tailwind.md) (фронтенд).
 
@@ -59,7 +61,7 @@ ai-sana/
 | Монорепозиторий | Nx | Требование заказчика. Даёт границы модулей, кэш сборки, единый линт |
 | Фреймворк | Angular (последняя стабильная) | Требование заказчика. Строгая структура и типизация подходят для долгоживущей платформы с большой командой |
 | Пресет Nx | `angular-monorepo` | Сразу создаёт `apps/` + `libs/`, в отличие от standalone-варианта |
-| Приложение | одно: `craft-web` | Кабинеты ученика/учителя/администрации — роли внутри одного SPA, а не разные приложения |
+| Приложения | `admin` (контур `platform`) и `learn` (контуры школы) — [ADR-0005](../adr/0005-razdelenie-kabineta-na-admin-i-learn.md) | Роли школы (ученик/учитель/администрация) совмещаются одним человеком и живут в одном SPA `learn`; платформенные роли не пересекаются с ними ни данными, ни экранами и вынесены отдельно. Исходно планировалось одно приложение `craft-web` — оно удалено |
 | Стили | Tailwind CSS v4 поверх токенов дизайн-системы | Утилиты закрывают раскладку и плотность, бренд-слой остаётся в CSS-переменных с лендинга — см. [03-design-system.md](03-design-system.md) |
 | Конфигурация Tailwind | Только CSS (`@import 'tailwindcss'` + `@theme`), без `tailwind.config.js` | Требование Tailwind v4: файла конфигурации больше нет, тема задаётся переменными |
 | Токены и глобальные стили | SCSS в `libs/shared/ui-tokens` | Токены, `@font-face`, reset и a11y-база не выражаются утилитами |
@@ -324,6 +326,14 @@ npx nx lint craft-web         # без ошибок — OK
 npx nx serve craft-web        # открывается на localhost:4200 — OK (curl 200, app-root в разметке)
 ```
 
+> **Шаг выполнен на структуре, которая с тех пор изменилась.** 11.09.2026
+> приложение `craft-web` разделено на `admin` и `learn`
+> ([ADR-0005](../adr/0005-razdelenie-kabineta-na-admin-i-learn.md)); пустой
+> каркас `craft-web` удалён. Записи выше оставлены как есть — это журнал
+> выполненного, а не текущее состояние. Актуальные команды и порты —
+> в `platform/front/README.md`; проверки выполняются для обоих приложений:
+> `npx nx run-many -t build test lint -p admin learn`.
+
 ---
 
 ### Шаг 2.5. Дизайн-система кабинета
@@ -427,12 +437,17 @@ curl -k https://localhost:5001/health         # Healthy
 - [ ] Endpoint-заглушка `GET /api/v1/ping` → `{ "status": "ok", "version": "..." }`.
 - [ ] Angular через proxy дёргает `/api/v1/ping` и выводит ответ на стартовой странице —
       это единственная «функциональность» скелета, доказывающая, что контур замкнут.
+      Проверяется на `admin`; `proxy.conf.json` заведён в обоих приложениях.
 - [ ] Генерация типизированного клиента из OpenAPI в Nx-библиотеку
-      `libs/shared/api-client` (NSwag или `openapi-generator`), команда — таргет Nx
-      `nx run craft-web:generate-api`. Клиент **не** коммитим руками — только генерируем.
-- [ ] CORS в API для `http://localhost:4200` только в среде Development.
+      `libs/shared/api-client` (NSwag или `openapi-generator`) — библиотека общая для
+      `admin` и `learn`, поэтому таргет генерации принадлежит ей, а не приложению:
+      `nx run shared-api-client:generate`. Руками клиент **не** правится; генерация
+      идёт в CI, результат коммитится
+      ([план 05 §6.2](05-kabinet-craft-web.md#62-sharedapi-client-генерируется)).
+- [ ] CORS в API для `http://localhost:4201` (`admin`) и `http://localhost:4202`
+      (`learn`) только в среде Development.
 
-**DoD:** `nx serve craft-web` + запущенный AppHost → на странице виден ответ backend.
+**DoD:** `nx serve admin` + запущенный AppHost → на странице виден ответ backend.
 
 ---
 

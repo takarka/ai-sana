@@ -357,7 +357,8 @@ Modules/Pisa/
 
 ```
 platform/front/
-├── apps/craft-web/                       # один SPA, роли — маршрутизацией
+├── apps/learn/                           # контуры школы: роли — маршрутизацией
+├── apps/admin/                           # контур platform (ADR-0005)
 └── libs/
     ├── shared/
     │   ├── ui/                           # компоненты — см. 03-design-system.md

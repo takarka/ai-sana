@@ -50,6 +50,10 @@
     "serve": {
       "continuous": true,
       "executor": "@angular/build:dev-server",
+      "options": {
+        "port": 4202,
+        "proxyConfig": "apps/learn/proxy.conf.json"
+      },
       "configurations": {
         "production": {
           "buildTarget": "learn:build:production"
@@ -82,7 +86,7 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "learn:build",
-        "port": 4200,
+        "port": 4202,
         "staticFilePath": "dist/learn/browser",
         "spa": true
       }
