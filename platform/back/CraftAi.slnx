@@ -12,12 +12,15 @@
   </Folder>
   <Folder Name="/src/Modules/">
     <Project Path="src/Modules/Identity/CraftAi.Modules.Identity/CraftAi.Modules.Identity.csproj" />
+    <Project Path="src/Modules/Identity/CraftAi.Modules.Identity.Contracts/CraftAi.Modules.Identity.Contracts.csproj" />
+    <Project Path="src/Modules/Organizations/CraftAi.Modules.Organizations/CraftAi.Modules.Organizations.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/CraftAi.Api.IntegrationTests/CraftAi.Api.IntegrationTests.csproj" />
     <Project Path="tests/CraftAi.Architecture.Tests/CraftAi.Architecture.Tests.csproj" />
     <Project Path="tests/CraftAi.MigrationService.Tests/CraftAi.MigrationService.Tests.csproj" />
     <Project Path="tests/CraftAi.Modules.Identity.UnitTests/CraftAi.Modules.Identity.UnitTests.csproj" />
+    <Project Path="tests/CraftAi.Modules.Organizations.UnitTests/CraftAi.Modules.Organizations.UnitTests.csproj" />
     <Project Path="tests/CraftAi.SharedKernel.UnitTests/CraftAi.SharedKernel.UnitTests.csproj" />
   </Folder>
 </Solution>

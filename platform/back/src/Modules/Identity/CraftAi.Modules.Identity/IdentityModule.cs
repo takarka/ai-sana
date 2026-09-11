@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using System.Text;
 using CraftAi.Modules.Identity.Audit;
+using CraftAi.Modules.Identity.Contracts;
 using CraftAi.Modules.Identity.Domain;
 using CraftAi.Modules.Identity.Features.Authentication.ChangePassword;
 using CraftAi.Modules.Identity.Features.Authentication.Login;
@@ -8,6 +9,7 @@ using CraftAi.Modules.Identity.Features.Authentication.Logout;
 using CraftAi.Modules.Identity.Features.Authentication.Refresh;
 using CraftAi.Modules.Identity.Features.Profile.GetCurrentUser;
 using CraftAi.Modules.Identity.Persistence;
+using CraftAi.Modules.Identity.Provisioning;
 using CraftAi.Modules.Identity.Security;
 using CraftAi.Modules.Identity.Seeding;
 using CraftAi.SharedKernel.Modularity;
@@ -49,6 +51,8 @@ public sealed class IdentityModule : IModule
             .AddEntityFrameworkStores<IdentityDbContext>();
 
         services.AddScoped<IdentitySeeder>();
+        services.AddScoped<IUserProvisioningService, UserProvisioningService>();
+        services.AddScoped<IUserLookupService, UserLookupService>();
     }
 
     public void AddWebModule(IServiceCollection services, IConfiguration configuration)

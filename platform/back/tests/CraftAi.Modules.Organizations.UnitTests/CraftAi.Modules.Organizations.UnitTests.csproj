@@ -5,9 +5,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
-    <PackageReference Include="Testcontainers.PostgreSql" />
-    <PackageReference Include="ClosedXML" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Bootstrap\CraftAi.Api\CraftAi.Api.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Organizations\CraftAi.Modules.Organizations\CraftAi.Modules.Organizations.csproj" />
   </ItemGroup>
 
 </Project>

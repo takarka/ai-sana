@@ -11,6 +11,7 @@
     <ProjectReference Include="..\..\Shared\CraftAi.SharedKernel\CraftAi.SharedKernel.csproj" />
     <ProjectReference Include="..\..\Shared\CraftAi.Contracts\CraftAi.Contracts.csproj" />
     <ProjectReference Include="..\..\Modules\Identity\CraftAi.Modules.Identity\CraftAi.Modules.Identity.csproj" />
+    <ProjectReference Include="..\..\Modules\Organizations\CraftAi.Modules.Organizations\CraftAi.Modules.Organizations.csproj" />
   </ItemGroup>
 
 </Project>

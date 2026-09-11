@@ -1,5 +1,6 @@
 using CraftAi.Modules.Identity.Domain;
 using CraftAi.Modules.Identity.Persistence;
+using CraftAi.Modules.Organizations.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -14,14 +15,19 @@ namespace CraftAi.Api.IntegrationTests;
 
 /// <summary>
 /// Реальный <c>Program.cs</c> на настоящем PostgreSQL 16 через Testcontainers — план 09
-/// §3.2, A1: «интеграционные тесты на реальном Postgres зелёные». Требует Docker; в
+/// §3.2/§3.3: «интеграционные тесты на реальном Postgres зелёные». Требует Docker; в
 /// песочнице без демона Docker этот класс не выполняется (см. сопроводительную сводку),
-/// но обязан собираться и работать там, где Docker есть, включая CI.
+/// но обязан собираться и работать там, где Docker есть, включая CI. Общий для всех модулей —
+/// один Postgres-контейнер на прогон дешевле, чем по контейнеру на модуль.
 /// </summary>
-public sealed class IdentityApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
+public sealed class PlatformApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     public const string SeededSuperAdminEmail = "seed-superadmin@craft-ai.local";
     public const string SeededSuperAdminPassword = "SeedPass123!";
+
+    /// <summary>Учётка без платформенных ролей — «чужая» для маршрутов /platform/** (план 09 §3.3, DoD A2).</summary>
+    public const string SeededNoRoleEmail = "seed-norole@craft-ai.local";
+    public const string SeededNoRolePassword = "SeedPass123!";
 
     private readonly PostgreSqlContainer _postgres = new PostgreSqlBuilder("postgres:16-alpine").Build();
 
@@ -38,8 +44,12 @@ public sealed class IdentityApiFactory : WebApplicationFactory<Program>, IAsyncL
         Environment.SetEnvironmentVariable("ConnectionStrings__cache", "localhost:6379,abortConnect=false");
 
         using var scope = Services.CreateScope();
-        var db = scope.ServiceProvider.GetRequiredService<IdentityDbContext>();
-        await db.Database.MigrateAsync();
+
+        var identityDb = scope.ServiceProvider.GetRequiredService<IdentityDbContext>();
+        await identityDb.Database.MigrateAsync();
+
+        var organizationsDb = scope.ServiceProvider.GetRequiredService<OrganizationsDbContext>();
+        await organizationsDb.Database.MigrateAsync();
 
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
         foreach (var role in PlatformRoles.All)
@@ -51,24 +61,9 @@ public sealed class IdentityApiFactory : WebApplicationFactory<Program>, IAsyncL
         }
 
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        var user = new ApplicationUser
-        {
-            Id = Guid.NewGuid(),
-            UserName = SeededSuperAdminEmail,
-            Email = SeededSuperAdminEmail,
-            EmailConfirmed = true,
-            FullName = "Seed SuperAdmin",
-            MustChangePassword = true,
-            CreatedAtUtc = DateTimeOffset.UtcNow,
-        };
-        var createResult = await userManager.CreateAsync(user, SeededSuperAdminPassword);
-        if (!createResult.Succeeded)
-        {
-            throw new InvalidOperationException(
-                string.Join("; ", createResult.Errors.Select(e => e.Description)));
-        }
 
-        await userManager.AddToRoleAsync(user, PlatformRoles.SuperAdmin);
+        await CreateUserAsync(userManager, SeededSuperAdminEmail, SeededSuperAdminPassword, "Seed SuperAdmin", PlatformRoles.SuperAdmin);
+        await CreateUserAsync(userManager, SeededNoRoleEmail, SeededNoRolePassword, "Seed NoRole", role: null);
     }
 
     async Task IAsyncLifetime.DisposeAsync()
@@ -86,5 +81,30 @@ public sealed class IdentityApiFactory : WebApplicationFactory<Program>, IAsyncL
             services.RemoveAll<IDistributedCache>();
             services.AddDistributedMemoryCache();
         });
+    }
+
+    private static async Task CreateUserAsync(
+        UserManager<ApplicationUser> userManager, string email, string password, string fullName, string? role)
+    {
+        var user = new ApplicationUser
+        {
+            Id = Guid.NewGuid(),
+            UserName = email,
+            Email = email,
+            EmailConfirmed = true,
+            FullName = fullName,
+            MustChangePassword = true,
+            CreatedAtUtc = DateTimeOffset.UtcNow,
+        };
+        var createResult = await userManager.CreateAsync(user, password);
+        if (!createResult.Succeeded)
+        {
+            throw new InvalidOperationException(string.Join("; ", createResult.Errors.Select(e => e.Description)));
+        }
+
+        if (role is not null)
+        {
+            await userManager.AddToRoleAsync(user, role);
+        }
     }
 }

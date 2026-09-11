@@ -5,7 +5,7 @@ using System.Text.Json;
 namespace CraftAi.Api.IntegrationTests;
 
 [Trait("Category", "RequiresDocker")]
-public sealed class IdentityEndpointsTests(IdentityApiFactory factory) : IClassFixture<IdentityApiFactory>
+public sealed class IdentityEndpointsTests(PlatformApiFactory factory) : IClassFixture<PlatformApiFactory>
 {
     [Fact]
     public async Task Login_СНеправильнымПаролем_Отдаёт401()
@@ -14,7 +14,7 @@ public sealed class IdentityEndpointsTests(IdentityApiFactory factory) : IClassF
 
         var response = await client.PostAsJsonAsync("/auth/login", new
         {
-            email = IdentityApiFactory.SeededSuperAdminEmail,
+            email = PlatformApiFactory.SeededSuperAdminEmail,
             password = "wrong-password",
         });
 
@@ -28,8 +28,8 @@ public sealed class IdentityEndpointsTests(IdentityApiFactory factory) : IClassF
 
         var response = await client.PostAsJsonAsync("/auth/login", new
         {
-            email = IdentityApiFactory.SeededSuperAdminEmail,
-            password = IdentityApiFactory.SeededSuperAdminPassword,
+            email = PlatformApiFactory.SeededSuperAdminEmail,
+            password = PlatformApiFactory.SeededSuperAdminPassword,
         });
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
 
@@ -71,8 +71,8 @@ public sealed class IdentityEndpointsTests(IdentityApiFactory factory) : IClassF
         var client = factory.CreateClient();
         var loginResponse = await client.PostAsJsonAsync("/auth/login", new
         {
-            email = IdentityApiFactory.SeededSuperAdminEmail,
-            password = IdentityApiFactory.SeededSuperAdminPassword,
+            email = PlatformApiFactory.SeededSuperAdminEmail,
+            password = PlatformApiFactory.SeededSuperAdminPassword,
         });
         var refreshCookie = ExtractRefreshCookie(loginResponse);
 
@@ -114,8 +114,8 @@ public sealed class IdentityEndpointsTests(IdentityApiFactory factory) : IClassF
     {
         var response = await client.PostAsJsonAsync("/auth/login", new
         {
-            email = IdentityApiFactory.SeededSuperAdminEmail,
-            password = IdentityApiFactory.SeededSuperAdminPassword,
+            email = PlatformApiFactory.SeededSuperAdminEmail,
+            password = PlatformApiFactory.SeededSuperAdminPassword,
         });
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
         return body.GetProperty("accessToken").GetString()!;

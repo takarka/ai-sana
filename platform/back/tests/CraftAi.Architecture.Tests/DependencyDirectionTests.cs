@@ -9,8 +9,7 @@ namespace CraftAi.Architecture.Tests;
 /// Направление зависимостей из плана 01 §3: общий код (SharedKernel, Contracts,
 /// ServiceDefaults) не знает о хостах (Api, MigrationService) — хосты зависят от
 /// общего кода, а не наоборот. Модульное правило («модуль ссылается только на
-/// *.Contracts другого модуля») добавится тестом сюда же вместе с первым модулем
-/// в A1 — сейчас проверять его не на чем.
+/// *.Contracts другого модуля») — в <see cref="ModuleBoundaryTests"/>, начиная с A2.
 /// </summary>
 public sealed class DependencyDirectionTests
 {

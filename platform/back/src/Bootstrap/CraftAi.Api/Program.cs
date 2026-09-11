@@ -1,5 +1,6 @@
 using CraftAi.Api.Http.Errors;
 using CraftAi.Modules.Identity;
+using CraftAi.Modules.Organizations;
 using CraftAi.SharedKernel.Http.Idempotency;
 using CraftAi.SharedKernel.Http.RequestId;
 using CraftAi.SharedKernel.Modularity;
@@ -36,7 +37,7 @@ if (builder.Environment.IsDevelopment())
 }
 
 // Каждый модуль регистрируется здесь одной строкой.
-IReadOnlyList<IModule> modules = [new IdentityModule()];
+IReadOnlyList<IModule> modules = [new IdentityModule(), new OrganizationsModule()];
 
 foreach (var module in modules)
 {

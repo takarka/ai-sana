@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="ClosedXML" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="EFCore.NamingConventions" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
@@ -13,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\CraftAi.SharedKernel\CraftAi.SharedKernel.csproj" />
-    <ProjectReference Include="..\CraftAi.Modules.Identity.Contracts\CraftAi.Modules.Identity.Contracts.csproj" />
+    <ProjectReference Include="..\..\Identity\CraftAi.Modules.Identity.Contracts\CraftAi.Modules.Identity.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
