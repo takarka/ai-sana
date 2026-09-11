@@ -100,7 +100,9 @@ public sealed class PisaEndpointsTests(PlatformApiFactory factory) : IClassFixtu
     public async Task SearchItems_ПолнотекстовыйПоискНаходитЗаданиеПоСтимулу()
     {
         var client = await AuthorizedClientAsync(PlatformApiFactory.SeededSuperAdminEmail, PlatformApiFactory.SeededSuperAdminPassword);
-        await CreateItemAsync(client, "Пересказфотосинтезаиклеточногодыхания уникальный маркер", "science", 2, 10, 11);
+        // to_tsvector токенизирует по границам слов, а не по подстроке — стимул обязан
+        // содержать слово "фотосинтеза" отдельно, а не слитно с соседними.
+        await CreateItemAsync(client, "Пересказ фотосинтеза и клеточного дыхания, уникальный маркер запроса", "science", 2, 10, 11);
 
         var response = await client.GetAsync("/platform/content/pisa/items?search=фотосинтеза");
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();

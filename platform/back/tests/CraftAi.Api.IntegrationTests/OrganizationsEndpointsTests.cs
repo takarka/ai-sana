@@ -87,7 +87,8 @@ public sealed class OrganizationsEndpointsTests(PlatformApiFactory factory) : IC
         Assert.Equal(1, firstBody.GetProperty("errorCount").GetInt32());
 
         var rows = firstBody.GetProperty("rows").EnumerateArray().ToList();
-        var badRow = rows.Single(r => r.GetProperty("rowNumber").GetInt32() == 2);
+        // Строка 2 — первая строка данных ("Сидоров..."), строка 3 — вторая (пустое ФИО).
+        var badRow = rows.Single(r => r.GetProperty("rowNumber").GetInt32() == 3);
         Assert.Equal("Error", badRow.GetProperty("outcome").GetString());
         Assert.False(string.IsNullOrEmpty(badRow.GetProperty("reason").GetString()));
 
@@ -103,7 +104,7 @@ public sealed class OrganizationsEndpointsTests(PlatformApiFactory factory) : IC
         var secondBody = await secondPreview.Content.ReadFromJsonAsync<JsonElement>();
         Assert.Equal(0, secondBody.GetProperty("createCount").GetInt32());
         var secondRows = secondBody.GetProperty("rows").EnumerateArray().ToList();
-        var duplicateRow = secondRows.Single(r => r.GetProperty("rowNumber").GetInt32() == 1);
+        var duplicateRow = secondRows.Single(r => r.GetProperty("rowNumber").GetInt32() == 2);
         Assert.Equal("SkipDuplicate", duplicateRow.GetProperty("outcome").GetString());
     }
 
