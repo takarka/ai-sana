@@ -1,0 +1,20 @@
+<craft-modal [modalTitle]="'matrix.editLessonDialog.title' | translate" (closed)="close()">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="app-edit-lesson-form">
+    <craft-input
+      [label]="'matrix.createLessonDialog.titleLabel' | translate"
+      formControlName="title"
+      [error]="form.controls.title.touched && form.controls.title.invalid ? ('matrix.createLessonDialog.titleRequired' | translate) : null"
+    ></craft-input>
+
+    @if (errorKey(); as key) {
+      <p class="app-edit-lesson-form__error" role="alert">{{ key | translate }}</p>
+    }
+  </form>
+
+  <div craftModalFooter>
+    <craft-button variant="ghost" type="button" (click)="close()">{{ 'common.cancel' | translate }}</craft-button>
+    <craft-button variant="primary" type="button" [disabled]="submitting()" (click)="submit()">
+      {{ 'common.save' | translate }}
+    </craft-button>
+  </div>
+</craft-modal>

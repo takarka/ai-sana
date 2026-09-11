@@ -41,8 +41,7 @@ export const appRoutes: Route[] = [
       {
         path: 'content/matrix',
         canActivate: [roleGuard([PLATFORM_ROLES.SuperAdmin, PLATFORM_ROLES.Author])],
-        loadComponent: () => import('@front/features/shell').then((m) => m.ComingSoonPage),
-        data: { titleKey: 'shell.nav.matrix' },
+        loadComponent: () => import('@front/features/matrix').then((m) => m.MatrixContentPage),
       },
       {
         path: 'content/pisa',

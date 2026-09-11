@@ -1,0 +1,30 @@
+<craft-modal [modalTitle]="'matrix.createSectionDialog.title' | translate" (closed)="close()">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="app-create-section-form">
+    <craft-input
+      [label]="'matrix.createSectionDialog.nameLabel' | translate"
+      [placeholder]="'matrix.createSectionDialog.namePlaceholder' | translate"
+      formControlName="name"
+      [error]="form.controls.name.touched && form.controls.name.invalid ? ('matrix.createSectionDialog.nameRequired' | translate) : null"
+    ></craft-input>
+
+    <div class="app-field">
+      <span class="app-field__label">{{ 'matrix.createSectionDialog.gradeLabel' | translate }}</span>
+      <select class="app-native-select" formControlName="grade">
+        @for (grade of grades; track grade) {
+          <option [value]="grade">{{ grade }}</option>
+        }
+      </select>
+    </div>
+
+    @if (errorKey(); as key) {
+      <p class="app-create-section-form__error" role="alert">{{ key | translate }}</p>
+    }
+  </form>
+
+  <div craftModalFooter>
+    <craft-button variant="ghost" type="button" (click)="close()">{{ 'common.cancel' | translate }}</craft-button>
+    <craft-button variant="primary" type="button" [disabled]="submitting()" (click)="submit()">
+      {{ 'matrix.createSectionDialog.submit' | translate }}
+    </craft-button>
+  </div>
+</craft-modal>
