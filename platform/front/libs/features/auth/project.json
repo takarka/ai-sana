@@ -1,0 +1,13 @@
+{
+  "name": "features-auth",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/features/auth/src",
+  "prefix": "app",
+  "projectType": "library",
+  "tags": ["type:feature", "scope:admin"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

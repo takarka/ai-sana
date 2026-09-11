@@ -1,0 +1,117 @@
+// Геометрия — макет docs/plan/10-admin-panel-dizayn.html, экран 1 (Main.dc.html).
+:host {
+  display: block;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.app-login {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2.4rem;
+}
+
+.app-login__glow {
+  position: absolute;
+  top: -18rem;
+  right: -16rem;
+  width: 56rem;
+  height: 56rem;
+  border-radius: 50%;
+  background: var(--signal-wash);
+}
+
+.app-login__card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 46rem;
+  max-width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 4.8rem 4rem 4rem;
+  box-shadow: 0 24px 48px -14px rgba(10, 14, 28, 0.14);
+}
+
+.app-login__brand {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 1.6rem;
+}
+
+.app-login__mark {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--signal);
+  border-radius: 1rem;
+  color: var(--on-signal);
+}
+
+.app-login__brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.app-login__brand-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.7rem;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  text-transform: uppercase;
+}
+
+.app-login__brand-tag {
+  font-family: var(--font-micro);
+  font-size: 1.05rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+.app-login__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-display-md);
+  line-height: 1.15;
+  color: var(--fg);
+  margin: 0;
+}
+
+.app-login__subtitle {
+  font-size: var(--fs-body-sm);
+  color: var(--fg-dim);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.app-login__error {
+  margin: 0;
+  padding: 1rem 1.4rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--lvl-low) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--lvl-low) 30%, transparent);
+  color: var(--fg);
+  font-size: 1.3rem;
+}
+
+.app-login__hint {
+  margin: 0.4rem 0 0;
+  font-size: 1.25rem;
+  color: var(--fg-dim);
+  text-align: center;
+  line-height: 1.5;
+}

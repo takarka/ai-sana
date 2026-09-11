@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  padding: var(--gap, 4rem) 2rem;
+  text-align: center;
+}
+
+.craft-empty-state__message {
+  margin: 0;
+  color: var(--fg-dim);
+  font-size: 1.4rem;
+}

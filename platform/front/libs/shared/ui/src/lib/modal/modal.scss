@@ -1,0 +1,64 @@
+:host {
+  position: relative;
+  display: block;
+  width: 48rem;
+  max-width: calc(100vw - 3.2rem);
+  background: var(--surface);
+  border-radius: var(--r-card);
+  padding: 4rem;
+  box-shadow: 0 32px 56px -18px rgba(10, 14, 28, 0.3);
+}
+
+.craft-modal__close {
+  position: absolute;
+  top: 1.6rem;
+  right: 1.6rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 0;
+  background: none;
+  color: var(--fg-dim);
+  cursor: pointer;
+}
+
+.craft-modal__close:hover {
+  color: var(--fg);
+  background: var(--signal-wash);
+}
+
+.craft-modal__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-display-sm);
+  margin: 0 0 0.8rem;
+  color: var(--fg);
+  padding-right: 3.2rem;
+}
+
+.craft-modal__description {
+  font-size: 1.35rem;
+  color: var(--fg-dim);
+  line-height: 1.5;
+  margin: 0 0 2.8rem;
+}
+
+.craft-modal__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.craft-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.2rem;
+  margin-top: 3.2rem;
+}
+
+.craft-modal__footer:empty {
+  display: none;
+}

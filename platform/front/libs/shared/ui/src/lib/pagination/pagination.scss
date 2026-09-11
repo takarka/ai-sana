@@ -1,0 +1,45 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  font-size: 1.3rem;
+  color: var(--fg-dim);
+}
+
+.craft-pagination__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.craft-pagination__page {
+  font-family: var(--font-micro);
+  font-size: 1.2rem;
+  color: var(--fg);
+  min-width: 5.6rem;
+  text-align: center;
+}
+
+.craft-pagination__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  border: 1px solid var(--paper-line);
+  background: var(--surface);
+  color: var(--fg);
+  cursor: pointer;
+}
+
+.craft-pagination__btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.craft-pagination__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

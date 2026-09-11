@@ -1,0 +1,43 @@
+<h1 class="app-overview__title">{{ 'overview.title' | translate }}</h1>
+<p class="app-overview__subtitle">{{ 'overview.subtitle' | translate }}</p>
+
+<div class="app-overview__grid">
+  <div class="app-overview__stat">
+    <span class="app-overview__stat-label">{{ 'overview.kpi.organizations' | translate }}</span>
+    <span class="app-overview__stat-value">{{ organizationsCount() ?? '—' }}</span>
+  </div>
+
+  <div class="app-overview__actions">
+    <span class="app-overview__actions-title">{{ 'overview.quickActions.title' | translate }}</span>
+    <a class="app-overview__action" [routerLink]="['/platform/orgs']" [queryParams]="{ create: 1 }">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M12 5v14M5 12h14" />
+      </svg>
+      {{ 'overview.quickActions.createOrg' | translate }}
+      <svg class="app-overview__action-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M9 6l6 6-6 6" />
+      </svg>
+    </a>
+    <a class="app-overview__action" routerLink="/platform/content/matrix">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M4 19V5.2A1.2 1.2 0 0 1 5.2 4H12v16H5.2A1.2 1.2 0 0 0 4 19Z" />
+        <path d="M12 4h6.8A1.2 1.2 0 0 1 20 5.2V19a1.2 1.2 0 0 1-1.2 1.2H12" />
+      </svg>
+      {{ 'overview.quickActions.matrix' | translate }}
+      <svg class="app-overview__action-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M9 6l6 6-6 6" />
+      </svg>
+    </a>
+    <a class="app-overview__action" routerLink="/platform/content/pisa">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="8.2" />
+        <circle cx="12" cy="12" r="4.6" />
+        <circle cx="12" cy="12" r="1" />
+      </svg>
+      {{ 'overview.quickActions.pisa' | translate }}
+      <svg class="app-overview__action-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M9 6l6 6-6 6" />
+      </svg>
+    </a>
+  </div>
+</div>

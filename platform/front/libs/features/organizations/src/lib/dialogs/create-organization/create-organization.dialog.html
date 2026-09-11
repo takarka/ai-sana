@@ -1,0 +1,31 @@
+<craft-modal
+  [modalTitle]="'orgs.createDialog.title' | translate"
+  [description]="'orgs.createDialog.description' | translate"
+  (closed)="close()"
+>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="app-create-org-form">
+    <craft-input
+      [label]="'orgs.createDialog.nameLabel' | translate"
+      [placeholder]="'orgs.createDialog.namePlaceholder' | translate"
+      formControlName="name"
+      [error]="form.controls.name.touched && form.controls.name.invalid ? ('orgs.createDialog.nameRequired' | translate) : null"
+    ></craft-input>
+
+    <craft-input
+      [label]="'orgs.createDialog.regionLabel' | translate"
+      [placeholder]="'orgs.createDialog.regionPlaceholder' | translate"
+      formControlName="region"
+    ></craft-input>
+
+    @if (errorKey(); as key) {
+      <p class="app-create-org-form__error" role="alert">{{ key | translate }}</p>
+    }
+  </form>
+
+  <div craftModalFooter>
+    <craft-button variant="ghost" type="button" (click)="close()">{{ 'common.cancel' | translate }}</craft-button>
+    <craft-button variant="primary" type="button" [disabled]="submitting()" (click)="submit()">
+      {{ 'orgs.createDialog.submit' | translate }}
+    </craft-button>
+  </div>
+</craft-modal>

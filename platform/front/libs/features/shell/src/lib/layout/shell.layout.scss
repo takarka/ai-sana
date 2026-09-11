@@ -1,0 +1,222 @@
+// Геометрия — макет docs/plan/10-admin-panel-dizayn.html, экран 2 (AdminLayout.dc.html).
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.app-shell {
+  display: flex;
+  height: 100%;
+  background: var(--bg);
+}
+
+.app-shell__sidebar {
+  width: 26rem;
+  flex: none;
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+}
+
+.app-shell__brand {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 2.2rem 2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.app-shell__mark {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--signal);
+  border-radius: 0.9rem;
+  color: var(--on-signal);
+}
+
+.app-shell__brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.app-shell__brand-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.app-shell__brand-tag {
+  font-family: var(--font-micro);
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+}
+
+.app-shell__nav {
+  flex: 1;
+  padding: 2rem 1.2rem;
+  overflow: auto;
+}
+
+.app-shell__nav-group {
+  margin-bottom: 2.4rem;
+}
+
+.app-shell__nav-label {
+  display: block;
+  font-family: var(--font-micro);
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-dim);
+  padding: 0 1.2rem;
+  margin: 0 0 0.8rem;
+}
+
+.app-shell__nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.1rem 1.2rem;
+  border-radius: 1rem;
+  color: var(--fg-dim);
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.app-shell__nav-item svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.app-shell__nav-item:hover {
+  background: var(--paper-line);
+  color: var(--fg);
+}
+
+.app-shell__nav-item--active {
+  background: var(--signal-wash);
+  color: var(--signal);
+  font-weight: 600;
+}
+
+.app-shell__user {
+  padding: 1.6rem 2rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.app-shell__avatar {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--signal-wash);
+  color: var(--signal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.app-shell__user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.app-shell__user-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-shell__user-role {
+  font-family: var(--font-micro);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+}
+
+.app-shell__logout {
+  flex: none;
+  margin-left: auto;
+  background: none;
+  border: 0;
+  color: var(--fg-dim);
+  cursor: pointer;
+  display: flex;
+}
+
+.app-shell__logout:hover {
+  color: var(--fg);
+}
+
+.app-shell__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.app-shell__topbar {
+  height: 72px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 3.2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.app-shell__lang {
+  display: flex;
+  border: 1px solid var(--paper-line);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+}
+
+.app-shell__lang-btn {
+  padding: 0.7rem 1.4rem;
+  background: none;
+  border: 0;
+  font-family: var(--font-micro);
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+  cursor: pointer;
+}
+
+.app-shell__lang-btn--active {
+  background: var(--signal-wash);
+  color: var(--signal);
+  font-weight: 600;
+}
+
+.app-shell__content {
+  flex: 1;
+  overflow: auto;
+  padding: 3.2rem;
+}

@@ -1,0 +1,100 @@
+@if (notFound()) {
+  <craft-empty-state [message]="'errors.organization.not-found' | translate">
+    <craft-button variant="ghost" (click)="backToList()">{{ 'common.back' | translate }}</craft-button>
+  </craft-empty-state>
+} @else if (organization(); as org) {
+  <a class="app-org-detail__back" routerLink="/platform/orgs">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M15 6l-6 6 6 6" />
+    </svg>
+    {{ 'orgs.list.title' | translate }}
+  </a>
+
+  <div class="app-org-detail__header">
+    <h1 class="app-org-detail__name">{{ org.name }}</h1>
+    @if (org.region) {
+      <span class="app-org-detail__region">{{ org.region }}</span>
+    }
+  </div>
+
+  <div class="app-org-detail__meta">
+    <div>
+      <span class="app-org-detail__meta-label">{{ 'orgs.detail.academicYear' | translate }}</span>
+      <span class="app-org-detail__meta-value">{{ org.currentAcademicYearName }}</span>
+    </div>
+    <div class="app-org-detail__meta--right">
+      <span class="app-org-detail__meta-label">{{ 'orgs.detail.created' | translate }}</span>
+      <span class="app-org-detail__meta-value app-org-detail__meta-value--dim">{{ org.createdAtUtc | date: 'dd.MM.yyyy' }}</span>
+    </div>
+  </div>
+
+  <section class="app-org-detail__section">
+    <div class="app-org-detail__section-head">
+      <span class="app-org-detail__section-title">{{ 'orgs.detail.classesTitle' | translate }}</span>
+      <button type="button" class="app-org-detail__link-btn" (click)="addClass()">
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+        {{ 'orgs.detail.addClass' | translate }}
+      </button>
+    </div>
+
+    @if (classGroups().length > 0) {
+      <div class="app-org-detail__classes">
+        @for (classGroup of classGroups(); track classGroup.id) {
+          <div class="app-org-detail__class-chip">
+            <span class="app-org-detail__class-chip-name">{{ classGroup.grade }}{{ classGroup.letter }}</span>
+          </div>
+        }
+      </div>
+    } @else {
+      <craft-empty-state [message]="'orgs.detail.classesEmpty' | translate"></craft-empty-state>
+    }
+  </section>
+
+  <section class="app-org-detail__section">
+    <div class="app-org-detail__section-head">
+      <span class="app-org-detail__section-title">{{ 'orgs.detail.usersTitle' | translate }}</span>
+      <craft-button variant="primary" (click)="addUser()">{{ 'orgs.detail.addUser' | translate }}</craft-button>
+    </div>
+
+    <div class="app-org-detail__filters">
+      <button type="button" class="app-org-detail__filter" [class.app-org-detail__filter--active]="roleFilter() === 'all'" (click)="setRoleFilter('all')">
+        {{ 'orgs.detail.roleFilter.all' | translate }}
+      </button>
+      <button type="button" class="app-org-detail__filter" [class.app-org-detail__filter--active]="roleFilter() === 'teacher'" (click)="setRoleFilter('teacher')">
+        {{ 'orgs.detail.roleFilter.teacher' | translate }}
+      </button>
+      <button type="button" class="app-org-detail__filter" [class.app-org-detail__filter--active]="roleFilter() === 'student'" (click)="setRoleFilter('student')">
+        {{ 'orgs.detail.roleFilter.student' | translate }}
+      </button>
+    </div>
+
+    @if (users().length > 0) {
+      <div class="app-org-detail__table-wrap">
+        <table class="app-org-detail__table">
+          <thead>
+            <tr>
+              <th>{{ 'orgs.detail.column.fullName' | translate }}</th>
+              <th>{{ 'orgs.detail.column.login' | translate }}</th>
+              <th>{{ 'orgs.detail.column.role' | translate }}</th>
+              <th>{{ 'orgs.detail.column.class' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (user of users(); track user.memberId) {
+              <tr>
+                <td class="app-org-detail__name-cell">{{ user.fullName }}</td>
+                <td class="app-org-detail__dim">{{ user.login }}</td>
+                <td class="app-org-detail__dim">{{ user.role === 'student' ? ('orgs.createUserDialog.roleStudent' | translate) : ('orgs.createUserDialog.roleTeacher' | translate) }}</td>
+                <td class="app-org-detail__dim">{{ user.classGroupId ? classLabelById().get(user.classGroupId) : '—' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <craft-empty-state [message]="'orgs.detail.usersEmpty' | translate"></craft-empty-state>
+    }
+  </section>
+}

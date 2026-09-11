@@ -1,0 +1,80 @@
+// Геометрия и голос — из макетов docs/plan/10-admin-panel-dizayn.html
+// (поля логина и модалки создания школы), переведённых на токены.
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.craft-input__label {
+  font-family: var(--font-micro);
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+}
+
+.craft-input__field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.craft-input__icon {
+  position: absolute;
+  left: 1.6rem;
+  color: var(--fg-dim);
+  pointer-events: none;
+}
+
+.craft-input__control {
+  width: 100%;
+  padding: 1.3rem 1.5rem;
+  border: 1px solid var(--paper-line);
+  border-radius: 1rem;
+  background: var(--card);
+  font-family: var(--font-body);
+  font-size: 1.45rem;
+  color: var(--fg);
+  outline: none;
+  transition: border-color var(--duration-base) var(--ease-signal);
+}
+
+.craft-input__control--with-icon {
+  padding-left: 4.6rem;
+}
+
+.craft-input__control:focus {
+  border-color: var(--signal);
+}
+
+.craft-input__control:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.craft-input__field--invalid .craft-input__control {
+  border-color: var(--lvl-low);
+}
+
+.craft-input__reveal {
+  position: absolute;
+  right: 1.4rem;
+  display: flex;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--fg-dim);
+  cursor: pointer;
+}
+
+.craft-input__reveal:hover {
+  color: var(--fg);
+}
+
+.craft-input__error {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--lvl-low);
+}

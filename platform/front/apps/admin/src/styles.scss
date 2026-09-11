@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'tailwindcss';
+@use 'index' as tokens;
+@use 'theme.css';
+
+// CDK Dialog рендерит подложку вне дерева компонента — стилизуется глобально
+// (тот же приём, что в apps/landing, план 04-landing-migration.md, §3, шаг 3).
+.cdk-overlay-dark-backdrop {
+  background: rgba(4, 6, 15, 0.55);
+  backdrop-filter: blur(4px);
+}

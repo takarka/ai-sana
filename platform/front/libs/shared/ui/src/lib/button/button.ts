@@ -19,4 +19,6 @@ export class CraftButton {
   // только на primary-кнопках главных CTA (hero/final), не на каждой
   // (находка 14, docs/plan/04-landing-migration-audit.md).
   readonly arrow = input(false);
+  // Кнопка submit формы на всю ширину карточки (форма логина, модалки кабинета).
+  readonly fullWidth = input(false);
 }
