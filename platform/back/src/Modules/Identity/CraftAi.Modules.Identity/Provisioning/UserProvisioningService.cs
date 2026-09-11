@@ -1,4 +1,5 @@
 using System.Security.Cryptography;
+using System.Text;
 using CraftAi.Modules.Identity.Contracts;
 using CraftAi.Modules.Identity.Domain;
 using CraftAi.SharedKernel;
@@ -15,8 +16,10 @@ public sealed class UserProvisioningService(UserManager<ApplicationUser> userMan
     {
         // У учителей/учеников в v0 нет реальной почты (план 08 §4) — логин синтетический,
         // но обязан пройти EmailAddressAttribute, которым ASP.NET Core Identity проверяет
-        // формат при RequireUniqueEmail (см. сопроводительную сводку к A1/A2).
-        var login = $"{Slugify(request.LoginSeed)}@{Guid.NewGuid():n}.craftai.local";
+        // формат при RequireUniqueEmail (см. сопроводительную сводку к A1/A2). Короткий
+        // случайный суффикс (а не полный GUID) достаточен для уникальности локальной части
+        // и не превращает узнаваемый по ФИО логин в нечитаемую строку.
+        var login = $"{Slugify(request.LoginSeed)}.{ShortSuffix()}@craftai.local";
         var password = GeneratePassword();
 
         var user = new ApplicationUser
@@ -42,12 +45,45 @@ public sealed class UserProvisioningService(UserManager<ApplicationUser> userMan
 
     private static string Slugify(string seed)
     {
-        // Только ASCII: ASP.NET Core Identity по умолчанию (UserOptions.AllowedUserNameCharacters)
-        // не пускает в UserName кириллицу — а ФИО и ученики, и учителя почти всегда кириллические.
-        // Раз логин синтетический и не обязан быть читаемым (см. XML-комментарий контракта),
-        // при нелатинском seed просто откатываемся на guid — это норма, а не редкий случай.
-        var slug = new string([.. seed.Where(char.IsAsciiLetterOrDigit)]).ToLowerInvariant();
+        // ASP.NET Core Identity по умолчанию (UserOptions.AllowedUserNameCharacters) не пускает
+        // в UserName кириллицу, а ФИО и учеников, и учителей, и методистов почти всегда
+        // кириллическое (включая казахские буквы) — транслитерируем в латиницу, а не просто
+        // отбрасываем нелатинские символы, иначе логин совсем не связан с ФИО (см. фактическую
+        // ошибку: до этой правки Slugify возвращал случайный GUID для любого кириллического seed).
+        var slug = new string([.. Transliterate(seed).Where(char.IsAsciiLetterOrDigit)]).ToLowerInvariant();
         return string.IsNullOrEmpty(slug) ? Guid.NewGuid().ToString("n") : slug;
+    }
+
+    private static string ShortSuffix()
+    {
+        // 6 байт (48 бит случайности) — коллизия на импорте в тысячи учётных записей
+        // за раз практически исключена, а сам суффикс всё равно короче GUID в разы.
+        Span<byte> bytes = stackalloc byte[6];
+        RandomNumberGenerator.Fill(bytes);
+        return Convert.ToHexStringLower(bytes);
+    }
+
+    private static readonly IReadOnlyDictionary<char, string> CyrillicToLatin = new Dictionary<char, string>
+    {
+        ['а'] = "a", ['б'] = "b", ['в'] = "v", ['г'] = "g", ['д'] = "d", ['е'] = "e", ['ё'] = "e",
+        ['ж'] = "zh", ['з'] = "z", ['и'] = "i", ['й'] = "i", ['к'] = "k", ['л'] = "l", ['м'] = "m",
+        ['н'] = "n", ['о'] = "o", ['п'] = "p", ['р'] = "r", ['с'] = "s", ['т'] = "t", ['у'] = "u",
+        ['ф'] = "f", ['х'] = "kh", ['ц'] = "ts", ['ч'] = "ch", ['ш'] = "sh", ['щ'] = "shch",
+        ['ъ'] = "", ['ы'] = "y", ['ь'] = "", ['э'] = "e", ['ю'] = "yu", ['я'] = "ya",
+        // Казахские буквы вне русского алфавита (план 08 §4 — школы РК).
+        ['ә'] = "a", ['ғ'] = "g", ['қ'] = "q", ['ң'] = "n", ['ө'] = "o", ['ұ'] = "u",
+        ['ү'] = "u", ['һ'] = "h", ['і'] = "i",
+    };
+
+    private static string Transliterate(string value)
+    {
+        var builder = new StringBuilder(value.Length);
+        foreach (var ch in value.ToLowerInvariant())
+        {
+            builder.Append(CyrillicToLatin.TryGetValue(ch, out var latin) ? latin : ch.ToString());
+        }
+
+        return builder.ToString();
     }
 
     private static string GeneratePassword()
