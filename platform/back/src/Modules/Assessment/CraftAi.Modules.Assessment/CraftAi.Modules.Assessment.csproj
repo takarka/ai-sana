@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\CraftAi.SharedKernel\CraftAi.SharedKernel.csproj" />
+    <ProjectReference Include="..\CraftAi.Modules.Assessment.Contracts\CraftAi.Modules.Assessment.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

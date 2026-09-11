@@ -1,4 +1,6 @@
 using CraftAi.MigrationService;
+using CraftAi.Modules.Assessment;
+using CraftAi.Modules.Content;
 using CraftAi.Modules.Identity;
 using CraftAi.Modules.Organizations;
 using CraftAi.ServiceDefaults;
@@ -9,7 +11,7 @@ var builder = Host.CreateApplicationBuilder(args);
 builder.AddServiceDefaults();
 
 // Каждый модуль регистрируется здесь той же строкой, что и в CraftAi.Api.
-IReadOnlyList<IModule> modules = [new IdentityModule(), new OrganizationsModule()];
+IReadOnlyList<IModule> modules = [new IdentityModule(), new OrganizationsModule(), new AssessmentModule(), new ContentModule()];
 
 foreach (var module in modules)
 {

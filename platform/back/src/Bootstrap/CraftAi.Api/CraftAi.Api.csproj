@@ -12,6 +12,8 @@
     <ProjectReference Include="..\..\Shared\CraftAi.Contracts\CraftAi.Contracts.csproj" />
     <ProjectReference Include="..\..\Modules\Identity\CraftAi.Modules.Identity\CraftAi.Modules.Identity.csproj" />
     <ProjectReference Include="..\..\Modules\Organizations\CraftAi.Modules.Organizations\CraftAi.Modules.Organizations.csproj" />
+    <ProjectReference Include="..\..\Modules\Assessment\CraftAi.Modules.Assessment\CraftAi.Modules.Assessment.csproj" />
+    <ProjectReference Include="..\..\Modules\Content\CraftAi.Modules.Content\CraftAi.Modules.Content.csproj" />
   </ItemGroup>
 
 </Project>

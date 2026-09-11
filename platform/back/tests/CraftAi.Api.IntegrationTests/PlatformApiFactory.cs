@@ -1,3 +1,4 @@
+using CraftAi.Modules.Content.Persistence;
 using CraftAi.Modules.Identity.Domain;
 using CraftAi.Modules.Identity.Persistence;
 using CraftAi.Modules.Organizations.Persistence;
@@ -29,6 +30,10 @@ public sealed class PlatformApiFactory : WebApplicationFactory<Program>, IAsyncL
     public const string SeededNoRoleEmail = "seed-norole@craft-ai.local";
     public const string SeededNoRolePassword = "SeedPass123!";
 
+    /// <summary>Методист платформы — доступен /platform/content/**, но не /platform/orgs/** (план 08 §2).</summary>
+    public const string SeededAuthorEmail = "seed-author@craft-ai.local";
+    public const string SeededAuthorPassword = "SeedPass123!";
+
     private readonly PostgreSqlContainer _postgres = new PostgreSqlBuilder("postgres:16-alpine").Build();
 
     public async Task InitializeAsync()
@@ -51,6 +56,9 @@ public sealed class PlatformApiFactory : WebApplicationFactory<Program>, IAsyncL
         var organizationsDb = scope.ServiceProvider.GetRequiredService<OrganizationsDbContext>();
         await organizationsDb.Database.MigrateAsync();
 
+        var contentDb = scope.ServiceProvider.GetRequiredService<ContentDbContext>();
+        await contentDb.Database.MigrateAsync();
+
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
         foreach (var role in PlatformRoles.All)
         {
@@ -64,6 +72,7 @@ public sealed class PlatformApiFactory : WebApplicationFactory<Program>, IAsyncL
 
         await CreateUserAsync(userManager, SeededSuperAdminEmail, SeededSuperAdminPassword, "Seed SuperAdmin", PlatformRoles.SuperAdmin);
         await CreateUserAsync(userManager, SeededNoRoleEmail, SeededNoRolePassword, "Seed NoRole", role: null);
+        await CreateUserAsync(userManager, SeededAuthorEmail, SeededAuthorPassword, "Seed Author", PlatformRoles.Author);
     }
 
     async Task IAsyncLifetime.DisposeAsync()
