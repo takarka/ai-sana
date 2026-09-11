@@ -40,8 +40,8 @@
           "outputHashing": "all",
           "fileReplacements": [
             {
-              "replace": "apps/craft-web/src/environments/environment.ts",
-              "with": "apps/craft-web/src/environments/environment.production.ts"
+              "replace": "apps/admin/src/environments/environment.ts",
+              "with": "apps/admin/src/environments/environment.production.ts"
             }
           ]
         },
