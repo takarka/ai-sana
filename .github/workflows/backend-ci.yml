@@ -80,6 +80,10 @@ jobs:
           kill $API_PID
         env:
           ASPNETCORE_ENVIRONMENT: Development
+          # ValidateOnStart(JwtOptions) роняет хост на старте без этого значения (план 09
+          # §3.2, A1.2) — тут это нужно только чтобы поднять хост и снять контракт, реальная
+          # подпись токенов в этом шаге не участвует.
+          Jwt__SigningKey: "ci-openapi-publish-signing-key-32-plus-chars"
 
       - uses: actions/upload-artifact@v4
         with:
