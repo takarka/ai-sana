@@ -34,6 +34,11 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('@front/features/organizations').then((m) => m.OrganizationDetailPage),
       },
       {
+        path: 'authors',
+        canActivate: [roleGuard([PLATFORM_ROLES.SuperAdmin])],
+        loadComponent: () => import('@front/features/authors').then((m) => m.AuthorsListPage),
+      },
+      {
         path: 'content/matrix',
         canActivate: [roleGuard([PLATFORM_ROLES.SuperAdmin, PLATFORM_ROLES.Author])],
         loadComponent: () => import('@front/features/shell').then((m) => m.ComingSoonPage),

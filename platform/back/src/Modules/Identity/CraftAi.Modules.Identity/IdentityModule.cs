@@ -3,6 +3,8 @@ using System.Text;
 using CraftAi.Modules.Identity.Audit;
 using CraftAi.Modules.Identity.Contracts;
 using CraftAi.Modules.Identity.Domain;
+using CraftAi.Modules.Identity.Features.Accounts.CreateAuthorAccount;
+using CraftAi.Modules.Identity.Features.Accounts.ListAuthorAccounts;
 using CraftAi.Modules.Identity.Features.Authentication.ChangePassword;
 using CraftAi.Modules.Identity.Features.Authentication.Login;
 using CraftAi.Modules.Identity.Features.Authentication.Logout;
@@ -102,6 +104,10 @@ public sealed class IdentityModule : IModule
         ChangePasswordEndpoint.Map(auth);
 
         GetCurrentUserEndpoint.Map(endpoints);
+
+        var authors = endpoints.MapGroup("/platform/authors");
+        CreateAuthorAccountEndpoint.Map(authors);
+        ListAuthorAccountsEndpoint.Map(authors);
     }
 
     public async Task SeedAsync(IServiceProvider services, CancellationToken cancellationToken)

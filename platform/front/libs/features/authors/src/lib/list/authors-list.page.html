@@ -1,0 +1,38 @@
+<div class="app-authors-list__head">
+  <div>
+    <h1 class="app-authors-list__title">{{ 'authors.list.title' | translate }}</h1>
+    <p class="app-authors-list__subtitle">{{ 'authors.list.subtitle' | translate }}</p>
+  </div>
+  <craft-button variant="primary" (click)="createAuthor()">
+    {{ 'authors.list.create' | translate }}
+  </craft-button>
+</div>
+
+<div class="app-authors-list__table-wrap">
+  @if (items().length > 0) {
+    <table class="app-authors-list__table">
+      <thead>
+        <tr>
+          <th>{{ 'authors.list.column.fullName' | translate }}</th>
+          <th>{{ 'authors.list.column.login' | translate }}</th>
+          <th>{{ 'authors.list.column.created' | translate }}</th>
+          <th>{{ 'authors.list.column.status' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (author of items(); track author.userId) {
+          <tr>
+            <td class="app-authors-list__name">{{ author.fullName }}</td>
+            <td class="app-authors-list__dim">{{ author.login }}</td>
+            <td class="app-authors-list__dim">{{ author.createdAtUtc | date: 'dd.MM.yyyy' }}</td>
+            <td class="app-authors-list__dim">
+              {{ (author.mustChangePassword ? 'authors.list.status.pending' : 'authors.list.status.active') | translate }}
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else if (!loading()) {
+    <craft-empty-state [message]="'authors.list.empty' | translate"></craft-empty-state>
+  }
+</div>

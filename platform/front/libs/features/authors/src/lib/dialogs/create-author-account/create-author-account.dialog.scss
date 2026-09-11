@@ -1,0 +1,20 @@
+// Общий стиль форм внутри craft-modal — см. organizations/dialogs/dialog-form.scss.
+:host {
+  display: block;
+}
+
+.app-create-author-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.app-create-author-form__error {
+  margin: 0;
+  padding: 1rem 1.4rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--lvl-low) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--lvl-low) 30%, transparent);
+  color: var(--fg);
+  font-size: 1.3rem;
+}
