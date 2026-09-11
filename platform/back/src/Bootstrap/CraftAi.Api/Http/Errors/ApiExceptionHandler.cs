@@ -1,4 +1,5 @@
-using CraftAi.Api.Http.RequestId;
+using CraftAi.SharedKernel.Http.Errors;
+using CraftAi.SharedKernel.Http.RequestId;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace CraftAi.Api.Http.Errors;

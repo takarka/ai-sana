@@ -1,4 +1,4 @@
-namespace CraftAi.Api.Http.Errors;
+namespace CraftAi.SharedKernel.Http.Errors;
 
 /// <summary>
 /// Единый формат ошибки API (API-04). <see cref="Message"/> — техническое сообщение

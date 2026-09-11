@@ -16,7 +16,7 @@ public sealed class MigrationWorkerTests
         var lifetime = new NoopApplicationLifetime();
         var worker = new MigrationWorker(
             new ServiceCollection().BuildServiceProvider(),
-            dbContextTypes: [],
+            modules: [],
             lifetime,
             NullLogger<MigrationWorker>.Instance);
 
@@ -26,6 +26,25 @@ public sealed class MigrationWorkerTests
 
         Assert.Equal(0, Environment.ExitCode);
         Assert.True(lifetime.StopApplicationCalled);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_МодульБезDbContext_ТолькоСидируется()
+    {
+        var fake = new FakeModule("NoDb");
+        var lifetime = new NoopApplicationLifetime();
+        var worker = new MigrationWorker(
+            new ServiceCollection().BuildServiceProvider(),
+            modules: [fake],
+            lifetime,
+            NullLogger<MigrationWorker>.Instance);
+
+        await worker.StartAsync(CancellationToken.None);
+        await lifetime.WaitForStopApplicationAsync(Timeout);
+        await worker.StopAsync(CancellationToken.None);
+
+        Assert.Equal(0, Environment.ExitCode);
+        Assert.True(fake.SeedCalled);
     }
 
     [Fact]
@@ -39,10 +58,11 @@ public sealed class MigrationWorkerTests
         services.AddDbContext<TestDbContext>(options => options.UseSqlite(connection));
         await using var provider = services.BuildServiceProvider();
 
+        var fake = new FakeModule("Test", typeof(TestDbContext));
         var lifetime = new NoopApplicationLifetime();
         var worker = new MigrationWorker(
             provider,
-            dbContextTypes: [typeof(TestDbContext)],
+            modules: [fake],
             lifetime,
             NullLogger<MigrationWorker>.Instance);
 
@@ -55,6 +75,7 @@ public sealed class MigrationWorkerTests
         await worker.StopAsync(CancellationToken.None);
 
         Assert.Equal(0, Environment.ExitCode);
+        Assert.True(fake.SeedCalled);
 
         await using var verifyContext = new TestDbContext(
             new DbContextOptionsBuilder<TestDbContext>().UseSqlite(connection).Options);

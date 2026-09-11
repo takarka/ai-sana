@@ -1,6 +1,7 @@
 using CraftAi.Api.Http.Errors;
-using CraftAi.Api.Http.Idempotency;
-using CraftAi.Api.Http.RequestId;
+using CraftAi.Modules.Identity;
+using CraftAi.SharedKernel.Http.Idempotency;
+using CraftAi.SharedKernel.Http.RequestId;
 using CraftAi.SharedKernel.Modularity;
 using CraftAi.ServiceDefaults;
 using Microsoft.OpenApi;
@@ -34,12 +35,13 @@ if (builder.Environment.IsDevelopment())
     });
 }
 
-// Модули появятся с A1 (Identity) — каждый регистрируется здесь одной строкой.
-IReadOnlyList<IModule> modules = [];
+// Каждый модуль регистрируется здесь одной строкой.
+IReadOnlyList<IModule> modules = [new IdentityModule()];
 
 foreach (var module in modules)
 {
     module.AddModule(builder.Services, builder.Configuration);
+    module.AddWebModule(builder.Services, builder.Configuration);
 }
 
 var app = builder.Build();
@@ -54,6 +56,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapDefaultEndpoints();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseMiddleware<RequestIdMiddleware>();
 app.UseMiddleware<IdempotencyMiddleware>();

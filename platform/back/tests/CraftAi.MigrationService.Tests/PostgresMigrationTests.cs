@@ -30,10 +30,11 @@ public sealed class PostgresMigrationTests : IAsyncLifetime
         services.AddDbContext<PostgresTestDbContext>(options => options.UseNpgsql(_postgres.GetConnectionString()));
         await using var provider = services.BuildServiceProvider();
 
+        var fake = new FakeModule("Postgres", typeof(PostgresTestDbContext));
         var lifetime = new NoopApplicationLifetime();
         var worker = new MigrationWorker(
             provider,
-            dbContextTypes: [typeof(PostgresTestDbContext)],
+            modules: [fake],
             lifetime,
             NullLogger<MigrationWorker>.Instance);
 

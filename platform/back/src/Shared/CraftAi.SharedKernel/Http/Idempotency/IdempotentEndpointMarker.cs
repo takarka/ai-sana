@@ -1,4 +1,6 @@
-namespace CraftAi.Api.Http.Idempotency;
+using Microsoft.AspNetCore.Builder;
+
+namespace CraftAi.SharedKernel.Http.Idempotency;
 
 /// <summary>Метаданные эндпоинта: заходит под правила Idempotency-Key (API-07).</summary>
 public sealed class IdempotentEndpointMarker;

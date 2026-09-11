@@ -1,11 +1,12 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using CraftAi.Api.Http.Errors;
-using CraftAi.Api.Http.RequestId;
+using CraftAi.SharedKernel.Http.Errors;
+using CraftAi.SharedKernel.Http.RequestId;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace CraftAi.Api.Http.Idempotency;
+namespace CraftAi.SharedKernel.Http.Idempotency;
 
 /// <summary>
 /// Idempotency-Key на эндпоинтах с <see cref="IdempotentEndpointMarker"/> (API-07):

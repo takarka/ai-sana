@@ -1,4 +1,8 @@
-namespace CraftAi.Api.Http.RequestId;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
+namespace CraftAi.SharedKernel.Http.RequestId;
 
 /// <summary>
 /// X-Request-Id (API-03, NFR-OBS-01): принимает значение от вызывающей стороны или

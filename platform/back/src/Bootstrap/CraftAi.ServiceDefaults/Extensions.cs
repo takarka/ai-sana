@@ -24,6 +24,10 @@ public static class Extensions
         builder.ConfigureOpenTelemetry();
         builder.AddDefaultHealthChecks();
 
+        // Инжектируемый, а не статический TimeProvider.System — иначе временные проверки
+        // (истечение refresh-токена и т. п.) нечем подменить в тестах.
+        builder.Services.AddSingleton(TimeProvider.System);
+
         builder.Services.AddServiceDiscovery();
 
         builder.Services.ConfigureHttpClientDefaults(http =>

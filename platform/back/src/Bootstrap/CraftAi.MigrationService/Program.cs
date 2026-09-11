@@ -1,4 +1,5 @@
 using CraftAi.MigrationService;
+using CraftAi.Modules.Identity;
 using CraftAi.ServiceDefaults;
 using CraftAi.SharedKernel.Modularity;
 
@@ -6,22 +7,17 @@ var builder = Host.CreateApplicationBuilder(args);
 
 builder.AddServiceDefaults();
 
-// Модули появятся с A1 (Identity) — та же строка, что и в CraftAi.Api.
-IReadOnlyList<IModule> modules = [];
+// Каждый модуль регистрируется здесь той же строкой, что и в CraftAi.Api.
+IReadOnlyList<IModule> modules = [new IdentityModule()];
 
 foreach (var module in modules)
 {
     module.AddModule(builder.Services, builder.Configuration);
 }
 
-var dbContextTypes = modules
-    .Select(m => m.DbContextType)
-    .OfType<Type>()
-    .ToArray();
-
 builder.Services.AddHostedService(sp => new MigrationWorker(
     sp,
-    dbContextTypes,
+    modules,
     sp.GetRequiredService<IHostApplicationLifetime>(),
     sp.GetRequiredService<ILogger<MigrationWorker>>()));
 

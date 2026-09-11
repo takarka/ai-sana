@@ -20,11 +20,18 @@ public sealed class CraftAiApiFactory : WebApplicationFactory<Program>
 {
     public CraftAiApiFactory()
     {
-        // Program.cs читает ConnectionStrings:cache через builder.AddRedisDistributedCache
-        // ДО того, как WebApplicationFactory успевает подставить ConfigureAppConfiguration —
-        // переменная окружения читается WebApplication.CreateBuilder синхронно и раньше,
-        // поэтому только так тестовое значение долетает до этой конкретной строки.
+        // Program.cs читает эти значения через builder.AddRedisDistributedCache и
+        // ValidateOnStart(JwtOptions) ДО того, как WebApplicationFactory успевает
+        // подставить ConfigureAppConfiguration — переменные окружения читаются
+        // WebApplication.CreateBuilder синхронно и раньше, поэтому только так тестовые
+        // значения долетают до этих строк. IdentityDbContext в этих тестах не
+        // используется (ни один сценарий не бьёт по БД), поэтому строка подключения —
+        // синтаксически валидная заглушка, а не реальный Postgres.
         Environment.SetEnvironmentVariable("ConnectionStrings__cache", "localhost:6379,abortConnect=false");
+        Environment.SetEnvironmentVariable(
+            "ConnectionStrings__craftai", "Host=localhost;Database=unused;Username=postgres;Password=postgres");
+        Environment.SetEnvironmentVariable(
+            "Jwt__SigningKey", "craftai-api-integrationtests-signing-key-32-plus-chars");
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)

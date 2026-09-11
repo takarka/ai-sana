@@ -1,7 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
-using CraftAi.Api.Http.Idempotency;
-using CraftAi.Api.Http.RequestId;
+using CraftAi.SharedKernel.Http.Idempotency;
+using CraftAi.SharedKernel.Http.RequestId;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;

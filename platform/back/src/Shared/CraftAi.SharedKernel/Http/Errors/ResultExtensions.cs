@@ -1,7 +1,7 @@
-using CraftAi.Api.Http.RequestId;
-using CraftAi.SharedKernel;
+using CraftAi.SharedKernel.Http.RequestId;
+using Microsoft.AspNetCore.Http;
 
-namespace CraftAi.Api.Http.Errors;
+namespace CraftAi.SharedKernel.Http.Errors;
 
 /// <summary>Переводит <see cref="Result"/>/<see cref="Result{T}"/> из обработчика среза в HTTP-ответ.</summary>
 public static class ResultExtensions
