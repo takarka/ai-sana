@@ -56,9 +56,12 @@ app.UseExceptionHandler();
 if (app.Environment.IsDevelopment())
 {
     app.UseCors(DevCorsPolicy);
-    app.MapOpenApi();
-    app.MapScalarApiReference();
 }
+
+// Сервер сейчас всегда играет роль develop-окружения (нет отдельного прод-контура),
+// поэтому OpenAPI/Scalar открыты без привязки к ASPNETCORE_ENVIRONMENT.
+app.MapOpenApi();
+app.MapScalarApiReference();
 
 app.MapDefaultEndpoints();
 
