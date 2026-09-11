@@ -25,19 +25,23 @@ builder.Services.AddOpenApi(options =>
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 builder.Services.AddProblemDetails();
 
-// CORS открыт только для локальной разработки кабинетов (план 01 §4, шаг 5):
-// admin — 4201, learn — 4202. В проде за кабинетом и API стоит общий origin.
-const string DevCorsPolicy = "DevCabinets";
-if (builder.Environment.IsDevelopment())
+// CORS для кабинетов (план 01 §4, шаг 5): admin.craftai.kz — не общий origin
+// с API, как предполагалось изначально, а отдельный поддомен (см. фактический
+// деплой), поэтому политика нужна не только в деве и не по условию
+// IsDevelopment(). Источник списка — конфигурация (Cors:AllowedOrigins), а не
+// константа в коде: домен learn (когда появится) и смена домена продовых
+// кабинетов не требуют пересборки бэкенда. AllowCredentials() обязателен —
+// refresh/logout идут с httpOnly-cookie.
+const string CabinetsCorsPolicy = "Cabinets";
+var corsAllowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
+builder.Services.AddCors(options =>
 {
-    builder.Services.AddCors(options =>
-    {
-        options.AddPolicy(DevCorsPolicy, policy => policy
-            .WithOrigins("http://localhost:4201", "http://localhost:4202")
-            .AllowAnyHeader()
-            .AllowAnyMethod());
-    });
-}
+    options.AddPolicy(CabinetsCorsPolicy, policy => policy
+        .WithOrigins(corsAllowedOrigins)
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials());
+});
 
 // Каждый модуль регистрируется здесь одной строкой.
 IReadOnlyList<IModule> modules =
@@ -53,10 +57,7 @@ var app = builder.Build();
 
 app.UseExceptionHandler();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseCors(DevCorsPolicy);
-}
+app.UseCors(CabinetsCorsPolicy);
 
 // Сервер сейчас всегда играет роль develop-окружения (нет отдельного прод-контура),
 // поэтому OpenAPI/Scalar открыты без привязки к ASPNETCORE_ENVIRONMENT.
