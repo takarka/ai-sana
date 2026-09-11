@@ -12,7 +12,8 @@ namespace CraftAi.Api.IntegrationTests;
 /// <c>/platform/orgs/**</c> (план 08 §2).
 /// </summary>
 [Trait("Category", "RequiresDocker")]
-public sealed class ContentEndpointsTests(PlatformApiFactory factory) : IClassFixture<PlatformApiFactory>
+[Collection("Platform API")]
+public sealed class ContentEndpointsTests(PlatformApiFactory factory)
 {
     [Fact]
     public async Task CreateLesson_СохранённыйУрокСразуОпубликован()

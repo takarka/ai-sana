@@ -5,7 +5,8 @@ using System.Text.Json;
 namespace CraftAi.Api.IntegrationTests;
 
 [Trait("Category", "RequiresDocker")]
-public sealed class IdentityEndpointsTests(PlatformApiFactory factory) : IClassFixture<PlatformApiFactory>
+[Collection("Platform API")]
+public sealed class IdentityEndpointsTests(PlatformApiFactory factory)
 {
     [Fact]
     public async Task Login_СНеправильнымПаролем_Отдаёт401()

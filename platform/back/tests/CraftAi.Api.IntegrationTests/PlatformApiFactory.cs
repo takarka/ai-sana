@@ -121,3 +121,16 @@ public sealed class PlatformApiFactory : WebApplicationFactory<Program>, IAsyncL
         }
     }
 }
+
+/// <summary>
+/// <see cref="ICollectionFixture{T}"/>, а не <see cref="IClassFixture{T}"/> на каждом классе:
+/// последний создаёт отдельный экземпляр <see cref="PlatformApiFactory"/> (и отдельный
+/// Testcontainers-Postgres) на класс, а разные классы xUnit гоняет параллельно — из-за
+/// установки <c>ConnectionStrings__craftai</c> через process-global Environment.SetEnvironmentVariable
+/// в InitializeAsync параллельные фабрики гонялись за одной переменной окружения, и хосты
+/// подключались не к «своему» контейнеру, приводя к дублирующему сиду ролей
+/// ("RoleNameIndex" unique violation). Один общий фикстур на коллекцию — один контейнер,
+/// тесты внутри коллекции выполняются последовательно.
+/// </summary>
+[CollectionDefinition("Platform API")]
+public sealed class PlatformApiCollection : ICollectionFixture<PlatformApiFactory>;

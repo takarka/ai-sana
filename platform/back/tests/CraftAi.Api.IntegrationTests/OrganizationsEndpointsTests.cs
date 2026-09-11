@@ -13,7 +13,8 @@ namespace CraftAi.Api.IntegrationTests;
 /// дублей; чужая организация недоступна под не-платформенной ролью.
 /// </summary>
 [Trait("Category", "RequiresDocker")]
-public sealed class OrganizationsEndpointsTests(PlatformApiFactory factory) : IClassFixture<PlatformApiFactory>
+[Collection("Platform API")]
+public sealed class OrganizationsEndpointsTests(PlatformApiFactory factory)
 {
     [Fact]
     public async Task CreateOrganization_ЗаводитШколуВместеСУчебнымГодом()

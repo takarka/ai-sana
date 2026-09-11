@@ -12,7 +12,8 @@ namespace CraftAi.Api.IntegrationTests;
 /// SearchItems находит по тексту стимула и фильтрует по направлению/уровню/параллели.
 /// </summary>
 [Trait("Category", "RequiresDocker")]
-public sealed class PisaEndpointsTests(PlatformApiFactory factory) : IClassFixture<PlatformApiFactory>
+[Collection("Platform API")]
+public sealed class PisaEndpointsTests(PlatformApiFactory factory)
 {
     [Fact]
     public async Task CreateItem_СоставноеЗадание_СохраняетсяСразуСАвтором()
