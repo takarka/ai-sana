@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кабинет CRAFT AI</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;800&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+  html { font-size: 62.5%; }
+
+  :root {
+    /* токены платформы — libs/shared/ui-tokens/src/tokens/_color.scss */
+    --ink-900:#04060f; --ink-800:#0a0e1c; --ink-700:#131a2e;
+    --ink-line:rgba(214,227,252,.14);
+    --paper:#f4f6fb; --card:#ffffff; --paper-line:#dde3f0;
+    --brand:#0004eb; --brand-lift:#7e8bff; --on-signal:#eaf0ff;
+    --m-matrix:#0047ba; --m-builder:#5b16d0; --m-pisa:#006c59;
+    --on-ink:#d6e3fc; --on-ink-dim:#93a2c4;
+    --on-paper:#0a0e1c; --on-paper-dim:#5b6478;
+    --lvl-high:#1b9e6b; --lvl-mid:#d9902b; --lvl-low:#d0503c;
+    --lvl-high-ink:#2ed573; --lvl-mid-ink:#ffa502; --lvl-low-ink:#ff4757;
+
+    /* активная поверхность страницы */
+    --bg:var(--paper); --fg:var(--on-paper); --fg-dim:var(--on-paper-dim);
+    --line:var(--paper-line); --surface:var(--card); --accent:var(--brand);
+    --wash:rgba(0,4,235,.06);
+
+    --font-display:'Inter Tight', system-ui, sans-serif;
+    --font-body:'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-micro:'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:var(--ink-900); --fg:var(--on-ink); --fg-dim:var(--on-ink-dim);
+      --line:var(--ink-line); --surface:var(--ink-800); --accent:var(--brand-lift);
+      --wash:rgba(126,139,255,.10);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:var(--ink-900); --fg:var(--on-ink); --fg-dim:var(--on-ink-dim);
+    --line:var(--ink-line); --surface:var(--ink-800); --accent:var(--brand-lift);
+    --wash:rgba(126,139,255,.10);
+  }
+
+  [data-module="matrix"] { --accent:var(--m-matrix); }
+  [data-module="builder"] { --accent:var(--m-builder); }
+  [data-module="pisa"] { --accent:var(--m-pisa); }
+
+  body {
+    margin:0; background:var(--bg); color:var(--fg);
+    font-family:var(--font-body); font-size:1.6rem; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:112rem; margin:0 auto; padding-inline:2rem; padding-block:4rem 6rem; }
+  h1,h2,h3 { font-family:var(--font-display); font-weight:800; text-wrap:balance; margin:0; letter-spacing:-.01em; }
+  h1 { font-size:3.6rem; line-height:1.08; }
+  h2 { font-size:2.2rem; line-height:1.2; }
+  h3 { font-size:1.7rem; font-weight:600; }
+  p { margin:0; }
+  .eyebrow {
+    font-family:var(--font-micro); font-size:1.2rem; font-weight:500;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--fg-dim);
+  }
+  .lede { font-size:1.8rem; color:var(--fg-dim); max-width:62ch; }
+  .dim { color:var(--fg-dim); }
+  .mono { font-family:var(--font-micro); }
+  code { font-family:var(--font-micro); font-size:.92em; background:var(--wash); padding:.1em .4em; border-radius:.3rem; }
+
+  header.head { display:flex; flex-direction:column; gap:1.4rem; padding-bottom:3.2rem; border-bottom:1px solid var(--line); }
+  .facts { display:flex; flex-wrap:wrap; gap:.8rem; }
+  .fact {
+    font-family:var(--font-micro); font-size:1.2rem; color:var(--fg-dim);
+    border:1px solid var(--line); border-radius:999px; padding:.4rem 1rem;
+  }
+  .fact b { color:var(--fg); font-weight:500; }
+
+  section { padding-block:4rem; border-bottom:1px solid var(--line); }
+  section:last-of-type { border-bottom:0; }
+  .sec-head { display:flex; flex-direction:column; gap:.6rem; margin-bottom:2.4rem; max-width:70ch; }
+
+  /* ── переключатель контуров ─────────────────────────── */
+  .tabs { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
+  .tab {
+    display:flex; flex-direction:column; gap:.5rem; text-align:left;
+    background:var(--surface); color:var(--fg); cursor:pointer;
+    border:1px solid var(--line); border-left:3px solid var(--line);
+    border-radius:.6rem; padding:1.4rem 1.6rem; font:inherit;
+    transition:border-color .15s, background .15s;
+  }
+  .tab:hover { border-color:var(--accent); }
+  .tab[aria-selected="true"] { border-color:var(--line); border-left-color:var(--accent); background:var(--wash); }
+  .tab .name { font-family:var(--font-micro); font-size:1.3rem; font-weight:600; color:var(--accent); }
+  .tab .roles { font-size:1.5rem; font-weight:600; }
+  .tab .meta { font-size:1.3rem; color:var(--fg-dim); }
+  .tab:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+
+  .panel { display:grid; grid-template-columns:minmax(0,28rem) minmax(0,1fr); gap:2.4rem; margin-top:2.4rem; align-items:start; }
+  .panel-note { font-size:1.4rem; color:var(--fg-dim); margin-bottom:1.6rem; }
+
+  /* маршруты */
+  .routes { display:flex; flex-direction:column; gap:0; }
+  .routes .r {
+    display:grid; grid-template-columns:1fr auto; gap:.4rem 1rem;
+    padding:.9rem 0; border-bottom:1px dashed var(--line);
+  }
+  .routes .r:last-child { border-bottom:0; }
+  .routes .path { font-family:var(--font-micro); font-size:1.3rem; color:var(--fg); word-break:break-word; }
+  .routes .fr { font-family:var(--font-micro); font-size:1.1rem; color:var(--fg-dim); white-space:nowrap; }
+  .routes .what { grid-column:1/-1; font-size:1.35rem; color:var(--fg-dim); }
+
+  /* ── макеты экранов ─────────────────────────────────── */
+  .mock {
+    border-radius:.8rem; overflow:hidden; border:1px solid var(--line);
+    box-shadow:0 1px 2px rgba(4,6,15,.06), 0 12px 32px rgba(4,6,15,.08);
+    font-size:1.3rem;
+  }
+  .mock-paper { background:var(--card); color:var(--on-paper); }
+  .mock-ink { background:var(--ink-900); color:var(--on-ink); }
+  .mock-bar {
+    display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
+    padding:1rem 1.4rem; border-bottom:1px solid var(--paper-line);
+  }
+  .mock-ink .mock-bar { border-bottom-color:var(--ink-line); }
+  .mock-title { font-weight:600; font-size:1.4rem; }
+  .mock-sub { font-family:var(--font-micro); font-size:1.15rem; color:var(--on-paper-dim); }
+  .mock-ink .mock-sub { color:var(--on-ink-dim); }
+  .push { margin-left:auto; }
+  .mock-body { padding:1.6rem; display:flex; flex-direction:column; gap:1.4rem; }
+
+  .steps { display:flex; gap:.4rem; flex-wrap:wrap; }
+  .steps span {
+    font-family:var(--font-micro); font-size:1.1rem; width:2.4rem; height:2.4rem;
+    display:grid; place-items:center; border-radius:.4rem; border:1px solid var(--paper-line); color:var(--on-paper-dim);
+  }
+  .steps .done { background:var(--m-matrix); border-color:var(--m-matrix); color:var(--on-signal); }
+  .steps .now { border-color:var(--m-matrix); color:var(--m-matrix); font-weight:600; box-shadow:inset 0 0 0 1px var(--m-matrix); }
+
+  .sim-slot {
+    border:1px dashed var(--m-matrix); border-radius:.6rem; background:rgba(0,71,186,.05);
+    padding:2.4rem 1.6rem; text-align:center; color:var(--m-matrix);
+    font-family:var(--font-micro); font-size:1.2rem; line-height:1.7;
+  }
+  .theory { color:var(--on-paper-dim); font-size:1.35rem; max-width:58ch; }
+  .row { display:flex; gap:.8rem; align-items:center; flex-wrap:wrap; }
+  .btn {
+    font:inherit; font-size:1.3rem; font-weight:600; border-radius:.5rem;
+    padding:.8rem 1.6rem; border:1px solid var(--m-matrix); background:var(--m-matrix); color:var(--on-signal);
+  }
+  .btn.ghost { background:transparent; color:var(--m-matrix); }
+  .offline {
+    display:flex; gap:.8rem; align-items:center; font-family:var(--font-micro); font-size:1.15rem;
+    background:rgba(217,144,43,.12); color:#8a5a10; border:1px solid rgba(217,144,43,.4);
+    border-radius:.5rem; padding:.7rem 1rem;
+  }
+
+  /* дашборд учителя */
+  .filters { display:flex; gap:.5rem; flex-wrap:wrap; }
+  .filters span {
+    font-family:var(--font-micro); font-size:1.1rem; padding:.35rem .8rem;
+    border:1px solid var(--ink-line); border-radius:999px; color:var(--on-ink-dim);
+  }
+  .filters .on { border-color:var(--lvl-low-ink); color:var(--lvl-low-ink); }
+  .dash { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,20rem); gap:1.6rem; }
+  .class-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(6.4rem,1fr)); gap:.6rem; }
+  .pupil {
+    border:1px solid var(--ink-line); border-radius:.5rem; padding:.6rem .5rem;
+    display:flex; flex-direction:column; gap:.2rem; background:var(--ink-800);
+    font-family:var(--font-micro); font-size:1.05rem;
+  }
+  .pupil .who { color:var(--on-ink); }
+  .pupil .st { display:flex; align-items:center; gap:.3rem; }
+  .pupil.green .st { color:var(--lvl-high-ink); }
+  .pupil.yellow .st { color:var(--lvl-mid-ink); }
+  .pupil.red .st { color:var(--lvl-low-ink); border-left:0; }
+  .pupil.red { border-color:var(--lvl-low-ink); }
+  .help { display:flex; flex-direction:column; gap:.8rem; }
+  .help h4 { margin:0; font-family:var(--font-micro); font-size:1.1rem; letter-spacing:.08em; text-transform:uppercase; color:var(--on-ink-dim); font-weight:500; }
+  .help-card { border:1px solid var(--lvl-low-ink); border-radius:.5rem; padding:.9rem; background:rgba(255,71,87,.08); }
+  .help-card b { display:block; font-size:1.3rem; }
+  .help-card .why { font-size:1.2rem; color:var(--on-ink-dim); }
+  .help-card button { margin-top:.6rem; font:inherit; font-size:1.15rem; padding:.5rem .9rem; border-radius:.4rem; border:1px solid var(--on-ink-dim); background:transparent; color:var(--on-ink); width:100%; }
+  .heat { display:flex; gap:.4rem; align-items:flex-end; }
+  .heat div { flex:1; text-align:center; font-family:var(--font-micro); font-size:1.05rem; color:var(--on-ink-dim); }
+  .heat .bar { display:block; border-radius:.3rem .3rem 0 0; margin-bottom:.4rem; background:var(--lvl-high-ink); }
+
+  /* manage */
+  table { width:100%; border-collapse:collapse; font-size:1.3rem; }
+  th, td { text-align:left; padding:.7rem .8rem; border-bottom:1px solid var(--paper-line); }
+  th { font-family:var(--font-micro); font-size:1.1rem; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--on-paper-dim); }
+  td.num { font-variant-numeric:tabular-nums; text-align:right; }
+  .meter { display:flex; align-items:center; gap:.6rem; }
+  .meter .track { flex:1; height:.6rem; border-radius:999px; background:var(--paper-line); overflow:hidden; min-width:6rem; }
+  .meter .fill { display:block; height:100%; background:var(--m-pisa); }
+  .badge {
+    display:inline-flex; align-items:center; gap:.35rem; font-family:var(--font-micro);
+    font-size:1.1rem; padding:.2rem .6rem; border-radius:.4rem; border:1px solid currentColor;
+  }
+  .badge.high { color:var(--lvl-high); } .badge.mid { color:var(--lvl-mid); } .badge.low { color:var(--lvl-low); }
+  .table-scroll { overflow-x:auto; }
+
+  /* ── карточки инженерии ─────────────────────────────── */
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(28rem,1fr)); gap:1.6rem; }
+  .card { border:1px solid var(--line); border-radius:.6rem; padding:1.8rem; display:flex; flex-direction:column; gap:.9rem; background:var(--surface); }
+  .card h3 { font-family:var(--font-display); }
+  .card p { font-size:1.45rem; color:var(--fg-dim); }
+  .card ul { margin:0; padding-left:1.8rem; font-size:1.4rem; color:var(--fg-dim); display:flex; flex-direction:column; gap:.4rem; }
+
+  .tree {
+    font-family:var(--font-micro); font-size:1.3rem; line-height:1.9;
+    background:var(--surface); border:1px solid var(--line); border-radius:.6rem;
+    padding:1.8rem; overflow-x:auto; white-space:pre;
+  }
+  .tree b { color:var(--accent); font-weight:500; }
+  .tree i { color:var(--fg-dim); font-style:normal; }
+
+  /* этапы */
+  .stages { display:grid; grid-template-columns:repeat(auto-fit,minmax(24rem,1fr)); gap:1.6rem; }
+  .stage { border-top:3px solid var(--accent); padding-top:1.2rem; display:flex; flex-direction:column; gap:.6rem; }
+  .stage .when { font-family:var(--font-micro); font-size:1.15rem; color:var(--fg-dim); letter-spacing:.06em; text-transform:uppercase; }
+  .stage ol { margin:0; padding-left:2rem; font-size:1.4rem; display:flex; flex-direction:column; gap:.3rem; }
+
+  footer { padding-top:3rem; font-size:1.35rem; color:var(--fg-dim); display:flex; flex-direction:column; gap:.6rem; }
+  footer a { color:var(--accent); }
+
+  @media (max-width:860px) {
+    .panel { grid-template-columns:1fr; }
+    .dash { grid-template-columns:1fr; }
+    .tabs { grid-template-columns:1fr; }
+    h1 { font-size:2.8rem; }
+  }
+  @media (prefers-reduced-motion:reduce) { * { transition:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="head">
+    <p class="eyebrow">apps/craft-web · план 05 · этап 1 ТЗ</p>
+    <h1>Кабинет CRAFT AI</h1>
+    <p class="lede">Одно Angular-приложение за авторизацией, в котором работают все роли школы. Разделено не на приложения, а на три контура: ученик учится, учитель ведёт урок, администрация смотрит цифры.</p>
+    <div class="facts">
+      <span class="fact"><b>Angular 20</b> + Nx</span>
+      <span class="fact"><b>1</b> SPA · <b>3</b> контура · <b>10</b> ролей</span>
+      <span class="fact">SSR <b>выключен</b></span>
+      <span class="fact">бандл ≤ <b>300 КБ</b> gzip</span>
+      <span class="fact">дашборд ≤ <b>5 с</b> задержки</span>
+      <span class="fact">RU / KZ <b>в рантайме</b></span>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">§2–3 плана</p>
+      <h2>Три контура</h2>
+      <p class="dim">Контур — это layout, меню и плотность, а не отдельная сборка. Учитель бывает классным руководителем и методистом одновременно, поэтому контекст «роль × школа × класс» переключается без перелогина.</p>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Контуры кабинета">
+      <button class="tab" role="tab" id="tab-learn" aria-controls="p-learn" aria-selected="true" data-module="matrix">
+        <span class="name">learn</span>
+        <span class="roles">Ученик</span>
+        <span class="meta">плотность junior / comfortable · светлая бумага · один шаг на весь экран</span>
+      </button>
+      <button class="tab" role="tab" id="tab-teach" aria-controls="p-teach" aria-selected="false" data-module="matrix">
+        <span class="name">teach</span>
+        <span class="roles">Учитель, классный руководитель</span>
+        <span class="meta">плотность compact · дашборд урока на тёмной сцене</span>
+      </button>
+      <button class="tab" role="tab" id="tab-manage" aria-controls="p-manage" aria-selected="false" data-module="pisa">
+        <span class="name">manage</span>
+        <span class="roles">Завуч, админ школы, методист, УоО</span>
+        <span class="meta">плотность compact · таблицы, отчёты, выгрузки</span>
+      </button>
+    </div>
+
+    <!-- LEARN -->
+    <div class="panel" id="p-learn" role="tabpanel" aria-labelledby="tab-learn" data-module="matrix">
+      <div>
+        <p class="panel-note">Ученик идёт по теме в своём темпе. Прогресс автосохраняется не реже 10 секунд, при обрыве связи ответы уходят в очередь и досылаются сами.</p>
+        <div class="routes">
+          <div class="r"><span class="path">/learn</span><span class="fr">FR-MTX-01</span><span class="what">Сегодня: активная сессия урока, следующая тема по КТП</span></div>
+          <div class="r"><span class="path">/learn/courses/:id</span><span class="fr">FR-CNT-08</span><span class="what">Карта курса, замки предусловий</span></div>
+          <div class="r"><span class="path">/learn/lessons/:id/steps/:stepId</span><span class="fr">FR-MTX-02</span><span class="what">Плеер урока — семь типов шага</span></div>
+          <div class="r"><span class="path">/learn/pisa/runs/:runId</span><span class="fr">FR-PSA-12</span><span class="what">Срез: таймер, блоки, автосдача</span></div>
+          <div class="r"><span class="path">/learn/builder/sandbox/:id</span><span class="fr">FR-BLD-05</span><span class="what">Песочница на отдельном origin, без сети</span></div>
+          <div class="r"><span class="path">/learn/portfolio</span><span class="fr">FR-BLD-07</span><span class="what">Артефакты и история итераций</span></div>
+        </div>
+      </div>
+
+      <div class="mock mock-paper">
+        <div class="mock-bar">
+          <span class="mock-title">Как учится нейросеть</span>
+          <span class="mock-sub">MATRIX · 7 «А» · тема 12</span>
+          <span class="mock-sub push">Сохранено 12:04</span>
+        </div>
+        <div class="mock-body">
+          <div class="steps" aria-label="Шаги темы">
+            <span class="done">1</span><span class="done">2</span><span class="done">3</span>
+            <span class="now">4</span><span>5</span><span>6</span>
+          </div>
+          <div>
+            <h3 style="font-family:var(--font-display);font-size:1.6rem;">Шаг 4. Симулятор: обучающая выборка</h3>
+            <p class="theory">Разложите 20 изображений по двум корзинам и посмотрите, как меняется точность модели. Если в выборке останется перекос, модель начнёт ошибаться — это и нужно поймать.</p>
+          </div>
+          <div class="sim-slot">&lt;iframe&gt; simulator · sandbox origin<br>init → ready → attempt → verdict</div>
+          <div class="row">
+            <button class="btn" type="button">Проверить</button>
+            <button class="btn ghost" type="button">Подсказка · 1 из 3</button>
+            <span class="mock-sub push">Шаг 4 из 6 · 08:12</span>
+          </div>
+          <div class="offline">Нет связи — работа сохранена, отправим сами <span class="push">outbox: 2</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEACH -->
+    <div class="panel" id="p-teach" role="tabpanel" aria-labelledby="tab-teach" data-module="matrix" hidden>
+      <div>
+        <p class="panel-note">Главный экран урока. Статус считает сервер: три ошибки подряд или простой — ученик уходит в <span class="mono">red</span>, и учитель видит это не позже чем через 5 секунд. Статус всегда с текстом и значком, не только цветом.</p>
+        <div class="routes">
+          <div class="r"><span class="path">/teach</span><span class="fr">FR-MTX-10</span><span class="what">Расписание, кнопка «Начать урок», незакрытые проверки</span></div>
+          <div class="r"><span class="path">/teach/sessions/:id</span><span class="fr">FR-MTX-11…18</span><span class="what">Дашборд урока в реальном времени (WebSocket)</span></div>
+          <div class="r"><span class="path">/teach/sessions/:id/projection</span><span class="fr">FR-MTX-19</span><span class="what">Проекционный режим — без ФИО, для доски</span></div>
+          <div class="r"><span class="path">/teach/classes/:id/journal</span><span class="fr">FR-ASM-04</span><span class="what">Журнал F/P, корректировка с причиной, XLSX</span></div>
+          <div class="r"><span class="path">/teach/lessons/:id/method-card</span><span class="fr">FR-MTX-21</span><span class="what">Методическая карта и печать A4</span></div>
+          <div class="r"><span class="path">/teach/review</span><span class="fr">FR-BLD-09</span><span class="what">Очередь проверки: открытые ответы, проекты по рубрикам</span></div>
+        </div>
+      </div>
+
+      <div class="mock mock-ink">
+        <div class="mock-bar">
+          <span class="mock-title">7 «А» · тема 12</span>
+          <span class="mock-sub">идёт 18:24 · 28 из 30 на уроке</span>
+          <span class="filters push"><span>все</span><span>green 19</span><span>yellow 6</span><span class="on">red 3</span></span>
+        </div>
+        <div class="mock-body">
+          <div class="dash">
+            <div>
+              <div class="class-grid">
+                <div class="pupil green"><span class="who">Аскар Б.</span><span class="st">✓ шаг 5</span></div>
+                <div class="pupil green"><span class="who">Дана К.</span><span class="st">✓ шаг 5</span></div>
+                <div class="pupil yellow"><span class="who">Ерлан Т.</span><span class="st">! шаг 3</span></div>
+                <div class="pupil green"><span class="who">Мадина С.</span><span class="st">✓ шаг 6</span></div>
+                <div class="pupil red"><span class="who">Аружан К.</span><span class="st">× шаг 4</span></div>
+                <div class="pupil green"><span class="who">Тимур Ж.</span><span class="st">✓ шаг 4</span></div>
+                <div class="pupil yellow"><span class="who">Алия Н.</span><span class="st">! шаг 4</span></div>
+                <div class="pupil green"><span class="who">Санжар О.</span><span class="st">✓ шаг 5</span></div>
+                <div class="pupil red"><span class="who">Жанель А.</span><span class="st">× шаг 4</span></div>
+                <div class="pupil green"><span class="who">Ильяс М.</span><span class="st">✓ шаг 6</span></div>
+                <div class="pupil green"><span class="who">Камила Р.</span><span class="st">✓ шаг 5</span></div>
+                <div class="pupil yellow"><span class="who">Нурлан Д.</span><span class="st">! шаг 2</span></div>
+                <div class="pupil green"><span class="who">Айгерим Б.</span><span class="st">✓ шаг 5</span></div>
+                <div class="pupil red"><span class="who">Данияр Е.</span><span class="st">× шаг 4</span></div>
+                <div class="pupil green"><span class="who">Асель К.</span><span class="st">✓ шаг 4</span></div>
+                <div class="pupil green"><span class="who">Бекзат У.</span><span class="st">✓ шаг 5</span></div>
+              </div>
+              <div class="heat" style="margin-top:1.4rem;" aria-label="Тепловая карта шагов">
+                <div><span class="bar" style="height:.8rem;"></span>1</div>
+                <div><span class="bar" style="height:1.2rem;"></span>2</div>
+                <div><span class="bar" style="height:2rem;background:var(--lvl-mid-ink);"></span>3</div>
+                <div><span class="bar" style="height:4.4rem;background:var(--lvl-low-ink);"></span>4</div>
+                <div><span class="bar" style="height:1.4rem;"></span>5</div>
+                <div><span class="bar" style="height:.8rem;"></span>6</div>
+              </div>
+              <p class="mock-sub" style="margin-top:.6rem;">На шаге 4 застряли 9 из 28 — симулятор выборки, а не теория.</p>
+            </div>
+
+            <div class="help">
+              <h4>Нужна помощь сейчас</h4>
+              <div class="help-card">
+                <b>Аружан К.</b>
+                <span class="why">3 ошибки подряд на шаге 4 · 2 мин в red</span>
+                <button type="button">Помощь оказана</button>
+              </div>
+              <div class="help-card">
+                <b>Данияр Е.</b>
+                <span class="why">нет активности 4 мин · шаг 4</span>
+                <button type="button">Помощь оказана</button>
+              </div>
+              <p class="mock-sub">Обновление по WebSocket, при обрыве — SSE.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MANAGE -->
+    <div class="panel" id="p-manage" role="tabpanel" aria-labelledby="tab-manage" data-module="pisa" hidden>
+      <div>
+        <p class="panel-note">Администрация работает с агрегатами. Во внешних обезличенных отчётах выборки меньше 5 учеников не показываются вовсе — это требование, а не настройка.</p>
+        <div class="routes">
+          <div class="r"><span class="path">/manage</span><span class="fr">FR-ANL-03</span><span class="what">Покрытие программы, зоны риска, динамика</span></div>
+          <div class="r"><span class="path">/manage/pisa</span><span class="fr">FR-PSA-20…25</span><span class="what">Готовность к PISA-2029, тепловая карта рисков</span></div>
+          <div class="r"><span class="path">/manage/import</span><span class="fr">FR-CORE-08</span><span class="what">Импорт XLSX/CSV с ошибками построчно</span></div>
+          <div class="r"><span class="path">/manage/consents</span><span class="fr">FR-CORE-10</span><span class="what">Согласия: факт, дата, версия текста, отзыв</span></div>
+          <div class="r"><span class="path">/manage/ai-usage</span><span class="fr">FR-AI-11</span><span class="what">Расход токенов по школе и модулю</span></div>
+          <div class="r"><span class="path">/manage/audit</span><span class="fr">FR-CORE-11</span><span class="what">Неизменяемый журнал аудита, 3 года</span></div>
+          <div class="r"><span class="path">/studio/**, /district/**</span><span class="fr">этап 2+</span><span class="what">Авторская студия и дашборд УоО — маршруты зарезервированы</span></div>
+        </div>
+      </div>
+
+      <div class="mock mock-paper">
+        <div class="mock-bar">
+          <span class="mock-title">Готовность к PISA-2029</span>
+          <span class="mock-sub">СШ №27 · входной срез vs декабрьский</span>
+          <span class="mock-sub push">PDF · XLSX</span>
+        </div>
+        <div class="mock-body">
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr><th>Параллель</th><th>Читательская</th><th>Математическая</th><th>Медиа и ИИ</th><th>Прирост</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>7 классы · 84 уч.</td>
+                  <td><span class="meter"><span class="track"><span class="fill" style="width:62%"></span></span><span class="num">2.4</span></span></td>
+                  <td><span class="meter"><span class="track"><span class="fill" style="width:48%"></span></span><span class="num">2.0</span></span></td>
+                  <td><span class="badge low">× уровень 1</span></td>
+                  <td class="num">+11 %</td>
+                </tr>
+                <tr>
+                  <td>8 классы · 79 уч.</td>
+                  <td><span class="meter"><span class="track"><span class="fill" style="width:71%"></span></span><span class="num">2.8</span></span></td>
+                  <td><span class="meter"><span class="track"><span class="fill" style="width:55%"></span></span><span class="num">2.2</span></span></td>
+                  <td><span class="badge mid">! уровень 2</span></td>
+                  <td class="num">+18 %</td>
+                </tr>
+                <tr>
+                  <td>9 классы · 91 уч.</td>
+                  <td><span class="meter"><span class="track"><span class="fill" style="width:78%"></span></span><span class="num">3.1</span></span></td>
+                  <td><span class="meter"><span class="track"><span class="fill" style="width:69%"></span></span><span class="num">2.7</span></span></td>
+                  <td><span class="badge high">✓ уровень 3</span></td>
+                  <td class="num">+22 %</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="offline" style="background:rgba(0,108,89,.08);color:var(--m-pisa);border-color:rgba(0,108,89,.35);">
+            Рекомендация алгоритма: усилить блок естественно-научных гипотез в 8–9 классах
+          </div>
+          <p class="mock-sub">Задания — собственной разработки по открытым рамкам OECD; платформа не аффилирована с OECD.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">§6–7, §11, §13 плана</p>
+      <h2>Что держит это изнутри</h2>
+      <p class="dim">Четыре решения, из-за которых кабинет устроен именно так, а не «как обычный SPA».</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3>Школьный интернет — норма, а не сбой</h3>
+        <p>Ответы ученика пишутся в очередь в IndexedDB и уходят на сервер с <code>Idempotency-Key</code>: повторная отправка даёт тот же результат, а не второй дубль попытки.</p>
+        <ul>
+          <li>Автосохранение не реже 10 секунд</li>
+          <li>Порядок внутри шага строгий</li>
+          <li>Выход с непустой очередью — предупреждение</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Язык переключается без перезагрузки</h3>
+        <p>Лендинг собирается отдельной сборкой на локаль. В кабинете так нельзя: перезагрузка посреди урока теряет незавершённый шаг. Словари грузятся в рантайме, язык интерфейса и язык контента — два независимых поля.</p>
+        <ul>
+          <li>ADR-0004, требования NFR-I18N-03, FR-CORE-07</li>
+          <li>Словарь фичи едет со своим lazy-чанком</li>
+          <li>Непереведённый ключ KZ ломает сборку в CI</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Клиент ничего не решает про доступ</h3>
+        <p>Guard'ы делают навигацию понятной, но область видимости проверяет только сервер. Ученик без зафиксированного согласия законного представителя не получает учебный контент вовсе.</p>
+        <ul>
+          <li><code>roleGuard</code> — это UX, не защита</li>
+          <li><code>examGuard</code> блокирует уход со среза</li>
+          <li>Статус и оценку считает сервер, не клиент</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Бюджет вместо благих намерений</h3>
+        <p>Начальный бандл ≤ 300 КБ gzip, урок интерактивен за 3 секунды на школьном ПК. Отсюда — свои SVG-графики вместо библиотеки на 200 КБ и отказ тащить в кабинет three.js с лендинга.</p>
+        <ul>
+          <li>Lazy-чанк экрана ≤ 120 КБ gzip</li>
+          <li>Трафик урока ≤ 20 МБ без видео</li>
+          <li>Шрифты — self-hosted подмножества</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">§5 плана</p>
+      <h2>Где это лежит в монорепозитории</h2>
+      <p class="dim">Фичи делятся по продуктам, а не по ролям: дашборд урока — это MATRIX, хотя им пользуется учитель. Контур в коде — только layout и меню.</p>
+    </div>
+    <div class="tree">platform/front/
+├── apps/
+│   ├── <b>craft-web</b>            <i># кабинет: bootstrap, роуты верхнего уровня</i>
+│   └── landing              <i># публичный сайт, SSR, @angular/localize</i>
+└── libs/
+    ├── shared/
+    │   ├── ui, ui-tokens    <i>type:ui        — компоненты и токены бренда</i>
+    │   ├── i18n             <i>type:util      — рантайм-словари RU/KZ</i>
+    │   ├── api-client       <i>data-access    — ГЕНЕРИРУЕТСЯ из OpenAPI</i>
+    │   ├── data-access      <i>data-access    — интерцепторы, outbox, realtime</i>
+    │   ├── feature-auth     <i>feature        — вход, 2FA, код класса</i>
+    │   └── feature-shell    <i>feature        — три layout'а, выбор контекста</i>
+    ├── simulators/          <i>runtime + host-api: iframe и postMessage</i>
+    ├── <b>matrix</b>/              <i>scope:matrix   — урок, дашборд, методкарты</i>
+    ├── <b>pisa</b>/                <i>scope:pisa     — тренажёры, срез, готовность</i>
+    ├── <b>builder</b>/             <i>scope:builder  — промпты, песочница, портфолио</i>
+    ├── assessment/          <i>scope:assessment — журнал, рубрики, проверка</i>
+    ├── org/, analytics/     <i>школа, импорт, согласия, аудит, отчёты</i>
+    └── studio/              <i>scope:studio   — авторская студия, этап 2+</i></div>
+    <p class="dim" style="margin-top:1.4rem;font-size:1.4rem;">Границы стережёт <code>@nx/enforce-module-boundaries</code>: <code>matrix/*</code> не видит <code>builder/*</code>, а сгенерированный <code>api-client</code> нельзя импортировать мимо слоя <code>data-access</code> — иначе смена контракта API станет правкой сотни файлов.</p>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="eyebrow">§16 плана</p>
+      <h2>Порядок сборки</h2>
+      <p class="dim">Каждый шаг заканчивается работающим экраном, а не слоем. Шаги 1–3 не ждут backend: работают на сгенерированном клиенте с моками.</p>
+    </div>
+    <div class="stages">
+      <div class="stage" data-module="matrix">
+        <span class="when">Этап 1 · MVP MATRIX</span>
+        <ol>
+          <li>Каркас: три layout'а, контекст, тема, язык</li>
+          <li>Вход: логин, 2FA, код класса для 1–4</li>
+          <li>Каталог курса и предусловия</li>
+          <li><b>Плеер урока</b> с очередью и подсказками</li>
+          <li>Обёртка симулятора + первые 5 симуляторов</li>
+          <li><b>Сессия урока и дашборд учителя</b></li>
+          <li>Журнал F/P и покрытие ЦО</li>
+        </ol>
+      </div>
+      <div class="stage" data-module="pisa">
+        <span class="when">Этап 2 · CRAFT PISA</span>
+        <ol start="8">
+          <li>Тренажёры и срез с таймером</li>
+          <li>Готовность, карта рисков, отчёты PDF/XLSX</li>
+        </ol>
+      </div>
+      <div class="stage" data-module="builder">
+        <span class="when">Этап 3–4 · BUILDER и масштаб</span>
+        <ol start="10">
+          <li>Тренажёр промптов, песочница, портфолио</li>
+          <li>Импорт, согласия, аудит, лицензии, токены</li>
+          <li>Авторская студия и дашборд УоО</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Источник: <span class="mono">docs/plan/05-kabinet-craft-web.md</span> · <span class="mono">docs/adr/0004-runtime-i18n-kabineta.md</span> · ТЗ <span class="mono">docs/tz/</span></p>
+    <p>Макеты экранов — схемы компоновки в реальных токенах <span class="mono">libs/shared/ui-tokens</span>, не финальный дизайн: макеты ключевых экранов делает дизайнер на этапе 0.</p>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+    function select(tab) {
+      tabs.forEach(function (t) {
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        panel.hidden = !on;
+      });
+    }
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { select(tab); });
+      tab.addEventListener('keydown', function (e) {
+        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        var next = tabs[(i + d + tabs.length) % tabs.length];
+        next.focus();
+        select(next);
+      });
+    });
+  })();
+</script>
+</body>
+</html>
