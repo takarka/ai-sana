@@ -20,6 +20,9 @@ backend и продуктовое деление фронтенда.
 [04-landing-migration.md](04-landing-migration.md) — публичный сайт
 `apps/landing`, с которым кабинет делит воркспейс и токены, но не подход к
 переводу (см. §11 и [ADR-0004](../adr/0004-runtime-i18n-kabineta.md)).
+[06-matrix-mvp0-kontent-i-zadania.md](06-matrix-mvp0-kontent-i-zadania.md) —
+первый рабочий срез MATRIX (v0): уточняет часть маршрутов контуров `learn` и
+`teach` из §3.2–3.3 ниже.
 
 **Схема в HTML.** [05-kabinet-craft-web.html](05-kabinet-craft-web.html) — та же
 структура наглядно: три контура с переключением, карта маршрутов, макеты
