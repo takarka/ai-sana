@@ -1,4 +1,6 @@
 export * from './lib/api/auth.api';
+export * from './lib/api/authors.api';
+export * from './lib/api/authors.model';
 export * from './lib/api/organizations.api';
 export * from './lib/api/organizations.model';
 export * from './lib/guards/auth.guard';

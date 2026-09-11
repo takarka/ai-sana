@@ -1,0 +1,25 @@
+<craft-modal
+  [modalTitle]="'authors.createDialog.title' | translate"
+  [description]="'authors.createDialog.description' | translate"
+  (closed)="close()"
+>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="app-create-author-form">
+    <craft-input
+      [label]="'authors.createDialog.fullNameLabel' | translate"
+      [placeholder]="'authors.createDialog.fullNamePlaceholder' | translate"
+      formControlName="fullName"
+      [error]="form.controls.fullName.touched && form.controls.fullName.invalid ? ('authors.createDialog.fullNameRequired' | translate) : null"
+    ></craft-input>
+
+    @if (errorKey(); as key) {
+      <p class="app-create-author-form__error" role="alert">{{ key | translate }}</p>
+    }
+  </form>
+
+  <div craftModalFooter>
+    <craft-button variant="ghost" type="button" (click)="close()">{{ 'common.cancel' | translate }}</craft-button>
+    <craft-button variant="primary" type="button" [disabled]="submitting()" (click)="submit()">
+      {{ 'authors.createDialog.submit' | translate }}
+    </craft-button>
+  </div>
+</craft-modal>

@@ -1,18 +1,21 @@
 import { Dialog, DialogModule, DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { TranslatePipe } from '@front/core';
-import { CraftButton, CraftModal } from '@front/ui';
+import { CraftButton } from '../button/button';
+import { CraftModal } from '../modal/modal';
 
 export interface CredentialsRevealDialogData {
   readonly login: string;
   readonly password: string;
 }
 
-// Логин и сгенерированный пароль показываются один раз (CreateUserAccountResponse —
-// платформа хранит только хеш, план 09 §3.3). Дальше их не восстановить, поэтому
-// диалог не закрывается кликом мимо — только явным «Готово».
+// Логин и сгенерированный пароль показываются один раз (платформа хранит
+// только хеш, план 09 §3.3) — общий для учётных записей школ (organizations)
+// и методистов платформы (authors), поэтому живёт в shared/ui, а не в одной
+// фиче (platform/front/CLAUDE.md). Дальше их не восстановить, поэтому диалог
+// не закрывается кликом мимо — только явным «Готово».
 @Component({
-  selector: 'app-credentials-reveal-dialog',
+  selector: 'craft-credentials-reveal-dialog',
   imports: [DialogModule, CraftModal, CraftButton, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './credentials-reveal.dialog.html',

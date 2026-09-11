@@ -19,7 +19,8 @@
       "@front/core": ["libs/core/src/index.ts"],
       "@front/features/auth": ["libs/features/auth/src/index.ts"],
       "@front/features/shell": ["libs/features/shell/src/index.ts"],
-      "@front/features/organizations": ["libs/features/organizations/src/index.ts"]
+      "@front/features/organizations": ["libs/features/organizations/src/index.ts"],
+      "@front/features/authors": ["libs/features/authors/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

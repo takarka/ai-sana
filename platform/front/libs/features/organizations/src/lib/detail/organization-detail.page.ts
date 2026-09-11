@@ -9,10 +9,9 @@ import {
   TranslatePipe,
   UserAccountSummary,
 } from '@front/core';
-import { CraftButton, CraftEmptyState } from '@front/ui';
+import { CraftButton, CraftEmptyState, openCredentialsRevealDialog } from '@front/ui';
 import { openCreateClassGroupDialog } from '../dialogs/create-class-group/create-class-group.dialog';
 import { openCreateUserAccountDialog } from '../dialogs/create-user-account/create-user-account.dialog';
-import { openCredentialsRevealDialog } from '../dialogs/credentials-reveal/credentials-reveal.dialog';
 
 type RoleFilter = 'all' | 'teacher' | 'student';
 
