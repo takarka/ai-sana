@@ -1,0 +1,46 @@
+<div class="app-orgs-list__head">
+  <div>
+    <h1 class="app-orgs-list__title">{{ 'orgs.list.title' | translate }}</h1>
+    <p class="app-orgs-list__subtitle">{{ 'orgs.list.subtitleCount' | translate: { count: response().totalCount } }}</p>
+  </div>
+  <craft-button variant="primary" (click)="createOrganization()">
+    {{ 'orgs.list.create' | translate }}
+  </craft-button>
+</div>
+
+<div class="app-orgs-list__search">
+  <craft-input
+    [placeholder]="'orgs.list.searchPlaceholder' | translate"
+    iconPath="M17.5 11A6.5 6.5 0 1 1 4.5 11A6.5 6.5 0 1 1 17.5 11ZM20 20L15.7 15.7"
+    (input)="onSearchInput($any($event.target).value)"
+  ></craft-input>
+</div>
+
+<div class="app-orgs-list__table-wrap">
+  @if (response().items.length > 0) {
+    <table class="app-orgs-list__table">
+      <thead>
+        <tr>
+          <th>{{ 'orgs.list.column.name' | translate }}</th>
+          <th>{{ 'orgs.list.column.region' | translate }}</th>
+          <th>{{ 'orgs.list.column.created' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (org of response().items; track org.id) {
+          <tr (click)="openOrganization(org.id)">
+            <td class="app-orgs-list__name">{{ org.name }}</td>
+            <td class="app-orgs-list__dim">{{ org.region || '—' }}</td>
+            <td class="app-orgs-list__dim">{{ org.createdAtUtc | date: 'dd.MM.yyyy' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="app-orgs-list__pagination">
+      <craft-pagination [page]="page()" [pageSize]="pageSize" [totalCount]="response().totalCount" (pageChange)="onPageChange($event)"></craft-pagination>
+    </div>
+  } @else if (!loading()) {
+    <craft-empty-state [message]="'orgs.list.empty' | translate"></craft-empty-state>
+  }
+</div>

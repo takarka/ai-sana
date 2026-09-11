@@ -1,0 +1,19 @@
+<button type="button" class="craft-modal__close" aria-label="Закрыть" (click)="closed.emit()">
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+    <path d="M6 6l12 12M18 6L6 18" />
+  </svg>
+</button>
+
+<h3 class="craft-modal__title" id="craft-modal-title">{{ modalTitle() }}</h3>
+
+@if (description(); as text) {
+  <p class="craft-modal__description">{{ text }}</p>
+}
+
+<div class="craft-modal__body">
+  <ng-content></ng-content>
+</div>
+
+<div class="craft-modal__footer">
+  <ng-content select="[craftModalFooter]"></ng-content>
+</div>

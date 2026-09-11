@@ -1,0 +1,29 @@
+<craft-modal [modalTitle]="'orgs.createClassDialog.title' | translate" (closed)="close()">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="app-create-class-form">
+    <div class="app-field">
+      <span class="app-field__label">{{ 'orgs.createClassDialog.gradeLabel' | translate }}</span>
+      <select class="app-native-select" formControlName="grade">
+        @for (grade of grades; track grade) {
+          <option [value]="grade">{{ grade }}</option>
+        }
+      </select>
+    </div>
+
+    <craft-input
+      [label]="'orgs.createClassDialog.letterLabel' | translate"
+      [placeholder]="'orgs.createClassDialog.letterPlaceholder' | translate"
+      formControlName="letter"
+    ></craft-input>
+
+    @if (errorKey(); as key) {
+      <p class="app-create-class-form__error" role="alert">{{ key | translate }}</p>
+    }
+  </form>
+
+  <div craftModalFooter>
+    <craft-button variant="ghost" type="button" (click)="close()">{{ 'common.cancel' | translate }}</craft-button>
+    <craft-button variant="primary" type="button" [disabled]="submitting()" (click)="submit()">
+      {{ 'orgs.createClassDialog.submit' | translate }}
+    </craft-button>
+  </div>
+</craft-modal>

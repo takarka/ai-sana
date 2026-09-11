@@ -1,0 +1,40 @@
+<craft-modal [modalTitle]="'orgs.createUserDialog.title' | translate" (closed)="close()">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="app-create-user-form">
+    <craft-input
+      [label]="'orgs.createUserDialog.fullNameLabel' | translate"
+      [placeholder]="'orgs.createUserDialog.fullNamePlaceholder' | translate"
+      formControlName="fullName"
+    ></craft-input>
+
+    <div class="app-field">
+      <span class="app-field__label">{{ 'orgs.createUserDialog.roleLabel' | translate }}</span>
+      <select class="app-native-select" formControlName="role">
+        <option value="teacher">{{ 'orgs.createUserDialog.roleTeacher' | translate }}</option>
+        <option value="student">{{ 'orgs.createUserDialog.roleStudent' | translate }}</option>
+      </select>
+    </div>
+
+    @if (isStudent()) {
+      <div class="app-field">
+        <span class="app-field__label">{{ 'orgs.createUserDialog.classLabel' | translate }}</span>
+        <select class="app-native-select" formControlName="classGroupId">
+          <option value="" disabled>—</option>
+          @for (classGroup of data.classGroups; track classGroup.id) {
+            <option [value]="classGroup.id">{{ classGroup.grade }}{{ classGroup.letter }}</option>
+          }
+        </select>
+      </div>
+    }
+
+    @if (errorKey(); as key) {
+      <p class="app-create-user-form__error" role="alert">{{ key | translate }}</p>
+    }
+  </form>
+
+  <div craftModalFooter>
+    <craft-button variant="ghost" type="button" (click)="close()">{{ 'common.cancel' | translate }}</craft-button>
+    <craft-button variant="primary" type="button" [disabled]="submitting()" (click)="submit()">
+      {{ 'orgs.createUserDialog.submit' | translate }}
+    </craft-button>
+  </div>
+</craft-modal>

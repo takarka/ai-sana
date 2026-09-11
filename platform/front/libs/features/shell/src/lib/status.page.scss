@@ -1,0 +1,32 @@
+// Общий стиль для 403/404 (F0.6) — оба экрана содержат один и тот же блок.
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.app-status {
+  text-align: center;
+  max-width: 40rem;
+}
+
+.app-status__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-display-sm);
+  color: var(--fg);
+  margin: 0 0 1rem;
+}
+
+.app-status__description {
+  color: var(--fg-dim);
+  font-size: 1.4rem;
+  margin: 0 0 2rem;
+}
+
+.app-status__link {
+  display: inline-flex;
+  color: var(--accent);
+  font-weight: 600;
+}

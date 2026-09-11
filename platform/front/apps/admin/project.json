@@ -4,7 +4,7 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/admin/src",
-  "tags": [],
+  "tags": ["type:app", "scope:admin"],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
@@ -21,7 +21,10 @@
             "input": "apps/admin/public"
           }
         ],
-        "styles": ["apps/admin/src/styles.scss"]
+        "styles": ["apps/admin/src/styles.scss"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/shared/ui-tokens/src"]
+        }
       },
       "configurations": {
         "production": {
