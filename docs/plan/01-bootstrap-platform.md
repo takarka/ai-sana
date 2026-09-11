@@ -12,6 +12,9 @@
 [04-landing-migration.md](04-landing-migration.md) — перенос публичного сайта
 `eighth-version/` в это же Nx-приложение как второе приложение `apps/landing`
 (SSR + `@angular/localize`); отдельный этап после шага 2 ниже.
+[05-kabinet-craft-web.md](05-kabinet-craft-web.md) — проектирование самого
+кабинета `apps/craft-web` (контуры, маршруты, библиотеки, данные, i18n);
+следующий шаг после этого плана.
 [../adr/](../adr/README.md) — принятые решения по стеку: [ADR-0001](../adr/0001-backend-stack-dotnet.md)
 (бэкенд) и [ADR-0002](../adr/0002-frontend-stack-angular-tailwind.md) (фронтенд).
 

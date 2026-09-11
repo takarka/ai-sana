@@ -29,6 +29,10 @@ CRAFT AI — учебная платформа (LMS + симуляторы + И�
   публичного сайта `eighth-version/` в Angular (`apps/landing`, SSR,
   `@angular/localize`); FR-WEB-01 скорректирован по
   [ADR-0003](../adr/0003-landing-eighth-version-to-angular.md).
+- [`../plan/05-kabinet-craft-web.md`](../plan/05-kabinet-craft-web.md) — проектирование
+  кабинета `apps/craft-web`: контуры и роли, карта маршрутов, структура библиотек,
+  слой данных и сети, i18n кабинета ([ADR-0004](../adr/0004-runtime-i18n-kabineta.md)),
+  бюджеты и порядок реализации по этапам.
 
 ## Принятые решения заказчика
 
