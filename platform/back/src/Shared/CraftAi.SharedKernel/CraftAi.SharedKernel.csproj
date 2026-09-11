@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <!-- Только ради IEndpointRouteBuilder в IModule.MapEndpoints — сам модуль
+         эндпоинты не хостит и ASP.NET Core больше нигде не использует. -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+</Project>

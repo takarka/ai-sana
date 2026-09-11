@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Scalar.AspNetCore" />
+    <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CraftAi.ServiceDefaults\CraftAi.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\Shared\CraftAi.SharedKernel\CraftAi.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\Shared\CraftAi.Contracts\CraftAi.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

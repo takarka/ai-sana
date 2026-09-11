@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Bootstrap/">
+    <Project Path="src/Bootstrap/CraftAi.Api/CraftAi.Api.csproj" />
+    <Project Path="src/Bootstrap/CraftAi.AppHost/CraftAi.AppHost.csproj" />
+    <Project Path="src/Bootstrap/CraftAi.MigrationService/CraftAi.MigrationService.csproj" />
+    <Project Path="src/Bootstrap/CraftAi.ServiceDefaults/CraftAi.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/CraftAi.Contracts/CraftAi.Contracts.csproj" />
+    <Project Path="src/Shared/CraftAi.SharedKernel/CraftAi.SharedKernel.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CraftAi.Api.IntegrationTests/CraftAi.Api.IntegrationTests.csproj" />
+    <Project Path="tests/CraftAi.Architecture.Tests/CraftAi.Architecture.Tests.csproj" />
+    <Project Path="tests/CraftAi.MigrationService.Tests/CraftAi.MigrationService.Tests.csproj" />
+    <Project Path="tests/CraftAi.SharedKernel.UnitTests/CraftAi.SharedKernel.UnitTests.csproj" />
+  </Folder>
+</Solution>

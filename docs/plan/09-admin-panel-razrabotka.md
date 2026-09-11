@@ -113,7 +113,7 @@ i18n собираются сразу. Начиная с F1 каждый frontend
 
 | № | Задача | Детали | Размер |
 |---|---|---|:--:|
-| A0.1 | Solution и корневые файлы | `CraftAi.sln`, `global.json` (пин SDK), `Directory.Build.props` (nullable, `TreatWarningsAsErrors`), `Directory.Packages.props` (CPM) | S |
+| A0.1 | Solution и корневые файлы | `CraftAi.slnx`, `global.json` (пин SDK), `Directory.Build.props` (nullable, `TreatWarningsAsErrors`), `Directory.Packages.props` (CPM) | S |
 | A0.2 | `Bootstrap/CraftAi.Api` | Minimal APIs, `MapGroup` на модуль, регистрация модулей через `IModule` | M |
 | A0.3 | `CraftAi.ServiceDefaults` | OpenTelemetry, health-checks, политики устойчивости (NFR-OBS-01…03) | S |
 | A0.4 | `CraftAi.AppHost` (Aspire) | Один `dotnet run` поднимает API + Postgres + Redis | S |

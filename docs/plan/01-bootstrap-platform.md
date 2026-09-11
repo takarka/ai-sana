@@ -153,7 +153,7 @@ ai-sana/
 
 ```
 platform/back/
-├── CraftAi.sln
+├── CraftAi.slnx                         # современный XML-формат solution (.NET 10 SDK)
 ├── global.json                          # пин версии SDK
 ├── Directory.Build.props                # nullable, TreatWarningsAsErrors, LangVersion
 ├── Directory.Packages.props             # централизованные версии пакетов

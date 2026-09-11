@@ -1,0 +1,22 @@
+# Сборка
+bin/
+obj/
+out/
+
+# IDE / инструменты
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Aspire
+**/*.received.*
+
+# Тестовые артефакты и локальные БД, порождаемые design-time миграциями
+TestResults/
+*.db
+*.db-shm
+*.db-wal
+
+# Логи
+*.log
