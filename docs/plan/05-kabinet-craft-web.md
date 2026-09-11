@@ -23,6 +23,9 @@ backend и продуктовое деление фронтенда.
 [06-matrix-mvp0-kontent-i-zadania.md](06-matrix-mvp0-kontent-i-zadania.md) —
 первый рабочий срез MATRIX (v0): уточняет часть маршрутов контуров `learn` и
 `teach` из §3.2–3.3 ниже.
+[07-pisa-mvp0-trenazhery.md](07-pisa-mvp0-trenazhery.md) — первый рабочий
+срез PISA (v0): тренажёры трёх направлений в контуре `learn`, маршруты `teach`
+и `manage` для PISA временно не реализуются (см. §3.3 того документа).
 
 **Схема в HTML.** [05-kabinet-craft-web.html](05-kabinet-craft-web.html) — та же
 структура наглядно: три контура с переключением, карта маршрутов, макеты
