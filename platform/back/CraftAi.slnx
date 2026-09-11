@@ -1,0 +1,33 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Bootstrap/">
+    <Project Path="src/Bootstrap/CraftAi.Api/CraftAi.Api.csproj" />
+    <Project Path="src/Bootstrap/CraftAi.AppHost/CraftAi.AppHost.csproj" />
+    <Project Path="src/Bootstrap/CraftAi.MigrationService/CraftAi.MigrationService.csproj" />
+    <Project Path="src/Bootstrap/CraftAi.ServiceDefaults/CraftAi.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/CraftAi.Contracts/CraftAi.Contracts.csproj" />
+    <Project Path="src/Shared/CraftAi.SharedKernel/CraftAi.SharedKernel.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/">
+    <Project Path="src/Modules/Identity/CraftAi.Modules.Identity/CraftAi.Modules.Identity.csproj" />
+    <Project Path="src/Modules/Identity/CraftAi.Modules.Identity.Contracts/CraftAi.Modules.Identity.Contracts.csproj" />
+    <Project Path="src/Modules/Organizations/CraftAi.Modules.Organizations/CraftAi.Modules.Organizations.csproj" />
+    <Project Path="src/Modules/Assessment/CraftAi.Modules.Assessment/CraftAi.Modules.Assessment.csproj" />
+    <Project Path="src/Modules/Assessment/CraftAi.Modules.Assessment.Contracts/CraftAi.Modules.Assessment.Contracts.csproj" />
+    <Project Path="src/Modules/Content/CraftAi.Modules.Content/CraftAi.Modules.Content.csproj" />
+    <Project Path="src/Modules/Pisa/CraftAi.Modules.Pisa/CraftAi.Modules.Pisa.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CraftAi.Api.IntegrationTests/CraftAi.Api.IntegrationTests.csproj" />
+    <Project Path="tests/CraftAi.Architecture.Tests/CraftAi.Architecture.Tests.csproj" />
+    <Project Path="tests/CraftAi.MigrationService.Tests/CraftAi.MigrationService.Tests.csproj" />
+    <Project Path="tests/CraftAi.Modules.Identity.UnitTests/CraftAi.Modules.Identity.UnitTests.csproj" />
+    <Project Path="tests/CraftAi.Modules.Organizations.UnitTests/CraftAi.Modules.Organizations.UnitTests.csproj" />
+    <Project Path="tests/CraftAi.Modules.Assessment.UnitTests/CraftAi.Modules.Assessment.UnitTests.csproj" />
+    <Project Path="tests/CraftAi.Modules.Content.UnitTests/CraftAi.Modules.Content.UnitTests.csproj" />
+    <Project Path="tests/CraftAi.Modules.Pisa.UnitTests/CraftAi.Modules.Pisa.UnitTests.csproj" />
+    <Project Path="tests/CraftAi.SharedKernel.UnitTests/CraftAi.SharedKernel.UnitTests.csproj" />
+  </Folder>
+</Solution>

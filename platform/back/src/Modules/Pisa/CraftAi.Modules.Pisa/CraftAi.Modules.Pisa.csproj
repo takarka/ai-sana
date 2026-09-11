@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="EFCore.NamingConventions" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\CraftAi.SharedKernel\CraftAi.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\Identity\CraftAi.Modules.Identity.Contracts\CraftAi.Modules.Identity.Contracts.csproj" />
+    <ProjectReference Include="..\..\Assessment\CraftAi.Modules.Assessment.Contracts\CraftAi.Modules.Assessment.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Обработчики internal (как во всех модулях с A1) — юнит-тестам нужен прямой доступ. -->
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>CraftAi.Modules.Pisa.UnitTests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>

@@ -6,24 +6,42 @@
 
 [Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
 
+## Приложения
+
+| Проект | Что это | Порт |
+|---|---|---|
+| `landing` | Публичный сайт, SSR, RU/KZ через `@angular/localize` (план 04) | 4200 |
+| `admin` | Админ-панель платформы: школы, аккаунты, банк контента (планы 08, 09) | 4201 |
+| `learn` | Кабинет школы: ученик, учитель, администрация (план 05) | 4202 |
+
+Разделение кабинета на `admin` и `learn` — [ADR-0005](../../docs/adr/0005-razdelenie-kabineta-na-admin-i-learn.md).
+Приложение `craft-web` из ранних документов больше не существует.
+
 ## Run tasks
 
-To run the dev server for your app, use:
+Запустить dev-сервер (порт берётся из `project.json`, проброс `/api` на
+backend — из `proxy.conf.json`):
 
 ```sh
-npx nx serve craft-web
+npx nx serve admin
 ```
 
-To create a production bundle:
+Собрать продакшн-бандл:
 
 ```sh
-npx nx build craft-web
+npx nx build admin
 ```
 
-To see all available targets to run for a project, run:
+Прогнать проверки по обоим приложениям кабинета:
 
 ```sh
-npx nx show project craft-web
+npx nx run-many -t build test lint -p admin learn
+```
+
+Посмотреть все доступные таргеты проекта:
+
+```sh
+npx nx show project admin
 ```
 
 These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.

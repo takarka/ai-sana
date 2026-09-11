@@ -1,0 +1,21 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.5.3">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- ASPIRE010: CLI-бандл нужен только для aspire-CLI-специфичных фич (напр. `aspire run`
+         с автообновлением дашборда); мы запускаем через обычный `dotnet run`, что работает без него. -->
+    <NoWarn>$(NoWarn);ASPIRE010</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+    <PackageReference Include="Aspire.Hosting.Redis" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CraftAi.Api\CraftAi.Api.csproj" />
+    <ProjectReference Include="..\CraftAi.MigrationService\CraftAi.MigrationService.csproj" />
+  </ItemGroup>
+
+</Project>

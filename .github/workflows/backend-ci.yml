@@ -1,0 +1,91 @@
+name: backend-ci
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "platform/back/**"
+      - ".github/workflows/backend-ci.yml"
+  pull_request:
+    paths:
+      - "platform/back/**"
+      - ".github/workflows/backend-ci.yml"
+
+defaults:
+  run:
+    working-directory: platform/back
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      ConnectionStrings__cache: "localhost:6379,abortConnect=false"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      # Testcontainers-тесты (реальный Postgres, план 09 §6) поднимают контейнеры сами —
+      # раннер уже несёт Docker, отдельный `services:`-блок для Postgres не нужен.
+      - name: Restore
+        run: dotnet restore CraftAi.slnx
+
+      - name: Build
+        run: dotnet build CraftAi.slnx --no-restore --configuration Release
+
+      - name: Test
+        # Без фиксированного LogFileName: `dotnet test` на решении запускает vstest отдельно
+        # на каждый тестовый проект, одно и то же имя файла они бы затирали друг за другом.
+        run: >
+          dotnet test CraftAi.slnx --no-build --configuration Release
+          --logger trx
+          --results-directory ./TestResults
+
+      - name: Publish test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: platform/back/TestResults
+
+      - name: Publish OpenAPI contract
+        run: |
+          dotnet run --project src/Bootstrap/CraftAi.Api --no-build --configuration Release \
+            --urls http://127.0.0.1:5266 &
+          API_PID=$!
+
+          for i in $(seq 1 30); do
+            if curl -sf http://127.0.0.1:5266/alive > /dev/null; then
+              break
+            fi
+            sleep 1
+          done
+
+          curl -sf http://127.0.0.1:5266/openapi/v1.json -o openapi.json
+          kill $API_PID
+        env:
+          ASPNETCORE_ENVIRONMENT: Development
+          # ValidateOnStart(JwtOptions) роняет хост на старте без этого значения (план 09
+          # §3.2, A1.2) — тут это нужно только чтобы поднять хост и снять контракт, реальная
+          # подпись токенов в этом шаге не участвует.
+          Jwt__SigningKey: "ci-openapi-publish-signing-key-32-plus-chars"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openapi
+          path: platform/back/openapi.json
