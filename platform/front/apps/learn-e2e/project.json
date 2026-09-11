@@ -1,6 +1,6 @@
 {
   "name": "learn-e2e",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/learn-e2e/src",
   "implicitDependencies": ["learn"],

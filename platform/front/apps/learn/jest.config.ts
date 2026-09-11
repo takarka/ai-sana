@@ -1,8 +1,8 @@
 export default {
   displayName: 'learn',
-  preset: '../jest.preset.js',
+  preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../coverage/learn',
+  coverageDirectory: '../../coverage/apps/learn',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
