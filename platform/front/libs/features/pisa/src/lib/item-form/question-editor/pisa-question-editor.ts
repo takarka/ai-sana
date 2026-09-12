@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
 import { FormsModule } from '@angular/forms';
 import { QuestionType, TranslatePipe } from '@front/core';
 import { CraftButton, CraftInput } from '@front/ui';
-import { QuestionDraft, createQuestionDraft } from '../../../model/question-draft';
+import { QuestionDraft, createQuestionDraft } from '../../model/question-draft';
 
 const QUESTION_TYPES: readonly QuestionType[] = [
   'SingleChoice',
@@ -24,7 +24,7 @@ const QUESTION_TYPES: readonly QuestionType[] = [
   imports: [FormsModule, CraftInput, CraftButton, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pisa-question-editor.html',
-  styleUrls: ['../../dialog-form.scss', './pisa-question-editor.scss'],
+  styleUrls: ['../item-form.scss', './pisa-question-editor.scss'],
 })
 export class PisaQuestionEditor {
   readonly draft = input.required<QuestionDraft>();

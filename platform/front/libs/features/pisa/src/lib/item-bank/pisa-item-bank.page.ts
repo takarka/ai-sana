@@ -1,11 +1,10 @@
-import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ItemSummary, PisaApi, SearchItemsResponse, TranslatePipe } from '@front/core';
 import { CraftButton, CraftEmptyState, CraftInput, CraftPagination } from '@front/ui';
 import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
-import { openPisaItemFormDialog } from '../dialogs/item-form/pisa-item-form.dialog';
 
 const PAGE_SIZE = 20;
 const LEVELS = [1, 2, 3, 4, 5, 6];
@@ -18,14 +17,14 @@ const DIRECTIONS = ['Math', 'Science', 'Reading'] as const;
 // черновик/публикацию.
 @Component({
   selector: 'app-pisa-item-bank-page',
-  imports: [DialogModule, DatePipe, FormsModule, CraftInput, CraftButton, CraftPagination, CraftEmptyState, TranslatePipe],
+  imports: [DatePipe, FormsModule, CraftInput, CraftButton, CraftPagination, CraftEmptyState, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pisa-item-bank.page.html',
   styleUrl: './pisa-item-bank.page.scss',
 })
 export class PisaItemBankPage implements OnDestroy {
   private readonly pisaApi = inject(PisaApi);
-  private readonly dialog = inject(Dialog);
+  private readonly router = inject(Router);
 
   protected readonly pageSize = PAGE_SIZE;
   protected readonly levels = LEVELS;
@@ -94,15 +93,11 @@ export class PisaItemBankPage implements OnDestroy {
   }
 
   protected createItem(): void {
-    openPisaItemFormDialog(this.dialog).closed.subscribe((created) => {
-      if (created) this.fetch();
-    });
+    void this.router.navigateByUrl('/platform/content/pisa/new');
   }
 
   protected editItem(item: ItemSummary): void {
-    openPisaItemFormDialog(this.dialog, { itemId: item.id }).closed.subscribe((updated) => {
-      if (updated) this.fetch();
-    });
+    void this.router.navigate(['/platform/content/pisa', item.id]);
   }
 
   private buildQuery() {

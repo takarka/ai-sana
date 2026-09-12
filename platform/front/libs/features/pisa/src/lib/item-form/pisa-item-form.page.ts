@@ -1,8 +1,8 @@
-import { Dialog, DialogModule, DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CreateItemRequest, ItemResponse, PisaApi, TranslatePipe, errorTranslationKey } from '@front/core';
-import { CraftButton, CraftInput, CraftModal } from '@front/ui';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { CreateItemRequest, PisaApi, TranslatePipe, errorTranslationKey } from '@front/core';
+import { CraftButton, CraftInput } from '@front/ui';
 import { finalize } from 'rxjs';
 import {
   QuestionDraft,
@@ -10,41 +10,42 @@ import {
   questionDraftFromDto,
   questionDraftToInput,
   validateQuestionDraft,
-} from '../../model/question-draft';
+} from '../model/question-draft';
 import { PisaQuestionEditor } from './question-editor/pisa-question-editor';
-
-export interface PisaItemFormDialogData {
-  readonly itemId?: string;
-}
 
 const LEVELS = [1, 2, 3, 4, 5, 6];
 const GRADES = Array.from({ length: 11 }, (_, index) => index + 1);
 const DIRECTIONS = ['Math', 'Science', 'Reading'] as const;
 
-// Форма составного задания PISA — стимул + метаданные + список вопросов
+// Страница составного задания PISA — стимул + метаданные + список вопросов
 // (план 09 §4.5, F4.2-F4.3: CreateItem/UpdateItem принимают вопросы целиком,
-// поэтому один диалог обслуживает и создание, и редактирование —
-// data.itemId отличает режимы). Рецензии нет (план 07 О2) — сохранение сразу
-// публикует задание.
+// поэтому одна страница обслуживает и создание, и редактирование —
+// itemId из маршрута отличает режимы). Полноэкранная форма вместо модалки:
+// у составного задания много полей и вопросов переменной формы, для которых
+// фиксированная ширина диалога не годится. Рецензии нет (план 07 О2) —
+// сохранение сразу публикует задание.
 @Component({
-  selector: 'app-pisa-item-form-dialog',
-  imports: [DialogModule, ReactiveFormsModule, FormsModule, CraftModal, CraftInput, CraftButton, PisaQuestionEditor, TranslatePipe],
+  selector: 'app-pisa-item-form-page',
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, CraftInput, CraftButton, PisaQuestionEditor, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './pisa-item-form.dialog.html',
-  styleUrls: ['../dialog-form.scss', './pisa-item-form.dialog.scss'],
+  templateUrl: './pisa-item-form.page.html',
+  styleUrls: ['./item-form.scss', './pisa-item-form.page.scss'],
 })
-export class PisaItemFormDialog {
-  private readonly dialogRef = inject(DialogRef<ItemResponse | undefined, PisaItemFormDialog>);
-  protected readonly data = inject<PisaItemFormDialogData>(DIALOG_DATA);
+export class PisaItemFormPage {
   private readonly pisaApi = inject(PisaApi);
   private readonly formBuilder = inject(FormBuilder);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
 
-  protected readonly isEdit = !!this.data.itemId;
+  private readonly itemId = this.route.snapshot.paramMap.get('itemId');
+
+  protected readonly isEdit = !!this.itemId;
   protected readonly levels = LEVELS;
   protected readonly grades = GRADES;
   protected readonly directions = DIRECTIONS;
 
   protected readonly loading = signal(this.isEdit);
+  protected readonly notFound = signal(false);
   protected readonly submitting = signal(false);
   protected readonly errorKey = signal<string | null>(null);
   protected readonly formErrors = signal<string[]>([]);
@@ -66,8 +67,8 @@ export class PisaItemFormDialog {
   });
 
   constructor() {
-    if (this.data.itemId) {
-      this.pisaApi.getItem(this.data.itemId).subscribe({
+    if (this.itemId) {
+      this.pisaApi.getItem(this.itemId).subscribe({
         next: (item) => {
           this.form.setValue({
             stimulusText: item.stimulus.text,
@@ -84,16 +85,12 @@ export class PisaItemFormDialog {
           this.questions.set(item.questions.map(questionDraftFromDto));
           this.loading.set(false);
         },
-        error: (error: unknown) => {
-          this.errorKey.set(errorTranslationKey(error));
+        error: () => {
+          this.notFound.set(true);
           this.loading.set(false);
         },
       });
     }
-  }
-
-  protected close(): void {
-    this.dialogRef.close(undefined);
   }
 
   protected setSource(index: number, value: string): void {
@@ -191,23 +188,11 @@ export class PisaItemFormDialog {
       questions: this.questions().map(questionDraftToInput),
     };
 
-    const request$ = this.data.itemId
-      ? this.pisaApi.updateItem(this.data.itemId, request)
-      : this.pisaApi.createItem(request);
+    const request$ = this.itemId ? this.pisaApi.updateItem(this.itemId, request) : this.pisaApi.createItem(request);
 
     request$.pipe(finalize(() => this.submitting.set(false))).subscribe({
-      next: (saved) => this.dialogRef.close(saved),
+      next: () => void this.router.navigateByUrl('/platform/content/pisa'),
       error: (error: unknown) => this.errorKey.set(errorTranslationKey(error)),
     });
   }
-}
-
-export function openPisaItemFormDialog(
-  dialog: Dialog,
-  data: PisaItemFormDialogData = {},
-): DialogRef<ItemResponse | undefined, PisaItemFormDialog> {
-  return dialog.open(PisaItemFormDialog, {
-    ariaLabelledBy: 'craft-modal-title',
-    data,
-  });
 }
