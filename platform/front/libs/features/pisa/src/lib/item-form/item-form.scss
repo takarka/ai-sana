@@ -1,5 +1,7 @@
-// Общий стиль форм авторинга PISA — тот же паттерн, что
-// libs/features/matrix/src/lib/dialogs/dialog-form.scss.
+// Общий стиль формы задания PISA и редактора вопроса — одни и те же
+// классы полей (.app-field/.app-native-select/.app-textarea) использует и
+// страница (pisa-item-form.page), и вложенный редактор вопроса
+// (question-editor/pisa-question-editor).
 :host {
   display: block;
 }

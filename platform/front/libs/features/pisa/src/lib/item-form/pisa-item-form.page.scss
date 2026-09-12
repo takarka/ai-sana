@@ -1,14 +1,30 @@
 :host {
   display: block;
+  max-width: 76rem;
 }
 
-.app-item-form {
-  max-height: 64vh;
-  overflow-y: auto;
-  padding-right: 0.4rem;
+.app-item-form-page__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--fg-dim);
+  font-size: 1.3rem;
+  margin-bottom: 1.6rem;
 }
 
-.app-item-form__loading {
+.app-item-form-page__back:hover {
+  color: var(--fg);
+}
+
+.app-item-form-page__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-display-sm);
+  color: var(--fg);
+  margin: 0 0 2.4rem;
+}
+
+.app-item-form-page__loading {
   margin: 0;
   color: var(--fg-dim);
   font-size: 1.4rem;
@@ -48,11 +64,19 @@
   flex-direction: column;
   gap: 1.2rem;
   padding-top: 0.8rem;
-  border-top: 1px solid var(--paper-line);
+  border-top: 1px solid var(--line);
 }
 
 .app-item-form__questions-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.app-item-form-page__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
 }

@@ -50,6 +50,16 @@ export const appRoutes: Route[] = [
         data: { titleKey: 'shell.nav.pisa' },
       },
       {
+        path: 'content/pisa/new',
+        canActivate: [roleGuard([PLATFORM_ROLES.SuperAdmin, PLATFORM_ROLES.Author])],
+        loadComponent: () => import('@front/features/pisa').then((m) => m.PisaItemFormPage),
+      },
+      {
+        path: 'content/pisa/:itemId',
+        canActivate: [roleGuard([PLATFORM_ROLES.SuperAdmin, PLATFORM_ROLES.Author])],
+        loadComponent: () => import('@front/features/pisa').then((m) => m.PisaItemFormPage),
+      },
+      {
         path: '403',
         loadComponent: () => import('@front/features/shell').then((m) => m.ForbiddenPage),
       },
