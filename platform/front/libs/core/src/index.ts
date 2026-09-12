@@ -5,6 +5,8 @@ export * from './lib/api/matrix.api';
 export * from './lib/api/matrix.model';
 export * from './lib/api/organizations.api';
 export * from './lib/api/organizations.model';
+export * from './lib/api/pisa.api';
+export * from './lib/api/pisa.model';
 export * from './lib/guards/auth.guard';
 export * from './lib/guards/role.guard';
 export * from './lib/http/api-base-url.token';

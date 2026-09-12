@@ -1,0 +1,58 @@
+:host {
+  display: block;
+}
+
+.app-item-form {
+  max-height: 64vh;
+  overflow-y: auto;
+  padding-right: 0.4rem;
+}
+
+.app-item-form__loading {
+  margin: 0;
+  color: var(--fg-dim);
+  font-size: 1.4rem;
+}
+
+.app-item-form__row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.app-item-form__row > craft-input {
+  flex: 1;
+}
+
+.app-item-form__fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6rem;
+}
+
+@media (max-width: 640px) {
+  .app-item-form__fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.app-item-form__grade-range {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--fg-dim);
+}
+
+.app-item-form__questions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--paper-line);
+}
+
+.app-item-form__questions-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

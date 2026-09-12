@@ -1,0 +1,128 @@
+:host {
+  display: block;
+}
+
+.app-question-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  padding: 1.8rem;
+  border: 1px solid var(--paper-line);
+  border-radius: 1.2rem;
+  background: var(--card);
+}
+
+.app-question-card__head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.app-question-card__number {
+  font-family: var(--font-micro);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+}
+
+.app-question-card__type {
+  flex: 1 1 20rem;
+}
+
+.app-question-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+.app-question-card__icon-btn {
+  width: 2.8rem;
+  height: 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--paper-line);
+  border-radius: 0.8rem;
+  background: var(--surface);
+  color: var(--fg-dim);
+  cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.app-question-card__icon-btn:hover:not(:disabled) {
+  color: var(--fg);
+  border-color: var(--signal);
+}
+
+.app-question-card__icon-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.app-question-card__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.app-question-card__row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.app-question-card__row > craft-input {
+  flex: 1;
+}
+
+.app-question-card__row .app-native-select {
+  flex: 0 0 auto;
+  width: 16rem;
+}
+
+.app-question-card__index {
+  flex: 0 0 auto;
+  width: 2rem;
+  text-align: center;
+  color: var(--fg-dim);
+  font-size: 1.3rem;
+}
+
+.app-question-card__columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6rem;
+}
+
+@media (max-width: 640px) {
+  .app-question-card__columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.app-question-card__column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.app-question-card__hint {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--fg-dim);
+}
+
+.app-question-card__error {
+  margin: 0;
+  padding: 1rem 1.4rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--lvl-low) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--lvl-low) 30%, transparent);
+  color: var(--fg);
+  font-size: 1.3rem;
+}
