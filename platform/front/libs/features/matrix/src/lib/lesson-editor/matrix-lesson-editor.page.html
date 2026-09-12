@@ -1,0 +1,119 @@
+@if (notFound()) {
+  <craft-empty-state [message]="'errors.lesson.not-found' | translate">
+    <craft-button variant="ghost" (click)="backToList()">{{ 'common.back' | translate }}</craft-button>
+  </craft-empty-state>
+} @else if (loading()) {
+  <p class="app-lesson-editor__loading">{{ 'common.loading' | translate }}</p>
+} @else if (lesson(); as lesson) {
+  <a class="app-lesson-editor__back" routerLink="/platform/content/matrix">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M15 6l-6 6 6 6" />
+    </svg>
+    {{ 'matrix.list.title' | translate }}
+  </a>
+
+  <div class="app-lesson-editor__header">
+    <h1 class="app-lesson-editor__title">{{ lesson.title }}</h1>
+    <button type="button" class="app-lesson-editor__link-btn" (click)="renameLesson()">
+      {{ 'matrix.lessonEditor.rename' | translate }}
+    </button>
+  </div>
+
+  <section class="app-lesson-editor__section">
+    <span class="app-lesson-editor__section-title">{{ 'matrix.lessonEditor.existingTitle' | translate }}</span>
+
+    @if (lesson.steps.length > 0) {
+      <div class="app-lesson-editor__steps">
+        @for (step of lesson.steps; track step.id) {
+          <div class="app-lesson-editor__step">
+            @if (step.type === 'Theory') {
+              <span class="app-lesson-editor__step-badge">{{ 'matrix.lessonEditor.theoryBadge' | translate }}</span>
+              <ul class="app-lesson-editor__materials">
+                @for (material of step.materials; track material.id) {
+                  <li>
+                    <span class="app-lesson-editor__material-type">{{ ('matrix.materialType.' + material.type) | translate }}</span>
+                    {{ describeMaterial(material) }}
+                  </li>
+                }
+              </ul>
+            } @else if (step.question; as question) {
+              <span class="app-lesson-editor__step-badge">{{ 'matrix.lessonEditor.taskBadge' | translate }}</span>
+              <p class="app-lesson-editor__question-summary">
+                <strong>{{ ('questionEditor.type.' + question.type) | translate }}.</strong>
+                {{ describeQuestion(question) }}
+              </p>
+            }
+          </div>
+        }
+      </div>
+    } @else {
+      <craft-empty-state [message]="'matrix.lessonEditor.existingEmpty' | translate"></craft-empty-state>
+    }
+  </section>
+
+  <section class="app-lesson-editor__section">
+    <span class="app-lesson-editor__section-title">{{ 'matrix.lessonEditor.addMaterialsTitle' | translate }}</span>
+
+    <div class="app-lesson-editor__material-rows">
+      @for (row of materialDrafts(); track $index) {
+        <div class="app-lesson-editor__material-row">
+          <select
+            class="app-native-select app-lesson-editor__material-type-select"
+            [ngModel]="row.type"
+            [ngModelOptions]="{ standalone: true }"
+            (ngModelChange)="setMaterialType($index, $event)"
+          >
+            @for (type of materialTypes; track type) {
+              <option [value]="type">{{ ('matrix.materialType.' + type) | translate }}</option>
+            }
+          </select>
+          <textarea
+            class="app-textarea"
+            rows="2"
+            [placeholder]="('matrix.lessonEditor.materialContentPlaceholder.' + row.type) | translate"
+            [ngModel]="row.content"
+            [ngModelOptions]="{ standalone: true }"
+            (ngModelChange)="setMaterialContent($index, $event)"
+          ></textarea>
+          <craft-button variant="ghost" type="button" (click)="removeMaterialRow($index)">
+            {{ 'common.remove' | translate }}
+          </craft-button>
+        </div>
+      }
+    </div>
+
+    <div class="app-lesson-editor__actions">
+      <craft-button variant="ghost" type="button" (click)="addMaterialRow()">
+        {{ 'matrix.lessonEditor.addMaterialRow' | translate }}
+      </craft-button>
+      <craft-button variant="primary" type="button" [disabled]="materialsSubmitting()" (click)="submitMaterials()">
+        {{ 'matrix.lessonEditor.saveMaterials' | translate }}
+      </craft-button>
+    </div>
+
+    @if (materialsErrorKey(); as key) {
+      <p class="app-lesson-editor__error" role="alert">{{ key | translate }}</p>
+    }
+  </section>
+
+  <section class="app-lesson-editor__section">
+    <span class="app-lesson-editor__section-title">{{ 'matrix.lessonEditor.addTaskTitle' | translate }}</span>
+
+    <craft-question-editor
+      [draft]="questionDraft()"
+      mode="single"
+      [error]="questionValidationError()"
+      (changed)="questionDraft.set($event)"
+    ></craft-question-editor>
+
+    <div class="app-lesson-editor__actions">
+      <craft-button variant="primary" type="button" [disabled]="questionSubmitting()" (click)="submitQuestion()">
+        {{ 'matrix.lessonEditor.saveTask' | translate }}
+      </craft-button>
+    </div>
+
+    @if (questionErrorKey(); as key) {
+      <p class="app-lesson-editor__error" role="alert">{{ key | translate }}</p>
+    }
+  </section>
+}

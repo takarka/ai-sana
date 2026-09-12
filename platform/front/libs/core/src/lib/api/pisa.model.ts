@@ -1,32 +1,16 @@
 // Зеркала DTO CraftAi.Modules.Pisa.Features.ItemBank.* (план 09 §3.6, план 07 §4):
 // составное задание банка PISA — один стимул + несколько вопросов из общего
 // закрытого набора типов (план 06 §2, FR-CMS-02), которым пользуется и MATRIX.
+// QuestionType/QuestionInput — общий контракт вопроса, см. question.model.ts.
+
+import { QuestionInput, QuestionType } from './question.model';
 
 export type PisaDirection = 'Math' | 'Science' | 'Reading';
-
-export type QuestionType =
-  | 'SingleChoice'
-  | 'MultipleChoice'
-  | 'Matching'
-  | 'Ordering'
-  | 'FillInBlank'
-  | 'NumericTolerance'
-  | 'ShortText'
-  | 'DragAndDrop';
 
 export interface StimulusInput {
   readonly text: string;
   readonly chartUrl?: string | null;
   readonly sources?: readonly string[] | null;
-}
-
-// Payload/answerKey — сырой JSON, структуру каждого типа проверяет бэкенд
-// (CraftAi.Modules.Assessment.Validation.QuestionValidationService); здесь
-// нетипизированные объекты, форму строит PisaQuestionEditor по QuestionType.
-export interface QuestionInput {
-  readonly questionType: QuestionType;
-  readonly payload: unknown;
-  readonly answerKey: unknown;
 }
 
 export interface CreateItemRequest {

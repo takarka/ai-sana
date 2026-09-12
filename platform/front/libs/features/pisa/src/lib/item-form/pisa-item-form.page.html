@@ -112,7 +112,7 @@
       </div>
 
       @for (question of questions(); track question.key; let i = $index) {
-        <app-pisa-question-editor
+        <craft-question-editor
           [draft]="question"
           [index]="i"
           [error]="questionErrors()[question.key] ?? null"
@@ -122,7 +122,7 @@
           (removed)="removeQuestion(i)"
           (moveUp)="moveQuestionUp(i)"
           (moveDown)="moveQuestionDown(i)"
-        ></app-pisa-question-editor>
+        ></craft-question-editor>
       }
     </div>
 

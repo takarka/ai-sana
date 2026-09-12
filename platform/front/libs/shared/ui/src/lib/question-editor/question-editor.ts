@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { QuestionType, TranslatePipe } from '@front/core';
-import { CraftButton, CraftInput } from '@front/ui';
-import { QuestionDraft, createQuestionDraft } from '../../model/question-draft';
+import { QuestionDraft, QuestionType, TranslatePipe, createQuestionDraft } from '@front/core';
+import { CraftButton } from '../button/button';
+import { CraftInput } from '../input/input';
 
 const QUESTION_TYPES: readonly QuestionType[] = [
   'SingleChoice',
@@ -15,20 +15,24 @@ const QUESTION_TYPES: readonly QuestionType[] = [
   'DragAndDrop',
 ];
 
-// Форма одного вопроса составного задания — восемь типов закрытых заданий
-// (план 06 §2, FR-CMS-02). Ровно те поля, что проверяет бэкенд
-// (CraftAi.Modules.Assessment.Validation.QuestionValidationService): смена
-// типа пересобирает черновик, не пытаясь мигрировать данные между формами.
+// Форма одного вопроса закрытого типа — восемь типов из плана 06 §2
+// (FR-CMS-02), общий движок авторинга для MATRIX (AddTaskStep) и PISA
+// (CreateItem/UpdateItem) — план 09 §3.5: ровно те поля, что проверяет
+// бэкенд (CraftAi.Modules.Assessment.Validation.QuestionValidationService).
+// Смена типа пересобирает черновик, не пытаясь мигрировать данные между
+// формами. `mode="single"` прячет номер и элементы управления списком
+// (перемещение/удаление) для мест, где вопрос ровно один (MATRIX task step).
 @Component({
-  selector: 'app-pisa-question-editor',
+  selector: 'craft-question-editor',
   imports: [FormsModule, CraftInput, CraftButton, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './pisa-question-editor.html',
-  styleUrls: ['../item-form.scss', './pisa-question-editor.scss'],
+  templateUrl: './question-editor.html',
+  styleUrl: './question-editor.scss',
 })
-export class PisaQuestionEditor {
+export class CraftQuestionEditor {
   readonly draft = input.required<QuestionDraft>();
-  readonly index = input.required<number>();
+  readonly index = input(0);
+  readonly mode = input<'list' | 'single'>('list');
   readonly error = input<string | null>(null);
   readonly canMoveUp = input(false);
   readonly canMoveDown = input(false);

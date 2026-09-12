@@ -1,17 +1,19 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { CreateItemRequest, PisaApi, TranslatePipe, errorTranslationKey } from '@front/core';
-import { CraftButton, CraftInput } from '@front/ui';
-import { finalize } from 'rxjs';
 import {
+  CreateItemRequest,
+  PisaApi,
   QuestionDraft,
+  TranslatePipe,
   createQuestionDraft,
+  errorTranslationKey,
   questionDraftFromDto,
   questionDraftToInput,
   validateQuestionDraft,
-} from '../model/question-draft';
-import { PisaQuestionEditor } from './question-editor/pisa-question-editor';
+} from '@front/core';
+import { CraftButton, CraftInput, CraftQuestionEditor } from '@front/ui';
+import { finalize } from 'rxjs';
 
 const LEVELS = [1, 2, 3, 4, 5, 6];
 const GRADES = Array.from({ length: 11 }, (_, index) => index + 1);
@@ -26,7 +28,7 @@ const DIRECTIONS = ['Math', 'Science', 'Reading'] as const;
 // сохранение сразу публикует задание.
 @Component({
   selector: 'app-pisa-item-form-page',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, CraftInput, CraftButton, PisaQuestionEditor, TranslatePipe],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, CraftInput, CraftButton, CraftQuestionEditor, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pisa-item-form.page.html',
   styleUrls: ['./item-form.scss', './pisa-item-form.page.scss'],

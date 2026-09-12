@@ -7,6 +7,8 @@ export * from './lib/api/organizations.api';
 export * from './lib/api/organizations.model';
 export * from './lib/api/pisa.api';
 export * from './lib/api/pisa.model';
+export * from './lib/api/question-draft';
+export * from './lib/api/question.model';
 export * from './lib/guards/auth.guard';
 export * from './lib/guards/role.guard';
 export * from './lib/http/api-base-url.token';

@@ -44,6 +44,11 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('@front/features/matrix').then((m) => m.MatrixContentPage),
       },
       {
+        path: 'content/matrix/lessons/:lessonId',
+        canActivate: [roleGuard([PLATFORM_ROLES.SuperAdmin, PLATFORM_ROLES.Author])],
+        loadComponent: () => import('@front/features/matrix').then((m) => m.MatrixLessonEditorPage),
+      },
+      {
         path: 'content/pisa',
         canActivate: [roleGuard([PLATFORM_ROLES.SuperAdmin, PLATFORM_ROLES.Author])],
         loadComponent: () => import('@front/features/pisa').then((m) => m.PisaItemBankPage),
