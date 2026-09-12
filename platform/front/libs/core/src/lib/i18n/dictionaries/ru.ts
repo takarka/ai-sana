@@ -169,10 +169,13 @@ export const RU_DICTIONARY: TranslationDictionary = {
   'matrix.materialType.File': 'Файл',
 
   'matrix.lessonEditor.rename': 'Переименовать',
+  'matrix.lessonEditor.preview': 'Предпросмотр',
   'matrix.lessonEditor.existingTitle': 'Уже добавлено',
   'matrix.lessonEditor.existingEmpty': 'В уроке пока нет ни материалов, ни заданий.',
   'matrix.lessonEditor.theoryBadge': 'Материалы',
   'matrix.lessonEditor.taskBadge': 'Задание',
+  'matrix.lessonEditor.editStep': 'Изменить',
+  'matrix.lessonEditor.confirmDelete': 'Удалить этот шаг урока? Действие необратимо.',
   'matrix.lessonEditor.addMaterialsTitle': 'Добавить материалы',
   'matrix.lessonEditor.materialContentPlaceholder.Text': 'Текст материала',
   'matrix.lessonEditor.materialContentPlaceholder.Video': 'Ссылка на видео',
@@ -182,6 +185,11 @@ export const RU_DICTIONARY: TranslationDictionary = {
   'matrix.lessonEditor.saveMaterials': 'Сохранить материалы',
   'matrix.lessonEditor.addTaskTitle': 'Добавить задание',
   'matrix.lessonEditor.saveTask': 'Сохранить задание',
+
+  'matrix.lessonPreview.backToEditor': 'Назад к редактированию',
+  'matrix.lessonPreview.eyebrow': 'Предпросмотр — глазами ученика',
+  'matrix.lessonPreview.watchVideo': 'Смотреть видео',
+  'matrix.lessonPreview.downloadFile': 'Скачать файл',
 
   'pisa.direction.Math': 'Математическая грамотность',
   'pisa.direction.Science': 'Естественно-научная грамотность',
@@ -226,6 +234,9 @@ export const RU_DICTIONARY: TranslationDictionary = {
   'pisa.itemForm.metadataInvalid': 'Проверьте обязательные поля задания выше.',
   'pisa.itemForm.gradeRangeInvalid': 'Нижняя граница параллелей должна быть не больше верхней.',
   'pisa.itemForm.questionsRequired': 'Составное задание должно содержать хотя бы один вопрос.',
+  'pisa.itemForm.preview': 'Предпросмотр',
+  'pisa.itemForm.backToEdit': 'Вернуться к редактированию',
+  'pisa.itemForm.previewEyebrow': 'Предпросмотр — глазами ученика',
 
   'questionEditor.number': 'Вопрос {{n}}',
   'questionEditor.moveUp': 'Переместить выше',
@@ -268,6 +279,12 @@ export const RU_DICTIONARY: TranslationDictionary = {
   'questionEditor.categoryPlaceholder': 'Категория {{n}}',
   'questionEditor.addCategory': 'Добавить категорию',
 
+  'questionPreview.selectPlaceholder': '— выбрать —',
+  'questionPreview.answerPlaceholder': 'Ответ ученика',
+  'questionPreview.matchingHint': 'Ученик соединит каждый элемент левой колонки с элементом правой.',
+  'questionPreview.orderingHint': 'Ученик увидит элементы в перемешанном порядке и расставит их в правильном порядке.',
+  'questionPreview.dragDropHint': 'Ученик перетащит элементы по категориям.',
+
   'errors.generic': 'Не удалось выполнить запрос. Попробуйте ещё раз.',
   'errors.network': 'Нет связи с сервером. Проверьте подключение.',
   'errors.login.invalid-credentials': 'Неверный e-mail или пароль.',
@@ -291,6 +308,8 @@ export const RU_DICTIONARY: TranslationDictionary = {
   'errors.section.not-found': 'Раздел не найден.',
   'errors.lesson.title-required': 'Название урока обязательно.',
   'errors.lesson.not-found': 'Урок не найден.',
+  'errors.lesson-step.not-found': 'Шаг урока не найден.',
+  'errors.lesson-step.invalid-order': 'Новый порядок должен содержать ровно те же шаги урока, без повторов и пропусков.',
   'errors.theory-step.materials-required': 'Нужен хотя бы один материал.',
   'errors.theory-step.invalid-material-type': 'Не распознан тип материала.',
   'errors.theory-step.material-content-required': 'Содержимое материала обязательно.',

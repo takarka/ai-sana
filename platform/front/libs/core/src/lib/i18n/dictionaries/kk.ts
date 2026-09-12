@@ -171,10 +171,13 @@ export const KK_DICTIONARY: TranslationDictionary = {
   'matrix.materialType.File': 'Файл',
 
   'matrix.lessonEditor.rename': 'Атауын өзгерту',
+  'matrix.lessonEditor.preview': 'Алдын ала қарау',
   'matrix.lessonEditor.existingTitle': 'Қосылғандар',
   'matrix.lessonEditor.existingEmpty': 'Сабақта әзірше материал да, тапсырма да жоқ.',
   'matrix.lessonEditor.theoryBadge': 'Материалдар',
   'matrix.lessonEditor.taskBadge': 'Тапсырма',
+  'matrix.lessonEditor.editStep': 'Өзгерту',
+  'matrix.lessonEditor.confirmDelete': 'Сабақтың бұл қадамын жою керек пе? Әрекетті қайтару мүмкін емес.',
   'matrix.lessonEditor.addMaterialsTitle': 'Материал қосу',
   'matrix.lessonEditor.materialContentPlaceholder.Text': 'Материал мәтіні',
   'matrix.lessonEditor.materialContentPlaceholder.Video': 'Бейнеге сілтеме',
@@ -184,6 +187,11 @@ export const KK_DICTIONARY: TranslationDictionary = {
   'matrix.lessonEditor.saveMaterials': 'Материалдарды сақтау',
   'matrix.lessonEditor.addTaskTitle': 'Тапсырма қосу',
   'matrix.lessonEditor.saveTask': 'Тапсырманы сақтау',
+
+  'matrix.lessonPreview.backToEditor': 'Өңдеуге оралу',
+  'matrix.lessonPreview.eyebrow': 'Алдын ала қарау — оқушы көзқарасымен',
+  'matrix.lessonPreview.watchVideo': 'Бейнені көру',
+  'matrix.lessonPreview.downloadFile': 'Файлды жүктеп алу',
 
   'pisa.direction.Math': 'Математикалық сауаттылық',
   'pisa.direction.Science': 'Жаратылыстану-ғылыми сауаттылық',
@@ -228,6 +236,9 @@ export const KK_DICTIONARY: TranslationDictionary = {
   'pisa.itemForm.metadataInvalid': 'Жоғарыдағы тапсырманың міндетті өрістерін тексеріңіз.',
   'pisa.itemForm.gradeRangeInvalid': 'Параллельдердің төменгі шегі жоғарғы шегінен аспауы керек.',
   'pisa.itemForm.questionsRequired': 'Құрама тапсырмада кемінде бір сұрақ болуы керек.',
+  'pisa.itemForm.preview': 'Алдын ала қарау',
+  'pisa.itemForm.backToEdit': 'Өңдеуге оралу',
+  'pisa.itemForm.previewEyebrow': 'Алдын ала қарау — оқушы көзқарасымен',
 
   'questionEditor.number': '{{n}}-сұрақ',
   'questionEditor.moveUp': 'Жоғары жылжыту',
@@ -270,6 +281,12 @@ export const KK_DICTIONARY: TranslationDictionary = {
   'questionEditor.categoryPlaceholder': '{{n}}-санат',
   'questionEditor.addCategory': 'Санат қосу',
 
+  'questionPreview.selectPlaceholder': '— таңдау —',
+  'questionPreview.answerPlaceholder': 'Оқушы жауабы',
+  'questionPreview.matchingHint': 'Оқушы сол бағандағы әр элементті оң бағандағы элементпен сәйкестендіреді.',
+  'questionPreview.orderingHint': 'Оқушы элементтерді араласқан күйде көреді және дұрыс ретімен орналастырады.',
+  'questionPreview.dragDropHint': 'Оқушы элементтерді санаттар бойынша сүйрейді.',
+
   'errors.generic': 'Сұранысты орындау мүмкін болмады. Қайталап көріңіз.',
   'errors.network': 'Сервермен байланыс жоқ. Қосылымды тексеріңіз.',
   'errors.login.invalid-credentials': 'Email немесе құпия сөз қате.',
@@ -293,6 +310,8 @@ export const KK_DICTIONARY: TranslationDictionary = {
   'errors.section.not-found': 'Бөлім табылмады.',
   'errors.lesson.title-required': 'Сабақ атауы міндетті.',
   'errors.lesson.not-found': 'Сабақ табылмады.',
+  'errors.lesson-step.not-found': 'Сабақтың қадамы табылмады.',
+  'errors.lesson-step.invalid-order': 'Жаңа рет сабақтың дәл сол қадамдарынан тұруы керек, қайталанусыз және өткізіп жібермей.',
   'errors.theory-step.materials-required': 'Кемінде бір материал қажет.',
   'errors.theory-step.invalid-material-type': 'Материал түрі танылмады.',
   'errors.theory-step.material-content-required': 'Материал мазмұны міндетті.',

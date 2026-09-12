@@ -11,8 +11,11 @@ import {
   LessonResponse,
   LessonStepDto,
   MaterialInput,
+  ReorderStepsRequest,
   SectionResponse,
   UpdateLessonRequest,
+  UpdateTaskStepRequest,
+  UpdateTheoryStepRequest,
 } from './matrix.model';
 
 export interface ListLessonsQuery {
@@ -21,9 +24,8 @@ export interface ListLessonsQuery {
 }
 
 // Один клиент на узкий срез авторинга MATRIX (план 09 §3.4, §4.4, F3.1-F3.4):
-// разделы, уроки и их шаги — материалы (theory) и задания (task). Шаги можно
-// только добавлять (AddTheoryStep/AddTaskStep) — ни редактирования, ни
-// удаления, ни изменения порядка backend не публикует (план 09 §3.4).
+// разделы, уроки и их шаги — материалы (theory) и задания (task), с
+// возможностью редактировать, удалять и переупорядочивать уже сохранённые шаги.
 @Injectable({ providedIn: 'root' })
 export class MatrixApi {
   private readonly http = inject(HttpClient);
@@ -83,6 +85,37 @@ export class MatrixApi {
   addTaskStep(lessonId: string, request: AddTaskStepRequest): Observable<LessonStepDto> {
     return this.http.post<LessonStepDto>(
       `${this.apiBaseUrl}/platform/content/matrix/lessons/${lessonId}/steps/task`,
+      request,
+      { headers: idempotencyHeader() },
+    );
+  }
+
+  updateTheoryStep(lessonId: string, stepId: string, request: UpdateTheoryStepRequest): Observable<LessonStepDto> {
+    return this.http.put<LessonStepDto>(
+      `${this.apiBaseUrl}/platform/content/matrix/lessons/${lessonId}/steps/${stepId}/theory`,
+      request,
+      { headers: idempotencyHeader() },
+    );
+  }
+
+  updateTaskStep(lessonId: string, stepId: string, request: UpdateTaskStepRequest): Observable<LessonStepDto> {
+    return this.http.put<LessonStepDto>(
+      `${this.apiBaseUrl}/platform/content/matrix/lessons/${lessonId}/steps/${stepId}/task`,
+      request,
+      { headers: idempotencyHeader() },
+    );
+  }
+
+  deleteStep(lessonId: string, stepId: string): Observable<void> {
+    return this.http.delete<void>(
+      `${this.apiBaseUrl}/platform/content/matrix/lessons/${lessonId}/steps/${stepId}`,
+      { headers: idempotencyHeader() },
+    );
+  }
+
+  reorderSteps(lessonId: string, request: ReorderStepsRequest): Observable<void> {
+    return this.http.put<void>(
+      `${this.apiBaseUrl}/platform/content/matrix/lessons/${lessonId}/steps/reorder`,
       request,
       { headers: idempotencyHeader() },
     );

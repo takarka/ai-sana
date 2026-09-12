@@ -89,6 +89,43 @@
   letter-spacing: 0.05em;
 }
 
+.app-lesson-editor__step-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.app-lesson-editor__step-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.app-lesson-editor__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: 1px solid var(--paper-line);
+  border-radius: 0.8rem;
+  background: var(--card);
+  color: var(--fg-dim);
+  cursor: pointer;
+}
+
+.app-lesson-editor__icon-btn:hover:not(:disabled) {
+  color: var(--fg);
+  border-color: var(--signal);
+}
+
+.app-lesson-editor__icon-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .app-lesson-editor__materials {
   margin: 0;
   padding-left: 1.8rem;

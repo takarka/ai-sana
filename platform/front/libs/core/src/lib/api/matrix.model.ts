@@ -48,6 +48,14 @@ export interface AddTheoryStepRequest {
   readonly materials: readonly MaterialInput[];
 }
 
+export type UpdateTheoryStepRequest = AddTheoryStepRequest;
+
+// Полный набор id шагов урока в новом порядке (план 09 §3.4) — сервер
+// принимает только тот же набор, что уже есть у урока, без повторов и пропусков.
+export interface ReorderStepsRequest {
+  readonly stepIds: readonly string[];
+}
+
 export interface StepMaterialDto {
   readonly id: string;
   readonly type: StepMaterialType;
@@ -58,6 +66,8 @@ export interface StepMaterialDto {
 // AddTaskStepRequest — то же самое по форме, что QuestionInput
 // (questionType/payload/answerKey), отдельного типа не заводим.
 export type AddTaskStepRequest = QuestionInput;
+
+export type UpdateTaskStepRequest = QuestionInput;
 
 export interface QuestionDto {
   readonly id: string;

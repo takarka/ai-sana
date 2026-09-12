@@ -1,0 +1,50 @@
+<button type="button" class="app-lesson-preview__back" (click)="backToEditor()">
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+    <path d="M15 6l-6 6 6 6" />
+  </svg>
+  {{ 'matrix.lessonPreview.backToEditor' | translate }}
+</button>
+
+@if (notFound()) {
+  <craft-empty-state [message]="'errors.lesson.not-found' | translate"></craft-empty-state>
+} @else if (loading()) {
+  <p class="app-lesson-preview__loading">{{ 'common.loading' | translate }}</p>
+} @else if (lesson(); as lesson) {
+  <div class="app-lesson-preview__frame">
+    <span class="app-lesson-preview__eyebrow">{{ 'matrix.lessonPreview.eyebrow' | translate }}</span>
+    <h1 class="app-lesson-preview__title">{{ lesson.title }}</h1>
+
+    @if (steps().length === 0) {
+      <craft-empty-state [message]="'matrix.lessonEditor.existingEmpty' | translate"></craft-empty-state>
+    }
+
+    @for (step of steps(); track step.id) {
+      <section class="app-lesson-preview__step">
+        @if (step.type === 'Theory') {
+          @for (material of step.materials; track material.id) {
+            @switch (material.type) {
+              @case ('Text') {
+                <p class="app-lesson-preview__text">{{ material.content }}</p>
+              }
+              @case ('Image') {
+                <img class="app-lesson-preview__image" [src]="material.content" [alt]="lesson.title" />
+              }
+              @case ('Video') {
+                <a class="app-lesson-preview__link" [href]="material.content" target="_blank" rel="noopener">
+                  {{ 'matrix.lessonPreview.watchVideo' | translate }}
+                </a>
+              }
+              @case ('File') {
+                <a class="app-lesson-preview__link" [href]="material.content" target="_blank" rel="noopener">
+                  {{ 'matrix.lessonPreview.downloadFile' | translate }}
+                </a>
+              }
+            }
+          }
+        } @else if (step.questionDraft; as draft) {
+          <craft-question-preview [draft]="draft" [index]="step.questionNumber"></craft-question-preview>
+        }
+      </section>
+    }
+  </div>
+}

@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
+  I18nService,
   LessonDetailsResponse,
   LessonStepDto,
   MaterialInput,
@@ -14,6 +15,7 @@ import {
   TranslatePipe,
   createQuestionDraft,
   errorTranslationKey,
+  questionDraftFromDto,
   questionDraftToInput,
   validateQuestionDraft,
 } from '@front/core';
@@ -30,10 +32,11 @@ function emptyMaterial(): MaterialInput {
 // Наполнение урока контентом — план 09 §4.4, F3.3-F3.4: материалы (видео,
 // текст, изображение, файлы) и задания закрытого типа (восемь типов, план 06
 // §2). Полноценная страница, а не модалка — полей и повторяющихся блоков
-// достаточно, чтобы модалка стала неудобной. Backend умеет только ДОБАВЛЯТЬ
-// шаги (AddTheoryStep/AddTaskStep) — ни редактирования, ни удаления, ни
-// изменения порядка уже сохранённого шага нет (план 09 §3.4), поэтому
-// существующие шаги показаны только для чтения.
+// достаточно, чтобы модалка стала неудобной. Уже сохранённые шаги можно
+// редактировать (в тот же блок формы, что и добавление), удалять и
+// переупорядочивать стрелками — переупорядочивание отправляется на сервер
+// целиком (ReorderSteps), а не одним смещением, чтобы не разъезжаться с
+// позициями, которые бэкенд хранит как источник истины.
 @Component({
   selector: 'app-matrix-lesson-editor-page',
   imports: [DialogModule, FormsModule, RouterLink, CraftButton, CraftEmptyState, CraftQuestionEditor, TranslatePipe],
@@ -46,6 +49,7 @@ export class MatrixLessonEditorPage {
   private readonly dialog = inject(Dialog);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly i18n = inject(I18nService);
 
   private readonly lessonId = this.route.snapshot.paramMap.get('lessonId') ?? '';
 
@@ -63,6 +67,15 @@ export class MatrixLessonEditorPage {
   protected readonly questionValidationError = signal<string | null>(null);
   protected readonly questionSubmitting = signal(false);
   protected readonly questionErrorKey = signal<string | null>(null);
+
+  // --- Редактирование/удаление/переупорядочивание уже сохранённых шагов ---
+  protected readonly editingStepId = signal<string | null>(null);
+  protected readonly editingMaterials = signal<MaterialInput[]>([]);
+  protected readonly editingQuestion = signal<QuestionDraft>(createQuestionDraft());
+  protected readonly editingErrorKey = signal<string | null>(null);
+  protected readonly editingValidationError = signal<string | null>(null);
+  protected readonly stepActionPending = signal(false);
+  protected readonly stepActionErrorKey = signal<string | null>(null);
 
   constructor() {
     if (!this.lessonId) {
@@ -85,6 +98,10 @@ export class MatrixLessonEditorPage {
 
   protected backToList(): void {
     void this.router.navigateByUrl('/platform/content/matrix');
+  }
+
+  protected openPreview(): void {
+    void this.router.navigateByUrl(`/platform/content/matrix/lessons/${this.lessonId}/preview`);
   }
 
   // --- Материалы ---
@@ -162,6 +179,163 @@ export class MatrixLessonEditorPage {
       });
   }
 
+  // --- Редактирование уже сохранённого шага ---
+
+  protected isEditingStep(stepId: string): boolean {
+    return this.editingStepId() === stepId;
+  }
+
+  protected startEditStep(step: LessonStepDto): void {
+    this.editingErrorKey.set(null);
+    this.editingValidationError.set(null);
+
+    if (step.type === 'Theory') {
+      this.editingMaterials.set((step.materials ?? []).map((m) => ({ type: m.type, content: m.content })));
+    } else if (step.question) {
+      this.editingQuestion.set(questionDraftFromDto(step.question));
+    }
+
+    this.editingStepId.set(step.id);
+  }
+
+  protected cancelEditStep(): void {
+    this.editingStepId.set(null);
+    this.editingErrorKey.set(null);
+    this.editingValidationError.set(null);
+  }
+
+  protected setEditingMaterialType(index: number, type: StepMaterialType): void {
+    this.editingMaterials.update((rows) => rows.map((row, i) => (i === index ? { ...row, type } : row)));
+  }
+
+  protected setEditingMaterialContent(index: number, content: string): void {
+    this.editingMaterials.update((rows) => rows.map((row, i) => (i === index ? { ...row, content } : row)));
+  }
+
+  protected addEditingMaterialRow(): void {
+    this.editingMaterials.update((rows) => [...rows, emptyMaterial()]);
+  }
+
+  protected removeEditingMaterialRow(index: number): void {
+    this.editingMaterials.update((rows) => rows.filter((_, i) => i !== index));
+  }
+
+  protected saveEditedTheoryStep(stepId: string): void {
+    const materials = this.editingMaterials().map((row) => ({ ...row, content: row.content.trim() }));
+    if (materials.length === 0) {
+      this.editingErrorKey.set('errors.theory-step.materials-required');
+      return;
+    }
+    if (materials.some((row) => row.content.length === 0)) {
+      this.editingErrorKey.set('errors.theory-step.material-content-required');
+      return;
+    }
+
+    this.editingErrorKey.set(null);
+    this.stepActionPending.set(true);
+
+    this.matrixApi
+      .updateTheoryStep(this.lessonId, stepId, { materials })
+      .pipe(finalize(() => this.stepActionPending.set(false)))
+      .subscribe({
+        next: (step) => {
+          this.replaceStep(step);
+          this.editingStepId.set(null);
+        },
+        error: (error: unknown) => this.editingErrorKey.set(errorTranslationKey(error)),
+      });
+  }
+
+  protected saveEditedTaskStep(stepId: string): void {
+    const draft = this.editingQuestion();
+    const validationError = validateQuestionDraft(draft, 0);
+    if (validationError) {
+      this.editingValidationError.set(validationError);
+      return;
+    }
+
+    this.editingValidationError.set(null);
+    this.editingErrorKey.set(null);
+    this.stepActionPending.set(true);
+
+    this.matrixApi
+      .updateTaskStep(this.lessonId, stepId, questionDraftToInput(draft))
+      .pipe(finalize(() => this.stepActionPending.set(false)))
+      .subscribe({
+        next: (step) => {
+          this.replaceStep(step);
+          this.editingStepId.set(null);
+        },
+        error: (error: unknown) => this.editingErrorKey.set(errorTranslationKey(error)),
+      });
+  }
+
+  // --- Удаление и порядок шагов ---
+
+  protected deleteStep(step: LessonStepDto): void {
+    if (this.stepActionPending()) return;
+    if (!confirm(this.i18n.translate('matrix.lessonEditor.confirmDelete'))) return;
+
+    this.stepActionErrorKey.set(null);
+    this.stepActionPending.set(true);
+
+    this.matrixApi
+      .deleteStep(this.lessonId, step.id)
+      .pipe(finalize(() => this.stepActionPending.set(false)))
+      .subscribe({
+        next: () => {
+          const lesson = this.lesson();
+          if (!lesson) return;
+          this.lesson.set({ ...lesson, steps: lesson.steps.filter((s) => s.id !== step.id) });
+          if (this.editingStepId() === step.id) this.editingStepId.set(null);
+        },
+        error: (error: unknown) => this.stepActionErrorKey.set(errorTranslationKey(error)),
+      });
+  }
+
+  protected canMoveStepUp(index: number): boolean {
+    return index > 0;
+  }
+
+  protected canMoveStepDown(index: number): boolean {
+    const lesson = this.lesson();
+    return !!lesson && index < lesson.steps.length - 1;
+  }
+
+  protected moveStepUp(index: number): void {
+    this.swapSteps(index, index - 1);
+  }
+
+  protected moveStepDown(index: number): void {
+    this.swapSteps(index, index + 1);
+  }
+
+  private swapSteps(a: number, b: number): void {
+    if (this.stepActionPending()) return;
+
+    const lesson = this.lesson();
+    if (!lesson || b < 0 || b >= lesson.steps.length) return;
+
+    const steps = [...lesson.steps];
+    [steps[a], steps[b]] = [steps[b], steps[a]];
+
+    const previousSteps = lesson.steps;
+    this.lesson.set({ ...lesson, steps });
+    this.stepActionErrorKey.set(null);
+    this.stepActionPending.set(true);
+
+    this.matrixApi
+      .reorderSteps(this.lessonId, { stepIds: steps.map((s) => s.id) })
+      .pipe(finalize(() => this.stepActionPending.set(false)))
+      .subscribe({
+        error: (error: unknown) => {
+          // Откатываем локальный порядок — сервер порядок не принял.
+          this.lesson.set({ ...lesson, steps: previousSteps });
+          this.stepActionErrorKey.set(errorTranslationKey(error));
+        },
+      });
+  }
+
   // --- Просмотр уже сохранённых шагов ---
 
   protected describeMaterial(material: StepMaterialDto): string {
@@ -206,5 +380,11 @@ export class MatrixLessonEditorPage {
     const lesson = this.lesson();
     if (!lesson) return;
     this.lesson.set({ ...lesson, steps: [...lesson.steps, step] });
+  }
+
+  private replaceStep(step: LessonStepDto): void {
+    const lesson = this.lesson();
+    if (!lesson) return;
+    this.lesson.set({ ...lesson, steps: lesson.steps.map((s) => (s.id === step.id ? step : s)) });
   }
 }

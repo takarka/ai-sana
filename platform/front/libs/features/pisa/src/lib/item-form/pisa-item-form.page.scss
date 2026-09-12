@@ -73,6 +73,45 @@
   justify-content: space-between;
 }
 
+.app-item-form__preview {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2.4rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  background: var(--surface);
+}
+
+.app-item-form__preview-eyebrow {
+  font-family: var(--font-micro);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-dim);
+}
+
+.app-item-form__preview-stimulus {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: var(--fg);
+  white-space: pre-wrap;
+}
+
+.app-item-form__preview-chart {
+  max-width: 100%;
+  border-radius: 1rem;
+}
+
+.app-item-form__preview-sources {
+  margin: 0;
+  padding-left: 1.8rem;
+  font-size: 1.3rem;
+  color: var(--fg-dim);
+}
+
 .app-item-form-page__actions {
   display: flex;
   justify-content: flex-end;

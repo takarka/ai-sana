@@ -1,0 +1,87 @@
+<div class="craft-question-preview">
+  <span class="craft-question-preview__number">{{ 'questionEditor.number' | translate: { n: index() + 1 } }}</span>
+
+  @switch (draft().type) {
+    @case ('SingleChoice') {
+      <div class="craft-question-preview__list">
+        @for (option of draft().options; track $index) {
+          <label class="craft-question-preview__row">
+            <input type="radio" disabled />
+            <span>{{ option }}</span>
+          </label>
+        }
+      </div>
+    }
+    @case ('MultipleChoice') {
+      <div class="craft-question-preview__list">
+        @for (option of draft().options; track $index) {
+          <label class="craft-question-preview__row">
+            <input type="checkbox" disabled />
+            <span>{{ option }}</span>
+          </label>
+        }
+      </div>
+    }
+    @case ('Matching') {
+      <p class="craft-question-preview__hint">{{ 'questionPreview.matchingHint' | translate }}</p>
+      <div class="craft-question-preview__list">
+        @for (item of draft().left; track $index) {
+          <div class="craft-question-preview__row">
+            <span class="craft-question-preview__term">{{ item }}</span>
+            <select class="craft-question-preview__select" disabled>
+              <option>{{ 'questionPreview.selectPlaceholder' | translate }}</option>
+              @for (rightItem of draft().right; track $index) {
+                <option>{{ rightItem }}</option>
+              }
+            </select>
+          </div>
+        }
+      </div>
+    }
+    @case ('Ordering') {
+      <p class="craft-question-preview__hint">{{ 'questionPreview.orderingHint' | translate }}</p>
+      <div class="craft-question-preview__list">
+        @for (item of shuffledOrderItems(); track $index) {
+          <div class="craft-question-preview__row craft-question-preview__row--draggable">
+            <span class="craft-question-preview__handle" aria-hidden="true">⠿</span>
+            <span>{{ item }}</span>
+          </div>
+        }
+      </div>
+    }
+    @case ('FillInBlank') {
+      <p class="craft-question-preview__text">{{ draft().blankText }}</p>
+      <div class="craft-question-preview__list">
+        @for (blank of draft().blanks; track $index) {
+          <input
+            class="craft-question-preview__input"
+            type="text"
+            disabled
+            [placeholder]="'questionPreview.answerPlaceholder' | translate"
+          />
+        }
+      </div>
+    }
+    @case ('NumericTolerance') {
+      <p class="craft-question-preview__text">{{ draft().numericQuestion }}</p>
+      <input class="craft-question-preview__input" type="number" disabled [placeholder]="'questionPreview.answerPlaceholder' | translate" />
+    }
+    @case ('ShortText') {
+      <p class="craft-question-preview__text">{{ draft().shortTextQuestion }}</p>
+      <input class="craft-question-preview__input" type="text" disabled [placeholder]="'questionPreview.answerPlaceholder' | translate" />
+    }
+    @case ('DragAndDrop') {
+      <p class="craft-question-preview__hint">{{ 'questionPreview.dragDropHint' | translate }}</p>
+      <div class="craft-question-preview__chips">
+        @for (item of draft().dragItems; track $index) {
+          <span class="craft-question-preview__chip">{{ item }}</span>
+        }
+      </div>
+      <div class="craft-question-preview__categories">
+        @for (category of draft().categories; track $index) {
+          <div class="craft-question-preview__category">{{ category }}</div>
+        }
+      </div>
+    }
+  }
+</div>

@@ -1,9 +1,15 @@
 using System.Text.Json;
+using CraftAi.Modules.Assessment.Contracts;
 using CraftAi.Modules.Content.Domain;
 using CraftAi.Modules.Content.Features.AddTaskStep;
 using CraftAi.Modules.Content.Features.AddTheoryStep;
 using CraftAi.Modules.Content.Features.CreateLesson;
 using CraftAi.Modules.Content.Features.CreateSection;
+using CraftAi.Modules.Content.Features.DeleteStep;
+using CraftAi.Modules.Content.Features.GetLesson;
+using CraftAi.Modules.Content.Features.ReorderSteps;
+using CraftAi.Modules.Content.Features.UpdateTaskStep;
+using CraftAi.Modules.Content.Features.UpdateTheoryStep;
 using CraftAi.Modules.Content.Persistence;
 using CraftAi.Modules.Content.UnitTests.Fixtures;
 using CraftAi.SharedKernel;
@@ -160,6 +166,162 @@ public sealed class ContentHandlersTests : IAsyncLifetime
         Assert.Equal(StatusCodes.Status422UnprocessableEntity, GetStatusCode(result));
     }
 
+    [Fact]
+    public async Task UpdateTheoryStep_СМатериалами_ЗаменяетСтарыеМатериалы()
+    {
+        var lessonId = await CreateLessonAsync();
+        var stepId = await AddTheoryStepAsync(lessonId, new MaterialInput("text", "Старый материал"));
+
+        var result = await UpdateTheoryStepHandler.HandleAsync(
+            lessonId, stepId,
+            new UpdateTheoryStepRequest([new MaterialInput("video", "https://example.com/v.mp4"), new MaterialInput("text", "Новый")]),
+            new DefaultHttpContext(), _db, CancellationToken.None);
+
+        Assert.Equal(StatusCodes.Status200OK, GetStatusCode(result));
+        Assert.Equal(2, await _db.StepMaterials.CountAsync(m => m.LessonStepId == stepId));
+        Assert.False(await _db.StepMaterials.AnyAsync(m => m.Content == "Старый материал"));
+    }
+
+    [Fact]
+    public async Task UpdateTheoryStep_БезМатериалов_Отказ()
+    {
+        var lessonId = await CreateLessonAsync();
+        var stepId = await AddTheoryStepAsync(lessonId, new MaterialInput("text", "Материал"));
+
+        var result = await UpdateTheoryStepHandler.HandleAsync(
+            lessonId, stepId, new UpdateTheoryStepRequest([]), new DefaultHttpContext(), _db, CancellationToken.None);
+
+        Assert.Equal(StatusCodes.Status422UnprocessableEntity, GetStatusCode(result));
+    }
+
+    [Fact]
+    public async Task UpdateTheoryStep_НесуществующийШаг_NotFound()
+    {
+        var lessonId = await CreateLessonAsync();
+
+        var result = await UpdateTheoryStepHandler.HandleAsync(
+            lessonId, Guid.NewGuid(), new UpdateTheoryStepRequest([new MaterialInput("text", "x")]),
+            new DefaultHttpContext(), _db, CancellationToken.None);
+
+        Assert.Equal(StatusCodes.Status404NotFound, GetStatusCode(result));
+    }
+
+    [Fact]
+    public async Task UpdateTaskStep_ВалидацияПровалилась_НичегоНеМеняет()
+    {
+        var lessonId = await CreateLessonAsync();
+        _validation.NextResult = Result.Success();
+        var stepId = await AddTaskStepAsync(lessonId, "SingleChoice", Parse("""{"options":["a","b"]}"""), Parse("""{"correctIndex":0}"""));
+
+        _validation.NextResult = Result.Failure(Error.Validation("question.invalid-structure", "тест"));
+        var result = await UpdateTaskStepHandler.HandleAsync(
+            lessonId, stepId, new UpdateTaskStepRequest("MultipleChoice", Parse("{}"), Parse("{}")),
+            new DefaultHttpContext(), _db, _validation, CancellationToken.None);
+
+        Assert.Equal(StatusCodes.Status422UnprocessableEntity, GetStatusCode(result));
+        var question = await _db.Questions.SingleAsync(q => q.LessonStepId == stepId);
+        Assert.Equal(QuestionType.SingleChoice, question.Type);
+    }
+
+    [Fact]
+    public async Task UpdateTaskStep_ВалидацияПрошла_ОбновляетВопрос()
+    {
+        var lessonId = await CreateLessonAsync();
+        _validation.NextResult = Result.Success();
+        var stepId = await AddTaskStepAsync(lessonId, "SingleChoice", Parse("""{"options":["a","b"]}"""), Parse("""{"correctIndex":0}"""));
+
+        var result = await UpdateTaskStepHandler.HandleAsync(
+            lessonId, stepId,
+            new UpdateTaskStepRequest("MultipleChoice", Parse("""{"options":["a","b","c"]}"""), Parse("""{"correctIndices":[0,1]}""")),
+            new DefaultHttpContext(), _db, _validation, CancellationToken.None);
+
+        Assert.Equal(StatusCodes.Status200OK, GetStatusCode(result));
+        var question = await _db.Questions.SingleAsync(q => q.LessonStepId == stepId);
+        Assert.Equal(QuestionType.MultipleChoice, question.Type);
+        Assert.Equal(1, await _db.Questions.CountAsync(q => q.LessonStepId == stepId));
+    }
+
+    [Fact]
+    public async Task UpdateTaskStep_НесуществующийШаг_NotFound()
+    {
+        var lessonId = await CreateLessonAsync();
+        _validation.NextResult = Result.Success();
+
+        var result = await UpdateTaskStepHandler.HandleAsync(
+            lessonId, Guid.NewGuid(), new UpdateTaskStepRequest("SingleChoice", Parse("""{"options":["a","b"]}"""), Parse("""{"correctIndex":0}""")),
+            new DefaultHttpContext(), _db, _validation, CancellationToken.None);
+
+        Assert.Equal(StatusCodes.Status404NotFound, GetStatusCode(result));
+    }
+
+    [Fact]
+    public async Task DeleteStep_УдаляетШагИПеренумеровываетОстальные()
+    {
+        var lessonId = await CreateLessonAsync();
+        var first = await AddTheoryStepAsync(lessonId, new MaterialInput("text", "1"));
+        var second = await AddTheoryStepAsync(lessonId, new MaterialInput("text", "2"));
+        var third = await AddTheoryStepAsync(lessonId, new MaterialInput("text", "3"));
+
+        var result = await DeleteStepHandler.HandleAsync(lessonId, second, new DefaultHttpContext(), _db, CancellationToken.None);
+
+        Assert.Equal(StatusCodes.Status204NoContent, GetStatusCode(result));
+        Assert.Equal(2, await _db.LessonSteps.CountAsync(s => s.LessonId == lessonId));
+        Assert.Equal(0, (await _db.LessonSteps.SingleAsync(s => s.Id == first)).Position);
+        Assert.Equal(1, (await _db.LessonSteps.SingleAsync(s => s.Id == third)).Position);
+    }
+
+    [Fact]
+    public async Task DeleteStep_НесуществующийШаг_NotFound()
+    {
+        var lessonId = await CreateLessonAsync();
+
+        var result = await DeleteStepHandler.HandleAsync(lessonId, Guid.NewGuid(), new DefaultHttpContext(), _db, CancellationToken.None);
+
+        Assert.Equal(StatusCodes.Status404NotFound, GetStatusCode(result));
+    }
+
+    [Fact]
+    public async Task ReorderSteps_КорректныйНабор_ПерезаписываетПозиции()
+    {
+        var lessonId = await CreateLessonAsync();
+        var first = await AddTheoryStepAsync(lessonId, new MaterialInput("text", "1"));
+        var second = await AddTheoryStepAsync(lessonId, new MaterialInput("text", "2"));
+        var third = await AddTheoryStepAsync(lessonId, new MaterialInput("text", "3"));
+
+        var result = await ReorderStepsHandler.HandleAsync(
+            lessonId, new ReorderStepsRequest([third, first, second]), new DefaultHttpContext(), _db, CancellationToken.None);
+
+        Assert.Equal(StatusCodes.Status204NoContent, GetStatusCode(result));
+        Assert.Equal(0, (await _db.LessonSteps.SingleAsync(s => s.Id == third)).Position);
+        Assert.Equal(1, (await _db.LessonSteps.SingleAsync(s => s.Id == first)).Position);
+        Assert.Equal(2, (await _db.LessonSteps.SingleAsync(s => s.Id == second)).Position);
+    }
+
+    [Theory]
+    [MemberData(nameof(InvalidReorderCases))]
+    public async Task ReorderSteps_НекорректныйНабор_Отказ(Func<Guid, Guid, Guid, IReadOnlyList<Guid>> buildIds)
+    {
+        var lessonId = await CreateLessonAsync();
+        var first = await AddTheoryStepAsync(lessonId, new MaterialInput("text", "1"));
+        var second = await AddTheoryStepAsync(lessonId, new MaterialInput("text", "2"));
+        var third = await AddTheoryStepAsync(lessonId, new MaterialInput("text", "3"));
+
+        var result = await ReorderStepsHandler.HandleAsync(
+            lessonId, new ReorderStepsRequest(buildIds(first, second, third)), new DefaultHttpContext(), _db, CancellationToken.None);
+
+        Assert.Equal(StatusCodes.Status422UnprocessableEntity, GetStatusCode(result));
+    }
+
+    public static IEnumerable<object[]> InvalidReorderCases()
+    {
+        // Пропущен один из шагов.
+        yield return new object[] { (Func<Guid, Guid, Guid, IReadOnlyList<Guid>>)((a, b, _) => [a, b]) };
+        // Один id повторён вместо третьего.
+        yield return new object[] { (Func<Guid, Guid, Guid, IReadOnlyList<Guid>>)((a, b, _) => [a, b, a]) };
+        // Чужой id, не принадлежащий уроку.
+        yield return new object[] { (Func<Guid, Guid, Guid, IReadOnlyList<Guid>>)((a, b, _) => [a, b, Guid.NewGuid()]) };
+    }
+
     private async Task<Guid> CreateSectionAsync()
     {
         var response = await CreateSectionHandler.HandleAsync(
@@ -173,6 +335,20 @@ public sealed class ContentHandlersTests : IAsyncLifetime
         var response = await CreateLessonHandler.HandleAsync(
             new CreateLessonRequest(sectionId, "Урок"), new DefaultHttpContext(), _db, _timeProvider, CancellationToken.None);
         return ((LessonResponse)GetCreatedValue(response)).Id;
+    }
+
+    private async Task<Guid> AddTheoryStepAsync(Guid lessonId, params MaterialInput[] materials)
+    {
+        var response = await AddTheoryStepHandler.HandleAsync(
+            lessonId, new AddTheoryStepRequest(materials), new DefaultHttpContext(), _db, CancellationToken.None);
+        return ((LessonStepDto)GetCreatedValue(response)).Id;
+    }
+
+    private async Task<Guid> AddTaskStepAsync(Guid lessonId, string questionType, JsonElement payload, JsonElement answerKey)
+    {
+        var response = await AddTaskStepHandler.HandleAsync(
+            lessonId, new AddTaskStepRequest(questionType, payload, answerKey), new DefaultHttpContext(), _db, _validation, CancellationToken.None);
+        return ((LessonStepDto)GetCreatedValue(response)).Id;
     }
 
     private static JsonElement Parse(string json) => JsonDocument.Parse(json).RootElement;

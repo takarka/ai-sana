@@ -1,0 +1,82 @@
+.app-lesson-preview__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--fg-dim);
+  font-size: 1.3rem;
+  cursor: pointer;
+  margin-bottom: 1.6rem;
+}
+
+.app-lesson-preview__back:hover {
+  color: var(--fg);
+}
+
+.app-lesson-preview__loading {
+  color: var(--fg-dim);
+  font-size: 1.4rem;
+}
+
+.app-lesson-preview__frame {
+  max-width: 72rem;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 3.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.app-lesson-preview__eyebrow {
+  font-family: var(--font-micro);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-dim);
+}
+
+.app-lesson-preview__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-display-sm);
+  color: var(--fg);
+  margin: 0;
+}
+
+.app-lesson-preview__step {
+  padding-top: 2rem;
+  border-top: 1px solid var(--paper-line);
+}
+
+.app-lesson-preview__step:first-of-type {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.app-lesson-preview__text {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: var(--fg);
+  white-space: pre-wrap;
+}
+
+.app-lesson-preview__image {
+  max-width: 100%;
+  border-radius: 1rem;
+}
+
+.app-lesson-preview__link {
+  color: var(--accent);
+  font-size: 1.4rem;
+}
+
+.app-lesson-preview__link:hover {
+  text-decoration: underline;
+}

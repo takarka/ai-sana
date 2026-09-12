@@ -17,31 +17,131 @@
     <button type="button" class="app-lesson-editor__link-btn" (click)="renameLesson()">
       {{ 'matrix.lessonEditor.rename' | translate }}
     </button>
+    <craft-button variant="ghost" type="button" (click)="openPreview()">
+      {{ 'matrix.lessonEditor.preview' | translate }}
+    </craft-button>
   </div>
 
   <section class="app-lesson-editor__section">
     <span class="app-lesson-editor__section-title">{{ 'matrix.lessonEditor.existingTitle' | translate }}</span>
 
+    @if (stepActionErrorKey(); as key) {
+      <p class="app-lesson-editor__error" role="alert">{{ key | translate }}</p>
+    }
+
     @if (lesson.steps.length > 0) {
       <div class="app-lesson-editor__steps">
-        @for (step of lesson.steps; track step.id) {
+        @for (step of lesson.steps; track step.id; let i = $index) {
           <div class="app-lesson-editor__step">
-            @if (step.type === 'Theory') {
-              <span class="app-lesson-editor__step-badge">{{ 'matrix.lessonEditor.theoryBadge' | translate }}</span>
-              <ul class="app-lesson-editor__materials">
-                @for (material of step.materials; track material.id) {
-                  <li>
-                    <span class="app-lesson-editor__material-type">{{ ('matrix.materialType.' + material.type) | translate }}</span>
-                    {{ describeMaterial(material) }}
-                  </li>
+            <div class="app-lesson-editor__step-head">
+              @if (step.type === 'Theory') {
+                <span class="app-lesson-editor__step-badge">{{ 'matrix.lessonEditor.theoryBadge' | translate }}</span>
+              } @else {
+                <span class="app-lesson-editor__step-badge">{{ 'matrix.lessonEditor.taskBadge' | translate }}</span>
+              }
+
+              <div class="app-lesson-editor__step-actions">
+                <button
+                  type="button"
+                  class="app-lesson-editor__icon-btn"
+                  [disabled]="!canMoveStepUp(i) || stepActionPending()"
+                  (click)="moveStepUp(i)"
+                  [attr.aria-label]="'questionEditor.moveUp' | translate"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
+                </button>
+                <button
+                  type="button"
+                  class="app-lesson-editor__icon-btn"
+                  [disabled]="!canMoveStepDown(i) || stepActionPending()"
+                  (click)="moveStepDown(i)"
+                  [attr.aria-label]="'questionEditor.moveDown' | translate"
+                >
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
+                </button>
+                @if (!isEditingStep(step.id)) {
+                  <craft-button variant="ghost" type="button" (click)="startEditStep(step)">
+                    {{ 'matrix.lessonEditor.editStep' | translate }}
+                  </craft-button>
                 }
-              </ul>
-            } @else if (step.question; as question) {
-              <span class="app-lesson-editor__step-badge">{{ 'matrix.lessonEditor.taskBadge' | translate }}</span>
-              <p class="app-lesson-editor__question-summary">
-                <strong>{{ ('questionEditor.type.' + question.type) | translate }}.</strong>
-                {{ describeQuestion(question) }}
-              </p>
+                <craft-button variant="ghost" type="button" [disabled]="stepActionPending()" (click)="deleteStep(step)">
+                  {{ 'common.remove' | translate }}
+                </craft-button>
+              </div>
+            </div>
+
+            @if (isEditingStep(step.id)) {
+              @if (step.type === 'Theory') {
+                <div class="app-lesson-editor__material-rows">
+                  @for (row of editingMaterials(); track $index) {
+                    <div class="app-lesson-editor__material-row">
+                      <select
+                        class="app-native-select app-lesson-editor__material-type-select"
+                        [ngModel]="row.type"
+                        [ngModelOptions]="{ standalone: true }"
+                        (ngModelChange)="setEditingMaterialType($index, $event)"
+                      >
+                        @for (type of materialTypes; track type) {
+                          <option [value]="type">{{ ('matrix.materialType.' + type) | translate }}</option>
+                        }
+                      </select>
+                      <textarea
+                        class="app-textarea"
+                        rows="2"
+                        [placeholder]="('matrix.lessonEditor.materialContentPlaceholder.' + row.type) | translate"
+                        [ngModel]="row.content"
+                        [ngModelOptions]="{ standalone: true }"
+                        (ngModelChange)="setEditingMaterialContent($index, $event)"
+                      ></textarea>
+                      <craft-button variant="ghost" type="button" (click)="removeEditingMaterialRow($index)">
+                        {{ 'common.remove' | translate }}
+                      </craft-button>
+                    </div>
+                  }
+                </div>
+                <div class="app-lesson-editor__actions">
+                  <craft-button variant="ghost" type="button" (click)="addEditingMaterialRow()">
+                    {{ 'matrix.lessonEditor.addMaterialRow' | translate }}
+                  </craft-button>
+                  <craft-button variant="ghost" type="button" (click)="cancelEditStep()">{{ 'common.cancel' | translate }}</craft-button>
+                  <craft-button variant="primary" type="button" [disabled]="stepActionPending()" (click)="saveEditedTheoryStep(step.id)">
+                    {{ 'common.save' | translate }}
+                  </craft-button>
+                </div>
+              } @else {
+                <craft-question-editor
+                  [draft]="editingQuestion()"
+                  mode="single"
+                  [error]="editingValidationError()"
+                  (changed)="editingQuestion.set($event)"
+                ></craft-question-editor>
+                <div class="app-lesson-editor__actions">
+                  <craft-button variant="ghost" type="button" (click)="cancelEditStep()">{{ 'common.cancel' | translate }}</craft-button>
+                  <craft-button variant="primary" type="button" [disabled]="stepActionPending()" (click)="saveEditedTaskStep(step.id)">
+                    {{ 'common.save' | translate }}
+                  </craft-button>
+                </div>
+              }
+
+              @if (editingErrorKey(); as key) {
+                <p class="app-lesson-editor__error" role="alert">{{ key | translate }}</p>
+              }
+            } @else {
+              @if (step.type === 'Theory') {
+                <ul class="app-lesson-editor__materials">
+                  @for (material of step.materials; track material.id) {
+                    <li>
+                      <span class="app-lesson-editor__material-type">{{ ('matrix.materialType.' + material.type) | translate }}</span>
+                      {{ describeMaterial(material) }}
+                    </li>
+                  }
+                </ul>
+              } @else if (step.question; as question) {
+                <p class="app-lesson-editor__question-summary">
+                  <strong>{{ ('questionEditor.type.' + question.type) | translate }}.</strong>
+                  {{ describeQuestion(question) }}
+                </p>
+              }
             }
           </div>
         }
