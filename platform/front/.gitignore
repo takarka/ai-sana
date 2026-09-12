@@ -46,3 +46,6 @@ Thumbs.db
 .angular
 
 storybook-static
+
+# Playwright auth state (admin-e2e) — состояние браузера одного локального прогона.
+.auth/
