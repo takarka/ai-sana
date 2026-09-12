@@ -1,0 +1,78 @@
+<div class="app-matrix__head">
+  <div>
+    <h1 class="app-matrix__title">{{ 'matrix.list.title' | translate }}</h1>
+    <p class="app-matrix__subtitle">{{ 'matrix.list.subtitle' | translate }}</p>
+  </div>
+  <craft-button variant="primary" (click)="createSection()">
+    {{ 'matrix.list.createSection' | translate }}
+  </craft-button>
+</div>
+
+<div class="app-matrix__filters">
+  <button
+    type="button"
+    class="app-matrix__filter"
+    [class.app-matrix__filter--active]="gradeFilter() === 0"
+    (click)="setGradeFilter(0)"
+  >
+    {{ 'matrix.list.gradeFilter.all' | translate }}
+  </button>
+  @for (grade of grades; track grade) {
+    <button
+      type="button"
+      class="app-matrix__filter"
+      [class.app-matrix__filter--active]="gradeFilter() === grade"
+      (click)="setGradeFilter(grade)"
+    >
+      {{ grade }}
+    </button>
+  }
+</div>
+
+@if (!loading() && sections().length === 0) {
+  <craft-empty-state [message]="'matrix.list.empty' | translate"></craft-empty-state>
+} @else {
+  @for (section of sections(); track section.id) {
+    <section class="app-matrix__section">
+      <div class="app-matrix__section-head">
+        <div class="app-matrix__section-heading">
+          <span class="app-matrix__section-title">{{ section.name }}</span>
+          <span class="app-matrix__grade-badge">{{ 'matrix.list.gradeBadge' | translate: { grade: section.grade } }}</span>
+        </div>
+        <button type="button" class="app-matrix__link-btn" (click)="addLesson(section)">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          {{ 'matrix.list.addLesson' | translate }}
+        </button>
+      </div>
+
+      @if (lessonsBySectionId().get(section.id); as sectionLessons) {
+        <div class="app-matrix__table-wrap">
+          <table class="app-matrix__table">
+            <thead>
+              <tr>
+                <th>{{ 'matrix.list.column.title' | translate }}</th>
+                <th>{{ 'matrix.list.column.status' | translate }}</th>
+                <th>{{ 'matrix.list.column.updated' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (lesson of sectionLessons; track lesson.id) {
+                <tr class="app-matrix__row" (click)="editLesson(lesson)">
+                  <td class="app-matrix__name-cell">{{ lesson.title }}</td>
+                  <td class="app-matrix__dim">
+                    {{ (lesson.isPublished ? 'matrix.list.status.published' : 'matrix.list.status.draft') | translate }}
+                  </td>
+                  <td class="app-matrix__dim">{{ lesson.updatedAtUtc | date: 'dd.MM.yyyy' }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      } @else {
+        <craft-empty-state [message]="'matrix.list.lessonsEmpty' | translate"></craft-empty-state>
+      }
+    </section>
+  }
+}
