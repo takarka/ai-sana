@@ -4,9 +4,13 @@ import { Observable } from 'rxjs';
 import { API_BASE_URL } from '../http/api-base-url.token';
 import { idempotencyHeader } from '../http/idempotency';
 import {
+  AddTaskStepRequest,
   CreateLessonRequest,
   CreateSectionRequest,
+  LessonDetailsResponse,
   LessonResponse,
+  LessonStepDto,
+  MaterialInput,
   SectionResponse,
   UpdateLessonRequest,
 } from './matrix.model';
@@ -16,9 +20,10 @@ export interface ListLessonsQuery {
   readonly grade?: number;
 }
 
-// Один клиент на узкий срез авторинга MATRIX (план 09 §3.4, §4.4, F3.1-F3.2):
-// разделы и уроки. Материалы урока и задание шага (AddTheoryStep/AddTaskStep)
-// сознательно не подключены — это отдельный редактор F3.3-F3.4, вне этого среза.
+// Один клиент на узкий срез авторинга MATRIX (план 09 §3.4, §4.4, F3.1-F3.4):
+// разделы, уроки и их шаги — материалы (theory) и задания (task). Шаги можно
+// только добавлять (AddTheoryStep/AddTaskStep) — ни редактирования, ни
+// удаления, ни изменения порядка backend не публикует (план 09 §3.4).
 @Injectable({ providedIn: 'root' })
 export class MatrixApi {
   private readonly http = inject(HttpClient);
@@ -58,6 +63,26 @@ export class MatrixApi {
   updateLesson(lessonId: string, request: UpdateLessonRequest): Observable<LessonResponse> {
     return this.http.put<LessonResponse>(
       `${this.apiBaseUrl}/platform/content/matrix/lessons/${lessonId}`,
+      request,
+      { headers: idempotencyHeader() },
+    );
+  }
+
+  getLesson(lessonId: string): Observable<LessonDetailsResponse> {
+    return this.http.get<LessonDetailsResponse>(`${this.apiBaseUrl}/platform/content/matrix/lessons/${lessonId}`);
+  }
+
+  addTheoryStep(lessonId: string, materials: readonly MaterialInput[]): Observable<LessonStepDto> {
+    return this.http.post<LessonStepDto>(
+      `${this.apiBaseUrl}/platform/content/matrix/lessons/${lessonId}/steps/theory`,
+      { materials },
+      { headers: idempotencyHeader() },
+    );
+  }
+
+  addTaskStep(lessonId: string, request: AddTaskStepRequest): Observable<LessonStepDto> {
+    return this.http.post<LessonStepDto>(
+      `${this.apiBaseUrl}/platform/content/matrix/lessons/${lessonId}/steps/task`,
       request,
       { headers: idempotencyHeader() },
     );

@@ -1,11 +1,11 @@
-import { ItemQuestionDto, QuestionInput, QuestionType } from '@front/core';
+import { QuestionInput, QuestionLike, QuestionType } from './question.model';
 
-// Черновик одного вопроса составного задания в форме авторинга — плоское
-// объединение полей всех восьми типов (план 06 §2, FR-CMS-02) вместо
-// восьми разных FormGroup: тип у вопроса можно сменить в процессе
-// заполнения, а бэкенд ждёт только payload/answerKey нужной формы
-// (CraftAi.Modules.Assessment.Validation.QuestionValidationService — то же
-// зеркало форм, что описано в плане 09 §3.5).
+// Черновик одного вопроса закрытого типа в форме авторинга — плоское
+// объединение полей всех восьми типов (план 06 §2, FR-CMS-02) вместо восьми
+// разных FormGroup: тип у вопроса можно сменить в процессе заполнения, а
+// бэкенд ждёт только payload/answerKey нужной формы
+// (CraftAi.Modules.Assessment.Validation.QuestionValidationService — общий
+// движок для Content/MATRIX и Pisa, план 09 §3.5).
 export interface QuestionDraft {
   readonly key: string;
   type: QuestionType;
@@ -107,10 +107,10 @@ export function questionDraftToInput(draft: QuestionDraft): QuestionInput {
   }
 }
 
-// Разбор при редактировании существующего задания — payload/answerKey из
-// ответа GetItem уже прошли валидацию на бэкенде при сохранении, поэтому
-// здесь только приведение типов, без повторной проверки структуры.
-export function questionDraftFromDto(dto: ItemQuestionDto): QuestionDraft {
+// Разбор при редактировании существующего задания — payload/answerKey уже
+// прошли валидацию на бэкенде при сохранении, поэтому здесь только
+// приведение типов, без повторной проверки структуры.
+export function questionDraftFromDto(dto: QuestionLike): QuestionDraft {
   const draft = createQuestionDraft(dto.type);
   const payload = dto.payload as Record<string, unknown>;
   const answerKey = dto.answerKey as Record<string, unknown>;

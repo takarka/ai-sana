@@ -1,17 +1,20 @@
 import { Dialog, DialogModule, DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CreateItemRequest, ItemResponse, PisaApi, TranslatePipe, errorTranslationKey } from '@front/core';
-import { CraftButton, CraftInput, CraftModal } from '@front/ui';
-import { finalize } from 'rxjs';
 import {
+  CreateItemRequest,
+  ItemResponse,
+  PisaApi,
   QuestionDraft,
+  TranslatePipe,
   createQuestionDraft,
+  errorTranslationKey,
   questionDraftFromDto,
   questionDraftToInput,
   validateQuestionDraft,
-} from '../../model/question-draft';
-import { PisaQuestionEditor } from './question-editor/pisa-question-editor';
+} from '@front/core';
+import { CraftButton, CraftInput, CraftModal, CraftQuestionEditor } from '@front/ui';
+import { finalize } from 'rxjs';
 
 export interface PisaItemFormDialogData {
   readonly itemId?: string;
@@ -28,7 +31,7 @@ const DIRECTIONS = ['Math', 'Science', 'Reading'] as const;
 // публикует задание.
 @Component({
   selector: 'app-pisa-item-form-dialog',
-  imports: [DialogModule, ReactiveFormsModule, FormsModule, CraftModal, CraftInput, CraftButton, PisaQuestionEditor, TranslatePipe],
+  imports: [DialogModule, ReactiveFormsModule, FormsModule, CraftModal, CraftInput, CraftButton, CraftQuestionEditor, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pisa-item-form.dialog.html',
   styleUrls: ['../dialog-form.scss', './pisa-item-form.dialog.scss'],

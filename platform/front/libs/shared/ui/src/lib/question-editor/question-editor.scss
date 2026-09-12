@@ -2,7 +2,46 @@
   display: block;
 }
 
-.app-question-card {
+// Нативный <select>/<textarea> — движок вопроса не тянет отдельный
+// craft-select/craft-textarea, в дизайн-системе их пока нет (F0.5).
+.craft-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.craft-field__label {
+  font-family: var(--font-micro);
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+}
+
+.craft-native-select,
+.craft-textarea {
+  padding: 1.3rem 1.5rem;
+  border: 1px solid var(--paper-line);
+  border-radius: 1rem;
+  background: var(--card);
+  font-family: var(--font-body);
+  font-size: 1.45rem;
+  color: var(--fg);
+  outline: none;
+  width: 100%;
+}
+
+.craft-textarea {
+  resize: vertical;
+}
+
+.craft-native-select:focus,
+.craft-textarea:focus {
+  border-color: var(--signal);
+}
+
+.craft-question-card {
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
@@ -12,14 +51,14 @@
   background: var(--card);
 }
 
-.app-question-card__head {
+.craft-question-card__head {
   display: flex;
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
 }
 
-.app-question-card__number {
+.craft-question-card__number {
   font-family: var(--font-micro);
   font-size: 1.1rem;
   font-weight: 600;
@@ -28,18 +67,18 @@
   color: var(--fg-dim);
 }
 
-.app-question-card__type {
+.craft-question-card__type {
   flex: 1 1 20rem;
 }
 
-.app-question-card__actions {
+.craft-question-card__actions {
   display: flex;
   align-items: center;
   gap: 0.4rem;
   margin-left: auto;
 }
 
-.app-question-card__icon-btn {
+.craft-question-card__icon-btn {
   width: 2.8rem;
   height: 2.8rem;
   display: flex;
@@ -54,38 +93,38 @@
   line-height: 1;
 }
 
-.app-question-card__icon-btn:hover:not(:disabled) {
+.craft-question-card__icon-btn:hover:not(:disabled) {
   color: var(--fg);
   border-color: var(--signal);
 }
 
-.app-question-card__icon-btn:disabled {
+.craft-question-card__icon-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
-.app-question-card__list {
+.craft-question-card__list {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 }
 
-.app-question-card__row {
+.craft-question-card__row {
   display: flex;
   align-items: center;
   gap: 0.8rem;
 }
 
-.app-question-card__row > craft-input {
+.craft-question-card__row > craft-input {
   flex: 1;
 }
 
-.app-question-card__row .app-native-select {
+.craft-question-card__row .craft-native-select {
   flex: 0 0 auto;
   width: 16rem;
 }
 
-.app-question-card__index {
+.craft-question-card__index {
   flex: 0 0 auto;
   width: 2rem;
   text-align: center;
@@ -93,31 +132,31 @@
   font-size: 1.3rem;
 }
 
-.app-question-card__columns {
+.craft-question-card__columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.6rem;
 }
 
 @media (max-width: 640px) {
-  .app-question-card__columns {
+  .craft-question-card__columns {
     grid-template-columns: 1fr;
   }
 }
 
-.app-question-card__column {
+.craft-question-card__column {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 }
 
-.app-question-card__hint {
+.craft-question-card__hint {
   margin: 0;
   font-size: 1.25rem;
   color: var(--fg-dim);
 }
 
-.app-question-card__error {
+.craft-question-card__error {
   margin: 0;
   padding: 1rem 1.4rem;
   border-radius: 1rem;

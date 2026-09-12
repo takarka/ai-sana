@@ -6,3 +6,4 @@ export * from './lib/modal/modal';
 export * from './lib/pagination/pagination';
 export * from './lib/empty-state/empty-state';
 export * from './lib/credentials-reveal-dialog/credentials-reveal.dialog';
+export * from './lib/question-editor/question-editor';

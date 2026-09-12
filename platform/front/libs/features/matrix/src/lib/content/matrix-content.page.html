@@ -59,7 +59,7 @@
             </thead>
             <tbody>
               @for (lesson of sectionLessons; track lesson.id) {
-                <tr class="app-matrix__row" (click)="editLesson(lesson)">
+                <tr class="app-matrix__row" (click)="openLesson(lesson)">
                   <td class="app-matrix__name-cell">{{ lesson.title }}</td>
                   <td class="app-matrix__dim">
                     {{ (lesson.isPublished ? 'matrix.list.status.published' : 'matrix.list.status.draft') | translate }}

@@ -1,0 +1,173 @@
+.app-lesson-editor__loading {
+  color: var(--fg-dim);
+  font-size: 1.4rem;
+}
+
+.app-lesson-editor__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--fg-dim);
+  font-size: 1.3rem;
+  margin-bottom: 1.6rem;
+}
+
+.app-lesson-editor__back:hover {
+  color: var(--fg);
+}
+
+.app-lesson-editor__header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 2.4rem;
+  flex-wrap: wrap;
+}
+
+.app-lesson-editor__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-display-sm);
+  color: var(--fg);
+  margin: 0;
+}
+
+.app-lesson-editor__link-btn {
+  background: none;
+  border: 0;
+  font-size: 1.3rem;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.app-lesson-editor__link-btn:hover {
+  text-decoration: underline;
+}
+
+.app-lesson-editor__section {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 2.4rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.app-lesson-editor__section-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.7rem;
+  color: var(--fg);
+}
+
+.app-lesson-editor__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.app-lesson-editor__step {
+  padding: 1.4rem 1.8rem;
+  border: 1px solid var(--paper-line);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.app-lesson-editor__step-badge {
+  align-self: flex-start;
+  padding: 0.3rem 0.9rem;
+  border-radius: var(--r-pill);
+  background: var(--signal-wash);
+  color: var(--signal);
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.app-lesson-editor__materials {
+  margin: 0;
+  padding-left: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 1.35rem;
+  color: var(--fg);
+}
+
+.app-lesson-editor__material-type {
+  font-weight: 600;
+  margin-right: 0.6rem;
+  color: var(--fg-dim);
+}
+
+.app-lesson-editor__question-summary {
+  margin: 0;
+  font-size: 1.35rem;
+  color: var(--fg);
+}
+
+.app-lesson-editor__material-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.app-lesson-editor__material-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.app-lesson-editor__material-type-select {
+  flex: 0 0 auto;
+  width: 16rem;
+}
+
+.app-lesson-editor__material-row .app-textarea {
+  flex: 1;
+}
+
+.app-lesson-editor__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.app-lesson-editor__error {
+  margin: 0;
+  padding: 1rem 1.4rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--lvl-low) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--lvl-low) 30%, transparent);
+  color: var(--fg);
+  font-size: 1.3rem;
+}
+
+// Нативный <select>/<textarea> — тот же паттерн, что в dialog-form.scss
+// (F0.5 не заводил отдельные craft-select/craft-textarea).
+.app-native-select,
+.app-textarea {
+  padding: 1.3rem 1.5rem;
+  border: 1px solid var(--paper-line);
+  border-radius: 1rem;
+  background: var(--card);
+  font-family: var(--font-body);
+  font-size: 1.45rem;
+  color: var(--fg);
+  outline: none;
+}
+
+.app-textarea {
+  resize: vertical;
+  width: 100%;
+}
+
+.app-native-select:focus,
+.app-textarea:focus {
+  border-color: var(--signal);
+}

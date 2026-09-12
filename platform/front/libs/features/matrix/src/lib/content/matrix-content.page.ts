@@ -1,12 +1,12 @@
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { LessonResponse, MatrixApi, SectionResponse, TranslatePipe } from '@front/core';
 import { CraftButton, CraftEmptyState } from '@front/ui';
 import { forkJoin } from 'rxjs';
 import { openCreateLessonDialog } from '../dialogs/create-lesson/create-lesson.dialog';
 import { openCreateSectionDialog } from '../dialogs/create-section/create-section.dialog';
-import { openEditLessonDialog } from '../dialogs/edit-lesson/edit-lesson.dialog';
 
 const GRADES = Array.from({ length: 11 }, (_, index) => index + 1);
 
@@ -23,6 +23,7 @@ const GRADES = Array.from({ length: 11 }, (_, index) => index + 1);
 export class MatrixContentPage {
   private readonly matrixApi = inject(MatrixApi);
   private readonly dialog = inject(Dialog);
+  private readonly router = inject(Router);
 
   protected readonly grades = GRADES;
   protected readonly loading = signal(true);
@@ -66,10 +67,8 @@ export class MatrixContentPage {
     );
   }
 
-  protected editLesson(lesson: LessonResponse): void {
-    openEditLessonDialog(this.dialog, { lessonId: lesson.id, title: lesson.title }).closed.subscribe((updated) => {
-      if (updated) this.fetch();
-    });
+  protected openLesson(lesson: LessonResponse): void {
+    void this.router.navigate(['/platform/content/matrix/lessons', lesson.id]);
   }
 
   private fetch(): void {
