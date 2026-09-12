@@ -12,3 +12,4 @@
 | [0003](0003-landing-eighth-version-to-angular.md) | Публичный сайт — `apps/landing` (Angular, SSR) вместо статического `eighth-version/`; все версии лендинга в root удаляются после cutover. Закрывает открытый вопрос L-1 | accepted |
 | [0004](0004-runtime-i18n-kabineta.md) | Перевод интерфейса кабинета — рантайм-словари, а не сборка на локаль (в отличие от `apps/landing`) | accepted |
 | [0005](0005-razdelenie-kabineta-na-admin-i-learn.md) | Кабинет разделён на `apps/admin` (контур `platform`) и `apps/learn` (контуры школы); `craft-web` больше не существует. Уточняет строку «одно приложение» в ADR-0002 | accepted |
+| [0006](0006-domeny-i-marshruty-apps-learn.md) | `apps/learn` на `learn.craftai.kz`: ученик в корне без префикса `/learn`, учитель под `/teach`. Меняет таблицу маршрутов плана 05 §3.2 | accepted |
