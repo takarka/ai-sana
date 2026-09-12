@@ -5,7 +5,13 @@
     <title>CRAFT AI - Admin Panel</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- SVG-иконка идёт после .ico: браузеры, умеющие image/svg+xml,
+         берут последнюю подходящую и получают векторный знак, старым
+         (в т.ч. Safari) остаётся растровый фолбэк. Как в apps/landing —
+         тот же favicon.svg, апскейлить обе иконки при правке знака
+         (tools/svg-to-ico.py). -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   </head>
   <body>
     <app-root></app-root>
