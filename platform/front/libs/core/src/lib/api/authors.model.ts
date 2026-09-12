@@ -4,6 +4,7 @@
 
 export interface CreateAuthorAccountRequest {
   readonly fullName: string;
+  readonly email: string;
 }
 
 export interface CreateAuthorAccountResponse {
