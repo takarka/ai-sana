@@ -6,9 +6,10 @@ import { CraftButton, CraftInput, CraftModal } from '@front/ui';
 import { finalize } from 'rxjs';
 
 // Модалка «Создать методиста» — по образцу create-organization.dialog
-// (единственное обязательное поле, план 08 §2: методист платформы не
-// привязан к организации). Логин и пароль генерируются так же, как для
-// учителя/ученика (CreateAuthorAccount, аналог CreateUserAccount).
+// (план 08 §2: методист платформы не привязан к организации). В отличие от
+// учителя/ученика (CreateUserAccount) у методиста есть настоящая почта —
+// её вводит админ, и она становится логином напрямую, без синтетического
+// адреса со случайным суффиксом. Пароль по-прежнему генерируется.
 @Component({
   selector: 'app-create-author-account-dialog',
   imports: [DialogModule, ReactiveFormsModule, CraftModal, CraftInput, CraftButton, TranslatePipe],
@@ -26,6 +27,7 @@ export class CreateAuthorAccountDialog {
 
   protected readonly form = this.formBuilder.nonNullable.group({
     fullName: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
   });
 
   protected close(): void {
@@ -41,10 +43,10 @@ export class CreateAuthorAccountDialog {
     this.errorKey.set(null);
     this.submitting.set(true);
 
-    const { fullName } = this.form.getRawValue();
+    const { fullName, email } = this.form.getRawValue();
 
     this.authorsApi
-      .createAuthorAccount({ fullName })
+      .createAuthorAccount({ fullName, email })
       .pipe(finalize(() => this.submitting.set(false)))
       .subscribe({
         next: (created) => this.dialogRef.close(created),

@@ -21,9 +21,15 @@ public interface IUserProvisioningService
 
 /// <param name="LoginSeed">
 /// Основа логина: внешний идентификатор (ИИН) при наличии, иначе — любая уникальная в
-/// рамках вызова строка. Реальным логином становится синтетический адрес на основе этого
-/// значения — уникальность физической почты не гарантируется и не требуется.
+/// рамках вызова строка. Используется только когда <paramref name="Email"/> не задан —
+/// тогда реальным логином становится синтетический адрес на основе этого значения, и
+/// уникальность физической почты не гарантируется и не требуется.
 /// </param>
-public sealed record ProvisionUserRequest(string FullName, string LoginSeed);
+/// <param name="Email">
+/// Настоящая почта пользователя, если она у него есть (например, у методиста платформы —
+/// в отличие от учителей/учеников из плана 08 §4). Когда задана, становится логином без
+/// какого-либо служебного суффикса; уникальность обеспечивает <c>RequireUniqueEmail</c>.
+/// </param>
+public sealed record ProvisionUserRequest(string FullName, string LoginSeed, string? Email = null);
 
 public sealed record ProvisionedUser(Guid UserId, string Login, string GeneratedPassword);

@@ -7,9 +7,9 @@ namespace CraftAi.Api.IntegrationTests;
 
 /// <summary>
 /// Управление учётками методистов платформы (план 08 §2: «Создать/импортировать учётные
-/// записи» — только <c>superadmin</c>). Заводит методиста с синтетическим логином и разовым
-/// паролем, как учителя/учеников (план 09 §3.3), но без организации-контекста — роль
-/// <c>author</c> назначается напрямую в Identity.
+/// записи» — только <c>superadmin</c>). В отличие от учителей/учеников (план 09 §3.3) у
+/// методиста есть настоящая почта — админ вводит её сам, и она становится логином напрямую;
+/// разовый пароль по-прежнему генерируется. Роль <c>author</c> назначается напрямую в Identity.
 /// </summary>
 [Trait("Category", "RequiresDocker")]
 [Collection("Platform API")]
@@ -20,11 +20,12 @@ public sealed class AuthorAccountsEndpointsTests(PlatformApiFactory factory)
     {
         var client = await AuthorizedClientAsync(PlatformApiFactory.SeededSuperAdminEmail, PlatformApiFactory.SeededSuperAdminPassword);
 
-        var response = await PostJsonAsync(client, "/platform/authors", new { fullName = "Методист Тестов" });
+        var response = await PostJsonAsync(
+            client, "/platform/authors", new { fullName = "Методист Тестов", email = "metodist.testov@example.com" });
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
 
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
-        Assert.False(string.IsNullOrEmpty(body.GetProperty("login").GetString()));
+        Assert.Equal("metodist.testov@example.com", body.GetProperty("login").GetString());
         Assert.False(string.IsNullOrEmpty(body.GetProperty("generatedPassword").GetString()));
 
         var loginResponse = await client.PostAsJsonAsync("/auth/login", new
@@ -43,16 +44,48 @@ public sealed class AuthorAccountsEndpointsTests(PlatformApiFactory factory)
     {
         var client = await AuthorizedClientAsync(PlatformApiFactory.SeededSuperAdminEmail, PlatformApiFactory.SeededSuperAdminPassword);
 
-        var response = await PostJsonAsync(client, "/platform/authors", new { fullName = "" });
+        var response = await PostJsonAsync(client, "/platform/authors", new { fullName = "", email = "empty.fio@example.com" });
 
         Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task CreateAuthorAccount_ПустойEmail_Отдаёт422()
+    {
+        var client = await AuthorizedClientAsync(PlatformApiFactory.SeededSuperAdminEmail, PlatformApiFactory.SeededSuperAdminPassword);
+
+        var response = await PostJsonAsync(client, "/platform/authors", new { fullName = "Методист Без Почты", email = "" });
+
+        Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task CreateAuthorAccount_НекорректныйEmail_Отдаёт422()
+    {
+        var client = await AuthorizedClientAsync(PlatformApiFactory.SeededSuperAdminEmail, PlatformApiFactory.SeededSuperAdminPassword);
+
+        var response = await PostJsonAsync(client, "/platform/authors", new { fullName = "Методист Опечатка", email = "не-похоже-на-почту" });
+
+        Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task CreateAuthorAccount_ЗанятыйEmail_Отдаёт409()
+    {
+        var client = await AuthorizedClientAsync(PlatformApiFactory.SeededSuperAdminEmail, PlatformApiFactory.SeededSuperAdminPassword);
+        await PostJsonAsync(client, "/platform/authors", new { fullName = "Методист Первый", email = "dubl.metodist@example.com" });
+
+        var response = await PostJsonAsync(client, "/platform/authors", new { fullName = "Методист Второй", email = "dubl.metodist@example.com" });
+
+        Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
     }
 
     [Fact]
     public async Task ListAuthorAccounts_СозданныйМетодистПопадаетВСписок()
     {
         var client = await AuthorizedClientAsync(PlatformApiFactory.SeededSuperAdminEmail, PlatformApiFactory.SeededSuperAdminPassword);
-        var createResponse = await PostJsonAsync(client, "/platform/authors", new { fullName = "Методист Списочный" });
+        var createResponse = await PostJsonAsync(
+            client, "/platform/authors", new { fullName = "Методист Списочный", email = "metodist.spisochny@example.com" });
         var created = await createResponse.Content.ReadFromJsonAsync<JsonElement>();
 
         var response = await client.GetAsync("/platform/authors");
@@ -68,7 +101,8 @@ public sealed class AuthorAccountsEndpointsTests(PlatformApiFactory factory)
     {
         var client = await AuthorizedClientAsync(PlatformApiFactory.SeededAuthorEmail, PlatformApiFactory.SeededAuthorPassword);
 
-        var response = await PostJsonAsync(client, "/platform/authors", new { fullName = "Ещё Один Методист" });
+        var response = await PostJsonAsync(
+            client, "/platform/authors", new { fullName = "Ещё Один Методист", email = "eshche.odin@example.com" });
 
         Assert.Equal(HttpStatusCode.Forbidden, response.StatusCode);
     }

@@ -11,6 +11,20 @@
       [error]="form.controls.fullName.touched && form.controls.fullName.invalid ? ('authors.createDialog.fullNameRequired' | translate) : null"
     ></craft-input>
 
+    <craft-input
+      [label]="'authors.createDialog.emailLabel' | translate"
+      [placeholder]="'authors.createDialog.emailPlaceholder' | translate"
+      type="email"
+      formControlName="email"
+      [error]="
+        form.controls.email.touched && form.controls.email.invalid
+          ? (form.controls.email.hasError('email')
+              ? ('authors.createDialog.emailInvalid' | translate)
+              : ('authors.createDialog.emailRequired' | translate))
+          : null
+      "
+    ></craft-input>
+
     @if (errorKey(); as key) {
       <p class="app-create-author-form__error" role="alert">{{ key | translate }}</p>
     }

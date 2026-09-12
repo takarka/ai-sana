@@ -19,7 +19,12 @@ public sealed class UserProvisioningService(UserManager<ApplicationUser> userMan
         // формат при RequireUniqueEmail (см. сопроводительную сводку к A1/A2). Короткий
         // случайный суффикс (а не полный GUID) достаточен для уникальности локальной части
         // и не превращает узнаваемый по ФИО логин в нечитаемую строку.
-        var login = $"{Slugify(request.LoginSeed)}.{ShortSuffix()}@craftai.local";
+        // Когда вызывающий модуль знает настоящую почту пользователя (методисты платформы),
+        // используем её как логин напрямую — без транслитерации и без случайного суффикса,
+        // который иначе оказывается «вклеен» в адрес и выглядит как техническая ошибка.
+        var login = string.IsNullOrWhiteSpace(request.Email)
+            ? $"{Slugify(request.LoginSeed)}.{ShortSuffix()}@craftai.local"
+            : request.Email.Trim();
         var password = GeneratePassword();
 
         var user = new ApplicationUser
@@ -36,6 +41,15 @@ public sealed class UserProvisioningService(UserManager<ApplicationUser> userMan
         var createResult = await userManager.CreateAsync(user, password);
         if (!createResult.Succeeded)
         {
+            // Указанная вручную почта (в отличие от синтетической с уникальным суффиксом)
+            // вполне может уже быть занята — это не внутренняя ошибка провижининга, а
+            // ожидаемый конфликт, который вызывающий модуль должен показать как «e-mail занят».
+            if (createResult.Errors.Any(e => e.Code is "DuplicateEmail" or "DuplicateUserName"))
+            {
+                return Result.Failure<ProvisionedUser>(
+                    Error.Conflict("provisioning.email-taken", "Пользователь с таким e-mail уже существует."));
+            }
+
             var message = string.Join("; ", createResult.Errors.Select(e => e.Description));
             return Result.Failure<ProvisionedUser>(Error.Failure("provisioning.create-failed", message));
         }
