@@ -12,7 +12,7 @@ import {
   questionDraftToInput,
   validateQuestionDraft,
 } from '@front/core';
-import { CraftButton, CraftInput, CraftQuestionEditor } from '@front/ui';
+import { CraftButton, CraftInput, CraftQuestionEditor, CraftQuestionPreview } from '@front/ui';
 import { finalize } from 'rxjs';
 
 const LEVELS = [1, 2, 3, 4, 5, 6];
@@ -28,7 +28,7 @@ const DIRECTIONS = ['Math', 'Science', 'Reading'] as const;
 // сохранение сразу публикует задание.
 @Component({
   selector: 'app-pisa-item-form-page',
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, CraftInput, CraftButton, CraftQuestionEditor, TranslatePipe],
+  imports: [ReactiveFormsModule, FormsModule, RouterLink, CraftInput, CraftButton, CraftQuestionEditor, CraftQuestionPreview, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pisa-item-form.page.html',
   styleUrls: ['./item-form.scss', './pisa-item-form.page.scss'],
@@ -55,6 +55,12 @@ export class PisaItemFormPage {
   protected readonly sources = signal<string[]>([]);
   protected readonly questions = signal<QuestionDraft[]>([createQuestionDraft()]);
   protected readonly questionErrors = signal<Readonly<Record<string, string | null>>>({});
+
+  // Предпросмотр «глазами ученика» (план 09 §4.5, F4.4) — переключатель поверх
+  // того же черновика формы, а не отдельный маршрут: составное задание PISA
+  // редактируется целиком на одной странице и до сохранения не имеет id,
+  // поэтому предпросмотру нечего запрашивать с сервера.
+  protected readonly previewMode = signal(false);
 
   protected readonly form = this.formBuilder.nonNullable.group({
     stimulusText: ['', Validators.required],
@@ -107,6 +113,10 @@ export class PisaItemFormPage {
 
   protected removeSource(index: number): void {
     this.sources.set(this.sources().filter((_, i) => i !== index));
+  }
+
+  protected togglePreview(): void {
+    this.previewMode.update((value) => !value);
   }
 
   protected addQuestion(): void {

@@ -15,127 +15,155 @@
   <p class="app-item-form-page__loading">{{ 'common.loading' | translate }}</p>
 } @else {
   <form [formGroup]="form" (ngSubmit)="submit()" class="app-item-form">
-    <div class="app-field">
-      <span class="app-field__label">{{ 'pisa.itemForm.stimulusTextLabel' | translate }}</span>
-      <textarea
-        class="app-textarea"
-        rows="4"
-        formControlName="stimulusText"
-        [placeholder]="'pisa.itemForm.stimulusTextPlaceholder' | translate"
-      ></textarea>
-    </div>
+    @if (previewMode()) {
+      <div class="app-item-form__preview">
+        <span class="app-item-form__preview-eyebrow">{{ 'pisa.itemForm.previewEyebrow' | translate }}</span>
+        <p class="app-item-form__preview-stimulus">{{ form.getRawValue().stimulusText }}</p>
 
-    <craft-input
-      [label]="'pisa.itemForm.chartUrlLabel' | translate"
-      [placeholder]="'pisa.itemForm.chartUrlPlaceholder' | translate"
-      formControlName="chartUrl"
-    ></craft-input>
+        @if (form.getRawValue().chartUrl; as chartUrl) {
+          <img class="app-item-form__preview-chart" [src]="chartUrl" alt="" />
+        }
 
-    <div class="app-field">
-      <span class="app-field__label">{{ 'pisa.itemForm.sourcesLabel' | translate }}</span>
-      @for (source of sources(); track $index) {
-        <div class="app-item-form__row">
-          <craft-input
-            [placeholder]="'pisa.itemForm.sourcePlaceholder' | translate: { n: $index + 1 }"
-            [ngModel]="source"
-            [ngModelOptions]="{ standalone: true }"
-            (ngModelChange)="setSource($index, $event)"
-          ></craft-input>
-          <craft-button variant="ghost" type="button" (click)="removeSource($index)">{{ 'common.remove' | translate }}</craft-button>
-        </div>
-      }
-      <craft-button variant="ghost" type="button" (click)="addSource()">{{ 'pisa.itemForm.addSource' | translate }}</craft-button>
-    </div>
+        @if (sources().length > 0) {
+          <ul class="app-item-form__preview-sources">
+            @for (source of sources(); track $index) {
+              @if (source.trim()) {
+                <li>{{ source }}</li>
+              }
+            }
+          </ul>
+        }
 
-    <div class="app-item-form__fields">
-      <div class="app-field">
-        <span class="app-field__label">{{ 'pisa.itemForm.directionLabel' | translate }}</span>
-        <select class="app-native-select" formControlName="direction">
-          @for (direction of directions; track direction) {
-            <option [value]="direction">{{ ('pisa.direction.' + direction) | translate }}</option>
-          }
-        </select>
+        @for (question of questions(); track question.key; let i = $index) {
+          <craft-question-preview [draft]="question" [index]="i"></craft-question-preview>
+        }
       </div>
-
+    } @else {
       <div class="app-field">
-        <span class="app-field__label">{{ 'pisa.itemForm.levelLabel' | translate }}</span>
-        <select class="app-native-select" formControlName="level">
-          @for (level of levels; track level) {
-            <option [value]="level">{{ level }}</option>
-          }
-        </select>
+        <span class="app-field__label">{{ 'pisa.itemForm.stimulusTextLabel' | translate }}</span>
+        <textarea
+          class="app-textarea"
+          rows="4"
+          formControlName="stimulusText"
+          [placeholder]="'pisa.itemForm.stimulusTextPlaceholder' | translate"
+        ></textarea>
       </div>
-    </div>
-
-    <div class="app-item-form__fields">
-      <craft-input
-        [label]="'pisa.itemForm.cognitiveProcessLabel' | translate"
-        [placeholder]="'pisa.itemForm.cognitiveProcessPlaceholder' | translate"
-        formControlName="cognitiveProcess"
-      ></craft-input>
 
       <craft-input
-        [label]="'pisa.itemForm.contextLabel' | translate"
-        [placeholder]="'pisa.itemForm.contextPlaceholder' | translate"
-        formControlName="context"
+        [label]="'pisa.itemForm.chartUrlLabel' | translate"
+        [placeholder]="'pisa.itemForm.chartUrlPlaceholder' | translate"
+        formControlName="chartUrl"
       ></craft-input>
-    </div>
 
-    <div class="app-item-form__fields">
       <div class="app-field">
-        <span class="app-field__label">{{ 'pisa.itemForm.expectedTimeLabel' | translate }}</span>
-        <input class="app-native-select" type="number" min="1" formControlName="expectedTimeMinutes" />
+        <span class="app-field__label">{{ 'pisa.itemForm.sourcesLabel' | translate }}</span>
+        @for (source of sources(); track $index) {
+          <div class="app-item-form__row">
+            <craft-input
+              [placeholder]="'pisa.itemForm.sourcePlaceholder' | translate: { n: $index + 1 }"
+              [ngModel]="source"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="setSource($index, $event)"
+            ></craft-input>
+            <craft-button variant="ghost" type="button" (click)="removeSource($index)">{{ 'common.remove' | translate }}</craft-button>
+          </div>
+        }
+        <craft-button variant="ghost" type="button" (click)="addSource()">{{ 'pisa.itemForm.addSource' | translate }}</craft-button>
       </div>
 
-      <div class="app-field">
-        <span class="app-field__label">{{ 'pisa.itemForm.gradeRangeLabel' | translate }}</span>
-        <div class="app-item-form__grade-range">
-          <select class="app-native-select" formControlName="gradeRangeMin">
-            @for (grade of grades; track grade) {
-              <option [value]="grade">{{ grade }}</option>
+      <div class="app-item-form__fields">
+        <div class="app-field">
+          <span class="app-field__label">{{ 'pisa.itemForm.directionLabel' | translate }}</span>
+          <select class="app-native-select" formControlName="direction">
+            @for (direction of directions; track direction) {
+              <option [value]="direction">{{ ('pisa.direction.' + direction) | translate }}</option>
             }
           </select>
-          <span>—</span>
-          <select class="app-native-select" formControlName="gradeRangeMax">
-            @for (grade of grades; track grade) {
-              <option [value]="grade">{{ grade }}</option>
+        </div>
+
+        <div class="app-field">
+          <span class="app-field__label">{{ 'pisa.itemForm.levelLabel' | translate }}</span>
+          <select class="app-native-select" formControlName="level">
+            @for (level of levels; track level) {
+              <option [value]="level">{{ level }}</option>
             }
           </select>
         </div>
       </div>
-    </div>
 
-    <div class="app-item-form__questions">
-      <div class="app-item-form__questions-head">
-        <span class="app-field__label">{{ 'pisa.itemForm.questionsLabel' | translate }}</span>
-        <craft-button variant="ghost" type="button" (click)="addQuestion()">{{ 'pisa.itemForm.addQuestion' | translate }}</craft-button>
+      <div class="app-item-form__fields">
+        <craft-input
+          [label]="'pisa.itemForm.cognitiveProcessLabel' | translate"
+          [placeholder]="'pisa.itemForm.cognitiveProcessPlaceholder' | translate"
+          formControlName="cognitiveProcess"
+        ></craft-input>
+
+        <craft-input
+          [label]="'pisa.itemForm.contextLabel' | translate"
+          [placeholder]="'pisa.itemForm.contextPlaceholder' | translate"
+          formControlName="context"
+        ></craft-input>
       </div>
 
-      @for (question of questions(); track question.key; let i = $index) {
-        <craft-question-editor
-          [draft]="question"
-          [index]="i"
-          [error]="questionErrors()[question.key] ?? null"
-          [canMoveUp]="i > 0"
-          [canMoveDown]="i < questions().length - 1"
-          (changed)="updateQuestion(i, $event)"
-          (removed)="removeQuestion(i)"
-          (moveUp)="moveQuestionUp(i)"
-          (moveDown)="moveQuestionDown(i)"
-        ></craft-question-editor>
+      <div class="app-item-form__fields">
+        <div class="app-field">
+          <span class="app-field__label">{{ 'pisa.itemForm.expectedTimeLabel' | translate }}</span>
+          <input class="app-native-select" type="number" min="1" formControlName="expectedTimeMinutes" />
+        </div>
+
+        <div class="app-field">
+          <span class="app-field__label">{{ 'pisa.itemForm.gradeRangeLabel' | translate }}</span>
+          <div class="app-item-form__grade-range">
+            <select class="app-native-select" formControlName="gradeRangeMin">
+              @for (grade of grades; track grade) {
+                <option [value]="grade">{{ grade }}</option>
+              }
+            </select>
+            <span>—</span>
+            <select class="app-native-select" formControlName="gradeRangeMax">
+              @for (grade of grades; track grade) {
+                <option [value]="grade">{{ grade }}</option>
+              }
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-item-form__questions">
+        <div class="app-item-form__questions-head">
+          <span class="app-field__label">{{ 'pisa.itemForm.questionsLabel' | translate }}</span>
+          <craft-button variant="ghost" type="button" (click)="addQuestion()">{{ 'pisa.itemForm.addQuestion' | translate }}</craft-button>
+        </div>
+
+        @for (question of questions(); track question.key; let i = $index) {
+          <craft-question-editor
+            [draft]="question"
+            [index]="i"
+            [error]="questionErrors()[question.key] ?? null"
+            [canMoveUp]="i > 0"
+            [canMoveDown]="i < questions().length - 1"
+            (changed)="updateQuestion(i, $event)"
+            (removed)="removeQuestion(i)"
+            (moveUp)="moveQuestionUp(i)"
+            (moveDown)="moveQuestionDown(i)"
+          ></craft-question-editor>
+        }
+      </div>
+
+      @for (error of formErrors(); track error) {
+        <p class="app-item-form__error" role="alert">{{ error | translate }}</p>
       }
-    </div>
 
-    @for (error of formErrors(); track error) {
-      <p class="app-item-form__error" role="alert">{{ error | translate }}</p>
-    }
-
-    @if (errorKey(); as key) {
-      <p class="app-item-form__error" role="alert">{{ key | translate }}</p>
+      @if (errorKey(); as key) {
+        <p class="app-item-form__error" role="alert">{{ key | translate }}</p>
+      }
     }
 
     <div class="app-item-form-page__actions">
       <craft-button variant="ghost" type="button" routerLink="/platform/content/pisa">{{ 'common.cancel' | translate }}</craft-button>
+      <craft-button variant="ghost" type="button" (click)="togglePreview()">
+        {{ (previewMode() ? 'pisa.itemForm.backToEdit' : 'pisa.itemForm.preview') | translate }}
+      </craft-button>
       <craft-button variant="primary" type="button" [disabled]="submitting()" (click)="submit()">
         {{ (isEdit ? 'common.save' : 'common.create') | translate }}
       </craft-button>

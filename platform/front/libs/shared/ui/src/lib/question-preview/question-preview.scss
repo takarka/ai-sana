@@ -1,0 +1,113 @@
+:host {
+  display: block;
+}
+
+.craft-question-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1.8rem;
+  border: 1px solid var(--paper-line);
+  border-radius: 1.2rem;
+  background: var(--surface);
+}
+
+.craft-question-preview__number {
+  font-family: var(--font-micro);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+}
+
+.craft-question-preview__text {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--fg);
+}
+
+.craft-question-preview__hint {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--fg-dim);
+}
+
+.craft-question-preview__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.craft-question-preview__row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.4rem;
+  color: var(--fg);
+}
+
+.craft-question-preview__row--draggable {
+  padding: 0.8rem 1.2rem;
+  border: 1px dashed var(--paper-line);
+  border-radius: 0.8rem;
+}
+
+.craft-question-preview__handle {
+  color: var(--fg-dim);
+}
+
+.craft-question-preview__term {
+  flex: 1;
+}
+
+.craft-question-preview__select,
+.craft-question-preview__input {
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--paper-line);
+  border-radius: 0.8rem;
+  background: var(--card);
+  font-family: var(--font-body);
+  font-size: 1.35rem;
+  color: var(--fg-dim);
+}
+
+.craft-question-preview__select {
+  flex: 0 0 auto;
+  width: 18rem;
+}
+
+.craft-question-preview__input {
+  width: 100%;
+}
+
+.craft-question-preview__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.craft-question-preview__chip {
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--paper-line);
+  background: var(--card);
+  font-size: 1.3rem;
+  color: var(--fg);
+}
+
+.craft-question-preview__categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.craft-question-preview__category {
+  flex: 1 1 14rem;
+  padding: 1.4rem;
+  border: 1px dashed var(--paper-line);
+  border-radius: 1rem;
+  text-align: center;
+  font-size: 1.3rem;
+  color: var(--fg-dim);
+}

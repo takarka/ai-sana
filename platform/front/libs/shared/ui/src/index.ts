@@ -7,3 +7,4 @@ export * from './lib/pagination/pagination';
 export * from './lib/empty-state/empty-state';
 export * from './lib/credentials-reveal-dialog/credentials-reveal.dialog';
 export * from './lib/question-editor/question-editor';
+export * from './lib/question-preview/question-preview';

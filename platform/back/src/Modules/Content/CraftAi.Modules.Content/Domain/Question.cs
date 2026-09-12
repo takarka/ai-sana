@@ -13,7 +13,7 @@ public sealed class Question
 
     public required Guid LessonStepId { get; init; }
 
-    public required QuestionType Type { get; init; }
+    public required QuestionType Type { get; set; }
 
     /// <summary>Сериализованный JSON — форма зависит от <see cref="Type"/> (jsonb).</summary>
     public required string Payload { get; set; }
