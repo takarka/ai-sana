@@ -164,19 +164,23 @@ shell'а. Колонка «Библиотека» ссылается на §5.
 
 ### 3.2. Контур `learn` (ученик)
 
+Маршруты ученика живут в корне приложения, без префикса `/learn`:
+приложение и так развёрнуто на `learn.craftai.kz`
+([ADR-0006](../adr/0006-domeny-i-marshruty-apps-learn.md)).
+
 | Маршрут | Экран | Библиотека | Требования |
 |---|---|---|---|
-| `/learn` | Сегодня: активная сессия урока, следующая тема по КТП, дедлайны | `matrix/feature-student-home` | FR-MTX-01, FR-CNT-06 |
-| `/learn/courses/:courseId` | Карта курса: разделы, темы, замки предусловий | `matrix/feature-course-map` | FR-CNT-01, FR-CNT-08 |
-| `/learn/lessons/:lessonId` | Плеер урока (редирект на текущий шаг) | `matrix/feature-lesson` | FR-MTX-02 |
-| `/learn/lessons/:lessonId/steps/:stepId` | Шаг: теория / симулятор / задание / тест / ИИ-практика / проект / рефлексия | `matrix/feature-lesson` | FR-CNT-02, FR-MTX-04, FR-MTX-06 |
-| `/learn/progress` | Мой прогресс: пройденные ЦО, оценки F/P, статусы | `matrix/feature-student-progress` | FR-ASM-01 |
-| `/learn/pisa` | Тренажёры трёх направлений + медиа/ИИ-грамотность | `pisa/feature-trainers` | FR-PSA-02, FR-PSA-03 |
-| `/learn/pisa/runs/:runId` | Прохождение среза: таймер, блоки, автосдача | `pisa/feature-wave-run` | FR-PSA-12, FR-PSA-13 |
-| `/learn/builder` | Курс BUILDER: 4 модуля | `builder/feature-course` | FR-BLD-01 |
-| `/learn/builder/prompt/:taskId` | Тренажёр промптов | `builder/feature-prompt-trainer` | FR-BLD-03 |
-| `/learn/builder/sandbox/:projectId` | Песочница вайб-кодинга (iframe на sandbox-origin) | `builder/feature-sandbox` | FR-BLD-04, FR-BLD-05 |
-| `/learn/portfolio` | Портфолио: карточки артефактов, история итераций | `builder/feature-portfolio` | FR-BLD-06, FR-BLD-07 |
+| `/` | Сегодня: активная сессия урока, следующая тема по КТП, дедлайны | `matrix/feature-student-home` | FR-MTX-01, FR-CNT-06 |
+| `/courses/:courseId` | Карта курса: разделы, темы, замки предусловий | `matrix/feature-course-map` | FR-CNT-01, FR-CNT-08 |
+| `/lessons/:lessonId` | Плеер урока (редирект на текущий шаг) | `matrix/feature-lesson` | FR-MTX-02 |
+| `/lessons/:lessonId/steps/:stepId` | Шаг: теория / симулятор / задание / тест / ИИ-практика / проект / рефлексия | `matrix/feature-lesson` | FR-CNT-02, FR-MTX-04, FR-MTX-06 |
+| `/progress` | Мой прогресс: пройденные ЦО, оценки F/P, статусы | `matrix/feature-student-progress` | FR-ASM-01 |
+| `/pisa` | Тренажёры трёх направлений + медиа/ИИ-грамотность | `pisa/feature-trainers` | FR-PSA-02, FR-PSA-03 |
+| `/pisa/runs/:runId` | Прохождение среза: таймер, блоки, автосдача | `pisa/feature-wave-run` | FR-PSA-12, FR-PSA-13 |
+| `/builder` | Курс BUILDER: 4 модуля | `builder/feature-course` | FR-BLD-01 |
+| `/builder/prompt/:taskId` | Тренажёр промптов | `builder/feature-prompt-trainer` | FR-BLD-03 |
+| `/builder/sandbox/:projectId` | Песочница вайб-кодинга (iframe на sandbox-origin) | `builder/feature-sandbox` | FR-BLD-04, FR-BLD-05 |
+| `/portfolio` | Портфолио: карточки артефактов, история итераций | `builder/feature-portfolio` | FR-BLD-06, FR-BLD-07 |
 
 ### 3.3. Контур `teach` (учитель, классный руководитель)
 
@@ -230,14 +234,14 @@ shell'а. Колонка «Библиотека» ссылается на §5.
 | `contextGuard` | Контекст не выбран, а ролей больше одной → `/select-context`. В `apps/admin` не применяется: у контура `platform` нет организации-контекста | FR-RBAC-01 |
 | `roleGuard(roles, scope)` | Маршрут не для этой роли → `/403`. **Только UX:** сервер обязан проверить сам | FR-RBAC-02 |
 | `consentGuard` | Ученик без действующего согласия → экран «доступ приостановлен», без учебного контента | FR-CORE-10 |
-| `examGuard` | Идёт срез — навигация вне `/learn/pisa/runs/:runId` заблокирована, попытка ухода фиксируется | FR-PSA-13 |
+| `examGuard` | Идёт срез — навигация вне `/pisa/runs/:runId` заблокирована, попытка ухода фиксируется | FR-PSA-13 |
 | `unsavedGuard` (`CanDeactivate`) | Есть неотправленные попытки в очереди — предупредить, не терять | NFR-NET-02, NFR-I18N-03 |
 
 Данные экрана грузятся **внутри компонента** (сигнальные ресурсы, §6.1), а не
 резолвером: резолвер держит навигацию до ответа сервера, а по NFR-PRF-01 урок
 обязан стать интерактивным за 3 секунды на школьном ПК — каркас экрана со
 скелетоном показывается сразу. Резолвер используется ровно там, где без данных
-маршрут не имеет смысла (например, редирект `/learn/lessons/:id` на текущий
+маршрут не имеет смысла (например, редирект `/lessons/:id` на текущий
 шаг).
 
 ---
@@ -607,7 +611,7 @@ NFR-PRF-07 требует ≤ 300 КБ gzip для начального банд
 | 4 | Создание контента в той же панели: уроки MATRIX (материалы + задания), банк заданий PISA | `Content`, `Pisa.ItemBank` (узкий срез) | [план 06 §5](06-matrix-mvp0-kontent-i-zadania.md#5-backend-что-открывается-в-v0), [план 07 §4](07-pisa-mvp0-trenazhery.md#4-backend-что-открывается-в-v0) |
 | 4.5 | Каркас `apps/learn`: shell контуров `learn`/`teach` (`manage` пока не нужен — см. §16.2) на тех же общих библиотеках | нет | §1, §11, §12 |
 | — | *Только теперь есть школа, класс, ученик, учитель и хотя бы один урок — можно строить интерфейс учителя и ученика* | | |
-| 5 | MATRIX v0: ученик — материалы урока и задание; учитель — назначить урок, результаты по классу; вход по коду класса для 1–4 | `Learning` (узкий срез) | [план 06 §4](06-matrix-mvp0-kontent-i-zadania.md#4-экраны-и-маршруты), FR-CORE-04 |
+| 5 | MATRIX v0: ученик — материалы урока и задание; учитель — результаты по классу; вход по коду класса для 1–4 | `Learning` (узкий срез) | [план 06 §4](06-matrix-mvp0-kontent-i-zadania.md#4-экраны-и-маршруты), FR-CORE-04 |
 | 6 | PISA v0: тренажёры трёх направлений, личная статистика ученика | `Pisa` (узкий срез) | [план 07 §3](07-pisa-mvp0-trenazhery.md#3-экраны-и-маршруты) |
 | — | *Конец v0 — есть что показать на пилоте* | | |
 
