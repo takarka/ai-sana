@@ -5,6 +5,14 @@ import { workspaceRoot } from '@nx/devkit';
 // For CI, you may want to set BASE_URL to the deployed application.
 const baseURL = process.env['BASE_URL'] || 'http://localhost:4201';
 
+// Аутентификация — общий для всех спеков стейт браузера (план 09 §6 расширен
+// покрытием content-модулей): один логин суперадмина в setup-проекте вместо
+// повторения формы входа в каждом тесте. auth.setup.ts сам проходит
+// принудительную смену пароля при первом запуске на чистой БД — см. E2E_ADMIN_*
+// в README. .auth/ не коммитится (см. .gitignore) — это состояние браузера с
+// httpOnly refresh-cookie одного локального прогона.
+const authFile = 'apps/admin-e2e/.auth/admin.json';
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -31,18 +39,26 @@ export default defineConfig({
   },
   projects: [
     {
+      name: 'setup',
+      testMatch: /.*\.setup\.ts/,
+    },
+
+    {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'], storageState: authFile },
+      dependencies: ['setup'],
     },
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: { ...devices['Desktop Firefox'], storageState: authFile },
+      dependencies: ['setup'],
     },
 
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: { ...devices['Desktop Safari'], storageState: authFile },
+      dependencies: ['setup'],
     },
 
     // Uncomment for mobile browsers support
