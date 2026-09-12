@@ -21,7 +21,8 @@
       "@front/features/shell": ["libs/features/shell/src/index.ts"],
       "@front/features/organizations": ["libs/features/organizations/src/index.ts"],
       "@front/features/authors": ["libs/features/authors/src/index.ts"],
-      "@front/features/matrix": ["libs/features/matrix/src/index.ts"]
+      "@front/features/matrix": ["libs/features/matrix/src/index.ts"],
+      "@front/features/pisa": ["libs/features/pisa/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

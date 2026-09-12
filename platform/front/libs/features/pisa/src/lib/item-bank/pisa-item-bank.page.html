@@ -1,0 +1,75 @@
+<div class="app-pisa-list__head">
+  <div>
+    <h1 class="app-pisa-list__title">{{ 'pisa.list.title' | translate }}</h1>
+    <p class="app-pisa-list__subtitle">{{ 'pisa.list.subtitleCount' | translate: { count: response().totalCount } }}</p>
+  </div>
+  <craft-button variant="primary" (click)="createItem()">
+    {{ 'pisa.list.create' | translate }}
+  </craft-button>
+</div>
+
+<div class="app-pisa-list__filters">
+  <div class="app-pisa-list__search">
+    <craft-input
+      [placeholder]="'pisa.list.searchPlaceholder' | translate"
+      iconPath="M17.5 11A6.5 6.5 0 1 1 4.5 11A6.5 6.5 0 1 1 17.5 11ZM20 20L15.7 15.7"
+      (input)="onSearchInput($any($event.target).value)"
+    ></craft-input>
+  </div>
+
+  <select class="app-pisa-list__select" [ngModel]="directionFilter()" (ngModelChange)="setDirectionFilter($event)">
+    <option value="">{{ 'pisa.list.filter.allDirections' | translate }}</option>
+    @for (direction of directions; track direction) {
+      <option [value]="direction">{{ ('pisa.direction.' + direction) | translate }}</option>
+    }
+  </select>
+
+  <select class="app-pisa-list__select" [ngModel]="levelFilter()" (ngModelChange)="setLevelFilter($event)">
+    <option [ngValue]="0">{{ 'pisa.list.filter.allLevels' | translate }}</option>
+    @for (level of levels; track level) {
+      <option [ngValue]="level">{{ 'pisa.list.filter.levelOption' | translate: { level } }}</option>
+    }
+  </select>
+
+  <select class="app-pisa-list__select" [ngModel]="gradeFilter()" (ngModelChange)="setGradeFilter($event)">
+    <option [ngValue]="0">{{ 'pisa.list.filter.allGrades' | translate }}</option>
+    @for (grade of grades; track grade) {
+      <option [ngValue]="grade">{{ 'pisa.list.filter.gradeOption' | translate: { grade } }}</option>
+    }
+  </select>
+</div>
+
+<div class="app-pisa-list__table-wrap">
+  @if (response().items.length > 0) {
+    <table class="app-pisa-list__table">
+      <thead>
+        <tr>
+          <th>{{ 'pisa.list.column.stimulus' | translate }}</th>
+          <th>{{ 'pisa.list.column.direction' | translate }}</th>
+          <th>{{ 'pisa.list.column.level' | translate }}</th>
+          <th>{{ 'pisa.list.column.gradeRange' | translate }}</th>
+          <th>{{ 'pisa.list.column.questions' | translate }}</th>
+          <th>{{ 'pisa.list.column.created' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of response().items; track item.id) {
+          <tr (click)="editItem(item)">
+            <td class="app-pisa-list__name">{{ item.stimulusText }}</td>
+            <td class="app-pisa-list__dim">{{ ('pisa.direction.' + item.direction) | translate }}</td>
+            <td class="app-pisa-list__dim">{{ item.level }}</td>
+            <td class="app-pisa-list__dim">{{ item.gradeRangeMin }}–{{ item.gradeRangeMax }}</td>
+            <td class="app-pisa-list__dim">{{ item.questionCount }}</td>
+            <td class="app-pisa-list__dim">{{ item.createdAtUtc | date: 'dd.MM.yyyy' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="app-pisa-list__pagination">
+      <craft-pagination [page]="page()" [pageSize]="pageSize" [totalCount]="response().totalCount" (pageChange)="onPageChange($event)"></craft-pagination>
+    </div>
+  } @else if (!loading()) {
+    <craft-empty-state [message]="'pisa.list.empty' | translate"></craft-empty-state>
+  }
+</div>

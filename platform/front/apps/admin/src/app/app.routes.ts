@@ -46,7 +46,7 @@ export const appRoutes: Route[] = [
       {
         path: 'content/pisa',
         canActivate: [roleGuard([PLATFORM_ROLES.SuperAdmin, PLATFORM_ROLES.Author])],
-        loadComponent: () => import('@front/features/shell').then((m) => m.ComingSoonPage),
+        loadComponent: () => import('@front/features/pisa').then((m) => m.PisaItemBankPage),
         data: { titleKey: 'shell.nav.pisa' },
       },
       {
