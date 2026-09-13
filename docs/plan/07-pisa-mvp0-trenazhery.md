@@ -73,7 +73,10 @@ v0 два маршрута контуров `teach`/`manage`, которые п�
 ### 3.1. Контур `learn` (ученик) — доступ свободный, без назначения учителем
 
 Маршруты без префикса `/learn`: приложение развёрнуто на `learn.craftai.kz`
-([ADR-0006](../adr/0006-domeny-i-marshruty-apps-learn.md)).
+([ADR-0006](../adr/0006-domeny-i-marshruty-apps-learn.md)). Пути `/pisa/**`
+не менялись; вход в модуль идёт с главной `/` (карточка «Тренажёры») и вкладки
+шапки ([ADR-0007](../adr/0007-glavnaya-i-prefiksy-moduley-learn.md),
+[план 12 §5](12-learn-navigatsiya-i-glavnaya.md)).
 
 | Маршрут | Экран | Требования |
 |---|---|---|

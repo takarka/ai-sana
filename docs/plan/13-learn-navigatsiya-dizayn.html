@@ -1,0 +1,1236 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дизайн — навигация и главные · apps/learn</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  /* Токены = ui-tokens. Подача = учебная платформа, не админ-сайдбар. */
+  :root {
+    --paper: #f4f6fb; --card: #ffffff; --paper-line: #dde3f0;
+    --brand: #0004eb; --brand-lift: #7e8bff;
+    --m-matrix: #0047ba; --m-matrix-lift: #58b2ff;
+    --m-pisa: #006c59; --m-pisa-lift: #2dd4bf;
+    --m-builder: #5b16d0;
+    --on-paper: #0a0e1c; --on-paper-dim: #5b6478;
+    --lvl-high: #1b9e6b; --lvl-mid: #d9902b; --lvl-low: #d0503c;
+    --signal: var(--brand);
+    --signal-lift: var(--brand-lift);
+    --signal-wash: rgba(0, 4, 235, 0.07);
+    --on-signal: #eaf0ff;
+    --font-display: 'Inter Tight', system-ui, sans-serif;
+    --font-body: 'Onest', system-ui, sans-serif;
+    --font-micro: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  [data-module="matrix"] {
+    --signal: var(--m-matrix);
+    --signal-lift: var(--m-matrix-lift);
+    --signal-wash: rgba(0, 71, 186, 0.08);
+  }
+  [data-module="pisa"] {
+    --signal: var(--m-pisa);
+    --signal-lift: var(--m-pisa-lift);
+    --signal-wash: rgba(0, 108, 89, 0.08);
+  }
+  [data-module="home"] {
+    --signal: var(--brand);
+    --signal-lift: var(--brand-lift);
+    --signal-wash: rgba(0, 4, 235, 0.07);
+  }
+
+  * { box-sizing: border-box; }
+  html { font-size: 62.5%; }
+  body {
+    margin: 0;
+    background: #dfe3ef;
+    color: var(--on-paper);
+    font-family: var(--font-body);
+    font-size: 1.5rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  button, a { font: inherit; color: inherit; }
+  button { cursor: pointer; border: 0; background: none; padding: 0; }
+
+  .doc {
+    max-width: 128rem;
+    margin: 0 auto;
+    padding: 3.2rem 2.4rem 8rem;
+  }
+  .doc-head {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-bottom: 2.8rem;
+    padding-bottom: 2.4rem;
+    border-bottom: 1px solid #c8d0e0;
+  }
+  .doc-head h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 3.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .doc-head p {
+    margin: 0;
+    max-width: 68ch;
+    color: var(--on-paper-dim);
+    font-size: 1.55rem;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .tag {
+    font-family: var(--font-micro);
+    font-size: 1.15rem;
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid #c8d0e0;
+    color: var(--on-paper-dim);
+  }
+  .tag b { color: var(--on-paper); font-weight: 500; }
+
+  .toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 3.2rem;
+  }
+  .toc a {
+    text-decoration: none;
+    font-family: var(--font-micro);
+    font-size: 1.2rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: 0.8rem;
+    background: #fff;
+    border: 1px solid #c8d0e0;
+  }
+  .toc a:hover { border-color: var(--brand); color: var(--brand); }
+
+  .screen-block { margin-bottom: 4.8rem; }
+  .screen-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 1.2rem;
+    margin-bottom: 1.4rem;
+  }
+  .screen-meta h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .screen-meta .route {
+    font-family: var(--font-micro);
+    font-size: 1.2rem;
+    color: var(--on-paper-dim);
+  }
+  .screen-meta .note {
+    flex: 1 1 100%;
+    margin: 0;
+    color: var(--on-paper-dim);
+    font-size: 1.35rem;
+  }
+
+  /* —— device frames —— */
+  .frame {
+    background: var(--paper);
+    border-radius: 1.4rem;
+    border: 1px solid #b8c2d6;
+    box-shadow: 0 18px 40px rgba(10, 14, 28, 0.08);
+    overflow: hidden;
+  }
+  .frame--desk {
+    width: min(100%, 136.6rem);
+    min-height: 76.8rem;
+  }
+  .frame--phone {
+    width: 37.5rem;
+    min-height: 72rem;
+    margin-inline: auto;
+  }
+  .frame--junior { width: min(100%, 102.4rem); min-height: 70rem; }
+
+  /* —— learn shell (не admin sidebar) —— */
+  .shell {
+    display: flex;
+    flex-direction: column;
+    min-height: inherit;
+    background: var(--paper);
+  }
+  .topbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    height: 5.6rem;
+    padding-inline: 2rem;
+    background: var(--card);
+    border-bottom: 1px solid var(--paper-line);
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+  .brand-mark {
+    width: 2.8rem; height: 2.8rem;
+    border-radius: 0.7rem;
+    background: var(--brand);
+    color: var(--on-signal);
+    display: grid; place-items: center;
+  }
+  .brand-mark svg { width: 1.6rem; height: 1.6rem; }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+  .tab {
+    position: relative;
+    padding: 0.7rem 1.4rem;
+    border-radius: 0.8rem;
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--on-paper-dim);
+  }
+  .tab:hover { color: var(--on-paper); background: rgba(10, 14, 28, 0.04); }
+  .tab.is-active { color: var(--signal); }
+  .tab.is-active::after {
+    content: '';
+    position: absolute;
+    left: 1.2rem; right: 1.2rem; bottom: 0.2rem;
+    height: 0.25rem;
+    border-radius: 99px;
+    background: var(--signal);
+  }
+
+  .top-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-self: end;
+  }
+  .lang {
+    display: flex;
+    border: 1px solid var(--paper-line);
+    border-radius: 0.7rem;
+    overflow: hidden;
+  }
+  .lang button {
+    padding: 0.45rem 0.8rem;
+    font-family: var(--font-micro);
+    font-size: 1.15rem;
+    color: var(--on-paper-dim);
+  }
+  .lang button.is-on {
+    background: var(--signal-wash);
+    color: var(--signal);
+    font-weight: 600;
+  }
+  .avatar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.35rem 0.7rem 0.35rem 0.35rem;
+    border-radius: 999px;
+    border: 1px solid var(--paper-line);
+    background: var(--card);
+  }
+  .avatar-bubble {
+    width: 3rem; height: 3rem;
+    border-radius: 50%;
+    background: var(--signal-wash);
+    color: var(--signal);
+    display: grid; place-items: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+  .avatar span { font-size: 1.3rem; font-weight: 600; padding-right: 0.3rem; }
+
+  .class-select {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 0.8rem;
+    border: 1px solid var(--paper-line);
+    background: var(--card);
+    font-weight: 600;
+    font-size: 1.35rem;
+  }
+  .class-select em {
+    font-style: normal;
+    color: var(--on-paper-dim);
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+
+  .main {
+    flex: 1;
+    width: min(112rem, 100%);
+    margin: 0 auto;
+    padding: 2.4rem 2.4rem 3.2rem;
+  }
+
+  .who {
+    margin: 0 0 1.6rem;
+    font-size: 1.3rem;
+    color: var(--on-paper-dim);
+  }
+  .who strong { color: var(--on-paper); font-weight: 600; }
+
+  .up {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+    color: var(--signal);
+    font-weight: 600;
+    font-size: 1.35rem;
+    text-decoration: none;
+  }
+  .page-title {
+    margin: 0 0 2rem;
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .page-title--sm { font-size: 2.2rem; margin-bottom: 1.6rem; }
+
+  /* continue = главное действие учебной платформы */
+  .continue {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    padding: 2.2rem 2.4rem;
+    border-radius: 1.6rem;
+    background: var(--card);
+    border: 1px solid var(--paper-line);
+    box-shadow: 0 1px 0 rgba(10, 14, 28, 0.03);
+    margin-bottom: 2.4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .continue::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0.5rem;
+    background: var(--signal);
+  }
+  .continue-kicker {
+    font-family: var(--font-micro);
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--signal);
+    margin: 0 0 0.5rem;
+  }
+  .continue h3 {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .continue p {
+    margin: 0;
+    color: var(--on-paper-dim);
+    font-size: 1.4rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 4.4rem;
+    padding: 0 1.8rem;
+    border-radius: 1rem;
+    font-weight: 700;
+    font-size: 1.4rem;
+    white-space: nowrap;
+  }
+  .btn--primary {
+    background: var(--signal);
+    color: var(--on-signal);
+  }
+  .btn--ghost {
+    background: transparent;
+    color: var(--signal);
+    border: 1px solid color-mix(in srgb, var(--signal) 35%, transparent);
+  }
+
+  .section-label {
+    margin: 0 0 1.2rem;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  .modules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+    margin-bottom: 2.4rem;
+  }
+  .mod-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.8rem;
+    border-radius: 1.4rem;
+    background: var(--card);
+    border: 1px solid var(--paper-line);
+    text-decoration: none;
+    min-height: 16rem;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .mod-card:hover {
+    border-color: color-mix(in srgb, var(--mod, var(--brand)) 45%, var(--paper-line));
+    transform: translateY(-1px);
+  }
+  .mod-card[data-mod="matrix"] { --mod: var(--m-matrix); }
+  .mod-card[data-mod="pisa"] { --mod: var(--m-pisa); }
+  .mod-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .mod-badge {
+    font-family: var(--font-micro);
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--mod);
+    background: color-mix(in srgb, var(--mod) 10%, transparent);
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+  }
+  .mod-card h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 700;
+  }
+  .mod-card .desc {
+    margin: 0;
+    color: var(--on-paper-dim);
+    font-size: 1.35rem;
+    flex: 1;
+  }
+  .progress {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .progress-bar {
+    height: 0.6rem;
+    border-radius: 99px;
+    background: var(--paper);
+    overflow: hidden;
+  }
+  .progress-bar > i {
+    display: block;
+    height: 100%;
+    width: var(--p, 40%);
+    background: var(--mod);
+    border-radius: inherit;
+  }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.25rem;
+    color: var(--on-paper-dim);
+  }
+  .progress-meta b { color: var(--on-paper); font-weight: 600; }
+
+  .recent {
+    background: var(--card);
+    border: 1px solid var(--paper-line);
+    border-radius: 1.4rem;
+    overflow: hidden;
+  }
+  .recent-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 1.2rem;
+    align-items: center;
+    padding: 1.2rem 1.6rem;
+    border-bottom: 1px solid var(--paper-line);
+    text-decoration: none;
+  }
+  .recent-row:last-child { border-bottom: 0; }
+  .recent-row:hover { background: rgba(10, 14, 28, 0.02); }
+  .recent-row strong { font-weight: 600; font-size: 1.4rem; }
+  .recent-row span { color: var(--on-paper-dim); font-size: 1.25rem; }
+  .score {
+    font-family: var(--font-micro);
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: var(--lvl-high);
+  }
+
+  /* course map — лёгкий вход, без плеера */
+  .chapters { display: flex; flex-direction: column; gap: 1.2rem; }
+  .chapter {
+    background: var(--card);
+    border: 1px solid var(--paper-line);
+    border-radius: 1.2rem;
+    padding: 1.4rem 1.6rem;
+  }
+  .chapter-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+  }
+  .chapter-head h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .chapter-head span {
+    font-family: var(--font-micro);
+    font-size: 1.15rem;
+    color: var(--on-paper-dim);
+  }
+  .lessons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .lesson {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.9rem 1rem;
+    border-radius: 0.9rem;
+    text-decoration: none;
+  }
+  .lesson:hover { background: var(--signal-wash); }
+  .lesson.is-next {
+    background: var(--signal-wash);
+    outline: 1px solid color-mix(in srgb, var(--signal) 25%, transparent);
+  }
+  .dot {
+    width: 2.2rem; height: 2.2rem;
+    border-radius: 50%;
+    border: 2px solid var(--paper-line);
+    display: grid; place-items: center;
+    font-size: 1.1rem;
+    color: var(--on-paper-dim);
+  }
+  .lesson.is-done .dot {
+    border-color: var(--lvl-high);
+    background: color-mix(in srgb, var(--lvl-high) 15%, transparent);
+    color: var(--lvl-high);
+  }
+  .lesson.is-next .dot {
+    border-color: var(--signal);
+    color: var(--signal);
+    font-weight: 700;
+  }
+  .lesson-title { font-weight: 600; font-size: 1.4rem; }
+  .lesson-meta { font-size: 1.2rem; color: var(--on-paper-dim); }
+
+  /* pisa directions — только вход */
+  .dirs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  .dir {
+    padding: 2rem 1.6rem;
+    border-radius: 1.4rem;
+    background: var(--card);
+    border: 1px solid var(--paper-line);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    min-height: 14rem;
+  }
+  .dir:hover { border-color: color-mix(in srgb, var(--m-pisa) 40%, var(--paper-line)); }
+  .dir h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+  }
+  .dir p { margin: 0; color: var(--on-paper-dim); font-size: 1.3rem; flex: 1; }
+  .dir .meta {
+    font-family: var(--font-micro);
+    font-size: 1.15rem;
+    color: var(--m-pisa);
+  }
+
+  /* lesson shell stub */
+  .stub {
+    border-radius: 1.4rem;
+    border: 1px dashed #b7c0d4;
+    background: color-mix(in srgb, var(--card) 70%, var(--paper));
+    padding: 4rem 2rem;
+    text-align: center;
+    color: var(--on-paper-dim);
+  }
+  .stub strong {
+    display: block;
+    color: var(--on-paper);
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    margin-bottom: 0.6rem;
+  }
+
+  /* teacher */
+  .attention {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+    margin-bottom: 2.4rem;
+  }
+  .att-card {
+    padding: 1.6rem;
+    border-radius: 1.2rem;
+    background: var(--card);
+    border: 1px solid var(--paper-line);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .att-card:hover { border-color: #b8c2d6; }
+  .att-flag {
+    font-family: var(--font-micro);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--lvl-low);
+  }
+  .att-card h3 {
+    margin: 0;
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .att-card p { margin: 0; font-size: 1.25rem; color: var(--on-paper-dim); }
+
+  .class-list {
+    background: var(--card);
+    border: 1px solid var(--paper-line);
+    border-radius: 1.4rem;
+    overflow: hidden;
+  }
+  .class-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 1.6rem;
+    align-items: center;
+    padding: 1.4rem 1.8rem;
+    border-bottom: 1px solid var(--paper-line);
+    text-decoration: none;
+  }
+  .class-row:last-child { border-bottom: 0; }
+  .class-row:hover { background: rgba(10, 14, 28, 0.02); }
+  .class-row strong { font-size: 1.5rem; font-weight: 700; }
+  .class-row span { color: var(--on-paper-dim); font-size: 1.3rem; }
+  .class-row .num {
+    font-family: var(--font-micro);
+    font-size: 1.3rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* phone shell */
+  .phone-shell { display: flex; flex-direction: column; min-height: 72rem; }
+  .phone-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 1.4rem;
+    background: var(--card);
+    border-bottom: 1px solid var(--paper-line);
+  }
+  .phone-top h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+  }
+  .phone-body {
+    flex: 1;
+    padding: 1.4rem;
+    padding-bottom: 7.2rem;
+  }
+  .phone-nav {
+    position: sticky;
+    bottom: 0;
+    margin-top: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: var(--card);
+    border-top: 1px solid var(--paper-line);
+    padding: 0.6rem 0.4rem calc(0.6rem + env(safe-area-inset-bottom, 0));
+  }
+  .phone-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.6rem;
+    text-decoration: none;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--on-paper-dim);
+    border-radius: 0.8rem;
+  }
+  .phone-nav a.is-active { color: var(--signal); }
+  .phone-nav svg { width: 2.2rem; height: 2.2rem; }
+
+  /* junior */
+  .junior-list { display: flex; flex-direction: column; gap: 1rem; }
+  .junior-item {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    min-height: 7.2rem;
+    padding: 1.4rem 1.6rem;
+    border-radius: 1.4rem;
+    background: var(--card);
+    border: 1px solid var(--paper-line);
+    text-decoration: none;
+    font-size: 1.7rem;
+    font-weight: 700;
+  }
+  .junior-item.is-next {
+    border-color: color-mix(in srgb, var(--m-matrix) 40%, var(--paper-line));
+    background: color-mix(in srgb, var(--m-matrix) 6%, var(--card));
+  }
+  .junior-n {
+    width: 4rem; height: 4rem;
+    border-radius: 1rem;
+    display: grid; place-items: center;
+    background: var(--paper);
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+  }
+  .junior-item.is-next .junior-n {
+    background: var(--m-matrix);
+    color: var(--on-signal);
+  }
+
+  .pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .modules, .dirs, .attention, .pair { grid-template-columns: 1fr; }
+    .continue { grid-template-columns: 1fr; }
+    .class-row { grid-template-columns: 1fr 1fr; }
+  }
+
+  .legend {
+    margin-top: 1.2rem;
+    padding: 1.2rem 1.4rem;
+    border-radius: 1rem;
+    background: #eef1f8;
+    border: 1px solid #c8d0e0;
+    font-size: 1.3rem;
+    color: var(--on-paper-dim);
+  }
+  .legend b { color: var(--on-paper); }
+</style>
+</head>
+<body>
+<div class="doc">
+  <header class="doc-head">
+    <div class="tags">
+      <span class="tag"><b>apps/learn</b> · не admin</span>
+      <span class="tag">токены = план 03</span>
+      <span class="tag">база <b>1366×768</b></span>
+      <span class="tag">план 12 · ADR-0007</span>
+    </div>
+    <h1>Навигация и главные страницы</h1>
+    <p>
+      Учебная платформа: после входа — «продолжить», между модулями — вкладки,
+      цвет говорит, где ты. Без сайдбара админки и без детальных экранов
+      MATRIX / PISA / Builder.
+    </p>
+  </header>
+
+  <nav class="toc">
+    <a href="#s-home">1. Главная ученика</a>
+    <a href="#s-matrix">2. Курс (вход)</a>
+    <a href="#s-pisa">3. Тренажёры (вход)</a>
+    <a href="#s-lesson">4. Урок — только оболочка</a>
+    <a href="#s-teach">5. Главная учителя</a>
+    <a href="#s-phone">6. Телефон</a>
+    <a href="#s-junior">7. Junior 1–4</a>
+  </nav>
+
+  <!-- 1. Student home -->
+  <section class="screen-block" id="s-home">
+    <div class="screen-meta">
+      <h2>1. Главная ученика</h2>
+      <span class="route">GET / · data-module=home</span>
+      <p class="note">Первый экран после входа. Одно главное действие — продолжить. Модули видны сразу.</p>
+    </div>
+    <div class="frame frame--desk">
+      <div class="shell" data-module="home">
+        <header class="topbar">
+          <a class="brand" href="#s-home">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 4v10l-7 4-7-4V7l7-4Z"/><path d="M12 3v18M5 7l7 4 7-4"/></svg>
+            </span>
+            CRAFT AI
+          </a>
+          <nav class="tabs" aria-label="Модули">
+            <a class="tab is-active" href="#s-home">Главная</a>
+            <a class="tab" href="#s-matrix">Курс</a>
+            <a class="tab" href="#s-pisa">Тренажёры</a>
+          </nav>
+          <div class="top-actions">
+            <div class="lang" role="group" aria-label="Язык">
+              <button type="button" class="is-on">RU</button>
+              <button type="button">KZ</button>
+            </div>
+            <button type="button" class="avatar" aria-label="Меню профиля">
+              <span class="avatar-bubble">АБ</span>
+              <span>Айгерим</span>
+            </button>
+          </div>
+        </header>
+        <div class="main">
+          <p class="who"><strong>Айгерим Бекова</strong> · 7 «А» · Школа-гимназия №12</p>
+
+          <article class="continue">
+            <div>
+              <p class="continue-kicker">Продолжить · CRAFT MATRIX</p>
+              <h3>Урок 12. Обучающая выборка и её качество</h3>
+              <p>Раздел 3 · сдано 2 из 4 заданий</p>
+            </div>
+            <a class="btn btn--primary" href="#s-lesson">Продолжить</a>
+          </article>
+
+          <h2 class="section-label">Модули</h2>
+          <div class="modules">
+            <a class="mod-card" data-mod="matrix" href="#s-matrix">
+              <div class="mod-top">
+                <h3>Курс</h3>
+                <span class="mod-badge">CRAFT MATRIX</span>
+              </div>
+              <p class="desc">Цифровая грамотность и ИИ</p>
+              <div class="progress">
+                <div class="progress-bar" aria-hidden="true"><i style="--p:38%"></i></div>
+                <div class="progress-meta">
+                  <span>Пройдено <b>9 из 24</b> уроков</span>
+                  <span>лучший <b>78%</b></span>
+                </div>
+              </div>
+            </a>
+            <a class="mod-card" data-mod="pisa" href="#s-pisa">
+              <div class="mod-top">
+                <h3>Тренажёры</h3>
+                <span class="mod-badge">CRAFT PISA</span>
+              </div>
+              <p class="desc">Функциональная грамотность</p>
+              <div class="progress">
+                <div class="progress-bar" aria-hidden="true"><i style="--p:45%;background:var(--m-pisa)"></i></div>
+                <div class="progress-meta">
+                  <span>Решено <b>60</b> заданий</span>
+                  <span>математика · ур. <b>3/5</b></span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <h2 class="section-label">Последние результаты</h2>
+          <div class="recent">
+            <a class="recent-row" href="#s-lesson">
+              <strong>Урок 11 · задание 3</strong>
+              <span class="score">85%</span>
+              <span>вчера</span>
+            </a>
+            <a class="recent-row" href="#s-lesson">
+              <strong>Урок 11 · задание 1</strong>
+              <span class="score">100%</span>
+              <span>вчера</span>
+            </a>
+            <a class="recent-row" href="#s-pisa">
+              <strong>PISA · читательская · №14</strong>
+              <span class="score">70%</span>
+              <span>3 дня назад</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="legend"><b>Не как admin:</b> нет сайдбара и таблиц организаций. Центр — действие «продолжить» и выбор модуля.</p>
+  </section>
+
+  <!-- 2. Course entry -->
+  <section class="screen-block" id="s-matrix">
+    <div class="screen-meta">
+      <h2>2. Курс — вход в модуль</h2>
+      <span class="route">GET /matrix · data-module=matrix</span>
+      <p class="note">Только карта разделов, чтобы показать навигацию. Плеер и задания — не здесь.</p>
+    </div>
+    <div class="frame frame--desk">
+      <div class="shell" data-module="matrix">
+        <header class="topbar">
+          <a class="brand" href="#s-home">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 4v10l-7 4-7-4V7l7-4Z"/><path d="M12 3v18M5 7l7 4 7-4"/></svg>
+            </span>
+            CRAFT AI
+          </a>
+          <nav class="tabs" aria-label="Модули">
+            <a class="tab" href="#s-home">Главная</a>
+            <a class="tab is-active" href="#s-matrix">Курс</a>
+            <a class="tab" href="#s-pisa">Тренажёры</a>
+          </nav>
+          <div class="top-actions">
+            <div class="lang"><button type="button" class="is-on">RU</button><button type="button">KZ</button></div>
+            <button type="button" class="avatar"><span class="avatar-bubble">АБ</span><span>Айгерим</span></button>
+          </div>
+        </header>
+        <div class="main">
+          <a class="up" href="#s-home">← Главная</a>
+          <h1 class="page-title">Цифровая грамотность и ИИ</h1>
+          <div class="chapters">
+            <div class="chapter">
+              <div class="chapter-head">
+                <h3>Раздел 3. Как обучаются нейросети</h3>
+                <span>2 / 4 урока</span>
+              </div>
+              <div class="lessons">
+                <a class="lesson is-done" href="#s-lesson">
+                  <span class="dot">✓</span>
+                  <span class="lesson-title">Урок 11. Что такое модель</span>
+                  <span class="lesson-meta">лучший 92%</span>
+                </a>
+                <a class="lesson is-next" href="#s-lesson">
+                  <span class="dot">12</span>
+                  <span class="lesson-title">Урок 12. Обучающая выборка</span>
+                  <span class="lesson-meta">продолжить · 2/4</span>
+                </a>
+                <a class="lesson" href="#s-lesson">
+                  <span class="dot">13</span>
+                  <span class="lesson-title">Урок 13. Переобучение</span>
+                  <span class="lesson-meta">не начат</span>
+                </a>
+              </div>
+            </div>
+            <div class="chapter">
+              <div class="chapter-head">
+                <h3>Раздел 4. Этичные решения</h3>
+                <span>0 / 4 урока</span>
+              </div>
+              <div class="lessons">
+                <a class="lesson" href="#s-lesson">
+                  <span class="dot">15</span>
+                  <span class="lesson-title">Урок 15. Смещение данных</span>
+                  <span class="lesson-meta">не начат</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. PISA entry -->
+  <section class="screen-block" id="s-pisa">
+    <div class="screen-meta">
+      <h2>3. Тренажёры — вход в модуль</h2>
+      <span class="route">GET /pisa · data-module=pisa</span>
+      <p class="note">Выбор направления. Стимул и вопросы — вне этого макета.</p>
+    </div>
+    <div class="frame frame--desk">
+      <div class="shell" data-module="pisa">
+        <header class="topbar">
+          <a class="brand" href="#s-home">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 4v10l-7 4-7-4V7l7-4Z"/><path d="M12 3v18M5 7l7 4 7-4"/></svg>
+            </span>
+            CRAFT AI
+          </a>
+          <nav class="tabs" aria-label="Модули">
+            <a class="tab" href="#s-home">Главная</a>
+            <a class="tab" href="#s-matrix">Курс</a>
+            <a class="tab is-active" href="#s-pisa">Тренажёры</a>
+          </nav>
+          <div class="top-actions">
+            <div class="lang"><button type="button" class="is-on">RU</button><button type="button">KZ</button></div>
+            <button type="button" class="avatar"><span class="avatar-bubble">АБ</span><span>Айгерим</span></button>
+          </div>
+        </header>
+        <div class="main">
+          <a class="up" href="#s-home">← Главная</a>
+          <h1 class="page-title">Тренажёры</h1>
+          <div class="dirs">
+            <a class="dir" href="#s-home">
+              <h3>Математическая</h3>
+              <p>Задачи с графиками, таблицами и расчётами в контексте.</p>
+              <span class="meta">ур. 3 · 22 задания</span>
+            </a>
+            <a class="dir" href="#s-home">
+              <h3>Естественно-научная</h3>
+              <p>Эксперименты, гипотезы, чтение схем.</p>
+              <span class="meta">ур. 2 · 18 заданий</span>
+            </a>
+            <a class="dir" href="#s-home">
+              <h3>Читательская</h3>
+              <p>Тексты, источники, сравнение точек зрения.</p>
+              <span class="meta">ур. 3 · 20 заданий</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="legend"><b>Цвет модуля:</b> активная вкладка и акценты — <code>--m-pisa</code>. Переключение с «Курса» видно сразу.</p>
+  </section>
+
+  <!-- 4. Lesson shell only -->
+  <section class="screen-block" id="s-lesson">
+    <div class="screen-meta">
+      <h2>4. Урок — только оболочка</h2>
+      <span class="route">GET /matrix/lessons/:id</span>
+      <p class="note">Показываем «где я» и «назад = вверх». Материалы и задания намеренно заглушка.</p>
+    </div>
+    <div class="frame frame--desk">
+      <div class="shell" data-module="matrix">
+        <header class="topbar">
+          <a class="brand" href="#s-home">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 4v10l-7 4-7-4V7l7-4Z"/><path d="M12 3v18M5 7l7 4 7-4"/></svg>
+            </span>
+            CRAFT AI
+          </a>
+          <nav class="tabs" aria-label="Модули">
+            <a class="tab" href="#s-home">Главная</a>
+            <a class="tab is-active" href="#s-matrix">Курс</a>
+            <a class="tab" href="#s-pisa">Тренажёры</a>
+          </nav>
+          <div class="top-actions">
+            <div class="lang"><button type="button" class="is-on">RU</button><button type="button">KZ</button></div>
+            <button type="button" class="avatar"><span class="avatar-bubble">АБ</span><span>Айгерим</span></button>
+          </div>
+        </header>
+        <div class="main">
+          <a class="up" href="#s-matrix">← Раздел 3. Как обучаются нейросети</a>
+          <h1 class="page-title page-title--sm">Обучающая выборка и её качество</h1>
+          <div class="stub">
+            <strong>Контент урока — вне этого макета</strong>
+            Здесь позже материалы и список заданий (план 06 / 11). Сейчас важен только путь: шапка → уровень выше → H1.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Teacher home -->
+  <section class="screen-block" id="s-teach">
+    <div class="screen-meta">
+      <h2>5. Главная учителя</h2>
+      <span class="route">GET /teach</span>
+      <p class="note">Навигация по классам, не по модулям. «Требует внимания» — первое, что видит учитель между уроками.</p>
+    </div>
+    <div class="frame frame--desk">
+      <div class="shell" data-module="home">
+        <header class="topbar">
+          <a class="brand" href="#s-teach">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 4v10l-7 4-7-4V7l7-4Z"/><path d="M12 3v18M5 7l7 4 7-4"/></svg>
+            </span>
+            CRAFT AI
+          </a>
+          <nav class="tabs" aria-label="Разделы учителя">
+            <a class="tab is-active" href="#s-teach">Главная</a>
+            <button type="button" class="class-select" aria-haspopup="listbox">
+              Классы: <strong>7 «А»</strong>
+              <em>▾</em>
+            </button>
+          </nav>
+          <div class="top-actions">
+            <div class="lang"><button type="button" class="is-on">RU</button><button type="button">KZ</button></div>
+            <button type="button" class="avatar"><span class="avatar-bubble">МО</span><span>Марат</span></button>
+          </div>
+        </header>
+        <div class="main">
+          <h1 class="page-title page-title--sm">Сегодня</h1>
+
+          <h2 class="section-label">Требует внимания</h2>
+          <div class="attention">
+            <a class="att-card" href="#s-teach">
+              <span class="att-flag">мало сдали</span>
+              <h3>7 «А» · урок 12 прошли 14 из 22</h3>
+              <p>Открыть результаты</p>
+            </a>
+            <a class="att-card" href="#s-teach">
+              <span class="att-flag">низкий балл</span>
+              <h3>9 «В» · урок 10 · средний 54%</h3>
+              <p>Открыть результаты</p>
+            </a>
+            <a class="att-card" href="#s-teach">
+              <span class="att-flag">не начинали</span>
+              <h3>7 «Б» · урок 11 не начинали 7 учеников</h3>
+              <p>Открыть результаты</p>
+            </a>
+          </div>
+
+          <h2 class="section-label">Мои классы</h2>
+          <div class="class-list">
+            <a class="class-row" href="#s-teach">
+              <div>
+                <strong>7 «А»</strong><br>
+                <span>Цифровая грамотность и ИИ</span>
+              </div>
+              <span class="num">22 уч.</span>
+              <span class="num">ср. 71%</span>
+              <span>→</span>
+            </a>
+            <a class="class-row" href="#s-teach">
+              <div>
+                <strong>7 «Б»</strong><br>
+                <span>Цифровая грамотность и ИИ</span>
+              </div>
+              <span class="num">24 уч.</span>
+              <span class="num">ср. 64%</span>
+              <span>→</span>
+            </a>
+            <a class="class-row" href="#s-teach">
+              <div>
+                <strong>9 «В»</strong><br>
+                <span>Цифровая грамотность и ИИ</span>
+              </div>
+              <span class="num">20 уч.</span>
+              <span class="num">ср. 58%</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="legend"><b>Асимметрия плана 12:</b> у учителя в шапке селектор класса, не вкладки «Курс / Тренажёры».</p>
+  </section>
+
+  <!-- 6. Phone -->
+  <section class="screen-block" id="s-phone">
+    <div class="screen-meta">
+      <h2>6. Телефон &lt; 640</h2>
+      <span class="route">та же главная · нижняя панель</span>
+      <p class="note">Три вкладки внизу. Шапка — только название экрана.</p>
+    </div>
+    <div class="pair">
+      <div class="frame frame--phone">
+        <div class="phone-shell" data-module="home">
+          <header class="phone-top">
+            <h1>Главная</h1>
+            <span class="avatar-bubble">АБ</span>
+          </header>
+          <div class="phone-body">
+            <p class="who" style="margin-top:0"><strong>Айгерим</strong> · 7 «А»</p>
+            <article class="continue" style="grid-template-columns:1fr; padding:1.6rem">
+              <div>
+                <p class="continue-kicker">Продолжить</p>
+                <h3 style="font-size:1.6rem">Урок 12. Обучающая выборка</h3>
+                <p>2 из 4 заданий</p>
+              </div>
+              <a class="btn btn--primary" href="#s-lesson" style="width:100%">Продолжить</a>
+            </article>
+            <div class="modules" style="grid-template-columns:1fr; margin-bottom:0">
+              <a class="mod-card" data-mod="matrix" href="#s-matrix" style="min-height:auto">
+                <div class="mod-top"><h3>Курс</h3><span class="mod-badge">MATRIX</span></div>
+                <div class="progress-meta"><span>9 / 24 урока</span></div>
+              </a>
+              <a class="mod-card" data-mod="pisa" href="#s-pisa" style="min-height:auto">
+                <div class="mod-top"><h3>Тренажёры</h3><span class="mod-badge">PISA</span></div>
+                <div class="progress-meta"><span>60 заданий</span></div>
+              </a>
+            </div>
+          </div>
+          <nav class="phone-nav" aria-label="Модули">
+            <a class="is-active" href="#s-phone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M5.5 10v8.5h4v-5h5v5h4V10"/></svg>
+              Главная
+            </a>
+            <a href="#s-matrix">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19V5h8v14H4Z"/><path d="M12 5h8v14h-8"/></svg>
+              Курс
+            </a>
+            <a href="#s-pisa">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></svg>
+              Тренажёры
+            </a>
+          </nav>
+        </div>
+      </div>
+      <div class="legend" style="margin:0; align-self:center">
+        <b>Моторика:</b> цели касания ≥ 44 px. Переход модуль ↔ модуль — один тап по нижней панели.
+        Контент урока / задания на телефоне в этом файле не рисуем.
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Junior -->
+  <section class="screen-block" id="s-junior">
+    <div class="screen-meta">
+      <h2>7. Junior · 1–4 классы</h2>
+      <span class="route">GET / · плотность junior</span>
+      <p class="note">Без вкладок PISA. Одна большая «Продолжить» и крупный список уроков.</p>
+    </div>
+    <div class="frame frame--junior">
+      <div class="shell" data-module="matrix">
+        <header class="topbar">
+          <a class="brand" href="#s-junior">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 4v10l-7 4-7-4V7l7-4Z"/><path d="M12 3v18M5 7l7 4 7-4"/></svg>
+            </span>
+            CRAFT AI
+          </a>
+          <div></div>
+          <div class="top-actions">
+            <button type="button" class="avatar" aria-label="Профиль">
+              <span class="avatar-bubble" style="width:3.6rem;height:3.6rem;font-size:1.4rem">АК</span>
+            </button>
+          </div>
+        </header>
+        <div class="main">
+          <article class="continue" style="grid-template-columns:1fr; gap:1.6rem; padding:2.4rem">
+            <div>
+              <p class="continue-kicker">Дальше</p>
+              <h3 style="font-size:2.4rem">Урок 3. Робот помогает</h3>
+              <p style="font-size:1.6rem">Нажми, когда будешь готов</p>
+            </div>
+            <a class="btn btn--primary" href="#s-lesson" style="min-height:6.4rem; font-size:1.8rem; width:100%; max-width:28rem">Начать</a>
+          </article>
+          <div class="junior-list">
+            <a class="junior-item" href="#s-lesson"><span class="junior-n">✓</span> Урок 1. Что умеет компьютер</a>
+            <a class="junior-item" href="#s-lesson"><span class="junior-n">✓</span> Урок 2. Картинки и звуки</a>
+            <a class="junior-item is-next" href="#s-lesson"><span class="junior-n">3</span> Урок 3. Робот помогает</a>
+            <a class="junior-item" href="#s-lesson"><span class="junior-n">4</span> Урок 4. Безопасность</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

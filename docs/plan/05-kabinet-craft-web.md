@@ -167,13 +167,17 @@ shell'а. Колонка «Библиотека» ссылается на §5.
 Маршруты ученика живут в корне приложения, без префикса `/learn`:
 приложение и так развёрнуто на `learn.craftai.kz`
 ([ADR-0006](../adr/0006-domeny-i-marshruty-apps-learn.md)).
+Корень `/` — главная; курс — под `/matrix/**`
+([ADR-0007](../adr/0007-glavnaya-i-prefiksy-moduley-learn.md),
+[план 12](12-learn-navigatsiya-i-glavnaya.md)).
 
 | Маршрут | Экран | Библиотека | Требования |
 |---|---|---|---|
-| `/` | Сегодня: активная сессия урока, следующая тема по КТП, дедлайны | `matrix/feature-student-home` | FR-MTX-01, FR-CNT-06 |
-| `/courses/:courseId` | Карта курса: разделы, темы, замки предусловий | `matrix/feature-course-map` | FR-CNT-01, FR-CNT-08 |
-| `/lessons/:lessonId` | Плеер урока (редирект на текущий шаг) | `matrix/feature-lesson` | FR-MTX-02 |
-| `/lessons/:lessonId/steps/:stepId` | Шаг: теория / симулятор / задание / тест / ИИ-практика / проект / рефлексия | `matrix/feature-lesson` | FR-CNT-02, FR-MTX-04, FR-MTX-06 |
+| `/` | Главная: продолжить, модули, последние результаты | `matrix/feature-student-home` | FR-MTX-01, [план 12 §5](12-learn-navigatsiya-i-glavnaya.md) |
+| `/matrix` | Курс: разделы → уроки | `matrix/feature-course-map` | FR-CNT-01, FR-CNT-08 |
+| `/matrix/courses/:courseId` | Выбор курса (если у класса больше одного) | `matrix/feature-course-map` | зарезервирован |
+| `/matrix/lessons/:lessonId` | Плеер урока (редирект на текущий шаг) | `matrix/feature-lesson` | FR-MTX-02 |
+| `/matrix/lessons/:lessonId/steps/:stepId` | Шаг: теория / симулятор / задание / тест / ИИ-практика / проект / рефлексия | `matrix/feature-lesson` | FR-CNT-02, FR-MTX-04, FR-MTX-06 |
 | `/progress` | Мой прогресс: пройденные ЦО, оценки F/P, статусы | `matrix/feature-student-progress` | FR-ASM-01 |
 | `/pisa` | Тренажёры трёх направлений + медиа/ИИ-грамотность | `pisa/feature-trainers` | FR-PSA-02, FR-PSA-03 |
 | `/pisa/runs/:runId` | Прохождение среза: таймер, блоки, автосдача | `pisa/feature-wave-run` | FR-PSA-12, FR-PSA-13 |
@@ -186,7 +190,7 @@ shell'а. Колонка «Библиотека» ссылается на §5.
 
 | Маршрут | Экран | Библиотека | Требования |
 |---|---|---|---|
-| `/teach` | Сегодня: расписание, кнопка «Начать урок», незакрытые проверки | `matrix/feature-teacher-home` | FR-MTX-10 |
+| `/teach` | Главная: требует внимания + мои классы | `matrix/feature-teacher-home` | FR-MTX-10, [план 12 §6](12-learn-navigatsiya-i-glavnaya.md) |
 | `/teach/sessions/:sessionId` | **Дашборд урока в реальном времени**: светофор класса, тепловая карта шагов, фильтры, карточка ученика | `matrix/feature-teacher-dashboard` | FR-MTX-11…18, NFR-PRF-03 |
 | `/teach/sessions/:sessionId/projection` | Проекционный режим: обезличенно, крупно, тёмная сцена | `matrix/feature-teacher-dashboard` | FR-MTX-19 |
 | `/teach/sessions/:sessionId/summary` | Итог урока: сводка, черновик оценок F | `matrix/feature-teacher-dashboard` | FR-MTX-18 |
@@ -241,7 +245,7 @@ shell'а. Колонка «Библиотека» ссылается на §5.
 резолвером: резолвер держит навигацию до ответа сервера, а по NFR-PRF-01 урок
 обязан стать интерактивным за 3 секунды на школьном ПК — каркас экрана со
 скелетоном показывается сразу. Резолвер используется ровно там, где без данных
-маршрут не имеет смысла (например, редирект `/lessons/:id` на текущий
+маршрут не имеет смысла (например, редирект `/matrix/lessons/:id` на текущий
 шаг).
 
 ---

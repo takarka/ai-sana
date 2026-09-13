@@ -98,13 +98,20 @@
 ### 4.1. Контур `learn` (ученик)
 
 Маршруты без префикса `/learn`: приложение развёрнуто на `learn.craftai.kz`
-([ADR-0006](../adr/0006-domeny-i-marshruty-apps-learn.md)).
+([ADR-0006](../adr/0006-domeny-i-marshruty-apps-learn.md)). Корень `/` —
+главная ученика; курс живёт под `/matrix/**`
+([ADR-0007](../adr/0007-glavnaya-i-prefiksy-moduley-learn.md),
+[план 12](12-learn-navigatsiya-i-glavnaya.md)).
 
 | Маршрут | Экран | Требования |
 |---|---|---|
-| `/courses/:courseId` | Карта курса: разделы → уроки | FR-CNT-01 (без изменений) |
-| `/lessons/:lessonId` | Материалы урока (видео/текст/изображение/файлы) + список заданий урока | FR-CNT-02 (`theory`) |
-| `/lessons/:lessonId/tasks/:taskId` | Прохождение одного задания, кнопка «Сдать» | FR-CMS-02, FR-ASM-03 |
+| `/matrix` | Курс: разделы → уроки | FR-CNT-01 (без изменений) |
+| `/matrix/lessons/:lessonId` | Материалы урока (видео/текст/изображение/файлы) + список заданий урока | FR-CNT-02 (`theory`) |
+| `/matrix/lessons/:lessonId/tasks/:taskId` | Прохождение одного задания, кнопка «Сдать» | FR-CMS-02, FR-ASM-03 |
+
+`/matrix/courses/:courseId` зарезервирован на случай второго курса у класса
+([план 12, К-22](12-learn-navigatsiya-i-glavnaya.md)). В v0 у класса один курс,
+поэтому карта открывается сразу на `/matrix`.
 
 В v0 нет пошагового плеера с прогресс-баром и подсказками — урок открывается
 целиком, задания видны и доступны в любом порядке.
