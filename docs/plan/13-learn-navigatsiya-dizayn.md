@@ -50,6 +50,5 @@
 
 ## Вне объёма
 
-Типы заданий, стимул PISA, методичка, таблица результатов класса, BUILDER —
-отдельными макетами. Страницы курса MATRIX:
-[14-learn-kurs-dizayn.md](14-learn-kurs-dizayn.md).
+Типы заданий ученика — [14](14-learn-kurs-dizayn.md). Урок учителя —
+[15](15-learn-teach-urok-dizayn.md). PISA, BUILDER — отдельно.
